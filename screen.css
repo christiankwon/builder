@@ -1,0 +1,146 @@
+/* line 1, sass/_screensize.scss */
+body {
+  padding-bottom: 15px;
+}
+/* line 4, sass/_screensize.scss */
+body:before {
+  background-color: #666;
+  bottom: 0;
+  color: white;
+  content: "";
+  height: 15px;
+  left: 0;
+  line-height: 100%;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  z-index: 9999;
+}
+@media only screen and (max-width: 479px) {
+  /* line 4, sass/_screensize.scss */
+  body:before {
+    content: "You're on an XSMALL screen";
+  }
+}
+@media only screen and (min-width: 480px) and (max-width: 599px) {
+  /* line 4, sass/_screensize.scss */
+  body:before {
+    content: "You're on an SMALL screen";
+  }
+}
+@media only screen and (min-width: 600px) and (max-width: 770px) {
+  /* line 4, sass/_screensize.scss */
+  body:before {
+    content: "You're on an MEDIUM screen";
+  }
+}
+@media only screen and (min-width: 771px) and (max-width: 979px) {
+  /* line 4, sass/_screensize.scss */
+  body:before {
+    content: "You're on an LARGE screen";
+  }
+}
+@media only screen and (min-width: 980px) and (max-width: 1199px) {
+  /* line 4, sass/_screensize.scss */
+  body:before {
+    content: "You're on an XLARGE screen";
+  }
+}
+@media only screen and (min-width: 1200px) {
+  /* line 4, sass/_screensize.scss */
+  body:before {
+    content: "You're on an XLARGE+ screen";
+  }
+}
+
+/* line 9, sass/screen.scss */
+body {
+  font-family: Avenir, sans-serif;
+}
+
+/* line 21, sass/screen.scss */
+.hidden {
+  display: none;
+}
+
+/* line 25, sass/screen.scss */
+html, body {
+  height: 100;
+}
+
+/* line 29, sass/screen.scss */
+h2, h4 {
+  margin: 0;
+}
+
+/* line 33, sass/screen.scss */
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* line 39, sass/screen.scss */
+div.body {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+}
+
+@media only screen and (max-width: 599px) {
+  /* line 45, sass/screen.scss */
+  .display, .builder {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 600px) {
+  /* line 45, sass/screen.scss */
+  .display, .builder {
+    width: 50%;
+  }
+}
+
+/* line 55, sass/screen.scss */
+.display svg {
+  height: 100px;
+  width: 100px;
+  background-color: #ddd;
+}
+/* line 60, sass/screen.scss */
+.display text {
+  fill: red;
+}
+
+/* line 83, sass/screen.scss */
+.builder li {
+  position: relative;
+}
+/* line 87, sass/screen.scss */
+.builder li input[type="checkbox"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* line 93, sass/screen.scss */
+.builder .cable-type {
+  background-color: #222;
+}
+/* line 97, sass/screen.scss */
+.builder .cable {
+  background-color: #555;
+}
+/* line 101, sass/screen.scss */
+.builder .input-plug {
+  background-color: #888;
+}
+/* line 105, sass/screen.scss */
+.builder .output-plug {
+  background-color: #bbb;
+}
+/* line 109, sass/screen.scss */
+.builder .protection {
+  background-color: #eee;
+}

@@ -1,0 +1,17 @@
+@mixin bp($feature, $value) {
+    // Set global device param
+    $media: only screen;
+
+    @media #{$media} and ($feature: $value) {
+        @content;
+    }
+}
+
+@mixin bps($valueL, $valueR) {
+    // Set global device param
+    $media: only screen;
+
+    @media #{$media} and ('min-width': $valueL) and ('max-width': $valueR) {
+        @content;
+    }
+}

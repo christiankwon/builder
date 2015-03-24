@@ -1,0 +1,112 @@
+@import "compass/css3";
+
+@import "var";
+@import "mixin/breakpoints";
+@import "mixin/clearfix";
+
+@import "screensize";
+
+body {
+    font-family: Avenir, sans-serif;
+}
+
+// @include display-flex(flex);
+// @include flex-direction(row | row-reverse | column | column-reverse);
+// @include flex-wrap(nowrap | wrap | wrap-reverse);
+// @include justify-content(flex-start | flex-end | center | baseline | stretch);
+// @include align-items(auto | flex-start | flex-end | center | baseline | stretch);
+// @include align-content(flex-start | flex-end | center | space-between | space-around | stretch);
+
+
+.hidden {
+    display: none;
+}
+
+html, body {
+    height: 100;
+}
+
+h2,h4 {
+    margin: 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+div.body {
+    @include display-flex(flex);
+    @include flex-direction(row);
+    @include justify-content(space-around)
+}
+
+.display, .builder {
+    @include bp(max-width, $bp-small) {
+        width: 100%;
+    }
+    @include bp(min-width, $bp-small+1) {
+        width: 50%;
+    }
+}
+
+.display {
+    svg {
+        height: 100px;
+        width: 100px;
+        background-color: #ddd;
+    }
+    text {
+        fill: red;
+    }
+    .cable-type {
+    }
+
+    .cable {
+    }
+
+    .input-plug {
+
+    }
+
+    .output-plug {
+
+    }
+
+    .protection {
+
+    }
+}
+
+.builder {
+    li {
+        // height: 100px;
+        position: relative;
+
+        input[type="checkbox"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+    .cable-type {
+        background-color: #222;
+    }
+
+    .cable {
+        background-color: #555;
+    }
+
+    .input-plug {
+        background-color: #888;
+    }
+
+    .output-plug {
+        background-color: #bbb;
+    }
+
+    .protection {
+        background-color: #eee;
+    }
+}
