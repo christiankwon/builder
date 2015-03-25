@@ -1,8 +1,8 @@
-/* line 1, sass/_screensize.scss */
+/* line 1, sass/mixin/_screensize.scss */
 body {
   padding-bottom: 15px;
 }
-/* line 4, sass/_screensize.scss */
+/* line 4, sass/mixin/_screensize.scss */
 body:before {
   background-color: #666;
   bottom: 0;
@@ -17,37 +17,37 @@ body:before {
   z-index: 9999;
 }
 @media only screen and (max-width: 479px) {
-  /* line 4, sass/_screensize.scss */
+  /* line 4, sass/mixin/_screensize.scss */
   body:before {
     content: "You're on an XSMALL screen";
   }
 }
 @media only screen and (min-width: 480px) and (max-width: 599px) {
-  /* line 4, sass/_screensize.scss */
+  /* line 4, sass/mixin/_screensize.scss */
   body:before {
     content: "You're on an SMALL screen";
   }
 }
 @media only screen and (min-width: 600px) and (max-width: 770px) {
-  /* line 4, sass/_screensize.scss */
+  /* line 4, sass/mixin/_screensize.scss */
   body:before {
     content: "You're on an MEDIUM screen";
   }
 }
 @media only screen and (min-width: 771px) and (max-width: 979px) {
-  /* line 4, sass/_screensize.scss */
+  /* line 4, sass/mixin/_screensize.scss */
   body:before {
     content: "You're on an LARGE screen";
   }
 }
 @media only screen and (min-width: 980px) and (max-width: 1199px) {
-  /* line 4, sass/_screensize.scss */
+  /* line 4, sass/mixin/_screensize.scss */
   body:before {
     content: "You're on an XLARGE screen";
   }
 }
 @media only screen and (min-width: 1200px) {
-  /* line 4, sass/_screensize.scss */
+  /* line 4, sass/mixin/_screensize.scss */
   body:before {
     content: "You're on an XLARGE+ screen";
   }
@@ -65,7 +65,7 @@ body {
 
 /* line 25, sass/screen.scss */
 html, body {
-  height: 100;
+  height: 100%;
 }
 
 /* line 29, sass/screen.scss */
@@ -114,33 +114,84 @@ div.body {
   fill: red;
 }
 
-/* line 83, sass/screen.scss */
+/* line 66, sass/screen.scss */
 .builder li {
   position: relative;
 }
-/* line 87, sass/screen.scss */
+/* line 70, sass/screen.scss */
 .builder li input[type="checkbox"] {
   position: absolute;
   top: 0;
   left: 0;
 }
-/* line 93, sass/screen.scss */
-.builder .cable-type {
+/* line 76, sass/screen.scss */
+.builder .cableType {
   background-color: #222;
 }
-/* line 97, sass/screen.scss */
+/* line 80, sass/screen.scss */
 .builder .cable {
   background-color: #555;
 }
-/* line 101, sass/screen.scss */
-.builder .input-plug {
+/* line 84, sass/screen.scss */
+.builder .inputPlug {
   background-color: #888;
 }
-/* line 105, sass/screen.scss */
-.builder .output-plug {
+/* line 88, sass/screen.scss */
+.builder .outputPlug {
   background-color: #bbb;
 }
-/* line 109, sass/screen.scss */
+/* line 92, sass/screen.scss */
 .builder .protection {
   background-color: #eee;
+}
+
+/* line 97, sass/screen.scss */
+.options {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+/* line 103, sass/screen.scss */
+.option {
+  width: 20%;
+  margin: 1em 2.5%;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+/* line 110, sass/screen.scss */
+.option .image, .option .image img {
+  width: 100%;
+}
+/* line 114, sass/screen.scss */
+.option .name {
+  background-color: #555;
+}
+/* line 118, sass/screen.scss */
+.option .price {
+  background-color: #af9757;
+}
+/* line 122, sass/screen.scss */
+.option .specs {
+  background-color: #6f9dbe;
+}
+/* line 126, sass/screen.scss */
+.option .select {
+  background-color: #ff1200;
+}
+/* line 130, sass/screen.scss */
+.option .selector {
+  display: none;
+}
+/* line 134, sass/screen.scss */
+.option label {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
 }

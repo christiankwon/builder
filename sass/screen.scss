@@ -2,9 +2,9 @@
 
 @import "var";
 @import "mixin/breakpoints";
+@import "mixin/screensize";
 @import "mixin/clearfix";
 
-@import "screensize";
 
 body {
     font-family: Avenir, sans-serif;
@@ -23,7 +23,7 @@ body {
 }
 
 html, body {
-    height: 100;
+    height: 100%;
 }
 
 h2,h4 {
@@ -60,23 +60,6 @@ div.body {
     text {
         fill: red;
     }
-    .cable-type {
-    }
-
-    .cable {
-    }
-
-    .input-plug {
-
-    }
-
-    .output-plug {
-
-    }
-
-    .protection {
-
-    }
 }
 
 .builder {
@@ -90,7 +73,7 @@ div.body {
             left: 0;
         }
     }
-    .cable-type {
+    .cableType {
         background-color: #222;
     }
 
@@ -98,15 +81,65 @@ div.body {
         background-color: #555;
     }
 
-    .input-plug {
+    .inputPlug {
         background-color: #888;
     }
 
-    .output-plug {
+    .outputPlug {
         background-color: #bbb;
     }
 
     .protection {
         background-color: #eee;
+    }
+}
+
+.options {
+    @include display-flex(flex);
+    @include flex-direction(row);
+    @include flex-wrap(wrap);
+}
+
+.option {
+    width: 20%;
+    margin: 1em 2.5%;
+    text-align: center;
+    color: white;
+    position: relative;
+
+    .image, .image img {
+        width: 100%;
+    }
+
+    .name {
+        background-color: #555;
+    }
+
+    .price {
+        background-color: #af9757;
+    }
+
+    .specs {
+        background-color: #6f9dbe;
+    }
+
+    .select {
+        background-color: #ff1200;
+    }
+
+    .selector {
+        display: none;
+    }
+
+    label {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+    }
+
+    &.selected ~ & {
+        
     }
 }

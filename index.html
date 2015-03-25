@@ -11,10 +11,10 @@
         <meta name="viewport" content="width=1024px">
 
         <!-- General stylesheets -->
-        <link rel="stylesheet" type="text/css" href="/v/s/css/vendor/normalize-3.0.1.css">
         <link rel="stylesheet" type="text/css" href="/v/s/css/fonts.css" />
 
         <!-- Page specific stylesheets -->
+        <link href="styles.css" media="screen" rel="stylesheet" type="text/css"/>
         <link href="screen.css" media="screen" rel="stylesheet" type="text/css"/>
         <!-- <link href="stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css"/> -->
         <!-- <link href="stylesheets/print.css" media="print" rel="stylesheet" type="text/css" /> -->
@@ -39,16 +39,16 @@
 
             <div class="body">
                 <ul class="display">
-                    <li class="cable-type">
+                    <li class="cableType">
 
                     </li>
                     <li class="cable">
 
                     </li>
-                    <li class="input-plug">
+                    <li class="inputPlug">
 
                     </li>
-                    <li class="output-plug">
+                    <li class="outputPlug">
 
                     </li>
                     <li class="other">
@@ -57,11 +57,8 @@
                 </ul>
 
                 <ul class="builder">
-                    <li class="cable-type">
-                        <input type="checkbox" checked="checked" />
-                        <h2>Cable Type</h2>
-                        <div class="filters"></div>
-                        <div class="options"></div>
+                    <li class="cableType">
+                        <div class="tabs"></div>
                     </li>
                     <li class="cable">
                         <input type="checkbox" checked="checked" />
@@ -80,13 +77,13 @@
                         </div>
                         <div class="options"></div>
                     </li>
-                    <li class="input-plug">
+                    <li class="inputPlug">
                         <input type="checkbox" checked="checked" />
                         <h2>Input Plug</h2>
                         <div class="filters"></div>
                         <div class="options"></div>
                     </li>
-                    <li class="output-plug">
+                    <li class="outputPlug">
                         <input type="checkbox" checked="checked" />
                         <h2>Output Plug</h2>
                         <div class="filters"></div>
@@ -99,10 +96,10 @@
                         <div class="options"></div>
                     </li>
                     <li class="hidden progress">
-                        <input class="cable-type" type="hidden" value="0" />
+                        <input class="cableType" type="hidden" value="0" />
                         <input class="cable" type="hidden" value="0" />
-                        <input class="input-plug" type="hidden" value="0" />
-                        <input class="output-plug" type="hidden" value="0" />
+                        <input class="inputPlug" type="hidden" value="0" />
+                        <input class="outputPlug" type="hidden" value="0" />
                         <input class="other" type="hidden" value="0" />
                     </li>
                 </ul>

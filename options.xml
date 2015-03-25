@@ -3,30 +3,30 @@
 
    <cableTypes>
       <type>
+         <id>CSB1</id>
          <name>Instrument/Patch</name>
-         <option_id>1000</option_id>
          <default>1</default>
       </type>
 
       <type>
+         <id>CSB2</id>
          <name>Pro Audio</name>
-         <option_id>1001</option_id>
       </type>
 
       <type>
+         <id>CSB3</id>
          <name>Speaker</name>
-         <option_id>1002</option_id>
       </type>
    </cableTypes>
 
    <cables>
       <!--
-         is_unbalanced
-         is_balanced
+         is_instrument
+            is_only_patch
+         is_xlr
          is_speaker
-         is_only_patch
+
          color
-         has_boots
 
          from API
          name
@@ -36,471 +36,323 @@
       -->
       <cable>
          <code>CS-CT-BLDN-9778-TEST</code>
-         <is_unbalanced>1</is_unbalanced>
+         <is_instrument>1</is_instrument>
          <specs>
             <tone>
-               <brightness>1</brightness>
-               <capacitance>2</capacitance>
+               <brightness>6.5</brightness>
+               <capacitance>med</capacitance>
             </tone>
             <construction>
-               <flexibility>3</flexibility>
-               <shield>2</shield>
-               <diameter>1</diameter>
+               <flexibility>8</flexibility>
+               <shield>spiral</shield>
+               <diameter>.23</diameter>
             </construction>
          </specs>
       </cable>
+
+      <cable>
+         <code>CS-CT-EVIA-MNRL-TEST</code>
+         <is_instrument>1</is_instrument>
+         <is_only_patch>1</is_only_patch>
+         <specs>
+            <tone>
+               <brightness>7</brightness>
+               <capacitance>low</capacitance>
+            </tone>
+            <construction>
+               <flexibility>7</flexibility>
+               <shield>spiral</shield>
+               <diameter>.162</diameter>
+            </construction>
+         </specs>
+      </cable>
+
+      <cable>
+         <code>CS-CT-CNRE-GS6-TEST</code>
+         <is_instrument>1</is_instrument>
+         <specs>
+            <tone>
+               <brightness>7</brightness>
+               <capacitance>high</capacitance>
+            </tone>
+            <construction>
+               <flexibility>7.5</flexibility>
+               <shield>braided</shield>
+               <diameter>.227</diameter>
+            </construction>
+         </specs>
+         <colors>
+            <option_category_id>80</option_category_id>
+            <color>
+               <id>1611</id>
+               <desc>Yellow</desc>
+            </color>
+            <color>
+               <id>1612</id>
+               <desc>orange</desc>
+            </color>
+            <color>
+               <id>1613</id>
+               <desc>red</desc>
+            </color>
+            <color>
+               <id>1614</id>
+               <desc>green</desc>
+            </color>
+            <color>
+               <id>1615</id>
+               <desc>black</desc>
+            </color>
+         </colosrd>
+      </cable>
    </cables>
 
-   <inputPlugs>
-      <option_category_id>64</option_category_id>
+   <plugs>
+      <instrument>
+         <input_option_category_id>64</option_category_id>
+         <output_option_category_id>65</option_category_id>
+         <plug>
+            <input_option_id>373</option_id>
+            <option_id>381</option_id>
+            <manufacturer>Switchcraft</manufacturer>
+            <model>228 Pancake</model>
+            <price>7</price>
+            <color>
+               <body>nickel</body>
+               <connector>nickel</connector>
+            </color>
+            <angle>right</angle>
+         </plug>
 
-      <plug>
-         <option_id>373</option_id>
-         <manufacturer>Switchcraft</manufacturer>
-         <model>228 Pancake</model>
-         <price>7</price>
-         <color>
-            <body>nickel</body>
-            <connector>nickel</connector>
-         </color>
-         <angle>right</angle>
-      </plug>
+         <plug>
+            <input_option_id>374</option_id>
+            <option_id>382</option_id>
+            <manufacturer>Switchcraft</manufacturer>
+            <model>280</model>
+            <price>4</price>
+            <color>
+               <body>nickel</body>
+               <connector>nickel</connector>
+            </color>
+            <angle>straight</angle>
+         </plug>
 
-      <plug>
-         <option_id>374</option_id>
-         <manufacturer>Switchcraft</manufacturer>
-         <model>280</model>
-         <price>4</price>
-         <color>
-            <body>nickel</body>
-            <connector>nickel</connector>
-         </color>
-         <angle>straight</angle>
-      </plug>
+         <plug>
+            <input_option_id>375</option_id>
+            <option_id>383</option_id>
+            <manufacturer>Neutrik</manufacturer>
+            <model>NP2X-B</model>
+            <price>9</price>
+            <color>
+               <body>black</body>
+               <connector>gold</connector>
+            </color>
+            <angle>straight</angle>
+         </plug>
 
-      <plug>
-         <option_id>375</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2X-B</model>
-         <price>9</price>
-         <color>
-            <body>black</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-      </plug>
+         <plug>
+            <input_option_id>376</option_id>
+            <option_id>384</option_id>
+            <manufacturer>Neutrik</manufacturer>
+            <model>NP2RX-B</model>
+            <price>11</price>
+            <color>
+               <body>black</body>
+               <connector>gold</connector>
+            </color>
+            <angle>right</angle>
+         </plug>
 
-      <plug>
-         <option_id>376</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2RX-B</model>
-         <price>11</price>
-         <color>
-            <body>black</body>
-            <connector>gold</connector>
-         </color>
-         <angle>right</angle>
-      </plug>
+         <plug>
+            <input_option_id>377</option_id>
+            <option_id>385</option_id>
+            <manufacturer>Neutrik</manufacturer>
+            <model>NP2X-Silent</model>
+            <price>16</price>
+            <color>
+               <body>red</body>
+               <connector>gold</connector>
+            </color>
+            <angle>straight</angle>
+            <silent>1</silent>
+         </plug>
 
-      <plug>
-         <option_id>377</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2X-Silent</model>
-         <price>16</price>
-         <color>
-            <body>red</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-         <silent>1</silent>
-      </plug>
+         <plug>
+            <input_option_id>378</option_id>
+            <option_id>386</option_id>
+            <manufacturer>Neutrik</manufacturer>
+            <model>NP2RX-Silent</model>
+            <price>20</price>
+            <color>
+               <body>red/black</body>
+               <connector>gold</connector>
+            </color>
+            <angle>right</angle>
+            <silent>1</silent>
+         </plug>
 
-      <plug>
-         <option_id>378</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2RX-Silent</model>
-         <price></price>
-         <color>
-            <body>red/black</body>
-            <connector>gold</connector>
-         </color>
-         <angle>right</angle>
-         <silent>1</silent>
-      </plug>
+         <plug>
+            <input_option_id>379</option_id>
+            <option_id>387</option_id>
+            <manufacturer>Neutrik</manufacturer>
+            <model>NYS224G</model>
+            <price>4</price>
+            <color>
+               <body>nickel</body>
+               <connector>gold</connector>
+            </color>
+            <angle>straight</angle>
+         </plug>
 
-      <plug>
-         <option_id>379</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NYS224G</model>
-         <price>4</price>
-         <color>
-            <body>nickel</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-      </plug>
+         <plug>
+            <input_option_id>380</option_id>
+            <option_id>388</option_id>
+            <manufacturer>Neutrik</manufacturer>
+            <model>NYS224BG</model>
+            <price>4</price>
+            <color>
+               <body>black</body>
+               <connector>gold</connector>
+            </color>
+            <angle>straight</angle>
+         </plug>
 
-      <plug>
-         <option_id>380</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NYS224BG</model>
-         <price>4</price>
-         <color>
-            <body>black</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-      </plug>
+         <plug>
+            <input_option_id>725</option_id>
+            <option_id>726</option_id>
+            <manufacturer>Neutrik</manufacturer>
+            <model>NP2C</model>
+            <price>7</price>
+            <color>
+               <body>nickel</body>
+               <connector>nickel</connector>
+            </color>
+            <angle>straight</angle>
+            <has_boots>1</has_boots>
+         </plug>
 
-      <plug>
-         <option_id>725</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2C</model>
-         <price>7</price>
-         <color>
-            <body>nickel</body>
-            <connector>nickel</connector>
-         </color>
-         <angle>straight</angle>
-         <has_boots>1</has_boots>
-      </plug>
+         <plug>
+            <input_option_id>728</option_id>
+            <option_id>727</option_id>
+            <manufacturer>Neutrik</manufacturer>
+            <model>NP2C-BAG</model>
+            <price>7</price>
+            <color>
+               <body>black</body>
+               <connector>nickel</connector>
+            </color>
+            <angle>straight</angle>
+            <has_boots>1</has_boots>
+         </plug>
 
-      <plug>
-         <option_id>728</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2C-BAG</model>
-         <price>7</price>
-         <color>
-            <body>black</body>
-            <connector>nickel</connector>
-         </color>
-         <angle>straight</angle>
-         <has_boots>1</has_boots>
-      </plug>
+         <plug>
+            <input_option_id>729</option_id>
+            <option_id>730</option_id>
+            <manufacturer>Neutrik</manufacturer>
+            <model>NP2C-B</model>
+            <price>9</price>
+            <color>
+               <body>black</body>
+               <connector>gold</connector>
+            </color>
+            <angle>straight</angle>
+            <has_boots>1</has_boots>
+         </plug>
 
-      <plug>
-         <option_id>729</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2C-B</model>
-         <price>9</price>
-         <color>
-            <body>black</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-         <has_boots>1</has_boots>
-      </plug>
+         <plug>
+            <input_option_id>732</option_id>
+            <option_id>731</option_id>
+            <manufacturer>Neutrik</manufacturer>
+            <model>NP2RX</model>
+            <price>11</price>
+            <color>
+               <body>nickel</body>
+               <connector>nickel</connector>
+            </color>
+            <angle>right</angle>
+         </plug>
 
-      <plug>
-         <option_id>732</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2RX</model>
-         <price>11</price>
-         <color>
-            <body>nickel</body>
-            <connector>nickel</connector>
-         </color>
-         <angle>right</angle>
-      </plug>
+         <plug>
+            <input_option_id>1601</option_id>
+            <option_id>1616</option_id>
+            <manufacturer>G&amp;H</manufacturer>
+            <model>BF2P-NGG</model>
+            <price>7</price>
+            <color>
+               <body>gold</body>
+               <connector>gold</connector>
+            </color>
+            <angle>straight</angle>
+         </plug>
 
-      <plug>
-         <option_id>1601</option_id>
-         <manufacturer>G&amp;H</manufacturer>
-         <model>BF2P-NGG</model>
-         <price>7</price>
-         <color>
-            <body>gold</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-      </plug>
+         <plug>
+            <input_option_id>1602</option_id>
+            <option_id>1617</option_id>
+            <manufacturer>G&amp;H</manufacturer>
+            <model>BF2P-BGG</model>
+            <price>7</price>
+            <color>
+               <body>gold</body>
+               <connector>gold</connector>
+            </color>
+            <angle>straight</angle>
+         </plug>
 
-      <plug>
-         <option_id>1602</option_id>
-         <manufacturer>G&amp;H</manufacturer>
-         <model>BF2P-BGG</model>
-         <price>7</price>
-         <color>
-            <body>gold</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-      </plug>
+         <plug>
+            <input_option_id>1603</option_id>
+            <option_id>1618</option_id>
+            <manufacturer>G&amp;H</manufacturer>
+            <model>BF2P-GGG</model>
+            <price>7</price>
+            <color>
+               <body>gold</body>
+               <connector>gold</connector>
+            </color>
+            <angle>straight</angle>
+         </plug>
 
-      <plug>
-         <option_id>1603</option_id>
-         <manufacturer>G&amp;H</manufacturer>
-         <model>BF2P-GGG</model>
-         <price>7</price>
-         <color>
-            <body>gold</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-      </plug>
+         <plug>
+            <input_option_id>1605</option_id>
+            <option_id>1608</option_id>
+            <manufacturer>G&amp;H</manufacturer>
+            <model>RF2P-NGG</model>
+            <price>8</price>
+            <color>
+               <body>nickel</body>
+               <connector>gold</connector>
+            </color>
+            <angle>right</angle>
+         </plug>
 
-      <plug>
-         <option_id>1605</option_id>
-         <manufacturer>G&amp;H</manufacturer>
-         <model>RF2P-NGG</model>
-         <price>8</price>
-         <color>
-            <body>nickel</body>
-            <connector>gold</connector>
-         </color>
-         <angle>right</angle>
-      </plug>
+         <plug>
+            <input_option_id>1606</option_id>
+            <option_id>1609</option_id>
+            <manufacturer>G&amp;H</manufacturer>
+            <model>RF2P-BGG</model>
+            <price>8</price>
+            <color>
+               <body>nickel</body>
+               <connector>gold</connector>
+            </color>
+            <angle>right</angle>
+         </plug>
 
-      <plug>
-         <option_id>1606</option_id>
-         <manufacturer>G&amp;H</manufacturer>
-         <model>RF2P-BGG</model>
-         <price>8</price>
-         <color>
-            <body>nickel</body>
-            <connector>gold</connector>
-         </color>
-         <angle>right</angle>
-      </plug>
+         <plug>
+            <input_option_id>1607</option_id>
+            <option_id>1610</option_id>
+            <manufacturer>G&amp;H</manufacturer>
+            <model>RF2P-GGG</model>
+            <price>8</price>
+            <color>
+               <body>nickel</body>
+               <connector>gold</connector>
+            </color>
+            <angle>right</angle>
+         </plug>
+      </instrument>
+   </plugs>
 
-      <plug>
-         <option_id>1607</option_id>
-         <manufacturer>G&amp;H</manufacturer>
-         <model>RF2P-GGG</model>
-         <price>8</price>
-         <color>
-            <body>nickel</body>
-            <connector>gold</connector>
-         </color>
-         <angle>right</angle>
-      </plug>
-   </inputPlugs>
-
-   <outputPlugs>
-      <option_category_id>65</option_category_id>
-
-      <plug>
-         <option_id>381</option_id>
-         <manufacturer>Switchcraft</manufacturer>
-         <model>228 Pancake</model>
-         <price>7</price>
-         <color>
-            <body>nickel</body>
-            <connector>nickel</connector>
-         </color>
-         <angle>right</angle>
-      </plug>
-
-      <plug>
-         <option_id>382</option_id>
-         <manufacturer>Switchcraft</manufacturer>
-         <model>280</model>
-         <price>4</price>
-         <color>
-            <body>nickel</body>
-            <connector>nickel</connector>
-         </color>
-         <angle>straight</angle>
-      </plug>
-
-      <plug>
-         <option_id>383</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2X-B</model>
-         <price>9</price>
-         <color>
-            <body>black</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-      </plug>
-
-      <plug>
-         <option_id>384</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2RX-B</model>
-         <price>11</price>
-         <color>
-            <body>black</body>
-            <connector>gold</connector>
-         </color>
-         <angle>right</angle>
-      </plug>
-
-      <plug>
-         <option_id>385</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2X-Silent</model>
-         <price>16</price>
-         <color>
-            <body>red</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-         <silent>1</silent>
-      </plug>
-
-      <plug>
-         <option_id>386</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2RX-Silent</model>
-         <price></price>
-         <color>
-            <body>red/black</body>
-            <connector>gold</connector>
-         </color>
-         <angle>right</angle>
-         <silent>1</silent>
-      </plug>
-
-      <plug>
-         <option_id>387</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NYS224G</model>
-         <price>4</price>
-         <color>
-            <body>nickel</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-      </plug>
-
-      <plug>
-         <option_id>388</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NYS224BG</model>
-         <price>4</price>
-         <color>
-            <body>black</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-      </plug>
-
-      <plug>
-         <option_id>726</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2C</model>
-         <price>7</price>
-         <color>
-            <body>nickel</body>
-            <connector>nickel</connector>
-         </color>
-         <angle>straight</angle>
-         <has_boots>1</has_boots>
-      </plug>
-
-      <plug>
-         <option_id>727</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2C-BAG</model>
-         <price>7</price>
-         <color>
-            <body>black</body>
-            <connector>nickel</connector>
-         </color>
-         <angle>straight</angle>
-         <has_boots>1</has_boots>
-      </plug>
-
-      <plug>
-         <option_id>730</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2C-B</model>
-         <price>9</price>
-         <color>
-            <body>black</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-         <has_boots>1</has_boots>
-      </plug>
-
-      <plug>
-         <option_id>731</option_id>
-         <manufacturer>Neutrik</manufacturer>
-         <model>NP2RX</model>
-         <price>11</price>
-         <color>
-            <body>nickel</body>
-            <connector>nickel</connector>
-         </color>
-         <angle>right</angle>
-      </plug>
-
-      <plug>
-         <option_id>1608</option_id>
-         <manufacturer>G&amp;H</manufacturer>
-         <model>BF2P-NGG</model>
-         <price>7</price>
-         <color>
-            <body>gold</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-      </plug>
-
-      <plug>
-         <option_id>1609</option_id>
-         <manufacturer>G&amp;H</manufacturer>
-         <model>BF2P-BGG</model>
-         <price>7</price>
-         <color>
-            <body>gold</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-      </plug>
-
-      <plug>
-         <option_id>1610</option_id>
-         <manufacturer>G&amp;H</manufacturer>
-         <model>BF2P-GGG</model>
-         <price>7</price>
-         <color>
-            <body>gold</body>
-            <connector>gold</connector>
-         </color>
-         <angle>straight</angle>
-      </plug>
-
-      <plug>
-         <option_id>1605</option_id>
-         <manufacturer>G&amp;H</manufacturer>
-         <model>RF2P-NGG</model>
-         <price>8</price>
-         <color>
-            <body>nickel</body>
-            <connector>gold</connector>
-         </color>
-         <angle>right</angle>
-      </plug>
-
-      <plug>
-         <option_id>1606</option_id>
-         <manufacturer>G&amp;H</manufacturer>
-         <model>RF2P-BGG</model>
-         <price>8</price>
-         <color>
-            <body>nickel</body>
-            <connector>gold</connector>
-         </color>
-         <angle>right</angle>
-      </plug>
-
-      <plug>
-         <option_id>1607</option_id>
-         <manufacturer>G&amp;H</manufacturer>
-         <model>RF2P-GGG</model>
-         <price>8</price>
-         <color>
-            <body>nickel</body>
-            <connector>gold</connector>
-         </color>
-         <angle>right</angle>
-      </plug>
-   </outputPlugs>
-
+         
    <other>
       <boots>
          <option_category_id>77</option_category_id>
