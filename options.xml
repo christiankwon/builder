@@ -65,6 +65,7 @@
                <diameter>.162</diameter>
             </construction>
          </specs>
+         <is_premium/>
       </cable>
 
       <cable>
@@ -123,6 +124,7 @@
                <connector>nickel</connector>
             </color>
             <angle>right</angle>
+            <is_premium/>
          </plug>
 
          <plug>
@@ -176,6 +178,7 @@
             </color>
             <angle>straight</angle>
             <silent>1</silent>
+            <is_premium/>
          </plug>
 
          <plug>
@@ -190,6 +193,7 @@
             </color>
             <angle>right</angle>
             <silent>1</silent>
+            <is_premium/>
          </plug>
 
          <plug>
@@ -284,6 +288,7 @@
                <connector>gold</connector>
             </color>
             <angle>straight</angle>
+            <is_premium/>
          </plug>
 
          <plug>

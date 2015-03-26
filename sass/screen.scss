@@ -17,6 +17,15 @@ body {
 // @include align-items(auto | flex-start | flex-end | center | baseline | stretch);
 // @include align-content(flex-start | flex-end | center | space-between | space-around | stretch);
 
+.loader {
+    background: url("/v/s/images/customshop/builder/misc/page-loader.gif") no-repeat scroll 50% 50% rgb(0, 0, 0);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+}
 
 .hidden {
     display: none;
@@ -39,7 +48,7 @@ ul {
 div.body {
     @include display-flex(flex);
     @include flex-direction(row);
-    @include justify-content(space-around)
+    @include justify-content(space-around);
 }
 
 .display, .builders {
@@ -52,64 +61,66 @@ div.body {
 }
 
 .display {
-    svg {
-        height: 100px;
-        width: 100px;
-        background-color: #ddd;
-    }
-    text {
-        fill: red;
+}
+
+.cableTypes {
+    @include display-flex(flex);
+    @include flex-direction(row);
+    @include justify-content(space-around);
+    .tab {
+        cursor: pointer;
     }
 }
 
 .builder {
     margin: 1em;
     border: solid 1px black;
+    display: none;
+
+    &.selected {
+        display: block;
+    }
+
     li {
-        // height: 100px;
+        &.current {
+            display: block;
+        }
+        display: none;
         position: relative;
 
         input[type="checkbox"] {
             position: absolute;
-            top: 0;
-            left: 0;
         }
-    }
-    .cableType {
-        background-color: #222;
-    }
-
-    .cable {
-        background-color: #555;
-    }
-
-    .inputPlug {
-        background-color: #888;
-    }
-
-    .outputPlug {
-        background-color: #bbb;
-    }
-
-    .protection {
-        background-color: #eee;
+        
     }
 }
 
-.options {
+.options > div {
     @include display-flex(flex);
     @include flex-direction(row);
     @include flex-wrap(wrap);
 }
 
 .option {
-    width: 20%;
-    margin: 1em 2.5%;
+    width: 22%;
+    margin: 1em 1.5%;
     text-align: center;
     color: white;
     position: relative;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    > div {
+        height: 30px;
+        @include display-flex(flex);
+        @include align-items(center);
+        @include justify-content(center);
+    }
 
     .image, .image img {
+        display: none;
+        height: auto;
         width: 100%;
     }
 
@@ -119,6 +130,8 @@ div.body {
 
     .price {
         background-color: #af9757;
+        font-weight: bolder;
+        font-size: 14px;
     }
 
     .specs {
@@ -127,11 +140,54 @@ div.body {
 
     .select {
         background-color: #ff1200;
+
+        cursor: pointer;
+
+        button {
+            background: none;
+            border: none;
+            text-transform: inherit;
+        }
+
+        button:after {
+            position: absolute;
+            content: "";
+            height: 8px;
+            background-color: transparent;
+            top: 0;
+        }
     }
 
     .selector {
         display: none;
     }
+
+    .select:after, .select:before {
+        position: absolute;
+        content: "";
+        height: 100%;
+        width: 8px;
+        background-color: transparent;
+        top: 0;
+    }
+
+    .selector:checked ~ .select:before, &:hover .select:before {
+        background-color: #ff1200;
+        left: 0;
+    }
+
+    .selector:checked ~ .select:after, &:hover .select:after {
+        background-color: #ff1200;
+        right: 0;
+    }
+
+    .selector:checked ~ .select button:after, &:hover .select button:after {
+        background-color: #ff1200;
+        left: 0;
+        right: 0;
+    }
+
+
 
     label {
         position: absolute;
@@ -139,9 +195,5 @@ div.body {
         height: 100%;
         left: 0;
         top: 0;
-    }
-
-    &.selected ~ & {
-        
     }
 }
