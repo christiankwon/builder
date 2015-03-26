@@ -42,7 +42,7 @@ div.body {
     @include justify-content(space-around)
 }
 
-.display, .builder {
+.display, .builders {
     @include bp(max-width, $bp-small) {
         width: 100%;
     }
@@ -63,6 +63,8 @@ div.body {
 }
 
 .builder {
+    margin: 1em;
+    border: solid 1px black;
     li {
         // height: 100px;
         position: relative;

@@ -23,20 +23,19 @@
       <!--
          is_instrument
             is_only_patch
-         is_xlr
+         is_proAudio
          is_speaker
 
          color
 
          from API
          name
-         price
          manufacturer
-         stock
       -->
       <cable>
          <code>CS-CT-BLDN-9778-TEST</code>
-         <is_instrument>1</is_instrument>
+         <is_instrument/>
+         <price>1</price>
          <specs>
             <tone>
                <brightness>6.5</brightness>
@@ -52,8 +51,9 @@
 
       <cable>
          <code>CS-CT-EVIA-MNRL-TEST</code>
-         <is_instrument>1</is_instrument>
-         <is_only_patch>1</is_only_patch>
+         <is_instrument/>
+         <is_only_patch/>
+         <price>2</price>
          <specs>
             <tone>
                <brightness>7</brightness>
@@ -69,7 +69,8 @@
 
       <cable>
          <code>CS-CT-CNRE-GS6-TEST</code>
-         <is_instrument>1</is_instrument>
+         <is_proAudio/>
+         <price>3</price>
          <specs>
             <tone>
                <brightness>7</brightness>
@@ -103,17 +104,17 @@
                <id>1615</id>
                <desc>black</desc>
             </color>
-         </colosrd>
+         </colors>
       </cable>
    </cables>
 
    <plugs>
       <instrument>
-         <input_option_category_id>64</option_category_id>
-         <output_option_category_id>65</option_category_id>
+         <input_option_category_id>64</input_option_category_id>
+         <output_option_category_id>65</output_option_category_id>
          <plug>
-            <input_option_id>373</option_id>
-            <option_id>381</option_id>
+            <input_option_id>373</input_option_id>
+            <output_option_id>381</output_option_id>
             <manufacturer>Switchcraft</manufacturer>
             <model>228 Pancake</model>
             <price>7</price>
@@ -125,8 +126,8 @@
          </plug>
 
          <plug>
-            <input_option_id>374</option_id>
-            <option_id>382</option_id>
+            <input_option_id>374</input_option_id>
+            <output_option_id>382</output_option_id>
             <manufacturer>Switchcraft</manufacturer>
             <model>280</model>
             <price>4</price>
@@ -138,8 +139,8 @@
          </plug>
 
          <plug>
-            <input_option_id>375</option_id>
-            <option_id>383</option_id>
+            <input_option_id>375</input_option_id>
+            <output_option_id>383</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2X-B</model>
             <price>9</price>
@@ -151,8 +152,8 @@
          </plug>
 
          <plug>
-            <input_option_id>376</option_id>
-            <option_id>384</option_id>
+            <input_option_id>376</input_option_id>
+            <output_option_id>384</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2RX-B</model>
             <price>11</price>
@@ -164,8 +165,8 @@
          </plug>
 
          <plug>
-            <input_option_id>377</option_id>
-            <option_id>385</option_id>
+            <input_option_id>377</input_option_id>
+            <output_option_id>385</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2X-Silent</model>
             <price>16</price>
@@ -178,8 +179,8 @@
          </plug>
 
          <plug>
-            <input_option_id>378</option_id>
-            <option_id>386</option_id>
+            <input_option_id>378</input_option_id>
+            <output_option_id>386</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2RX-Silent</model>
             <price>20</price>
@@ -192,8 +193,8 @@
          </plug>
 
          <plug>
-            <input_option_id>379</option_id>
-            <option_id>387</option_id>
+            <input_option_id>379</input_option_id>
+            <output_option_id>387</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NYS224G</model>
             <price>4</price>
@@ -205,8 +206,8 @@
          </plug>
 
          <plug>
-            <input_option_id>380</option_id>
-            <option_id>388</option_id>
+            <input_option_id>380</input_option_id>
+            <output_option_id>388</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NYS224BG</model>
             <price>4</price>
@@ -218,8 +219,8 @@
          </plug>
 
          <plug>
-            <input_option_id>725</option_id>
-            <option_id>726</option_id>
+            <input_option_id>725</input_option_id>
+            <output_option_id>726</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2C</model>
             <price>7</price>
@@ -232,8 +233,8 @@
          </plug>
 
          <plug>
-            <input_option_id>728</option_id>
-            <option_id>727</option_id>
+            <input_option_id>728</input_option_id>
+            <output_option_id>727</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2C-BAG</model>
             <price>7</price>
@@ -246,8 +247,8 @@
          </plug>
 
          <plug>
-            <input_option_id>729</option_id>
-            <option_id>730</option_id>
+            <input_option_id>729</input_option_id>
+            <output_option_id>730</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2C-B</model>
             <price>9</price>
@@ -260,8 +261,8 @@
          </plug>
 
          <plug>
-            <input_option_id>732</option_id>
-            <option_id>731</option_id>
+            <input_option_id>732</input_option_id>
+            <output_option_id>731</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2RX</model>
             <price>11</price>
@@ -273,8 +274,8 @@
          </plug>
 
          <plug>
-            <input_option_id>1601</option_id>
-            <option_id>1616</option_id>
+            <input_option_id>1601</input_option_id>
+            <output_option_id>1616</output_option_id>
             <manufacturer>G&amp;H</manufacturer>
             <model>BF2P-NGG</model>
             <price>7</price>
@@ -286,8 +287,8 @@
          </plug>
 
          <plug>
-            <input_option_id>1602</option_id>
-            <option_id>1617</option_id>
+            <input_option_id>1602</input_option_id>
+            <output_option_id>1617</output_option_id>
             <manufacturer>G&amp;H</manufacturer>
             <model>BF2P-BGG</model>
             <price>7</price>
@@ -299,8 +300,8 @@
          </plug>
 
          <plug>
-            <input_option_id>1603</option_id>
-            <option_id>1618</option_id>
+            <input_option_id>1603</input_option_id>
+            <output_option_id>1618</output_option_id>
             <manufacturer>G&amp;H</manufacturer>
             <model>BF2P-GGG</model>
             <price>7</price>
@@ -312,8 +313,8 @@
          </plug>
 
          <plug>
-            <input_option_id>1605</option_id>
-            <option_id>1608</option_id>
+            <input_option_id>1605</input_option_id>
+            <output_option_id>1608</output_option_id>
             <manufacturer>G&amp;H</manufacturer>
             <model>RF2P-NGG</model>
             <price>8</price>
@@ -325,8 +326,8 @@
          </plug>
 
          <plug>
-            <input_option_id>1606</option_id>
-            <option_id>1609</option_id>
+            <input_option_id>1606</input_option_id>
+            <output_option_id>1609</output_option_id>
             <manufacturer>G&amp;H</manufacturer>
             <model>RF2P-BGG</model>
             <price>8</price>
@@ -338,8 +339,8 @@
          </plug>
 
          <plug>
-            <input_option_id>1607</option_id>
-            <option_id>1610</option_id>
+            <input_option_id>1607</input_option_id>
+            <output_option_id>1610</output_option_id>
             <manufacturer>G&amp;H</manufacturer>
             <model>RF2P-GGG</model>
             <price>8</price>
