@@ -5,21 +5,6 @@
         XML_URL = '/v/t/Builder/options.xml',
         CABLE_TYPES, CABLES, PLUGS, OTHER,
 
-    getOptions = function() {
-        var data = {};
-
-        $('ul.builder').children().each(function() {
-            var opt_cat_id = $(this).data('option_category_id'),
-                opt_id = $(this).find('input[type="radio"]:checked').val();
-            if (opt_cat_id && opt_id) {
-                var optionName = getOptionName('select', opt_cat_id, opt_id);
-                data[optionName] = opt_id;
-            }
-        });
-
-        console.log(data);
-    },
-
     getOptionName = function(type, option_category_id, option_id) {
         var name = "",
             cable_code = getCurrentCable();
@@ -77,12 +62,27 @@
             data: $.param(Post),
             processData: false,
             success: function(data, textStatus, XMLHttpRequest) {
-                console.log(Post);
+
             },
             error: function() {
                 return false;
             }
         });
+    },
+
+    getTypeFromClasses = function(obj) {
+        var arr = ['cable', 'inputPlug', 'outputPlug', 'other'];
+        var classes = obj.className.split(/\s+/);
+
+        for( var i = 0; i < classes.length; i++ ) {
+            // needle   - classes[i]
+            // haystack - arr
+            var index = $.inArray(classes[i], arr);
+            if( index > -1 ) {
+                return classes[i];
+            }
+        }
+        return null;
     },
 
     updateVisual = function() {
@@ -97,6 +97,23 @@
 
             $display.find('.' + name).append($('#' + id).parent().clone());
         });
+    },
+
+    updateDots = function() {
+        var $tracker = $('.tracker');
+        $('ul.builder.selected').children().not(':last').each(function() {
+            var type = getTypeFromClasses(this),
+                $dot = $tracker.find('.dot.' + type);
+            if( $(this).find('input[type="radio"]:checked').length ) {
+                $dot.addClass('done');
+            } else {
+                $dot.removeClass('done');
+            }
+        });
+    },
+
+    applyFilter = function() {
+        
     },
 
     changeOption = function() {
@@ -129,6 +146,8 @@
 
         $(this).addClass('selected');
         $('#' + $(this).data('tab')).addClass('selected');
+
+        updateDots();
     },
 
     changeStep = function() {
@@ -139,6 +158,22 @@
         } else {
             $(this).parents('li').prev().addClass('current');
         }
+
+        updateDots();
+    },
+
+    switchStep = function(e) {
+        var index = $(this).parent().find('.dot').index(this),
+            steps = $('ul.builder.selected');
+
+        steps.find('.current').removeClass('current');
+        steps.children().eq(index).addClass('current');
+
+        updateDots();
+    },
+
+    toggleSpecs = function() {
+        var $opt = $(this).parents('div.option');
     },
 
     /**
@@ -147,10 +182,10 @@
     init = function() {
         var $builders_container   = $('div.builders'),
             $cable_type_container = $('div.builders ul.cableTypes'),
-            cable_container       = 'li.b-cable div.options',
-            input_plug_container  = 'li.b-inputPlug div.options',
-            output_plug_container = 'li.b-outputPlug div.options',
-            other_container       = 'li.b-other div.options',
+            cable_container       = 'li.cable div.options',
+            input_plug_container  = 'li.inputPlug div.options',
+            output_plug_container = 'li.outputPlug div.options',
+            other_container       = 'li.other div.options',
 
         /**
          * Helper function that retrieves information 
@@ -177,10 +212,10 @@
 
         getBuilderSkeleton = function(id) {
             var $skeleton = $('<ul/>').addClass('builder'),
-                $c = $('<li/>').addClass('b-cable'),
-                $ip = $('<li/>').addClass('b-inputPlug'),
-                $op = $('<li/>').addClass('b-outputPlug'),
-                $o = $('<li/>').addClass('b-other'),
+                $c = $('<li/>').addClass('cable'),
+                $ip = $('<li/>').addClass('inputPlug'),
+                $op = $('<li/>').addClass('outputPlug'),
+                $o = $('<li/>').addClass('other'),
                 $p = $('<li/>').addClass('progress');
 
             var $filters = $('<div/>').addClass('filters'),
@@ -211,14 +246,14 @@
                             .click(changeStep)
                     );
 
-            $c.append($filters.clone(), $options.clone(), $step.clone(true));
+            $c.append($filters.clone().addClass('cable'), $options.clone(), $step.clone(true));
             $c.find('button.previous').remove();
 
-            $ip.append($filters.clone(), $options.clone(), $step.clone(true));
+            $ip.append($filters.clone().addClass('inputPlug'), $options.clone(), $step.clone(true));
 
-            $op.append($filters.clone(), $options.clone(), $step.clone(true));
+            $op.append($filters.clone().addClass('outputPlug'), $options.clone(), $step.clone(true));
 
-            $o.append($filters.clone(), $options.clone(), $step.clone(true));
+            $o.append($filters.clone().addClass('other'), $options.clone(), $step.clone(true));
             $o.find('button.next').remove();
 
             $p.append(
@@ -251,7 +286,87 @@
             return $skeleton;
         },
 
-        getBlockSkeleton = function() {
+        getCableFilter = function(parent) {
+            function brightnessFilter() {
+                var $container = $('<div/>').addClass('filter brightness'),
+                    $title = $('<h2/>').text('Brightness:');
+
+                $(options).each(function() {
+                    var tag = 'filter-brightness',
+                        name = tag + '-' +this,
+                        $filter = $('<div/>').addClass('filter-option'),
+                        $label = $('<label/>')
+                            .attr('for', name)
+                            .text(this),
+                        $box = $('<input/>', {
+                            'type': 'radio',
+                            'name': tag,
+                            'id': name,
+                            'value': name
+                        }).change(applyFilter);
+
+                    $filter.append($box, $label).appendTo($container);
+                });
+
+                return $container.append($title);
+            }
+
+            function flexibilityFilter() {
+                var $container = $('<div/>').addClass('filter flexibility'),
+                    $title = $('<h2/>').text('Flexibility:');
+
+                $(options).each(function() {
+                    var tag = 'filter-flexibility',
+                        name = tag + '-' + this,
+                        $filter = $('<div/>').addClass('filter-option'),
+                        $label = $('<label/>')
+                            .attr('for', name)
+                            .text(this),
+                        $box = $('<input/>', {
+                            'type': 'radio',
+                            'name': tag,
+                            'id': name,
+                            'value': name
+                        }).change(applyFilter);
+
+                    $filter.append($box, $label).appendTo($container);
+                });
+
+                return $container.append($title);
+            }
+
+            function colorFilter() {
+                var $filterColor = $('<div/>').addClass('filter color'),
+                    $title = $('<h2/>').text('Color:');
+
+                $filterColor.append($title);
+                $(color_options).each(function(i) {
+                    var $filter = $('<div/>').addClass('filter-option');
+
+                    var $label = $('<label/>')
+                            .attr('for', 'filter-color-' + this)
+                            .text(this),
+                        $box = $('<input/>', {
+                            'type': 'checkbox',
+                            'name': 'filter-color',
+                            'id': 'filter-color-' + this,
+                            'value': color_option_labels[i]
+                        }).change(applyFilter);
+
+                    $filter.append($box, $label).appendTo($filterColor);
+                });
+
+                return $filterColor;
+            }
+
+            var color_options = ['red','orange','yellow','green','blue','black'],
+                color_option_labels = ['red','org','ylw','grn','blu','blk'],
+                options = ['high','med','low'];
+
+            parent.append(brightnessFilter(), flexibilityFilter(), colorFilter());
+        },
+
+        getBlockSkeleton = function(type) {
             var $struct = $('<div/>')
                     .addClass('option'),
 
@@ -278,7 +393,30 @@
                 $specs = $('<div/>')
                     .addClass('specs')
                     .append($('<span/>').text('Specs & Info'))
-                    .click();
+                    .click(toggleSpecs);
+
+            if( type === 'cable' ) {
+                $specs.append(
+                    $('<div/>').append(
+                                $('<ul/>')
+                                    .addClass('tone')
+                                    .append(
+                                            $('<li/>')
+                                                .addClass('title')
+                                                .text('Tone')
+                                        ),
+                                $('<ul/>')
+                                    .addClass('construction')
+                                    .append(
+                                            $('<li/>')
+                                                .addClass('title')
+                                                .text('Construction')
+                                        )
+                            )
+                );
+            } else if( type === 'plug' ) {
+                // TODO
+            }
 
             $struct.append($selector, $image, $name, $price, $specs, $button);
 
@@ -301,6 +439,24 @@
 
             block.find('.price span')
                 .text(options.price);
+
+            if( options.component.indexOf('cable') > -1 ) {
+
+                block.find('.specs div ul').eq(0)
+                    .append(
+                            $('<li/>').html('Brightness: <em>' + options.specs.brightness + '</em>'),
+                            $('<li/>').html('Capacitance: <em>' + options.specs.capacitance + '</em>')
+                        );
+
+                block.find('.specs div ul').eq(1)
+                    .append(
+                            $('<li/>').html('Flexibility: <em>' + options.specs.flexibility + '</em>'),
+                            $('<li/>').html('Shield: <em>' + options.specs.shield + '</em>'),
+                            $('<li/>').html('Diameter: <em>' + options.specs.diameter + '</em>')
+                        );
+            } else if( options.component.indexOf('plug') > -1 ) {
+                // TODO
+            }
         },
 
         /**
@@ -315,9 +471,9 @@
                 prefix    = info.prefix,
                 component = 'cable';
             
-            var $cable = CABLES.find(component).eq(info.index);
+            var $cable = CABLES.find(component).eq(index);
 
-            var $block = getBlockSkeleton(),
+            var $block = getBlockSkeleton(component),
                 options = {
                     id: prefix + $cable.find('code').text(),
                     name: $(data).find('ProductName').text(),
@@ -325,9 +481,50 @@
                     image_alt: $(data).find('ProductName').text(),
                     image_src: 'http://placehold.it/200x200',
                     component: prefix + component,
-                    specs: []
-                };
-            $block.data('type', component).addClass('cable');
+                    specs: {
+                        brightness: $cable.find('brightness').text(),
+                        capacitance: $cable.find('capacitance').text(),
+                        flexibility: $cable.find('flexibility').text(),
+                        shield: $cable.find('shield').text(),
+                        diameter: $cable.find('diameter').text(),
+                    }
+                },
+                color = {};
+
+            if( $cable.find('colors').find('option_category_id').length ) {
+                color['color_option_category_id'] = $cable.find('colors').find('option_category_id').text();
+            }
+
+            $cable.find('colors').find('color').each(function() {
+                var $this = $(this), name = '', id = null;
+                if( $this.find('id').length ) {
+                    name = $this.find('desc').text();
+                    color[name] = $this.find('id').text();
+                } else {
+                    name = $this.text();
+                    color[name] = '';
+                }
+
+                $block.addClass('filter-color-' + name);
+            });
+
+            var range = [0, 4, 7], brightness, flexibility;
+            if( options.specs.brightness * 1 >= range[2] ) brightness = 'high';
+            else if( options.specs.brightness * 1 >= range[1] ) brightness = 'med';
+            else brightness = 'low';
+
+            if( options.specs.flexibility * 1 >= range[2] ) flexibility = 'high';
+            else if( options.specs.flexibility * 1 >= range[1] ) flexibility = 'med';
+            else flexibility = 'low';
+
+            $block.addClass('filter-brightness-' + brightness);
+            $block.addClass('filter-flexibility-' + flexibility);
+
+            $block.data({
+                'type':component,
+                'colors':color,
+                'specs':options.specs
+            }).addClass('cable');
             fillBlock($block, options);
 
             if( $cable.find('is_only_patch').length ) $block.addClass('only_patch');
@@ -350,14 +547,17 @@
             for( var i = 0; i < which.length; i++ ) {
                 $plugs.each(function() {
                     var $this = $(this),
-                        $block = getBlockSkeleton(),
+                        $block = getBlockSkeleton(type),
                         options = {
                             id: 'plug_' + $plugs.index(this),
                             name: $this.find('manufacturer').text() + ' ' + $this.find('model').text(),
                             price: $this.find('price').text(),
                             image_alt: $this.find('manufacturer').text() + ' ' + $this.find('model').text(),
                             image_src: 'http://placehold.it/200x200',
-                            component: prefix + which[i]
+                            component: prefix + which[i],
+                            specs: {
+                                image_src: 'http://placehold.it/200x200'
+                            }
                         },
                         data = {
                             'input_option_id': $this.find('input_option_id').text(),
@@ -376,6 +576,27 @@
                     }
                 });
             }
+        },
+
+        initFilters = function(skeleton) {
+            skeleton.children().not(':last').each(function() {
+                var $filters = $(this).children('.filters'),
+                    type = getTypeFromClasses(this);
+
+                if( type ) {
+                    switch(type) {
+                        case 'cable':
+                            getCableFilter($filters);
+                            break;
+                        case 'inputPlug':
+                            break;
+                        case 'ouputPlug':
+                            break;
+                        case 'other':
+                            break;
+                    }
+                }
+            });
         },
 
         initBuilders = function() {
@@ -416,6 +637,8 @@
                 $skeleton.addClass('selected');
             }
 
+            initFilters($skeleton);
+
             $tab.append(
                 $('<span/>')
                     .text(tag)
@@ -440,8 +663,6 @@
 
             $cable_type_container.append($tab);
             $builders_container.append($skeleton);
-
-            ready();
         };
 
         if( CABLE_TYPES && CABLES && PLUGS && OTHER ) {
@@ -453,7 +674,11 @@
 
     ready = function() {
         // set cable builder to default settings
-        $('ul.builder.selected').find('li').first().addClass('current');
+        $('ul.builder').each(function() {
+            $(this).find('li').first().addClass('current');
+        });
+
+        $('.tracker .dot').click(switchStep);
     },
 
     /**
@@ -487,6 +712,7 @@
             });
 
         $(document).ajaxStop(function() {
+            ready();
             $('.loader').fadeOut('fast');
         });
     };

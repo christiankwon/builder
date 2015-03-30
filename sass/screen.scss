@@ -5,17 +5,19 @@
 @import "mixin/screensize";
 @import "mixin/clearfix";
 
-
-body {
-    font-family: Avenir, sans-serif;
-}
-
 // @include display-flex(flex);
 // @include flex-direction(row | row-reverse | column | column-reverse);
 // @include flex-wrap(nowrap | wrap | wrap-reverse);
 // @include justify-content(flex-start | flex-end | center | baseline | stretch);
 // @include align-items(auto | flex-start | flex-end | center | baseline | stretch);
 // @include align-content(flex-start | flex-end | center | space-between | space-around | stretch);
+
+#test {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
 
 .loader {
     background: url("/v/s/images/customshop/builder/misc/page-loader.gif") no-repeat scroll 50% 50% rgb(0, 0, 0);
@@ -27,16 +29,8 @@ body {
     z-index: 9999;
 }
 
-.hidden {
-    display: none;
-}
-
-html, body {
+html, body, .content, .body {
     height: 100%;
-}
-
-h2,h4 {
-    margin: 0;
 }
 
 ul {
@@ -52,41 +46,89 @@ div.body {
 }
 
 .display, .builders {
-    @include bp(max-width, $bp-small) {
-        width: 100%;
+    width: 45%;
+}
+
+.tracker {
+    width: 10%;
+
+    @include display-flex(flex);
+    @include align-items(flex-start);
+    @include flex-direction(column);
+    @include justify-content(center);
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        border: solid 1px black;
+        border-radius: 50%;
+        margin-bottom: 0.5em;
+        cursor: pointer;
     }
-    @include bp(min-width, $bp-small+1) {
-        width: 50%;
+
+    .dot.done {
+        background-color: green;
     }
 }
 
 .display {
+    height: 100%;
+}
+
+.builders {
+    margin-right: 2em;
+    @include align-self(center);
+    height: 70%;
+
+    .builder, .builder > li {
+        height: 100%;
+    }
 }
 
 .cableTypes {
     @include display-flex(flex);
     @include flex-direction(row);
     @include justify-content(space-around);
+    margin: 1em 1em 0;
+    text-align: center;
+
     .tab {
+        @include flex-grow(1);
         cursor: pointer;
+        padding: 0.5em 0;
+        border: 1px solid black;
+        border-bottom: none;
+        background-color: #676767;
+        color: white;
+        border-radius: 15px 15px 0 0;
+
+        &:not(:first-child) {
+            border-left: none;
+        }
+
+        &.selected {
+            background-color: #050505;
+        }
     }
 }
 
 .builder {
-    margin: 1em;
+    margin: 0 1em 1em;
     border: solid 1px black;
+    border-top: none;
     display: none;
+    position: relative;
 
     &.selected {
         display: block;
     }
 
-    li {
+    > li {
         &.current {
             display: block;
         }
         display: none;
-        position: relative;
 
         input[type="checkbox"] {
             position: absolute;
@@ -95,21 +137,59 @@ div.body {
     }
 }
 
-.options > div {
+.filters {
+    &.cable{}
+    &.inputPlug{}
+    &.outputPlug{}
+    &.other{}
+
+    height: 10%;
+    background-color: #73adbc;
+
     @include display-flex(flex);
     @include flex-direction(row);
-    @include flex-wrap(wrap);
+    @include flex-wrap(no-wrap);
+
+    .filter {
+        @include flex-grow(1);
+        @include display-flex(flex);
+        @include flex-direction(row);
+        @include flex-wrap(wrap);
+        @include align-items(center);
+        @include justify-content(center);
+    }
+
+    h1 {
+        margin: 0;
+    }
+}
+
+.options {
+    overflow-y: scroll;
+    height: 90%;
+    .premium, .standard {
+        @include display-flex(flex);
+        @include flex-direction(row);
+        @include flex-wrap(wrap);
+        padding-bottom: 58px;
+
+        h3 {
+            width: 100%;
+        }
+    }
 }
 
 .option {
     width: 22%;
     margin: 1em 1.5%;
     text-align: center;
+    display: none;
     color: white;
     position: relative;
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    min-width: 100px;
 
     > div {
         height: 30px;
@@ -119,7 +199,7 @@ div.body {
     }
 
     .image, .image img {
-        display: none;
+        // display: none;
         height: auto;
         width: 100%;
     }
@@ -136,6 +216,13 @@ div.body {
 
     .specs {
         background-color: #6f9dbe;
+        > div {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            left: 0;
+            height: 200px;
+        }
     }
 
     .select {
@@ -186,14 +273,34 @@ div.body {
         left: 0;
         right: 0;
     }
+}
 
+.step {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1em;
+    background-color: #444;
+    height: 58px;
+    
+    button {
+        color: white;
+        border: solid 1px white;
+        text-transform: uppercase;
+        background: none;
+        padding: 0.5em 2.5em;
+        overflow: hidden;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 1px;
 
+        &.previous {
+            float: left;
+        }
 
-    label {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
+        &.next {
+            float: right;
+        }
     }
 }

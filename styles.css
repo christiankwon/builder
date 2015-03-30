@@ -537,3 +537,13 @@ input[type="search"] {
   /* 2 */
   box-sizing: border-box;
 }
+
+/* line 6, sass/styles.scss */
+body {
+  font-family: Avenir, sans-serif;
+}
+
+/* line 10, sass/styles.scss */
+.hidden {
+  display: none;
+}

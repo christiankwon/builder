@@ -2,3 +2,11 @@
 
 @import "vendor/normalize";
 @import "core/reset";
+
+body {
+    font-family: Avenir, sans-serif;
+}
+
+.hidden {
+    display: none;
+}

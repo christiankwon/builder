@@ -47,6 +47,10 @@
                <diameter>.23</diameter>
             </construction>
          </specs>
+         <colors>
+            <color>black</color>
+            <color>blue</color>
+         </colors>
       </cable>
 
       <cable>
@@ -66,11 +70,14 @@
             </construction>
          </specs>
          <is_premium/>
+         <colors>
+            <color>red</color>
+         </colors>
       </cable>
 
       <cable>
          <code>CS-CT-CNRE-GS6-TEST</code>
-         <is_proAudio/>
+         <is_instrument/>
          <price>3</price>
          <specs>
             <tone>
@@ -87,7 +94,7 @@
             <option_category_id>80</option_category_id>
             <color>
                <id>1611</id>
-               <desc>Yellow</desc>
+               <desc>yellow</desc>
             </color>
             <color>
                <id>1612</id>
