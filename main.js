@@ -5,6 +5,7 @@
         XML_URL = '/v/t/Builder/options.xml',
         CABLE_TYPES, CABLES, PLUGS, OTHER,
 
+    /*
     getOptionName = function(type, option_category_id, option_id) {
         var name = "",
             cable_code = getCurrentCable();
@@ -32,10 +33,9 @@
         //      add to cart
 
 
-        /**
-         * ReplaceCartID, ReturnTo, btnaddtocart.x, btnaddtocart.y, and e are all attributes that were given in the product page
-         * If they are required or not is unknown.
-         */
+        
+         // ReplaceCartID, ReturnTo, btnaddtocart.x, btnaddtocart.y, and e are all attributes that were given in the product page
+         // If they are required or not is unknown.
 
         var qty = 'QTY.' + product_code;
 
@@ -62,13 +62,17 @@
             data: $.param(Post),
             processData: false,
             success: function(data, textStatus, XMLHttpRequest) {
-
+                console.log(data);
+                console.log(textStatus);
+                console.log(XMLHttpRequest);
             },
             error: function() {
                 return false;
             }
         });
     },
+    */
+    
 
     getTypeFromClasses = function(obj) {
         var arr = ['cable', 'inputPlug', 'outputPlug', 'other'];
@@ -113,7 +117,52 @@
     },
 
     applyFilter = function() {
-        
+        function getRating(option, category) {
+            var data = $(option).data(),
+                value = data.specs[category] * 1;
+            if( value >= 7 ) {
+                return 'high';
+            } else if ( value >= 4 ) {
+                return 'med';
+            } else {
+                return 'low';
+            }
+        }
+
+        console.log(this);
+
+        var $parent = $(this).parents('.filters').parent(), // <li class="cable current" />
+            $selected = $(this).parents('.filters').find('input:checked'),
+            $options = $parent.find('.option');
+
+        $options.show();
+
+        if( $parent.hasClass('cable') ) {
+
+            $selected.each(function() {
+                var $this = $(this),
+                    value = $this.val(),
+                    filter = $this.attr('class');
+
+                if( $this.attr('type') === 'radio' ) {
+                    var rating;
+                    $options.filter(function() {
+                        rating = getRating(this, filter);
+                        return value !== rating;
+                    }).hide();
+
+
+                }
+
+            });
+        }
+
+        if( !$options.is(':visible').length ) {
+            // all gone
+        } else {
+            // something
+        }
+
     },
 
     changeOption = function() {
@@ -162,7 +211,7 @@
         updateDots();
     },
 
-    switchStep = function(e) {
+    switchStep = function() {
         var index = $(this).parent().find('.dot').index(this),
             steps = $('ul.builder.selected');
 
@@ -173,7 +222,8 @@
     },
 
     toggleSpecs = function() {
-        var $opt = $(this).parents('div.option');
+        // TODO
+        //var $opt = $(this).parents('div.option');
     },
 
     /**
@@ -185,7 +235,7 @@
             cable_container       = 'li.cable div.options',
             input_plug_container  = 'li.inputPlug div.options',
             output_plug_container = 'li.outputPlug div.options',
-            other_container       = 'li.other div.options',
+            // other_container       = 'li.other div.options',
 
         /**
          * Helper function that retrieves information 
@@ -218,7 +268,17 @@
                 $o = $('<li/>').addClass('other'),
                 $p = $('<li/>').addClass('progress');
 
-            var $filters = $('<div/>').addClass('filters'),
+            var $reset = $('<button/>')
+                .addClass('reset')
+                .text('Reset')
+                .on('click', function() {
+                    $(this).parents('.filters').find('input:checked').prop('checked', false);
+                    applyFilter();
+                });
+
+            var $filters = $('<div/>')
+                    .addClass('filters')
+                    .append($reset),
                 $options = $('<div/>')
                     .addClass('options')
                     .append(
@@ -246,14 +306,14 @@
                             .click(changeStep)
                     );
 
-            $c.append($filters.clone().addClass('cable'), $options.clone(), $step.clone(true));
+            $c.append($filters.clone(true).addClass('cable'), $options.clone(true), $step.clone(true));
             $c.find('button.previous').remove();
 
-            $ip.append($filters.clone().addClass('inputPlug'), $options.clone(), $step.clone(true));
+            $ip.append($filters.clone(true).addClass('inputPlug'), $options.clone(true), $step.clone(true));
 
-            $op.append($filters.clone().addClass('outputPlug'), $options.clone(), $step.clone(true));
+            $op.append($filters.clone(true).addClass('outputPlug'), $options.clone(true), $step.clone(true));
 
-            $o.append($filters.clone().addClass('other'), $options.clone(), $step.clone(true));
+            $o.append($filters.clone(true).addClass('other'), $options.clone(true), $step.clone(true));
             $o.find('button.next').remove();
 
             $p.append(
@@ -284,86 +344,6 @@
             $skeleton.append($c, $ip, $op, $o, $p);
 
             return $skeleton;
-        },
-
-        getCableFilter = function(parent) {
-            function brightnessFilter() {
-                var $container = $('<div/>').addClass('filter brightness'),
-                    $title = $('<h2/>').text('Brightness:');
-
-                $(options).each(function() {
-                    var tag = 'filter-brightness',
-                        name = tag + '-' +this,
-                        $filter = $('<div/>').addClass('filter-option'),
-                        $label = $('<label/>')
-                            .attr('for', name)
-                            .text(this),
-                        $box = $('<input/>', {
-                            'type': 'radio',
-                            'name': tag,
-                            'id': name,
-                            'value': name
-                        }).change(applyFilter);
-
-                    $filter.append($box, $label).appendTo($container);
-                });
-
-                return $container.append($title);
-            }
-
-            function flexibilityFilter() {
-                var $container = $('<div/>').addClass('filter flexibility'),
-                    $title = $('<h2/>').text('Flexibility:');
-
-                $(options).each(function() {
-                    var tag = 'filter-flexibility',
-                        name = tag + '-' + this,
-                        $filter = $('<div/>').addClass('filter-option'),
-                        $label = $('<label/>')
-                            .attr('for', name)
-                            .text(this),
-                        $box = $('<input/>', {
-                            'type': 'radio',
-                            'name': tag,
-                            'id': name,
-                            'value': name
-                        }).change(applyFilter);
-
-                    $filter.append($box, $label).appendTo($container);
-                });
-
-                return $container.append($title);
-            }
-
-            function colorFilter() {
-                var $filterColor = $('<div/>').addClass('filter color'),
-                    $title = $('<h2/>').text('Color:');
-
-                $filterColor.append($title);
-                $(color_options).each(function(i) {
-                    var $filter = $('<div/>').addClass('filter-option');
-
-                    var $label = $('<label/>')
-                            .attr('for', 'filter-color-' + this)
-                            .text(this),
-                        $box = $('<input/>', {
-                            'type': 'checkbox',
-                            'name': 'filter-color',
-                            'id': 'filter-color-' + this,
-                            'value': color_option_labels[i]
-                        }).change(applyFilter);
-
-                    $filter.append($box, $label).appendTo($filterColor);
-                });
-
-                return $filterColor;
-            }
-
-            var color_options = ['red','orange','yellow','green','blue','black'],
-                color_option_labels = ['red','org','ylw','grn','blu','blk'],
-                options = ['high','med','low'];
-
-            parent.append(brightnessFilter(), flexibilityFilter(), colorFilter());
         },
 
         getBlockSkeleton = function(type) {
@@ -465,15 +445,13 @@
          * @param skeleton {jQuery Object}
          */
         initCables = function(data, info) {
-            var $skeleton = info.skeleton,
-                cableType = info.type,
+            var component = 'cable',
+                $skeleton = info.skeleton,
+                // cableType = info.type,      // instrument - proAudio - speaker
                 index     = info.index,
-                prefix    = info.prefix,
-                component = 'cable';
-            
-            var $cable = CABLES.find(component).eq(index);
-
-            var $block = getBlockSkeleton(component),
+                prefix    = $skeleton.data('prefix'),
+                $cable = CABLES.find(component).eq(index),
+                $block = getBlockSkeleton(component),
                 options = {
                     id: prefix + $cable.find('code').text(),
                     name: $(data).find('ProductName').text(),
@@ -489,46 +467,34 @@
                         diameter: $cable.find('diameter').text(),
                     }
                 },
-                color = {};
+                colors = {};
 
             if( $cable.find('colors').find('option_category_id').length ) {
-                color['color_option_category_id'] = $cable.find('colors').find('option_category_id').text();
+                colors.color_option_category_id = $cable.find('colors').find('option_category_id').text();
             }
 
             $cable.find('colors').find('color').each(function() {
-                var $this = $(this), name = '', id = null;
-                if( $this.find('id').length ) {
-                    name = $this.find('desc').text();
-                    color[name] = $this.find('id').text();
-                } else {
-                    name = $this.text();
-                    color[name] = '';
-                }
+                var $this = $(this),
+                    name = $this.find('name').text(),
+                    short_name = $this.find('short_name').text(),
+                    id = ( $this.find('id').text() ? $this.find('id').text() : '' );
 
-                $block.addClass('filter-color-' + name);
+                colors['opt_' + name] = id;
+                colors['short_' + name] = short_name;
             });
 
-            var range = [0, 4, 7], brightness, flexibility;
-            if( options.specs.brightness * 1 >= range[2] ) brightness = 'high';
-            else if( options.specs.brightness * 1 >= range[1] ) brightness = 'med';
-            else brightness = 'low';
-
-            if( options.specs.flexibility * 1 >= range[2] ) flexibility = 'high';
-            else if( options.specs.flexibility * 1 >= range[1] ) flexibility = 'med';
-            else flexibility = 'low';
-
-            $block.addClass('filter-brightness-' + brightness);
-            $block.addClass('filter-flexibility-' + flexibility);
-
+            // append data to this block
             $block.data({
                 'type':component,
-                'colors':color,
+                'colors':colors,
                 'specs':options.specs
             }).addClass('cable');
             fillBlock($block, options);
 
+            // if the cable is only supposed to be a patch cable
             if( $cable.find('is_only_patch').length ) $block.addClass('only_patch');
 
+            // append cable to premium or standard container
             if( $cable.find('is_premium').length ) {
                 $skeleton.find(cable_container).find('.premium').append($block);
             } else {
@@ -536,16 +502,15 @@
             }
         },
 
-        initPlugs = function(type, skeleton, prefix) {
+        initPlugs = function(type, skeleton) {
             skeleton.find(input_plug_container).data('input_plug_option_category_id', PLUGS.find(type).find('input_option_category_id').text());
             skeleton.find(output_plug_container).data('output_plug_option_category_id', PLUGS.find(type).find('output_option_category_id').text());
 
             var $plugs = PLUGS.find(type).find('plug'),
                 which = ['inputPlug', 'outputPlug'],
-                which_container = [input_plug_container, output_plug_container];
-
-            for( var i = 0; i < which.length; i++ ) {
-                $plugs.each(function() {
+                which_container = [input_plug_container, output_plug_container],
+                prefix = skeleton.data('prefix'),
+                build = function() {
                     var $this = $(this),
                         $block = getBlockSkeleton(type),
                         options = {
@@ -574,29 +539,157 @@
                     } else {
                         skeleton.find(which_container[i]).find('.standard').append($block);
                     }
-                });
+                };
+
+            for( var i = 0; i < which.length; i++ ) {
+                $plugs.each(build);
             }
         },
 
-        initFilters = function(skeleton) {
-            skeleton.children().not(':last').each(function() {
-                var $filters = $(this).children('.filters'),
-                    type = getTypeFromClasses(this);
+        initFilters = function() {
+            var getCableFilter = function() {
+                function colorFilter(parent) {
+                    var $filterContainer = $('<div/>').addClass('filterContainer color');
+                    $('<h2/>').text('Color:').appendTo($filterContainer);
 
-                if( type ) {
-                    switch(type) {
-                        case 'cable':
-                            getCableFilter($filters);
-                            break;
-                        case 'inputPlug':
-                            break;
-                        case 'ouputPlug':
-                            break;
-                        case 'other':
-                            break;
+                    var colors = [], lcolors = [],// [long_name][short_name]
+                        $filterColor = $('<div/>').addClass('filter'),
+                        $options = $(parent).find('.option');
+
+                    $options.each(function() {
+                        var data_colors = $(this).data('colors');
+
+                        for( var c in data_colors ) {
+                            if( c.indexOf('short_') !== -1 ) {
+                                var bool = false;
+                                for( var i = 0; i < lcolors.length; i++ ) {
+                                    if( lcolors[i][0] === c ) {
+                                        bool = true;
+                                    }
+                                }
+
+                                if( !bool ) {
+                                    var long_colors = [];
+                                    long_colors[0] = c;
+                                    long_colors[1] = data_colors[c];
+                                    lcolors.push(long_colors);
+                                }
+                            }
+
+                            if( c.indexOf('opt_') !== -1 ) {
+                                var clr = c.substring(4);
+
+                                // if the color does not exist in the array
+                                // push it
+                                if( $.inArray(clr, colors) == -1 ) {
+                                    colors.push(clr);
+                                }
+                            }
+                        }
+                    });
+
+                    if( colors.length !== lcolors.length ) {
+                        console.error("ERROR CS04: The cable color filter is missing an element.");
                     }
+
+                    var num_colors = colors.length;
+
+                    for( var i = 0; i < num_colors; i++ ) {
+                        var color = colors[i];
+                        var $filter = $('<div/>').addClass('filter-option');
+                        var value = '';
+
+                        for( var j = 0; j < num_colors; j++ ) {
+                            if( lcolors[j][0].indexOf(color) > -1 ) {
+                                value = lcolors[j][1];
+                                break;
+                            }
+                        }
+
+                        if( !value ) {
+                            console.error("ERROR CS05: The cable color filter is misconfigured.");
+                        }
+
+                        var $label = $('<label/>')
+                                .attr('for', 'filter-color-' + color)
+                                .text(value),
+                            $box = $('<input/>', {
+                                'type': 'checkbox',
+                                'name': $(parent).parents('ul.builder').data('prefix') + 'filter-color',
+                                'id': 'filter-color-' + color,
+                                'value': color
+                            }).addClass('color').change(applyFilter);
+
+                        $filter.append($box, $label).appendTo($filterColor);
+                    }
+
+                    $filterContainer.append($filterColor);
+
+                    $(parent).find('.filters').append($filterContainer);
                 }
-            });
+
+                function brightnessFilter(parent) {
+                    var $filterContainer = $('<div/>').addClass('filterContainer brightness');
+                    $('<h2/>').text('Brightness:').appendTo($filterContainer);
+
+                    var $filterBrightness = $('<div/>').addClass('filter'),
+                        options = ['high','med', 'low'];
+
+                    $(options).each(function() {
+                        var $filter = $('<div/>').addClass('filter-option');
+                        var $label = $('<label/>')
+                                .attr('for', 'filter-brightness-' + this)
+                                .text(this),
+                            $radio = $('<input/>', {
+                                'type': 'radio',
+                                'name': $(parent).parents('ul.builder').data('prefix') + 'filter-brightness',
+                                'id': 'filter-brightness-' + this,
+                                'value': this
+                            }).addClass('brightness').change(applyFilter);
+
+                        $filter.append($radio, $label).appendTo($filterBrightness);
+                    });
+
+                    $filterContainer.append($filterBrightness);
+
+                    $(parent).find('.filters').append($filterContainer);
+                }
+
+                function flexibilityFilter(parent) {
+                    var $filterContainer = $('<div/>').addClass('filterContainer flexibility');
+                    $('<h2/>').text('Flexibility:').appendTo($filterContainer);
+
+                    var $filterFlexibility = $('<div/>').addClass('filter'),
+                        options = ['high','med', 'low'];
+
+                    $(options).each(function() {
+                        var $filter = $('<div/>').addClass('filter-option');
+                        var $label = $('<label/>')
+                                .attr('for', 'filter-flexibility-' + this)
+                                .text(this),
+                            $radio = $('<input/>', {
+                                'type': 'radio',
+                                'name': $(parent).parents('ul.builder').data('prefix') + 'filter-flexibility',
+                                'id': 'filter-flexibility-' + this,
+                                'value': this
+                            }).addClass('flexibility').change(applyFilter);
+
+                        $filter.append($radio, $label).appendTo($filterFlexibility);
+                    });
+
+                    $filterContainer.append($filterFlexibility);
+
+                    $(parent).find('.filters').append($filterContainer);
+                }
+
+                $('ul.builder li.cable').each(function() {
+                    colorFilter(this);
+                    brightnessFilter(this);
+                    flexibilityFilter(this);
+                });
+            };
+
+            getCableFilter();
         },
 
         initBuilders = function() {
@@ -631,35 +724,34 @@
             }
 
             var $skeleton = getBuilderSkeleton(type);
+                $skeleton.data('prefix', prefix);
 
             if( $data.has('default').length ) {
                 $tab.addClass('selected');
                 $skeleton.addClass('selected');
             }
 
-            initFilters($skeleton);
-
             $tab.append(
                 $('<span/>')
                     .text(tag)
                     .data('type',type)
-            ).data('tab', type).click(changeTab);
+                )
+                .data('tab', type)
+                .click(changeTab);
 
             CABLES.find('cable').filter(function() {
                 return $(this).find("is_" + type).length !== 0;
             }).each(function() {
                 var info = {
-                    index: CABLES.find('cable').index(this),
-                    code: $(this).find('code').text(),
-                    type: type,
-                    skeleton: $skeleton,
-                    prefix: prefix
-                };
+                        index: CABLES.find('cable').index(this),
+                        code: $(this).find('code').text(),
+                        type: type,
+                        skeleton: $skeleton
+                    };
                 getData(initCables, info);
             });
 
-
-            initPlugs(type, $skeleton, prefix);
+            initPlugs(type, $skeleton);
 
             $cable_type_container.append($tab);
             $builders_container.append($skeleton);
@@ -670,6 +762,8 @@
         } else {
             alert("ERROR CS02: One or more of the categories did not load properly.");
         }
+
+        init.filters = initFilters;
     },
 
     ready = function() {
@@ -713,6 +807,7 @@
 
         $(document).ajaxStop(function() {
             ready();
+            init.filters();
             $('.loader').fadeOut('fast');
         });
     };

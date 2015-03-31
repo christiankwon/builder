@@ -48,8 +48,14 @@
             </construction>
          </specs>
          <colors>
-            <color>black</color>
-            <color>blue</color>
+            <color>
+               <name>blue</name>
+               <short_name>blu</short_name>
+            </color>
+            <color>
+               <name>black</name>
+               <short_name>blk</short_name>
+            </color>
          </colors>
       </cable>
 
@@ -71,7 +77,10 @@
          </specs>
          <is_premium/>
          <colors>
-            <color>red</color>
+            <color>
+               <name>red</name>
+               <short_name>red</short_name>
+            </color>
          </colors>
       </cable>
 
@@ -94,23 +103,28 @@
             <option_category_id>80</option_category_id>
             <color>
                <id>1611</id>
-               <desc>yellow</desc>
+               <name>yellow</name>
+               <short_name>ylw</short_name>
             </color>
             <color>
                <id>1612</id>
-               <desc>orange</desc>
+               <name>orange</name>
+               <short_name>org</short_name>
             </color>
             <color>
                <id>1613</id>
-               <desc>red</desc>
+               <name>red</name>
+               <short_name>red</short_name>
             </color>
             <color>
                <id>1614</id>
-               <desc>green</desc>
+               <name>green</name>
+               <short_name>grn</short_name>
             </color>
             <color>
                <id>1615</id>
-               <desc>black</desc>
+               <name>black</name>
+               <short_name>blk</short_name>
             </color>
          </colors>
       </cable>

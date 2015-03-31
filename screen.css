@@ -256,7 +256,6 @@ div.body {
   width: 22%;
   margin: 1em 1.5%;
   text-align: center;
-  display: none;
   color: white;
   position: relative;
   font-size: 10px;
@@ -264,7 +263,7 @@ div.body {
   letter-spacing: 1px;
   min-width: 100px;
 }
-/* line 194, sass/screen.scss */
+/* line 193, sass/screen.scss */
 .option > div {
   height: 30px;
   display: -webkit-flex;
@@ -274,26 +273,26 @@ div.body {
   -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 201, sass/screen.scss */
+/* line 200, sass/screen.scss */
 .option .image, .option .image img {
   height: auto;
   width: 100%;
 }
-/* line 207, sass/screen.scss */
+/* line 206, sass/screen.scss */
 .option .name {
   background-color: #555;
 }
-/* line 211, sass/screen.scss */
+/* line 210, sass/screen.scss */
 .option .price {
   background-color: #af9757;
   font-weight: bolder;
   font-size: 14px;
 }
-/* line 217, sass/screen.scss */
+/* line 216, sass/screen.scss */
 .option .specs {
   background-color: #6f9dbe;
 }
-/* line 219, sass/screen.scss */
+/* line 218, sass/screen.scss */
 .option .specs > div {
   position: absolute;
   top: 0;
@@ -301,18 +300,18 @@ div.body {
   left: 0;
   height: 200px;
 }
-/* line 228, sass/screen.scss */
+/* line 227, sass/screen.scss */
 .option .select {
   background-color: #ff1200;
   cursor: pointer;
 }
-/* line 233, sass/screen.scss */
+/* line 232, sass/screen.scss */
 .option .select button {
   background: none;
   border: none;
   text-transform: inherit;
 }
-/* line 239, sass/screen.scss */
+/* line 238, sass/screen.scss */
 .option .select button:after {
   position: absolute;
   content: "";
@@ -320,11 +319,11 @@ div.body {
   background-color: transparent;
   top: 0;
 }
-/* line 248, sass/screen.scss */
+/* line 247, sass/screen.scss */
 .option .selector {
   display: none;
 }
-/* line 252, sass/screen.scss */
+/* line 251, sass/screen.scss */
 .option .select:after, .option .select:before {
   position: absolute;
   content: "";
@@ -333,24 +332,24 @@ div.body {
   background-color: transparent;
   top: 0;
 }
-/* line 261, sass/screen.scss */
+/* line 260, sass/screen.scss */
 .option .selector:checked ~ .select:before, .option:hover .select:before {
   background-color: #ff1200;
   left: 0;
 }
-/* line 266, sass/screen.scss */
+/* line 265, sass/screen.scss */
 .option .selector:checked ~ .select:after, .option:hover .select:after {
   background-color: #ff1200;
   right: 0;
 }
-/* line 271, sass/screen.scss */
+/* line 270, sass/screen.scss */
 .option .selector:checked ~ .select button:after, .option:hover .select button:after {
   background-color: #ff1200;
   left: 0;
   right: 0;
 }
 
-/* line 278, sass/screen.scss */
+/* line 277, sass/screen.scss */
 .step {
   position: absolute;
   bottom: 0;
@@ -360,7 +359,7 @@ div.body {
   background-color: #444;
   height: 58px;
 }
-/* line 287, sass/screen.scss */
+/* line 286, sass/screen.scss */
 .step button {
   color: white;
   border: solid 1px white;
@@ -372,11 +371,11 @@ div.body {
   font-weight: bold;
   letter-spacing: 1px;
 }
-/* line 298, sass/screen.scss */
+/* line 297, sass/screen.scss */
 .step button.previous {
   float: left;
 }
-/* line 302, sass/screen.scss */
+/* line 301, sass/screen.scss */
 .step button.next {
   float: right;
 }
