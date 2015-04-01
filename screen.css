@@ -134,13 +134,30 @@ div.body {
   justify-content: center;
 }
 /* line 81, sass/screen.scss */
+.display .outer {
+  width: 80%;
+  max-width: 500px;
+  max-height: 500px;
+  height: 80%;
+}
+/* line 86, sass/screen.scss */
+.display .outer .inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+/* line 90, sass/screen.scss */
+.display .outer .inner div {
+  position: absolute;
+}
+/* line 97, sass/screen.scss */
 .display .cable img {
   max-width: 500px;
   width: 90%;
   margin: 0 auto;
 }
 
-/* line 91, sass/screen.scss */
+/* line 107, sass/screen.scss */
 .builders {
   -webkit-align-self: center;
   align-self: center;
@@ -148,13 +165,14 @@ div.body {
   height: 75%;
   width: 30%;
   min-width: 350px;
+  background-color: white;
 }
-/* line 98, sass/screen.scss */
+/* line 115, sass/screen.scss */
 .builders .builder, .builders .builder > li {
   height: 100%;
 }
 
-/* line 103, sass/screen.scss */
+/* line 120, sass/screen.scss */
 .cableTypes {
   display: -webkit-flex;
   display: flex;
@@ -162,10 +180,9 @@ div.body {
   flex-direction: row;
   -webkit-justify-content: space-around;
   justify-content: space-around;
-  margin: 1em 1em 0;
   text-align: center;
 }
-/* line 110, sass/screen.scss */
+/* line 126, sass/screen.scss */
 .cableTypes .tab {
   -webkit-flex-grow: 1;
   flex-grow: 1;
@@ -180,37 +197,36 @@ div.body {
   font-size: 12px;
   letter-spacing: 1px;
 }
-/* line 123, sass/screen.scss */
+/* line 139, sass/screen.scss */
 .cableTypes .tab:not(:first-child) {
   border-left: none;
 }
-/* line 127, sass/screen.scss */
+/* line 143, sass/screen.scss */
 .cableTypes .tab.selected {
   background-color: #050505;
 }
 
-/* line 133, sass/screen.scss */
+/* line 149, sass/screen.scss */
 .builder {
-  margin: 0 1em 1em;
   border: solid 1px black;
   border-top: none;
   display: none;
   position: relative;
 }
-/* line 140, sass/screen.scss */
+/* line 155, sass/screen.scss */
 .builder.selected {
   display: block;
 }
-/* line 144, sass/screen.scss */
+/* line 159, sass/screen.scss */
 .builder > li {
   display: none;
 }
-/* line 145, sass/screen.scss */
+/* line 160, sass/screen.scss */
 .builder > li.current {
   display: block;
 }
 
-/* line 157, sass/screen.scss */
+/* line 172, sass/screen.scss */
 .filters {
   height: 10%;
   background-color: #73adbc;
@@ -225,7 +241,7 @@ div.body {
   -webkit-flex-wrap: no-wrap;
   flex-wrap: no-wrap;
 }
-/* line 174, sass/screen.scss */
+/* line 189, sass/screen.scss */
 .filters .filterContainer {
   -webkit-flex-grow: 1;
   flex-grow: 1;
@@ -240,12 +256,12 @@ div.body {
   -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 182, sass/screen.scss */
+/* line 197, sass/screen.scss */
 .filters .filterContainer.color {
   -webkit-flex-grow: 2;
   flex-grow: 2;
 }
-/* line 185, sass/screen.scss */
+/* line 200, sass/screen.scss */
 .filters .filterContainer.color .filter {
   display: -webkit-flex;
   display: flex;
@@ -254,20 +270,20 @@ div.body {
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
 }
-/* line 190, sass/screen.scss */
+/* line 205, sass/screen.scss */
 .filters .filterContainer.color .filter .filter-option {
   width: 50%;
 }
-/* line 195, sass/screen.scss */
+/* line 210, sass/screen.scss */
 .filters .filterContainer .filter-option input, .filters .filterContainer .filter-option label {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 202, sass/screen.scss */
+/* line 217, sass/screen.scss */
 .filters h1 {
   margin: 0;
 }
-/* line 206, sass/screen.scss */
+/* line 221, sass/screen.scss */
 .filters button {
   position: absolute;
   right: 10px;
@@ -277,12 +293,12 @@ div.body {
   text-transform: uppercase;
 }
 
-/* line 216, sass/screen.scss */
+/* line 231, sass/screen.scss */
 .options {
   overflow-y: scroll;
   height: 90%;
 }
-/* line 219, sass/screen.scss */
+/* line 234, sass/screen.scss */
 .options .premium, .options .standard {
   display: -webkit-flex;
   display: flex;
@@ -292,7 +308,7 @@ div.body {
   flex-wrap: wrap;
   padding-bottom: 58px;
 }
-/* line 225, sass/screen.scss */
+/* line 240, sass/screen.scss */
 .options .premium h3, .options .standard h3 {
   width: 100%;
   text-transform: uppercase;
@@ -302,7 +318,7 @@ div.body {
   margin: 1.5em 1.5em 0.5em;
 }
 
-/* line 236, sass/screen.scss */
+/* line 251, sass/screen.scss */
 .option {
   width: 22%;
   margin: 1em 1.5%;
@@ -314,7 +330,7 @@ div.body {
   letter-spacing: 1px;
   min-width: 100px;
 }
-/* line 247, sass/screen.scss */
+/* line 262, sass/screen.scss */
 .option > div {
   height: 30px;
   display: -webkit-flex;
@@ -324,26 +340,26 @@ div.body {
   -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 254, sass/screen.scss */
+/* line 269, sass/screen.scss */
 .option .image, .option .image img {
   height: auto;
   width: 100%;
 }
-/* line 260, sass/screen.scss */
+/* line 275, sass/screen.scss */
 .option .name {
   background-color: #555;
 }
-/* line 264, sass/screen.scss */
+/* line 279, sass/screen.scss */
 .option .price {
   background-color: #af9757;
   font-weight: bolder;
   font-size: 14px;
 }
-/* line 270, sass/screen.scss */
+/* line 285, sass/screen.scss */
 .option .specs {
   background-color: #6f9dbe;
 }
-/* line 272, sass/screen.scss */
+/* line 287, sass/screen.scss */
 .option .specs > div {
   position: absolute;
   top: 0;
@@ -351,18 +367,18 @@ div.body {
   left: 0;
   height: 200px;
 }
-/* line 281, sass/screen.scss */
+/* line 296, sass/screen.scss */
 .option .select {
   background-color: #ff1200;
   cursor: pointer;
 }
-/* line 286, sass/screen.scss */
+/* line 301, sass/screen.scss */
 .option .select button {
   background: none;
   border: none;
   text-transform: inherit;
 }
-/* line 292, sass/screen.scss */
+/* line 307, sass/screen.scss */
 .option .select button:after {
   position: absolute;
   content: "";
@@ -370,11 +386,11 @@ div.body {
   background-color: transparent;
   top: 0;
 }
-/* line 301, sass/screen.scss */
+/* line 316, sass/screen.scss */
 .option .selector {
   display: none;
 }
-/* line 305, sass/screen.scss */
+/* line 320, sass/screen.scss */
 .option .select:after, .option .select:before {
   position: absolute;
   content: "";
@@ -383,24 +399,24 @@ div.body {
   background-color: transparent;
   top: 0;
 }
-/* line 314, sass/screen.scss */
+/* line 329, sass/screen.scss */
 .option .selector:checked ~ .select:before, .option:hover .select:before {
   background-color: #ff1200;
   left: 0;
 }
-/* line 319, sass/screen.scss */
+/* line 334, sass/screen.scss */
 .option .selector:checked ~ .select:after, .option:hover .select:after {
   background-color: #ff1200;
   right: 0;
 }
-/* line 324, sass/screen.scss */
+/* line 339, sass/screen.scss */
 .option .selector:checked ~ .select button:after, .option:hover .select button:after {
   background-color: #ff1200;
   left: 0;
   right: 0;
 }
 
-/* line 331, sass/screen.scss */
+/* line 346, sass/screen.scss */
 .step {
   position: absolute;
   bottom: 0;
@@ -410,7 +426,7 @@ div.body {
   background-color: #444;
   height: 58px;
 }
-/* line 340, sass/screen.scss */
+/* line 355, sass/screen.scss */
 .step button {
   color: white;
   border: solid 1px white;
@@ -422,24 +438,24 @@ div.body {
   font-weight: bold;
   letter-spacing: 1px;
 }
-/* line 351, sass/screen.scss */
+/* line 366, sass/screen.scss */
 .step button.previous {
   float: left;
 }
-/* line 355, sass/screen.scss */
+/* line 370, sass/screen.scss */
 .step button.next {
   float: right;
 }
 
-/* line 363, sass/screen.scss */
+/* line 378, sass/screen.scss */
 .length > input[type="hidden"].patch ~ .rulers .patch {
   display: block;
 }
-/* line 367, sass/screen.scss */
+/* line 382, sass/screen.scss */
 .length > input[type="hidden"].regular ~ .rulers .regular {
   display: block;
 }
-/* line 373, sass/screen.scss */
+/* line 388, sass/screen.scss */
 .length .rulers div, .length .rulers input {
   display: none;
 }
