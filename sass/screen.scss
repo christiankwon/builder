@@ -45,10 +45,6 @@ div.body {
     @include justify-content(space-around);
 }
 
-.display, .builders {
-    width: 45%;
-}
-
 .tracker {
     width: 10%;
 
@@ -72,14 +68,32 @@ div.body {
     }
 }
 
-.display {
+.display{
+    width: 60%;
     height: 100%;
+    position: relative;
+
+    @include display-flex(flex);
+    @include align-items(center);
+    @include justify-content(center);
+
+    .cable {
+        img {
+            max-width: 500px;
+            width: 90%;
+            margin: 0 auto;
+        }
+    }
+    .inputPlug {}
+    .outputPlug {}
 }
 
 .builders {
-    margin-right: 2em;
     @include align-self(center);
-    height: 70%;
+    margin-right: 2em;
+    height: 75%;
+    width: 30%;
+    min-width: 350px;
 
     .builder, .builder > li {
         height: 100%;
@@ -97,11 +111,14 @@ div.body {
         @include flex-grow(1);
         cursor: pointer;
         padding: 0.5em 0;
-        border: 1px solid black;
+        border: 2px solid #ccc;
         border-bottom: none;
         background-color: #676767;
         color: white;
         border-radius: 15px 15px 0 0;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 1px;
 
         &:not(:first-child) {
             border-left: none;
@@ -130,9 +147,9 @@ div.body {
         }
         display: none;
 
-        input[type="checkbox"] {
-            position: absolute;
-        }
+        // input[type="checkbox"] {
+        //     position: absolute;
+        // }
         
     }
 }
@@ -145,22 +162,54 @@ div.body {
 
     height: 10%;
     background-color: #73adbc;
+    text-transform: uppercase;
+    position: relative;
+    font-size: 10px;
+    letter-spacing: 1px;
 
     @include display-flex(flex);
     @include flex-direction(row);
     @include flex-wrap(no-wrap);
 
-    .filter {
+    .filterContainer {
         @include flex-grow(1);
         @include display-flex(flex);
         @include flex-direction(row);
         @include flex-wrap(wrap);
         @include align-items(center);
         @include justify-content(center);
+
+        &.color {
+            @include flex-grow(2);
+
+            .filter {
+                @include display-flex(flex);
+                @include flex-direction(row);
+                @include flex-wrap(wrap);
+
+                .filter-option {width: 50%;}
+            }
+        }
+
+        .filter-option {
+            input, label {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
     }
 
     h1 {
         margin: 0;
+    }
+
+    button {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        background: none;
+        border: none;
+        text-transform: uppercase;
     }
 }
 
@@ -175,6 +224,11 @@ div.body {
 
         h3 {
             width: 100%;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 3px;
+            font-size: 13px;
+            margin: 1.5em 1.5em 0.5em;
         }
     }
 }
@@ -300,6 +354,24 @@ div.body {
 
         &.next {
             float: right;
+        }
+    }
+}
+
+.length {
+    > input[type="hidden"] {
+        &.patch ~ .rulers .patch {
+            display: block;
+        }
+
+        &.regular ~ .rulers .regular {
+            display: block;
+        }
+    }
+
+    .rulers {
+        div, input {
+            display: none;
         }
     }
 }

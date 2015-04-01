@@ -57,6 +57,19 @@
                <short_name>blk</short_name>
             </color>
          </colors>
+         <lengths>
+            <option_category_id>73</option_category_id>
+            <patch>
+               <is_consistent/>
+               <start_id>1222</start_id>
+               <end_id>1269</end_id>
+            </patch>
+            <regular>
+               <is_consistent/>
+               <start_id>1270</start_id>
+               <end_id>1287</end_id>
+            </regular>
+         </lengths>
       </cable>
 
       <cable>
@@ -377,41 +390,59 @@
             <angle>right</angle>
          </plug>
       </instrument>
+      <boots>
+         <np2c>
+            <option_category_id>77</option_category_id>
+            <boot>
+               <option_id>1486</option_id>
+               <color>Orange</color>
+            </boot>
+            <boot>
+               <option_id>1487</option_id>
+               <color>Green</color>
+            </boot>
+            <boot>
+               <option_id>1488</option_id>
+               <color>Gray</color>
+            </boot>
+            <boot>
+               <option_id>1489</option_id>
+               <color>Red</color>
+            </boot>
+            <boot>
+               <option_id>1490</option_id>
+               <color>Violet</color>
+            </boot>
+            <boot>
+               <option_id>1491</option_id>
+               <color>Black</color>
+            </boot>
+         </np2c>
+      </boots>
    </plugs>
 
          
    <other>
-      <boots>
-         <option_category_id>77</option_category_id>
-         <boot>
-            <option_id>1486</option_id>
-            <color>Orange</color>
-         </boot>
-         <boot>
-            <option_id>1487</option_id>
-            <color>Green</color>
-         </boot>
-         <boot>
-            <option_id>1488</option_id>
-            <color>Gray</color>
-         </boot>
-         <boot>
-            <option_id>1489</option_id>
-            <color>Red</color>
-         </boot>
-         <boot>
-            <option_id>1490</option_id>
-            <color>Violet</color>
-         </boot>
-         <boot>
-            <option_id>1491</option_id>
-            <color>Black</color>
-         </boot>
-      </boots>
       <heatshrink>
          <option_id>1599</option_id>
          <option_category_id>143</option_category_id>
       </heatshrink>
+
+      <techflex>
+         <option_category_id>146</option_category_id>
+         <option>
+            <id>1621</id>
+            <desc>black</desc>
+         </option>
+         <option>
+            <id>1622</id>
+            <desc>white</desc>
+         </option>
+         <option>
+            <id>1623</id>
+            <desc>gray</desc>
+         </option>
+      </techflex>
    </other>
 
 </options>

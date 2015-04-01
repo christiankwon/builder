@@ -15,9 +15,8 @@
 
         <!-- Page specific stylesheets -->
         <link href="styles.css" media="screen" rel="stylesheet" type="text/css"/>
-        <link href="screen.css" media="screen" rel="stylesheet" type="text/css"/
-
-        <link href="jscrollpane/jquery.jscrollpane.css" media="screen" rel="stylesheet" type="text/css"/>
+        <link href="screen.css" media="screen" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
 
         <!-- <link href="stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css"/> -->
         <!-- <link href="stylesheets/print.css" media="print" rel="stylesheet" type="text/css" /> -->
@@ -38,11 +37,12 @@
 
             <div class="body">
                 <div class="display">
-                    <div class="cableType"></div>
-                    <div class="cable"></div>
-                    <div class="inputPlug"></div>
-                    <div class="outputPlug"></div>
-                    <div class="other"></div>
+                    <div class="wrap">
+                        <div class="cable"></div>
+                        <div class="inputPlug"></div>
+                        <div class="outputPlug"></div>
+                        <div class="other"></div>
+                    </div>
                 </div>
 
                 <div class="builders">
@@ -51,6 +51,7 @@
 
                 <div class="tracker">
                     <div class="dot cable"></div>
+                    <div class="dot length"></div>
                     <div class="dot inputPlug"></div>
                     <div class="dot outputPlug"></div>
                     <div class="dot other"></div>
@@ -60,6 +61,7 @@
 
         <!-- General scripts -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
         <script>
             window.jQuery || document.write('<script src="/v/s/js/vendor/jquery-1.11.1.min.js"><\/script>')
         </script>

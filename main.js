@@ -4,78 +4,130 @@
     var API_URL = "http://www.sinasoid.com/net/WebService.aspx?Login=christian@sinasoid.com&EncryptedPassword=270B89846E6469F62676974F08363789F23D40F8B853E565E8C1B924DD4E514B&EDI_Name=Generic\\Products&SELECT_Columns=*&WHERE_Column=p.ProductCode&WHERE_Value=",
         XML_URL = '/v/t/Builder/options.xml',
         CABLE_TYPES, CABLES, PLUGS, OTHER,
+        INITIALIZED = false,
 
-    /*
-    getOptionName = function(type, option_category_id, option_id) {
-        var name = "",
-            cable_code = getCurrentCable();
+    getOptionName = function(type, cable, option_category_id, option_id) {
+        var name = "";
 
         switch(type) {
             case 'select':
             case 'check':
             case 'checkbox':
-                name = "SELECT___" + cable_code + "___" + option_category_id;
+                name = "SELECT___" + cable + "___" + option_category_id;
                 break;
             case 'text':
             case 'textbox':
-                name = "TEXTBOX___" + option_id + "___" + cable_code + "___" + option_category_id;
+                name = "TEXTBOX___" + option_id + "___" + cable + "___" + option_category_id;
                 break;
         }
-
         return name;
     },
 
-    addToCart = function(product_code) {
+    addToCart = function() {
         //  Check cable for completion
         //  if true
         //      find each component of cable
         //      update each component with option name
         //      add to cart
 
+        // TODO - Confirm complete cable 
+        var complete = true;
 
-        
-         // ReplaceCartID, ReturnTo, btnaddtocart.x, btnaddtocart.y, and e are all attributes that were given in the product page
-         // If they are required or not is unknown.
+        if( complete ) {
+            var $progress = $('ul.builder.selected li.progress'),
+                prefix = $('ul.builder.selected').data('prefix'),
+                cable_code = getVarFromString($progress.find('input[name="cable"]').val(), prefix),
+                qty = 'QTY.' + cable_code;
 
-        var qty = 'QTY.' + product_code;
+            var Post = {
+                'ProductCode': cable_code,
+                qty: '2',
 
-        var Post = {
-            'ProductCode': product_code,
-            qty: '1',
+                'ReplaceCartID':'',
+                'ReturnTo':'',
+                'btnaddtocart.x':'5',
+                'btnaddtocart.y':'5',
+                'e':''
+            };
 
-            'ReplaceCartID':'',
-            'ReturnTo':'',
-            'btnaddtocart.x':'5',
-            'btnaddtocart.y':'5',
-            'e':''
-        };
+            var l, l_v, ip, ip_v, op, op_v, o1, o1_v, o2, o2_v, opt_cat_id, opt_id, $p;
 
-        Post['SELECT___CS-CT-BLDN-9778-TEST___64'] = '373';
-        Post['SELECT___CS-CT-BLDN-9778-TEST___65'] = '730';
-        Post['SELECT___CS-CT-BLDN-9778-TEST___77'] = '1486';
-        Post['TEXTBOX___1598___CS-CT-BLDN-9778-TEST___79'] = 'Test Message Whoo!';
+            $p = $progress.find('input[name="length"]');
+            var type = $p.data('type'),
+                length = $p.val();
+            opt_id      = $('#' + prefix + cable_code).parent().data().lengths[type + length];
+            opt_cat_id  = $('#' + prefix + cable_code).parent().data().lengths.option_category_id;
+            l           = getOptionName('select', cable_code, opt_cat_id, opt_id);
+            l_v         = opt_id;
 
-        $.ajax({
-            url:'/ProductDetails.asp?ProductCode=' + product_code + '&AjaxError=Y',
-            type: 'POST',
-            cache: false,
-            data: $.param(Post),
-            processData: false,
-            success: function(data, textStatus, XMLHttpRequest) {
-                console.log(data);
-                console.log(textStatus);
-                console.log(XMLHttpRequest);
-            },
-            error: function() {
-                return false;
+            $p = $('#' + $progress.find('input[name="inputPlug"]').val());
+            opt_id = $p.parent().data().input_option_id;
+            opt_cat_id = $p.parents('.options').data().input_plug_option_category_id;
+            ip = getOptionName('select', cable_code, opt_cat_id, opt_id);
+            ip_v = opt_id;
+
+            $p = $('#' + $progress.find('input[name="outputPlug"]').val())
+            opt_id = $p.parent().data().output_option_id;
+            opt_cat_id = $p.parents('.options').data().output_plug_option_category_id;
+            op = getOptionName('select', cable_code, opt_cat_id, opt_id);
+            op_v = opt_id;
+
+            $p = $('ul.builder.selected li.other');
+            if( $p.find('.other_heatshrink input:checked').length ) {
+                var $input = $p.find('.other_heatshrink input:checked');
+                opt_id = $input.val();
+                opt_cat_id = $input.data('option_category_id');
+                o1 = getOptionName('select', cable_code, opt_cat_id, opt_id);
+                o1_v = opt_id;
             }
-        });
+
+            if( $p.find('.other_techflex input:checked').length ) {
+                var $input = $p.find('.other_techflex input:checked');
+                opt_id = $input.val();
+                opt_cat_id = $input.parent().parent().data('option_category_id');
+                console.log(opt_cat_id);
+                o2 = getOptionName('select', cable_code, opt_cat_id, opt_id);
+                o2_v = opt_id;
+            }
+
+            Post[ip] = ip_v;
+            Post[op] = op_v;
+            Post[l] = l_v;
+            if( o1 && o1_v ) Post[o1]  = o1_v;
+            if( o2 && o2_v ) Post[o2]  = o2_v;
+
+            console.log(Post);
+
+            $.ajax({
+                url:'/ProductDetails.asp?ProductCode=' + cable_code + '&AjaxError=Y',
+                type: 'POST',
+                cache: false,
+                data: $.param(Post),
+                processData: false
+            }).done(function() {
+                // redirect to cart?
+            }).fail(function() {
+                alert("ERROR CS05: Something went wrong while adding this to the cart. I bet the intern monkey broke something again...");
+                console.error(jqXHR);
+                console.error(textStatus);
+                console.error(errorThrown);
+            });
+        }
     },
-    */
     
+    getVarFromString = function(string, prefix) {
+        var str = string.split(/\s+/);
+
+        for( var i = 0; i < str.length; i++ ) {
+            if( str[i].indexOf(prefix) > -1 ) {
+                return str[i].substring(prefix.length);
+            }
+        }
+        return null;
+    },
 
     getTypeFromClasses = function(obj) {
-        var arr = ['cable', 'inputPlug', 'outputPlug', 'other'];
+        var arr = ['cable', 'length', 'inputPlug', 'outputPlug', 'other'];
         var classes = obj.className.split(/\s+/);
 
         for( var i = 0; i < classes.length; i++ ) {
@@ -105,9 +157,12 @@
 
     updateDots = function() {
         var $tracker = $('.tracker');
+
+        // .not(':last') - ignore the progress block
         $('ul.builder.selected').children().not(':last').each(function() {
             var type = getTypeFromClasses(this),
                 $dot = $tracker.find('.dot.' + type);
+
             if( $(this).find('input[type="radio"]:checked').length ) {
                 $dot.addClass('done');
             } else {
@@ -129,40 +184,56 @@
             }
         }
 
-        console.log(this);
+        var button = this;
 
-        var $parent = $(this).parents('.filters').parent(), // <li class="cable current" />
-            $selected = $(this).parents('.filters').find('input:checked'),
-            $options = $parent.find('.option');
+        // Not a button click, called from a function
+        if( !button ) {
+            button = $('ul.builder.selected button.reset');
+        }
+
+        var $parent = $(button).parents('.filters').parent(), // <li class="cable current" />
+            $options = $parent.find('.option'),
+            $radios = $(button).parents('.filters').find('input[type="radio"]:checked'),
+            $checks = $(button).parents('.filters').find('input[type="checkbox"]:checked');
 
         $options.show();
 
         if( $parent.hasClass('cable') ) {
-
-            $selected.each(function() {
+            $radios.each(function() {
                 var $this = $(this),
                     value = $this.val(),
                     filter = $this.attr('class');
 
-                if( $this.attr('type') === 'radio' ) {
-                    var rating;
-                    $options.filter(function() {
-                        rating = getRating(this, filter);
-                        return value !== rating;
-                    }).hide();
+                $options.filter(function() {
+                    var rating = getRating(this, filter);
+                    return value !== rating;
+                }).hide();
+            });
 
+            if( !$checks.length ) return;
 
-                }
+            var $visible = $parent.find('.option:visible');
+            $visible.hide();
 
+            $checks.each(function() {
+                var value = $(this).val();
+                $visible.filter(function() {
+                    var colors = $(this).data().colors;
+
+                    for( var c in colors ) {
+                        if( c.indexOf(value) > -1 && c.indexOf('opt_') > -1 ) return true;
+                    }
+
+                    return false;
+                }).show();
             });
         }
 
-        if( !$options.is(':visible').length ) {
+        if( !$options.is(':visible') ) {
             // all gone
         } else {
             // something
         }
-
     },
 
     changeOption = function() {
@@ -199,18 +270,31 @@
         updateDots();
     },
 
+    // click on next/previous to change step
     changeStep = function() {
-        $(this).parents('li').removeClass('current');
+        var $parent = $(this).parents('li');
+        if( $parent.hasClass('length') ) {
+            var $input = $parent.find('.rulers input:visible'),
+                value  = $input.val(),
+                type   = $input[0].className;
+            $parent.parent().find('.progress input[name="length"]').val(value).data('type', type);
+            $parent.find('.visited').prop('checked', true);
+        } else if( $parent.hasClass('other') ) {
+            $parent.find('.visited').prop('checked', true);
+        }
+
+        $parent.removeClass('current');
 
         if( $(this).hasClass('next') ) {
-            $(this).parents('li').next().addClass('current');
+            $parent.next().addClass('current');
         } else {
-            $(this).parents('li').prev().addClass('current');
+            $parent.prev().addClass('current');
         }
 
         updateDots();
     },
 
+    // click on a dot to change step
     switchStep = function() {
         var index = $(this).parent().find('.dot').index(this),
             steps = $('ul.builder.selected');
@@ -219,6 +303,10 @@
         steps.children().eq(index).addClass('current');
 
         updateDots();
+    },
+
+    switchChoice = function() {
+        $(this).parents('li.length').children('input[type="hidden"]').first().removeClass().addClass(this.className);
     },
 
     toggleSpecs = function() {
@@ -253,7 +341,7 @@
                     callback(data, info);
                 })
                 .fail(function( jqXHR, textStatus, errorThrown ) {
-                    alert("ERROR CS03: " + code + "not found in the product database.");
+                    alert("ERROR CS03: " + code + " not found in the product database.");
                     console.error(jqXHR);
                     console.error(textStatus);
                     console.error(errorThrown);
@@ -263,6 +351,7 @@
         getBuilderSkeleton = function(id) {
             var $skeleton = $('<ul/>').addClass('builder'),
                 $c = $('<li/>').addClass('cable'),
+                $l = $('<li/>').addClass('length'),
                 $ip = $('<li/>').addClass('inputPlug'),
                 $op = $('<li/>').addClass('outputPlug'),
                 $o = $('<li/>').addClass('other'),
@@ -309,16 +398,80 @@
             $c.append($filters.clone(true).addClass('cable'), $options.clone(true), $step.clone(true));
             $c.find('button.previous').remove();
 
+            var $rulers = $('<div/>').addClass('rulers'),
+                $rulerA = $('<div/>').addClass('ruler'),
+                $rulerB = $('<div/>').addClass('ruler'),
+                $inputA = $('<input/>').attr('type','text'),
+                $inputB = $('<input/>').attr('type','text'),
+                $selected = $('<input/>').attr('type','hidden'),
+                $choices = $('<div/>').addClass('choices'),
+                $choiceA = $('<div/>').addClass('choice'),
+                $choiceB = $('<div/>').addClass('choice'),
+                $visited = $('<input/>').addClass('hidden visited').attr('type','radio'),
+                a, b;
+
+
+            if( id === 'instrument' ) {
+                a = 'patch'; b = 'regular';
+
+                $selected.addClass(a);
+
+                $choiceA.append(
+                        $('<button/>').addClass(a).text(a).click(switchChoice)
+                    );
+
+                $choiceB.append(
+                        $('<button/>').addClass(b).text(b).click(switchChoice)
+                    );
+
+                $choices.append($choiceA, $choiceB);
+
+                $rulerA.slider({
+                    value: 12,
+                    min: 0,
+                    max: 48,
+                    step: 1,
+                    slide: function(e, ui) {
+                        $inputA.val(ui.value);
+                    }
+                }).addClass(a);
+
+                $rulerB.slider({
+                    value: 10,
+                    min: 3,
+                    max: 20,
+                    step: 1,
+                    slide: function(e, ui) {
+                        $inputB.val(ui.value);
+                    }
+                }).addClass(b);
+
+                $inputA.addClass(a).val($rulerA.slider('value'));
+                $inputB.addClass(b).val($rulerB.slider('value'));
+
+                $rulers.append($rulerA, $inputA, $rulerB, $inputB);
+            }
+
+            $l.append($filters.clone(true).addClass('length'), $visited, $selected, $choices, $rulers, $step.clone(true));
+
             $ip.append($filters.clone(true).addClass('inputPlug'), $options.clone(true), $step.clone(true));
 
             $op.append($filters.clone(true).addClass('outputPlug'), $options.clone(true), $step.clone(true));
 
-            $o.append($filters.clone(true).addClass('other'), $options.clone(true), $step.clone(true));
+            var $addToCartButton = $('<button/>').text('Checkout').addClass('next').click(addToCart);
+
+            $o.append($filters.clone(true).addClass('other'), $options.clone(true).empty(), $step.clone(true));
             $o.find('button.next').remove();
+            $o.find('.step').append($addToCartButton);
 
             $p.append(
                 $('<input/>', {
                     name: "cable",
+                    type: "hidden",
+                    value: "0"
+                }),
+                $('<input/>', {
+                    name: "length",
                     type: "hidden",
                     value: "0"
                 }),
@@ -341,7 +494,7 @@
 
             if (id) $skeleton.attr('id', id);
 
-            $skeleton.append($c, $ip, $op, $o, $p);
+            $skeleton.append($c, $l, $ip, $op, $o, $p);
 
             return $skeleton;
         },
@@ -483,11 +636,49 @@
                 colors['short_' + name] = short_name;
             });
 
+            var $lengths = $cable.find('lengths'),
+                lengths = {};
+
+            if( $lengths.length ) {
+                lengths['option_category_id'] = $lengths.find('option_category_id').text();
+
+                $lengths.children().each(function() {
+                    var name = this.tagName,
+                        $this = $(this),
+                        is_consistent = ($this.find('is_consistent').length ? true : false),
+                        check = true;
+                    
+                    if( is_consistent ) {
+                        var $start = $this.find('start_id'),
+                            $end = $this.find('end_id');
+
+                        if( $start.length && $end.length ) {
+                            if( name.indexOf('patch') > -1 ) {
+                                check = ( ($end.text() * 1) - ($start.text() * 1) === 47 ? true : false );
+                                if( check ) {
+                                    for( var i = 3; i < 48; i++) {
+                                        lengths[name + (i + 1)] = ($start.text() * 1) + i;
+                                    }
+                                }
+                            } else if( name.indexOf('regular') > -1 ) {
+                                check = ( ($end.text() * 1) - ($start.text() * 1) === 17 ? true : false );
+                                if( check ) {
+                                    for( var i = 0; i < 18; i++) {
+                                        lengths[name + (i + 1)] = ($start.text() * 1) + i;
+                                    }
+                                }
+                            } else {}// idk
+                        } else {} // missing either start or end tag
+                    } else {}// look for individual numbers
+                });
+            } 
+
             // append data to this block
             $block.data({
-                'type':component,
-                'colors':colors,
-                'specs':options.specs
+                'type':   component,
+                'colors': colors,
+                'specs':  options.specs,
+                'lengths': lengths
             }).addClass('cable');
             fillBlock($block, options);
 
@@ -514,7 +705,7 @@
                     var $this = $(this),
                         $block = getBlockSkeleton(type),
                         options = {
-                            id: 'plug_' + $plugs.index(this),
+                            id: prefix + which[i] + '_' + $plugs.index(this),
                             name: $this.find('manufacturer').text() + ' ' + $this.find('model').text(),
                             price: $this.find('price').text(),
                             image_alt: $this.find('manufacturer').text() + ' ' + $this.find('model').text(),
@@ -546,6 +737,57 @@
             }
         },
 
+        initOther = function(type, skeleton) {
+            var prefix = skeleton.data('prefix');
+            OTHER.children().each(function() {
+                var name = this.tagName,
+                    $this = $(this),
+                    $container = $(skeleton).find('li.other .options'),
+                    $title = $('<h3/>').text(name);
+
+                if( name === 'heatshrink' ) {
+                    var $opt = $('<div/>').addClass('other_' + name);
+                    $opt.append(
+                        $title,
+                        $('<input/>', {
+                            id: prefix + name,
+                            value: $this.find('option_id').text(),
+                            type: 'checkbox' 
+                        }).data('option_category_id', $this.find('option_category_id').text()),
+                        $('<label/>')
+                            .text(name)
+                            .attr('for', prefix + name)
+                    );
+                } else if( name === 'techflex' ) {
+                    var $opt = $('<div/>').addClass('other_' + name);
+                    $opt.data('option_category_id', $(this).find('option_category_id').text());
+                    $opt.append($title);
+
+                    $this.children('option').each(function() {
+                        var $option = $('<div/>').addClass(name),
+                            desc = $(this).find('desc').text(),
+                            id = $(this).find('id').text();
+
+                        $option.append(
+                            $('<input/>', {
+                                id: prefix + name + '_' + desc,
+                                value: id,
+                                type: 'radio' 
+                            }),
+                            $('<label/>')
+                                .text(desc)
+                                .attr('for', prefix + name + '_' + desc)
+                        );
+                        $opt.append($option);
+                    });
+
+                    $opt.append($('<button/>').text('Reset').click(function(){$(this).parent().find('input:checked').prop('checked', false);}));
+                    $opt.append($('<input/>').addClass('hidden visited').attr('type','radio'));
+                }
+                $opt.appendTo($container);
+            });
+        },
+
         initFilters = function() {
             var getCableFilter = function() {
                 function colorFilter(parent) {
@@ -560,6 +802,7 @@
                         var data_colors = $(this).data('colors');
 
                         for( var c in data_colors ) {
+                            if( !data_colors.hasOwnProperty(c) ) continue;
                             if( c.indexOf('short_') !== -1 ) {
                                 var bool = false;
                                 for( var i = 0; i < lcolors.length; i++ ) {
@@ -683,9 +926,9 @@
                 }
 
                 $('ul.builder li.cable').each(function() {
-                    colorFilter(this);
                     brightnessFilter(this);
                     flexibilityFilter(this);
+                    colorFilter(this);
                 });
             };
 
@@ -752,6 +995,7 @@
             });
 
             initPlugs(type, $skeleton);
+            initOther(type, $skeleton);
 
             $cable_type_container.append($tab);
             $builders_container.append($skeleton);
@@ -773,6 +1017,11 @@
         });
 
         $('.tracker .dot').click(switchStep);
+
+        $('.display .cable').append($('<img/>', {
+            src: 'images/display/cable/instrument/regular/canare/gs6.orange.png',
+            alt: 'Canare GS6 Orange Cable'
+        }));
     },
 
     /**
@@ -785,7 +1034,15 @@
         // if page loads with GET options, load cable with options
         // if page loads with COMPARISON cables, load cables into comparison build and select first cable
 
-        $('#test').click(updateVisual);
+        $('#test').click(function() {
+            $('#ins_CS-CT-CNRE-GS6-TEST').parent().children().last().click();
+            $('ul.builder.selected .length input.visited[type="hidden"]').prop('checked', true);
+            $('ul.builder.selected .length .next').click();
+            $('#ins_inputPlug_0').parent().children().last().click();
+            $('#ins_outputPlug_5').parent().children().last().click();
+            $('.dot').last().click();
+            $('ul.builder.selected li.current button.next').click();
+        });
 
         $.get( XML_URL )
             .done(function(data) {
@@ -806,9 +1063,12 @@
             });
 
         $(document).ajaxStop(function() {
-            ready();
-            init.filters();
-            $('.loader').fadeOut('fast');
+            if( !INITIALIZED ) {
+                INITIALIZED = !INITIALIZED;
+                ready();
+                init.filters();
+                $('.loader').fadeOut('fast');
+            }
         });
     };
     start();
