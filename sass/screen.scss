@@ -284,8 +284,10 @@ div.body {
 
     .specs {
         background-color: #6f9dbe;
+        
         > div {
             position: absolute;
+            display:  none;
             top: 0;
             width: 100%;
             left: 0;
@@ -385,6 +387,7 @@ div.body {
     }
 
     .rulers {
+        margin: 1em;
         div, input {
             display: none;
         }

@@ -4,60 +4,41 @@
     var API_URL = "http://www.sinasoid.com/net/WebService.aspx?Login=christian@sinasoid.com&EncryptedPassword=270B89846E6469F62676974F08363789F23D40F8B853E565E8C1B924DD4E514B&EDI_Name=Generic\\Products&SELECT_Columns=*&WHERE_Column=p.ProductCode&WHERE_Value=",
         XML_URL = '/v/t/Builder/options.xml',
         INITIALIZED = false,
-        CABLE_TYPES, CABLES, PLUGS, OTHER, CURRENT_CABLE = null,
+        OPTIONS_XML, CABLE_TYPES, CABLES, PLUGS, OTHER, CURRENT_CABLE = null,
+        DEFAULT_CABLE_LENGTH = 10,
+        DEFAULT_CABLE_LENGTH_TYPE = 'regular',
         Cable = function() {
             this.cableType = {
                 prefix: '',
                 type: ''
             };
             this.cable = {
-                manufacturer: '',
                 code: '',
-                color: {
-                    name: '',
-                    option_id: '',
-                    option_category_id: ''
-                }
+                color: ''
             };
             this.length = {
-                amount: '',
-                option_id: '',
-                option_category_id: '',
+                amount: DEFAULT_CABLE_LENGTH,
+                type: DEFAULT_CABLE_LENGTH_TYPE,
             };
             this.inputPlug = {
                 manufacturer: '',
                 model: '',
-                option_id: '',
-                option_category_id: '',
-                boot: {
-                    name: '',
-                    option_id: '',
-                    option_category_id: ''
-                }
+                boot: '' // color
             };
             this.outputPlug = {
                 manufacturer: '',
                 model: '',
-                option_id: '',
-                option_category_id: '',
-                boot: {
-                    name: '',
-                    option_id: '',
-                    option_category_id: ''
-                }
+                boot: '' // color
             };
-            this.options = {
-                heatshrink: {
-                    option_id: '',
-                    option_category_id: '',
-                },
-                techflex: {
-                    color: '',
-                    option_id: '',
-                    option_category_id: '',
-                }
+            this.other = {
+                heatshrink: false,
+                techflex: '' // color
             };
         },
+
+    clone = function(obj) {
+        return (JSON.parse(JSON.stringify(obj)));
+    },
 
     getOptionName = function(type, cable, option_category_id, option_id) {
         var name = "";
@@ -77,13 +58,15 @@
     },
 
     addToCart = function() {
-        // TODO - Confirm complete cable 
-        var complete = true;
+        function complete() {
+            return true;
+        }
 
-        if( complete ) {
-            var $progress = $('ul.builder.selected li.progress'),
-                prefix = $('ul.builder.selected').data('prefix'),
-                cable_code = getVarFromString($progress.find('input[name="cable"]').val(), prefix),
+        if( complete() ) {
+            var _cable = clone(CURRENT_CABLE);
+
+            var prefix = _cable.cableType.prefix,
+                cable_code = _cable.cable.code,
                 qty = 'QTY.' + cable_code;
 
             var Post = {
@@ -95,55 +78,44 @@
                 'btnaddtocart.x':'5',
                 'btnaddtocart.y':'5',
                 'e':''
+                //SELECT___CS-CT-EVIA-MNRL-TEST___73: 1270
             };
 
-            var l, l_v, ip, ip_v, op, op_v, o1, o1_v, o2, o2_v, opt_cat_id, opt_id, $p, $input;
+            var opt_cat_id, opt_id;
 
-            $p = $progress.find('input[name="length"]');
-            var type = $p.data('type'),
-                length = $p.val();
-            opt_id      = $('#' + prefix + cable_code).parent().data().lengths[type + length];
-            opt_cat_id  = $('#' + prefix + cable_code).parent().data().lengths.option_category_id;
-            l           = getOptionName('select', cable_code, opt_cat_id, opt_id);
-            l_v         = opt_id;
+            opt_id     = $('#' + prefix + cable_code).parent().data().lengths[_cable.length.type + (_cable.length.amount * 1)];
+            opt_cat_id = CABLES.find('lengths').find('option_category_id').text();
+            Post[getOptionName('select', cable_code, opt_cat_id)] = opt_id;
 
-            $p = $('#' + $progress.find('input[name="inputPlug"]').val());
-            opt_id = $p.parent().data().input_option_id;
-            opt_cat_id = $p.parents('.options').data().input_plug_option_category_id;
-            ip = getOptionName('select', cable_code, opt_cat_id, opt_id);
-            ip_v = opt_id;
+            opt_id = PLUGS.find('plug').filter(function() {
+                    return $(this).find('manufacturer').text() == _cable.inputPlug.manufacturer &&
+                           $(this).find('model').text() == _cable.inputPlug.model;
+                }).find('input_option_id').text();
+            opt_cat_id = PLUGS.find(_cable.cableType.type).find('input_option_category_id').text();
+            Post[getOptionName('select', cable_code, opt_cat_id)] = opt_id;
 
-            $p = $('#' + $progress.find('input[name="outputPlug"]').val());
-            opt_id = $p.parent().data().output_option_id;
-            opt_cat_id = $p.parents('.options').data().output_plug_option_category_id;
-            op = getOptionName('select', cable_code, opt_cat_id, opt_id);
-            op_v = opt_id;
+            opt_id = PLUGS.find('plug').filter(function() {
+                    return $(this).find('manufacturer').text() == _cable.outputPlug.manufacturer &&
+                           $(this).find('model').text() == _cable.outputPlug.model;
+                }).find('input_option_id').text();
+            opt_cat_id = PLUGS.find(_cable.cableType.type).find('output_option_category_id').text();
+            Post[getOptionName('select', cable_code, opt_cat_id)] = opt_id;
 
-            $p = $('ul.builder.selected li.other');
-            if( $p.find('.other_heatshrink input:checked').length ) {
-                $input = $p.find('.other_heatshrink input:checked');
-                opt_id = $input.val();
-                opt_cat_id = $input.data('option_category_id');
-                o1 = getOptionName('select', cable_code, opt_cat_id, opt_id);
-                o1_v = opt_id;
+            if( _cable.other.heatshrink ) {
+                    opt_id = OTHER.find('heatshrink').find('option_id').text();
+                opt_cat_id = OTHER.find('heatshrink').find('option_category_id').text();
+                Post[getOptionName('select', cable_code, opt_cat_id)] = opt_id;
             }
 
-            if( $p.find('.other_techflex input:checked').length ) {
-                $input = $p.find('.other_techflex input:checked');
-                opt_id = $input.val();
-                opt_cat_id = $input.parent().parent().data('option_category_id');
-                console.log(opt_cat_id);
-                o2 = getOptionName('select', cable_code, opt_cat_id, opt_id);
-                o2_v = opt_id;
+            if( _cable.other.techflex ) {
+                    opt_id = OTHER.find('techflex').find('option').filter(function() {
+                        return $(this).find('desc').text() == _cable.other.techflex;
+                    }).find('id').text();
+                opt_cat_id = OTHER.find('techflex').find('option_category_id').text();
+                Post[getOptionName('select', cable_code, opt_cat_id)] = opt_id;
             }
 
-            Post[ip] = ip_v;
-            Post[op] = op_v;
-            Post[l] = l_v;
-            if( o1 && o1_v ) Post[o1] = o1_v;
-            if( o2 && o2_v ) Post[o2] = o2_v;
-
-            console.log(Post);
+            return; 
 
             $.ajax({
                 url:'/ProductDetails.asp?ProductCode=' + cable_code + '&AjaxError=Y',
@@ -160,21 +132,6 @@
                 console.error(errorThrown);
             });
         }
-    },
-    
-    getVarFromString = function(string, prefix) {
-        var str = string.split(/\s+/);
-
-        for( var i = 0; i < str.length; i++ ) {
-            if( str[i].indexOf(prefix) > -1 ) {
-                return str[i].substring(prefix.length);
-            }
-        }
-        return null;
-    },
-
-    getStringWithoutPrefix = function(string, prefix) {
-        return string.substring(prefix.length);
     },
 
     getTypeFromClasses = function(obj) {
@@ -212,8 +169,7 @@
     updateDots = function() {
         var $tracker = $('.tracker');
 
-        // .not(':last') - ignore the progress block
-        $('ul.builder.selected').children().not(':last').each(function() {
+        $('ul.builder.selected').children().each(function() {
             var type = getTypeFromClasses(this),
                 $dot = $tracker.find('.dot.' + type);
 
@@ -223,6 +179,44 @@
                 $dot.removeClass('done');
             }
         });
+    },
+
+    updateLength = function(ui) {
+        if( ui.options ) {
+            CURRENT_CABLE.length.amount = ui.options.value;
+        } else if( ui.value ) {
+            CURRENT_CABLE.length.amount = ui.value;
+        }
+
+        CURRENT_CABLE.length.type = $(ui.handle).parent().data('type');
+
+        if( !$(ui.handle).parents('li.length').find('input.visited').prop('checked') ) {
+            $(ui.handle).parents('li.length').find('input.visited').prop('checked', true);
+            updateDots();
+        }
+    },
+
+    updateOptional = function() {
+        var $builder = $('ul.builder.selected'),
+            $current = $builder.find('li.current'),
+            $input   = $current.find('input.visited');
+
+        if( !$input.length || $input.prop('checked') ) return;
+
+        if( $current.hasClass('length') ) {
+            var $ruler   = $current.find('.ruler:visible'),
+                $slider  = $ruler.slider('instance');
+
+            CURRENT_CABLE.length.amount = $slider.options.value;
+            CURRENT_CABLE.length.type   = $ruler.data('type');
+        } else if( $current.hasClass('other') ) {
+            var heatshrink = ($current.find('.other.heatshrink input:checked').length ? true : false);
+            var techflex   = ($current.find('.other.techflex input:checked').length ? $current.find('.other.techflex input:checked').val() : '');
+            CURRENT_CABLE.other.heatshrink = heatshrink;
+            CURRENT_CABLE.other.techflex = techflex;
+        }
+
+        $input.prop('checked', true);
     },
 
     applyFilter = function() {
@@ -291,40 +285,60 @@
     },
 
     changeOption = function() {
-        if( CURRENT_CABLE === null ) {
-            CURRENT_CABLE = new Cable();
-            CURRENT_CABLE.cableType.prefix = 'ins_';
-            CURRENT_CABLE.cableType.type = 'instrument';
-        }
+        var $option = $(this).parent();
 
-        var $option = $(this).parent(),
-            $radio = $option.find('input[type="radio"]'),
-            $progress = $option.parents('ul.builder').find('li.progress'),
-            $p = $progress.find('input[name="' + $option.data('type') + '"]'),
-            val = $option.find('input.selector').attr('id');
-
-        if( !$radio.prop('checked') ) {
-            $radio.prop('checked', true);
-            $p.val(val);
-        } else {
-            $radio.prop('checked', false);
-            $p.val('0');
+        if( $option.hasClass('cable') || $option.hasClass('plug')) {
+            var $radio = $option.find('input[type="radio"]');
+            if( !$radio.prop('checked') ) {
+                $radio.prop('checked', true);
+            } else {
+                $radio.prop('checked', false);
+            }
         }
 
         if( $option.hasClass('cable') ) {
             CURRENT_CABLE.cable.code = $option.data().code;
-            CURRENT_CABLE.cable.manufacturer = $option.data().manufacturer;
+            /**
+             * TODO
+             * red | orange | yellow | etc
+             */
+            CURRENT_CABLE.cable.color = '';
+            //
         } else if( $option.hasClass('plug') ) {
-            CURRENT_CABLE.inputPlug.model = $option.data().model;
-            CURRENT_CABLE.inputPlug.manufacturer = $option.data().manufacturer;
+            if( $option.parents('li').hasClass('inputPlug') ) {
+                CURRENT_CABLE.inputPlug.model = $option.data().model;
+                CURRENT_CABLE.inputPlug.manufacturer = $option.data().manufacturer;
+                /**
+                 * TODO
+                 * red | orange | yellow | etc
+                 */
+                CURRENT_CABLE.inputPlug.boot = '';
+                //
+            } else if( $option.parents('li').hasClass('outputPlug') ) {
+                CURRENT_CABLE.outputPlug.model = $option.data().model;
+                CURRENT_CABLE.outputPlug.manufacturer = $option.data().manufacturer;
+                /**
+                 * TODO
+                 * red | orange | yellow | etc
+                 */
+                CURRENT_CABLE.outputPlug.boot = '';
+                //
+            }
+        } else if( $option.hasClass('heatshrink') ) {
+            if( $(this).prop('checked') ) {
+                CURRENT_CABLE.other.heatshrink = true;
+            } else {
+                CURRENT_CABLE.other.heatshrink = false;
+            }
+        } else if( $option.hasClass('techflex') ) {
+            if( !$(this).prop('checked') ) {
+                CURRENT_CABLE.other.techflex = '';
+            } else {
+                CURRENT_CABLE.other.techflex = $(this).val();
+            }
         }
 
-
-        // console.log($option);
-        // console.log($radio);
-        // console.log($progress);
-        // console.log($p);
-        // console.log(val);
+        updateDots();
     },
 
     /**
@@ -348,15 +362,8 @@
     // click on next/previous to change step
     changeStep = function() {
         var $parent = $(this).parents('li');
-        if( $parent.hasClass('length') ) {
-            var $input = $parent.find('.rulers input:visible'),
-                value  = $input.val(),
-                type   = $input[0].className;
-            $parent.parent().find('.progress input[name="length"]').val(value).data('type', type);
-            $parent.find('.visited').prop('checked', true);
-        } else if( $parent.hasClass('other') ) {
-            $parent.find('.visited').prop('checked', true);
-        }
+
+        updateOptional();
 
         $parent.removeClass('current');
 
@@ -374,6 +381,8 @@
         var index = $(this).parent().find('.dot').index(this),
             steps = $('ul.builder.selected');
 
+        updateOptional();
+
         steps.find('.current').removeClass('current');
         steps.children().eq(index).addClass('current');
 
@@ -382,6 +391,7 @@
 
     switchChoice = function() {
         $(this).parents('li.length').children('input[type="hidden"]').first().removeClass().addClass(this.className);
+        updateLength($(this).parents('li.length').find('div.rulers .ruler:visible').slider('instance'));
     },
 
     toggleSpecs = function() {
@@ -406,17 +416,14 @@
          * @param {function} callback Callback function
          */
         getData = function(callback, info) {
-            var code = info.code,
-                index = info.index;
+            if( !info.code || !info.index && info.index !== 0 ) return;
 
-            if( !code || !index && index !== 0 ) return;
-
-            $.get( API_URL + code )
+            $.get( API_URL + info.code )
                 .done(function(data) {
                     callback(data, info);
                 })
                 .fail(function( jqXHR, textStatus, errorThrown ) {
-                    alert("ERROR CS03: " + code + " not found in the product database.");
+                    alert("ERROR CS03: " + info.code + " not found in the product database.");
                     console.error(jqXHR);
                     console.error(textStatus);
                     console.error(errorThrown);
@@ -429,8 +436,7 @@
                 $l = $('<li/>').addClass('length'),
                 $ip = $('<li/>').addClass('inputPlug'),
                 $op = $('<li/>').addClass('outputPlug'),
-                $o = $('<li/>').addClass('other'),
-                $p = $('<li/>').addClass('progress');
+                $o = $('<li/>').addClass('other');
 
             var $reset = $('<button/>')
                 .addClass('reset')
@@ -478,7 +484,7 @@
                 $rulerB = $('<div/>').addClass('ruler'),
                 $inputA = $('<input/>').attr('type','text'),
                 $inputB = $('<input/>').attr('type','text'),
-                $selected = $('<input/>').attr('type','hidden'),
+                $selected = $('<input/>').attr('type','hidden').attr('name','switch'),
                 $choices = $('<div/>').addClass('choices'),
                 $choiceA = $('<div/>').addClass('choice'),
                 $choiceB = $('<div/>').addClass('choice'),
@@ -489,7 +495,7 @@
             if( id === 'instrument' ) {
                 a = 'patch'; b = 'regular';
 
-                $selected.addClass(a);
+                $selected.addClass(b);
 
                 $choiceA.append(
                         $('<button/>').addClass(a).text(a).click(switchChoice)
@@ -501,23 +507,25 @@
 
                 $choices.append($choiceA, $choiceB);
 
-                $rulerA.slider({
+                $rulerA.data('type',a).slider({
                     value: 12,
                     min: 0,
                     max: 48,
                     step: 1,
                     slide: function(e, ui) {
                         $inputA.val(ui.value);
+                        updateLength(ui);
                     }
                 }).addClass(a);
 
-                $rulerB.slider({
+                $rulerB.data('type',b).slider({
                     value: 10,
                     min: 3,
                     max: 20,
                     step: 1,
                     slide: function(e, ui) {
                         $inputB.val(ui.value);
+                        updateLength(ui);
                     }
                 }).addClass(b);
 
@@ -539,37 +547,9 @@
             $o.find('button.next').remove();
             $o.find('.step').append($addToCartButton);
 
-            $p.append(
-                $('<input/>', {
-                    name: "cable",
-                    type: "hidden",
-                    value: "0"
-                }),
-                $('<input/>', {
-                    name: "length",
-                    type: "hidden",
-                    value: "0"
-                }),
-                $('<input/>', {
-                    name: "inputPlug",
-                    type: "hidden",
-                    value: "0"
-                }),
-                $('<input/>', {
-                    name: "outputPlug",
-                    type: "hidden",
-                    value: "0"
-                }),
-                $('<input/>', {
-                    name: "other",
-                    type: "hidden",
-                    value: "0"
-                })
-            );
-
             if (id) $skeleton.attr('id', id);
 
-            $skeleton.append($c, $l, $ip, $op, $o, $p);
+            $skeleton.append($c, $l, $ip, $op, $o);
 
             return $skeleton;
         },
@@ -686,7 +666,6 @@
                     price: $cable.find('price').text(),
                     image_alt: $(data).find('ProductName').text(),
                     image_src: 'http://placehold.it/200x200',
-                    manufacturer: $(data).find('ProductManufacturer').text(),
                     component: prefix + component,
                     specs: {
                         brightness:  $cable.find('brightness').text(),
@@ -706,9 +685,9 @@
                 var $this = $(this),
                     name = $this.find('name').text(),
                     short_name = $this.find('short_name').text(),
-                    id = ( $this.find('id').text() ? $this.find('id').text() : '' );
+                    long_name = ( $this.find('id').text() ? $this.find('id').text() : '' );
 
-                colors['opt_' + name] = id;
+                colors['opt_' + name] = long_name;
                 colors['short_' + name] = short_name;
             });
 
@@ -732,7 +711,7 @@
                             if( name.indexOf('patch') > -1 ) {
                                 check = ( ($end.text() * 1) - ($start.text() * 1) === 47 ? true : false );
                                 if( check ) {
-                                    for( var i = 3; i < 48; i++) {
+                                    for( var i = 0; i < 48; i++) {
                                         lengths[name + (i + 1)] = ($start.text() * 1) + i;
                                     }
                                 }
@@ -740,7 +719,7 @@
                                 check = ( ($end.text() * 1) - ($start.text() * 1) === 17 ? true : false );
                                 if( check ) {
                                     for( var j = 0; j < 18; j++) {
-                                        lengths[name + (j + 1)] = ($start.text() * 1) + j;
+                                        lengths[name + (j + 3)] = ($start.text() * 1) + j;
                                     }
                                 }
                             } else {}// idk
@@ -755,7 +734,6 @@
                 'colors': colors,
                 'specs':  options.specs,
                 'lengths': lengths,
-                'manufacturer': options.manufacturer,
                 'code': $cable.find('code').text(),
             }).addClass('cable');
             fillBlock($block, options);
@@ -772,9 +750,6 @@
         },
 
         initPlugs = function(type, skeleton) {
-            skeleton.find(input_plug_container).data('input_plug_option_category_id', PLUGS.find(type).find('input_option_category_id').text());
-            skeleton.find(output_plug_container).data('output_plug_option_category_id', PLUGS.find(type).find('output_option_category_id').text());
-
             var $plugs = PLUGS.find(type).find('plug'),
                 which = ['inputPlug', 'outputPlug'],
                 which_container = [input_plug_container, output_plug_container],
@@ -820,41 +795,48 @@
         },
 
         initOther = function(skeleton) {
-            var prefix = $(skeleton).data('prefix');
+            var prefix = $(skeleton).data('prefix'),
+                $container = $(skeleton).find(other_container);
+
+
+            $container.append($('<button/>').text('Reset').click(function(){$(this).parent().find('input:checked').prop('checked', false);}));
+            $container.append($('<input/>').addClass('hidden visited').attr('type','radio'));
+
             OTHER.children().each(function() {
                 var name = this.tagName,
                     $this = $(this),
-                    $container = $(skeleton).find('li.other .options'),
                     $title = $('<h3/>').text(name),
-                    $opt = $('<div/>').addClass('other_' + name);
+                    $opt = $('<div/>').addClass('other').addClass(name);
+                
+                $opt.append($title);
 
                 if( name === 'heatshrink' ) {
                     $opt.append(
-                        $title,
-                        $('<input/>', {
-                            id: prefix + name,
-                            value: $this.find('option_id').text(),
-                            type: 'checkbox' 
-                        }).data('option_category_id', $this.find('option_category_id').text()),
-                        $('<label/>')
-                            .text(name)
-                            .attr('for', prefix + name)
+                        $('<div/>').addClass('option').addClass(name).append(
+                            $('<input/>', {
+                                    id: prefix + name,
+                                    type: 'checkbox'
+                                })
+                                .change(changeOption),
+                            $('<label/>')
+                                .text(name)
+                                .attr('for', prefix + name)
+                        )
                     );
                 } else if( name === 'techflex' ) {
                     $opt.data('option_category_id', $(this).find('option_category_id').text());
-                    $opt.append($title);
 
                     $this.children('option').each(function() {
-                        var $option = $('<div/>').addClass(name),
-                            desc = $(this).find('desc').text(),
-                            id = $(this).find('id').text();
+                        var $option = $('<div/>').addClass('option').addClass(name),
+                            desc = $(this).find('desc').text();
 
                         $option.append(
                             $('<input/>', {
                                 id: prefix + name + '_' + desc,
-                                value: id,
-                                type: 'radio' 
-                            }),
+                                value: desc,
+                                type: 'radio',
+                                name: prefix + name
+                            }).change(changeOption),
                             $('<label/>')
                                 .text(desc)
                                 .attr('for', prefix + name + '_' + desc)
@@ -862,8 +844,6 @@
                         $opt.append($option);
                     });
 
-                    $opt.append($('<button/>').text('Reset').click(function(){$(this).parent().find('input:checked').prop('checked', false);}));
-                    $opt.append($('<input/>').addClass('hidden visited').attr('type','radio'));
                 }
                 $opt.appendTo($container);
             });
@@ -1053,14 +1033,14 @@
             if( $data.has('default').length ) {
                 $tab.addClass('selected');
                 $skeleton.addClass('selected');
+
+                CURRENT_CABLE = new Cable();
+                CURRENT_CABLE.cableType.prefix = prefix;
+                CURRENT_CABLE.cableType.type = type;
             }
 
-            $tab.append(
-                $('<span/>')
-                    .text(tag)
-                    .data('type',type)
-                )
-                .data('tab', type)
+            $tab.data('tab', type)
+                .append($('<span/>').text(tag))
                 .click(changeTab);
 
             CABLES.find('cable').filter(function() {
@@ -1076,7 +1056,7 @@
             });
 
             initPlugs(type, $skeleton);
-            initOther(type, $skeleton);
+            initOther($skeleton);
 
             $cable_type_container.append($tab);
             $builders_container.append($skeleton);
@@ -1104,10 +1084,7 @@
         $('.loader').fadeOut('fast');
 
         $('#test').click(function() {
-            console.log(CURRENT_CABLE.cable.code);
-            console.log(CURRENT_CABLE.cable.manufacturer);
-            console.log(CURRENT_CABLE.inputPlug.model);
-            console.log(CURRENT_CABLE.inputPlug.manufacturer);
+            console.log(JSON.stringify(CURRENT_CABLE,null,4));
         });
     },
 
@@ -1123,8 +1100,8 @@
 
         $.get( XML_URL )
             .done(function(data) {
-                var $data = $(data).find('options');
-
+                var $data = $(data).find('data');
+                OPTIONS_XML = $data;
                 CABLE_TYPES = $data.children('cableTypes');
                 CABLES      = $data.children('cables');
                 PLUGS       = $data.children('plugs');

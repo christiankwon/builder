@@ -359,26 +359,27 @@ div.body {
 .option .specs {
   background-color: #6f9dbe;
 }
-/* line 287, sass/screen.scss */
+/* line 288, sass/screen.scss */
 .option .specs > div {
   position: absolute;
+  display: none;
   top: 0;
   width: 100%;
   left: 0;
   height: 200px;
 }
-/* line 296, sass/screen.scss */
+/* line 298, sass/screen.scss */
 .option .select {
   background-color: #ff1200;
   cursor: pointer;
 }
-/* line 301, sass/screen.scss */
+/* line 303, sass/screen.scss */
 .option .select button {
   background: none;
   border: none;
   text-transform: inherit;
 }
-/* line 307, sass/screen.scss */
+/* line 309, sass/screen.scss */
 .option .select button:after {
   position: absolute;
   content: "";
@@ -386,11 +387,11 @@ div.body {
   background-color: transparent;
   top: 0;
 }
-/* line 316, sass/screen.scss */
+/* line 318, sass/screen.scss */
 .option .selector {
   display: none;
 }
-/* line 320, sass/screen.scss */
+/* line 322, sass/screen.scss */
 .option .select:after, .option .select:before {
   position: absolute;
   content: "";
@@ -399,24 +400,24 @@ div.body {
   background-color: transparent;
   top: 0;
 }
-/* line 329, sass/screen.scss */
+/* line 331, sass/screen.scss */
 .option .selector:checked ~ .select:before, .option:hover .select:before {
   background-color: #ff1200;
   left: 0;
 }
-/* line 334, sass/screen.scss */
+/* line 336, sass/screen.scss */
 .option .selector:checked ~ .select:after, .option:hover .select:after {
   background-color: #ff1200;
   right: 0;
 }
-/* line 339, sass/screen.scss */
+/* line 341, sass/screen.scss */
 .option .selector:checked ~ .select button:after, .option:hover .select button:after {
   background-color: #ff1200;
   left: 0;
   right: 0;
 }
 
-/* line 346, sass/screen.scss */
+/* line 348, sass/screen.scss */
 .step {
   position: absolute;
   bottom: 0;
@@ -426,7 +427,7 @@ div.body {
   background-color: #444;
   height: 58px;
 }
-/* line 355, sass/screen.scss */
+/* line 357, sass/screen.scss */
 .step button {
   color: white;
   border: solid 1px white;
@@ -438,24 +439,28 @@ div.body {
   font-weight: bold;
   letter-spacing: 1px;
 }
-/* line 366, sass/screen.scss */
+/* line 368, sass/screen.scss */
 .step button.previous {
   float: left;
 }
-/* line 370, sass/screen.scss */
+/* line 372, sass/screen.scss */
 .step button.next {
   float: right;
 }
 
-/* line 378, sass/screen.scss */
+/* line 380, sass/screen.scss */
 .length > input[type="hidden"].patch ~ .rulers .patch {
   display: block;
 }
-/* line 382, sass/screen.scss */
+/* line 384, sass/screen.scss */
 .length > input[type="hidden"].regular ~ .rulers .regular {
   display: block;
 }
-/* line 388, sass/screen.scss */
+/* line 389, sass/screen.scss */
+.length .rulers {
+  margin: 1em;
+}
+/* line 391, sass/screen.scss */
 .length .rulers div, .length .rulers input {
   display: none;
 }
