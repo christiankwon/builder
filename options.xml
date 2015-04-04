@@ -137,6 +137,7 @@
             </color>
             <color>
                <id>1615</id>
+               <default/>
                <name>black</name>
                <short_name>blk</short_name>
             </color>
@@ -212,7 +213,7 @@
                <connector>gold</connector>
             </color>
             <angle>straight</angle>
-            <silent>1</silent>
+            <silent/>
             <is_premium/>
          </plug>
 
@@ -227,7 +228,7 @@
                <connector>gold</connector>
             </color>
             <angle>right</angle>
-            <silent>1</silent>
+            <silent/>
             <is_premium/>
          </plug>
 
@@ -268,7 +269,7 @@
                <connector>nickel</connector>
             </color>
             <angle>straight</angle>
-            <has_boots>1</has_boots>
+            <has_boots/>
          </plug>
 
          <plug>
@@ -282,7 +283,7 @@
                <connector>nickel</connector>
             </color>
             <angle>straight</angle>
-            <has_boots>1</has_boots>
+            <has_boots/>
          </plug>
 
          <plug>
@@ -296,7 +297,7 @@
                <connector>gold</connector>
             </color>
             <angle>straight</angle>
-            <has_boots>1</has_boots>
+            <has_boots/>
          </plug>
 
          <plug>
@@ -396,27 +397,27 @@
             <option_category_id>77</option_category_id>
             <boot>
                <option_id>1486</option_id>
-               <color>Orange</color>
+               <color>orange</color>
             </boot>
             <boot>
                <option_id>1487</option_id>
-               <color>Green</color>
+               <color>green</color>
             </boot>
             <boot>
                <option_id>1488</option_id>
-               <color>Gray</color>
+               <color>gray</color>
             </boot>
             <boot>
                <option_id>1489</option_id>
-               <color>Red</color>
+               <color>red</color>
             </boot>
             <boot>
                <option_id>1490</option_id>
-               <color>Violet</color>
+               <color>violet</color>
             </boot>
             <boot>
                <option_id>1491</option_id>
-               <color>Black</color>
+               <color>black</color>
             </boot>
          </np2c>
       </boots>

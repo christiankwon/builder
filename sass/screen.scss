@@ -12,6 +12,26 @@
 // @include align-items(auto | flex-start | flex-end | center | baseline | stretch);
 // @include align-content(flex-start | flex-end | center | space-between | space-around | stretch);
 
+#screen-width {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 10000;
+    color: white;
+    &:after{ content: 'px'; }
+    &:before{ content: 'width: '; }
+}
+
+#screen-height {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 10000;
+    color: white;
+    &:after{ content: 'px'; }
+    &:before{ content: 'height: '; }
+}
+
 #test {
     position: fixed;
     top: 0;
@@ -41,16 +61,14 @@ ul {
 
 div.body {
     @include display-flex(flex);
-    @include flex-direction(row);
+    @include flex-wrap(nowrap);
     @include justify-content(space-around);
+    overflow-x: hidden; 
 }
 
 .tracker {
-    width: 10%;
-
     @include display-flex(flex);
     @include align-items(flex-start);
-    @include flex-direction(column);
     @include justify-content(center);
 
     .dot {
@@ -69,14 +87,12 @@ div.body {
 }
 
 .display{
-    width: 60%;
-    height: 100%;
     position: relative;
+    z-index: 1;
 
     @include display-flex(flex);
     @include align-items(center);
     @include justify-content(center);
-
 
     .outer {
         width: 80%;
@@ -87,30 +103,52 @@ div.body {
             position: relative;
             width: 100%;
             height: 100%;
+
             div {
-                position: absolute;
+                &:first-child {
+                    height: 100%;
+                }
+                
+                &:not(:first-child) {
+                    position: absolute;
+                }
+
+                img {
+                    max-height: 100%;
+                }
+            }
+
+            .inputPlug {
+                img {
+                    @include transform(rotate(90deg));
+                }
+            }
+            .outputPlug {
+                img {
+                    @include transform(rotate(90deg));
+                }
             }
         }
     }
 
     .cable {
         img {
-            max-width: 500px;
-            width: 90%;
+            max-width: 100%;
             margin: 0 auto;
         }
     }
-    .inputPlug {}
-    .outputPlug {}
+    .inputPlug, .outputPlug {
+        img {
+
+        }
+    }
 }
 
 .builders {
     @include align-self(center);
-    margin-right: 2em;
-    height: 75%;
-    width: 30%;
-    min-width: 350px;
-    background-color: white;
+    min-width: 300px;
+    position: relative;
+    z-index: 2;
 
     .builder, .builder > li {
         height: 100%;
@@ -122,6 +160,7 @@ div.body {
     @include flex-direction(row);
     @include justify-content(space-around);
     text-align: center;
+    display: none;
 
     .tab {
         @include flex-grow(1);
@@ -151,6 +190,7 @@ div.body {
     border-top: none;
     display: none;
     position: relative;
+    background: #ddd;
 
     &.selected {
         display: block;
@@ -184,7 +224,7 @@ div.body {
 
     @include display-flex(flex);
     @include flex-direction(row);
-    @include flex-wrap(no-wrap);
+    @include flex-wrap(nowrap);
 
     .filterContainer {
         @include flex-grow(1);
@@ -259,17 +299,46 @@ div.body {
     letter-spacing: 1px;
     min-width: 100px;
 
-    > div {
+    div div {
         height: 30px;
         @include display-flex(flex);
         @include align-items(center);
         @include justify-content(center);
     }
 
-    .image, .image img {
-        // display: none;
-        height: auto;
-        width: 100%;
+    .image {
+        img {
+            height: auto;
+            width: 100%;
+        }
+
+        position: relative;
+
+        .colors, .boots {
+            position: absolute;
+            z-index: 20;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            @include display-flex(flex);
+            @include flex-direction(row);
+            @include flex-wrap(no-wrap);
+
+            div {
+                width: 20%;
+                height: 10px;
+                cursor: pointer;
+            }
+
+            .red { background-color: red; }
+            .orange { background-color: orange; }
+            .yellow { background-color: yellow; }
+            .green { background-color: green; }
+            .black { background-color: black; }
+            .violet { background-color: violet; }
+            .gray { background-color: gray; }
+        }
     }
 
     .name {
@@ -280,6 +349,10 @@ div.body {
         background-color: #af9757;
         font-weight: bolder;
         font-size: 14px;
+
+        span:before {
+            content: '$';
+        }
     }
 
     .specs {
@@ -306,6 +379,14 @@ div.body {
             text-transform: inherit;
         }
 
+        button:before {
+            position: absolute;
+            content: "";
+            height: 8px;
+            background-color: transparent;
+            bottom: 0;
+        }
+
         button:after {
             position: absolute;
             content: "";
@@ -328,20 +409,23 @@ div.body {
         top: 0;
     }
 
-    .selector:checked ~ .select:before, &:hover .select:before {
+    .selector:checked ~ .inner .select:before, &:hover .select:before {
         background-color: #ff1200;
         left: 0;
+        z-index: 30;
     }
 
-    .selector:checked ~ .select:after, &:hover .select:after {
+    .selector:checked ~ .inner .select:after, &:hover .select:after {
         background-color: #ff1200;
         right: 0;
+        z-index: 30;
     }
 
-    .selector:checked ~ .select button:after, &:hover .select button:after {
+    .selector:checked ~ .inner .select button:after, &:hover .select button:after, .selector:checked ~ .inner .select button:before, &:hover .select button:before {
         background-color: #ff1200;
         left: 0;
         right: 0;
+        z-index: 30;
     }
 }
 
@@ -352,7 +436,7 @@ div.body {
     right: 0;
     padding: 1em;
     background-color: #444;
-    height: 58px;
+    z-index: 100;
     
     button {
         color: white;
@@ -392,4 +476,8 @@ div.body {
             display: none;
         }
     }
+}
+
+div.content {
+    @import "media";
 }

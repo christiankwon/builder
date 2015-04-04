@@ -1,8 +1,8 @@
 body {
-    padding-bottom: 15px;
+    // padding-bottom: 15px;
     
     &:before {
-        background-color: #666;
+        background-color: rgba(0,0,0,0.4);
         bottom: 0;
         color: white;
         content: "";
