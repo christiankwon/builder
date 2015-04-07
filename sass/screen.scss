@@ -36,7 +36,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 10;
+    z-index: 9999;
 }
 
 .loader {
@@ -57,6 +57,10 @@ ul {
     margin: 0;
     padding: 0;
     list-style: none;
+}
+
+button {
+    text-transform: uppercase;
 }
 
 div.body {
@@ -114,7 +118,7 @@ div.body {
                 }
 
                 img {
-                    max-height: 100%;
+                    max-height: 99%;
                 }
             }
 
@@ -298,12 +302,27 @@ div.body {
     text-transform: uppercase;
     letter-spacing: 1px;
     min-width: 100px;
+    cursor: pointer;
 
     div div {
         height: 30px;
         @include display-flex(flex);
         @include align-items(center);
         @include justify-content(center);
+    }
+    
+    .info {
+        @include transition(top 0.25s ease-in-out);
+        background-color: rgba(0,0,0,0.75);
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        left: 0;
+        height: 100%;
+    }
+
+    &.specs .info {
+        top: 0;
     }
 
     .image {
@@ -312,6 +331,7 @@ div.body {
             width: 100%;
         }
 
+        overflow: hidden;
         position: relative;
 
         .colors, .boots {
@@ -320,6 +340,7 @@ div.body {
             bottom: 0;
             left: 0;
             right: 0;
+            height: 10px;
 
             @include display-flex(flex);
             @include flex-direction(row);
@@ -357,15 +378,6 @@ div.body {
 
     .specs {
         background-color: #6f9dbe;
-        
-        > div {
-            position: absolute;
-            display:  none;
-            top: 0;
-            width: 100%;
-            left: 0;
-            height: 200px;
-        }
     }
 
     .select {
@@ -480,4 +492,75 @@ div.body {
 
 div.content {
     @import "media";
+}
+
+div.storage {
+    @include display-flex(flex);
+    @include align-items(center);
+    @include flex-direction(column);
+    @include justify-content(center);
+    left: 0;
+    top: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 100;
+
+    .build {
+        position: relative;
+        cursor: pointer;
+        border: solid 2px black;
+
+        input[name="storage_build"]:checked + .image {
+            outline: solid red 1px;
+        }
+
+        input[type="radio"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 10;
+        }
+
+        .image {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            img {
+                position: absolute;
+            }
+            .cable {
+            }
+
+            .plug {
+                bottom: 0;
+            }
+
+            .input {
+                left: 0;
+            }
+
+            .output {
+                right: 0;
+            }
+        }
+
+        .information {
+            @include transition(width 0.3s ease-in-out);
+            background-color: #ddd;
+            position: absolute;
+            left: 100px;
+            top: -2px;     // should be -2px depending on border
+            bottom: -2px;  // should be -2px depending on border
+            width: 0;
+            overflow: hidden;
+            border: solid 2px black;
+            border-left: none;
+        }
+
+        &:hover .information {
+            &, & p {
+                width: 200px;
+            }
+        }
+    }
 }

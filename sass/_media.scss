@@ -1,4 +1,4 @@
-@include bp(max-width, $bp-large) {
+@include bp(max-width, $bp-small) {
     .body {
         @include flex-direction(column);
     }
@@ -108,7 +108,7 @@
     }
 }
 
-@include bp(min-width, $bp-large + 1) {
+@include bp(min-width, $bp-small + 1) {
     .body {
         @include flex-direction(row);
         overflow: hidden;

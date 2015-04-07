@@ -88,7 +88,7 @@ body:before {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 9999;
 }
 
 /* line 42, sass/screen.scss */
@@ -115,6 +115,11 @@ ul {
 }
 
 /* line 62, sass/screen.scss */
+button {
+  text-transform: uppercase;
+}
+
+/* line 66, sass/screen.scss */
 div.body {
   display: -webkit-flex;
   display: flex;
@@ -125,7 +130,7 @@ div.body {
   overflow-x: hidden;
 }
 
-/* line 69, sass/screen.scss */
+/* line 73, sass/screen.scss */
 .tracker {
   display: -webkit-flex;
   display: flex;
@@ -134,7 +139,7 @@ div.body {
   -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 74, sass/screen.scss */
+/* line 78, sass/screen.scss */
 .tracker .dot {
   width: 10px;
   height: 10px;
@@ -144,12 +149,12 @@ div.body {
   margin-bottom: 0.5em;
   cursor: pointer;
 }
-/* line 84, sass/screen.scss */
+/* line 88, sass/screen.scss */
 .tracker .dot.done {
   background-color: green;
 }
 
-/* line 89, sass/screen.scss */
+/* line 93, sass/screen.scss */
 .display {
   position: relative;
   z-index: 1;
@@ -160,52 +165,52 @@ div.body {
   -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 97, sass/screen.scss */
+/* line 101, sass/screen.scss */
 .display .outer {
   width: 80%;
   max-width: 500px;
   max-height: 500px;
   height: 80%;
 }
-/* line 102, sass/screen.scss */
+/* line 106, sass/screen.scss */
 .display .outer .inner {
   position: relative;
   width: 100%;
   height: 100%;
 }
-/* line 108, sass/screen.scss */
+/* line 112, sass/screen.scss */
 .display .outer .inner div:first-child {
   height: 100%;
 }
-/* line 112, sass/screen.scss */
+/* line 116, sass/screen.scss */
 .display .outer .inner div:not(:first-child) {
   position: absolute;
 }
-/* line 116, sass/screen.scss */
+/* line 120, sass/screen.scss */
 .display .outer .inner div img {
-  max-height: 100%;
+  max-height: 99%;
 }
-/* line 122, sass/screen.scss */
+/* line 126, sass/screen.scss */
 .display .outer .inner .inputPlug img {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
-/* line 127, sass/screen.scss */
+/* line 131, sass/screen.scss */
 .display .outer .inner .outputPlug img {
   -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
-/* line 135, sass/screen.scss */
+/* line 139, sass/screen.scss */
 .display .cable img {
   max-width: 100%;
   margin: 0 auto;
 }
 
-/* line 147, sass/screen.scss */
+/* line 151, sass/screen.scss */
 .builders {
   -webkit-align-self: center;
   align-self: center;
@@ -213,12 +218,12 @@ div.body {
   position: relative;
   z-index: 2;
 }
-/* line 153, sass/screen.scss */
+/* line 157, sass/screen.scss */
 .builders .builder, .builders .builder > li {
   height: 100%;
 }
 
-/* line 158, sass/screen.scss */
+/* line 162, sass/screen.scss */
 .cableTypes {
   display: -webkit-flex;
   display: flex;
@@ -229,7 +234,7 @@ div.body {
   text-align: center;
   display: none;
 }
-/* line 165, sass/screen.scss */
+/* line 169, sass/screen.scss */
 .cableTypes .tab {
   -webkit-flex-grow: 1;
   flex-grow: 1;
@@ -244,16 +249,16 @@ div.body {
   font-size: 12px;
   letter-spacing: 1px;
 }
-/* line 178, sass/screen.scss */
+/* line 182, sass/screen.scss */
 .cableTypes .tab:not(:first-child) {
   border-left: none;
 }
-/* line 182, sass/screen.scss */
+/* line 186, sass/screen.scss */
 .cableTypes .tab.selected {
   background-color: #050505;
 }
 
-/* line 188, sass/screen.scss */
+/* line 192, sass/screen.scss */
 .builder {
   border: solid 1px black;
   border-top: none;
@@ -261,20 +266,20 @@ div.body {
   position: relative;
   background: #ddd;
 }
-/* line 195, sass/screen.scss */
+/* line 199, sass/screen.scss */
 .builder.selected {
   display: block;
 }
-/* line 199, sass/screen.scss */
+/* line 203, sass/screen.scss */
 .builder > li {
   display: none;
 }
-/* line 200, sass/screen.scss */
+/* line 204, sass/screen.scss */
 .builder > li.current {
   display: block;
 }
 
-/* line 212, sass/screen.scss */
+/* line 216, sass/screen.scss */
 .filters {
   height: 10%;
   background-color: #73adbc;
@@ -289,7 +294,7 @@ div.body {
   -webkit-flex-wrap: nowrap;
   flex-wrap: nowrap;
 }
-/* line 229, sass/screen.scss */
+/* line 233, sass/screen.scss */
 .filters .filterContainer {
   -webkit-flex-grow: 1;
   flex-grow: 1;
@@ -304,12 +309,12 @@ div.body {
   -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 237, sass/screen.scss */
+/* line 241, sass/screen.scss */
 .filters .filterContainer.color {
   -webkit-flex-grow: 2;
   flex-grow: 2;
 }
-/* line 240, sass/screen.scss */
+/* line 244, sass/screen.scss */
 .filters .filterContainer.color .filter {
   display: -webkit-flex;
   display: flex;
@@ -318,20 +323,20 @@ div.body {
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
 }
-/* line 245, sass/screen.scss */
+/* line 249, sass/screen.scss */
 .filters .filterContainer.color .filter .filter-option {
   width: 50%;
 }
-/* line 250, sass/screen.scss */
+/* line 254, sass/screen.scss */
 .filters .filterContainer .filter-option input, .filters .filterContainer .filter-option label {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 257, sass/screen.scss */
+/* line 261, sass/screen.scss */
 .filters h1 {
   margin: 0;
 }
-/* line 261, sass/screen.scss */
+/* line 265, sass/screen.scss */
 .filters button {
   position: absolute;
   right: 10px;
@@ -341,12 +346,12 @@ div.body {
   text-transform: uppercase;
 }
 
-/* line 271, sass/screen.scss */
+/* line 275, sass/screen.scss */
 .options {
   overflow-y: scroll;
   height: 90%;
 }
-/* line 274, sass/screen.scss */
+/* line 278, sass/screen.scss */
 .options .premium, .options .standard {
   display: -webkit-flex;
   display: flex;
@@ -356,7 +361,7 @@ div.body {
   flex-wrap: wrap;
   padding-bottom: 58px;
 }
-/* line 280, sass/screen.scss */
+/* line 284, sass/screen.scss */
 .options .premium h3, .options .standard h3 {
   width: 100%;
   text-transform: uppercase;
@@ -366,7 +371,7 @@ div.body {
   margin: 1.5em 1.5em 0.5em;
 }
 
-/* line 291, sass/screen.scss */
+/* line 295, sass/screen.scss */
 .option {
   width: 22%;
   margin: 1em 1.5%;
@@ -377,8 +382,9 @@ div.body {
   text-transform: uppercase;
   letter-spacing: 1px;
   min-width: 100px;
+  cursor: pointer;
 }
-/* line 302, sass/screen.scss */
+/* line 307, sass/screen.scss */
 .option div div {
   height: 30px;
   display: -webkit-flex;
@@ -388,22 +394,41 @@ div.body {
   -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 309, sass/screen.scss */
+/* line 314, sass/screen.scss */
+.option .info {
+  -moz-transition: top 0.25s ease-in-out;
+  -o-transition: top 0.25s ease-in-out;
+  -webkit-transition: top 0.25s ease-in-out;
+  transition: top 0.25s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.75);
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  left: 0;
+  height: 100%;
+}
+/* line 324, sass/screen.scss */
+.option.specs .info {
+  top: 0;
+}
+/* line 328, sass/screen.scss */
 .option .image {
+  overflow: hidden;
   position: relative;
 }
-/* line 310, sass/screen.scss */
+/* line 329, sass/screen.scss */
 .option .image img {
   height: auto;
   width: 100%;
 }
-/* line 317, sass/screen.scss */
+/* line 337, sass/screen.scss */
 .option .image .colors, .option .image .boots {
   position: absolute;
   z-index: 20;
   bottom: 0;
   left: 0;
   right: 0;
+  height: 10px;
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
@@ -411,79 +436,70 @@ div.body {
   -webkit-flex-wrap: no-wrap;
   flex-wrap: no-wrap;
 }
-/* line 328, sass/screen.scss */
+/* line 349, sass/screen.scss */
 .option .image .colors div, .option .image .boots div {
   width: 20%;
   height: 10px;
   cursor: pointer;
 }
-/* line 334, sass/screen.scss */
+/* line 355, sass/screen.scss */
 .option .image .colors .red, .option .image .boots .red {
   background-color: red;
 }
-/* line 335, sass/screen.scss */
+/* line 356, sass/screen.scss */
 .option .image .colors .orange, .option .image .boots .orange {
   background-color: orange;
 }
-/* line 336, sass/screen.scss */
+/* line 357, sass/screen.scss */
 .option .image .colors .yellow, .option .image .boots .yellow {
   background-color: yellow;
 }
-/* line 337, sass/screen.scss */
+/* line 358, sass/screen.scss */
 .option .image .colors .green, .option .image .boots .green {
   background-color: green;
 }
-/* line 338, sass/screen.scss */
+/* line 359, sass/screen.scss */
 .option .image .colors .black, .option .image .boots .black {
   background-color: black;
 }
-/* line 339, sass/screen.scss */
+/* line 360, sass/screen.scss */
 .option .image .colors .violet, .option .image .boots .violet {
   background-color: violet;
 }
-/* line 340, sass/screen.scss */
+/* line 361, sass/screen.scss */
 .option .image .colors .gray, .option .image .boots .gray {
   background-color: gray;
 }
-/* line 344, sass/screen.scss */
+/* line 365, sass/screen.scss */
 .option .name {
   background-color: #555;
 }
-/* line 348, sass/screen.scss */
+/* line 369, sass/screen.scss */
 .option .price {
   background-color: #af9757;
   font-weight: bolder;
   font-size: 14px;
 }
-/* line 353, sass/screen.scss */
+/* line 374, sass/screen.scss */
 .option .price span:before {
   content: '$';
 }
-/* line 358, sass/screen.scss */
+/* line 379, sass/screen.scss */
 .option .specs {
   background-color: #6f9dbe;
 }
-/* line 361, sass/screen.scss */
-.option .specs > div {
-  position: absolute;
-  display: none;
-  top: 0;
-  width: 100%;
-  left: 0;
-  height: 200px;
-}
-/* line 371, sass/screen.scss */
+/* line 383, sass/screen.scss */
 .option .select {
   background-color: #ff1200;
   cursor: pointer;
 }
-/* line 376, sass/screen.scss */
+/* line 388, sass/screen.scss */
 .option .select button {
   background: none;
   border: none;
   text-transform: inherit;
 }
-/* line 382, sass/screen.scss */
+/* line 394, sass/screen.scss */
 .option .select button:before {
   position: absolute;
   content: "";
@@ -491,7 +507,7 @@ div.body {
   background-color: transparent;
   bottom: 0;
 }
-/* line 390, sass/screen.scss */
+/* line 402, sass/screen.scss */
 .option .select button:after {
   position: absolute;
   content: "";
@@ -499,11 +515,11 @@ div.body {
   background-color: transparent;
   top: 0;
 }
-/* line 399, sass/screen.scss */
+/* line 411, sass/screen.scss */
 .option .selector {
   display: none;
 }
-/* line 403, sass/screen.scss */
+/* line 415, sass/screen.scss */
 .option .select:after, .option .select:before {
   position: absolute;
   content: "";
@@ -512,19 +528,19 @@ div.body {
   background-color: transparent;
   top: 0;
 }
-/* line 412, sass/screen.scss */
+/* line 424, sass/screen.scss */
 .option .selector:checked ~ .inner .select:before, .option:hover .select:before {
   background-color: #ff1200;
   left: 0;
   z-index: 30;
 }
-/* line 418, sass/screen.scss */
+/* line 430, sass/screen.scss */
 .option .selector:checked ~ .inner .select:after, .option:hover .select:after {
   background-color: #ff1200;
   right: 0;
   z-index: 30;
 }
-/* line 424, sass/screen.scss */
+/* line 436, sass/screen.scss */
 .option .selector:checked ~ .inner .select button:after, .option:hover .select button:after, .option .selector:checked ~ .inner .select button:before, .option:hover .select button:before {
   background-color: #ff1200;
   left: 0;
@@ -532,7 +548,7 @@ div.body {
   z-index: 30;
 }
 
-/* line 432, sass/screen.scss */
+/* line 444, sass/screen.scss */
 .step {
   position: absolute;
   bottom: 0;
@@ -542,7 +558,7 @@ div.body {
   background-color: #444;
   z-index: 100;
 }
-/* line 441, sass/screen.scss */
+/* line 453, sass/screen.scss */
 .step button {
   color: white;
   border: solid 1px white;
@@ -554,33 +570,33 @@ div.body {
   font-weight: bold;
   letter-spacing: 1px;
 }
-/* line 452, sass/screen.scss */
+/* line 464, sass/screen.scss */
 .step button.previous {
   float: left;
 }
-/* line 456, sass/screen.scss */
+/* line 468, sass/screen.scss */
 .step button.next {
   float: right;
 }
 
-/* line 464, sass/screen.scss */
+/* line 476, sass/screen.scss */
 .length > input[type="hidden"].patch ~ .rulers .patch {
   display: block;
 }
-/* line 468, sass/screen.scss */
+/* line 480, sass/screen.scss */
 .length > input[type="hidden"].regular ~ .rulers .regular {
   display: block;
 }
-/* line 473, sass/screen.scss */
+/* line 485, sass/screen.scss */
 .length .rulers {
   margin: 1em;
 }
-/* line 475, sass/screen.scss */
+/* line 487, sass/screen.scss */
 .length .rulers div, .length .rulers input {
   display: none;
 }
 
-@media only screen and (max-width: 979px) {
+@media only screen and (max-width: 599px) {
   /* line 2, sass/_media.scss */
   div.content .body {
     -webkit-flex-direction: column;
@@ -703,7 +719,7 @@ div.body {
     height: 3px;
   }
 }
-@media only screen and (min-width: 980px) {
+@media only screen and (min-width: 600px) {
   /* line 112, sass/_media.scss */
   div.content .body {
     -webkit-flex-direction: row;
@@ -726,4 +742,80 @@ div.body {
     -webkit-flex-direction: column;
     flex-direction: column;
   }
+}
+
+/* line 497, sass/screen.scss */
+div.storage {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: center;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 100;
+}
+/* line 508, sass/screen.scss */
+div.storage .build {
+  position: relative;
+  cursor: pointer;
+  border: solid 2px black;
+}
+/* line 513, sass/screen.scss */
+div.storage .build input[name="storage_build"]:checked + .image {
+  outline: solid red 1px;
+}
+/* line 517, sass/screen.scss */
+div.storage .build input[type="radio"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+/* line 524, sass/screen.scss */
+div.storage .build .image {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+/* line 528, sass/screen.scss */
+div.storage .build .image img {
+  position: absolute;
+}
+/* line 534, sass/screen.scss */
+div.storage .build .image .plug {
+  bottom: 0;
+}
+/* line 538, sass/screen.scss */
+div.storage .build .image .input {
+  left: 0;
+}
+/* line 542, sass/screen.scss */
+div.storage .build .image .output {
+  right: 0;
+}
+/* line 547, sass/screen.scss */
+div.storage .build .information {
+  -moz-transition: width 0.3s ease-in-out;
+  -o-transition: width 0.3s ease-in-out;
+  -webkit-transition: width 0.3s ease-in-out;
+  transition: width 0.3s ease-in-out;
+  background-color: #ddd;
+  position: absolute;
+  left: 100px;
+  top: -2px;
+  bottom: -2px;
+  width: 0;
+  overflow: hidden;
+  border: solid 2px black;
+  border-left: none;
+}
+/* line 561, sass/screen.scss */
+div.storage .build:hover .information, div.storage .build:hover .information p {
+  width: 200px;
 }
