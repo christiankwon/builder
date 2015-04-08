@@ -33,26 +33,24 @@
          name
          manufacturer
       -->
+
+      <!-- Belden 9778 -->
       <cable>
-         <code>CS-CT-BLDN-9778-TEST</code>
+         <code>CSB_BLDN_9778</code>
          <is_instrument/>
          <price>1</price>
          <specs>
             <tone>
-               <brightness>6.5</brightness>
-               <capacitance>med</capacitance>
+               <brightness></brightness>
+               <capacitance></capacitance>
             </tone>
             <construction>
-               <flexibility>8</flexibility>
-               <shield>spiral</shield>
-               <diameter>.23</diameter>
+               <flexibility></flexibility>
+               <shield></shield>
+               <diameter></diameter>
             </construction>
          </specs>
          <colors>
-            <color>
-               <name>blue</name>
-               <short_name>blu</short_name>
-            </color>
             <color>
                <name>black</name>
                <short_name>blk</short_name>
@@ -73,76 +71,229 @@
          </lengths>
       </cable>
 
+      <!-- Canare GS-6 -->
       <cable>
-         <code>CS-CT-EVIA-MNRL-TEST</code>
-         <is_instrument/>
-         <is_only_patch/>
-         <price>2</price>
-         <specs>
-            <tone>
-               <brightness>7</brightness>
-               <capacitance>low</capacitance>
-            </tone>
-            <construction>
-               <flexibility>7</flexibility>
-               <shield>spiral</shield>
-               <diameter>.162</diameter>
-            </construction>
-         </specs>
-         <is_premium/>
-         <colors>
-            <color>
-               <name>red</name>
-               <short_name>red</short_name>
-            </color>
-         </colors>
-      </cable>
-
-      <cable>
-         <code>CS-CT-CNRE-GS6-TEST</code>
+         <code>CSB_CNRE_GS-6</code>
          <is_instrument/>
          <price>3</price>
          <specs>
             <tone>
-               <brightness>7</brightness>
-               <capacitance>high</capacitance>
+               <brightness></brightness>
+               <capacitance></capacitance>
             </tone>
             <construction>
-               <flexibility>7.5</flexibility>
-               <shield>braided</shield>
-               <diameter>.227</diameter>
+               <flexibility></flexibility>
+               <shield></shield>
+               <diameter></diameter>
             </construction>
          </specs>
          <colors>
-            <option_category_id>80</option_category_id>
+            <option_category_id>149</option_category_id>
             <color>
-               <id>1611</id>
+               <id>1651</id>
                <name>yellow</name>
                <short_name>ylw</short_name>
             </color>
             <color>
-               <id>1612</id>
+               <id>1650</id>
                <name>orange</name>
                <short_name>org</short_name>
             </color>
             <color>
-               <id>1613</id>
+               <id>1649</id>
                <name>red</name>
                <short_name>red</short_name>
             </color>
             <color>
-               <id>1614</id>
+               <id>1652</id>
                <name>green</name>
                <short_name>grn</short_name>
             </color>
             <color>
-               <id>1615</id>
+               <id>1647</id>
+               <name>black</name>
+               <short_name>blk</short_name>
                <default/>
+            </color>
+         </colors>
+         <lengths>
+            <option_category_id>75</option_category_id>
+            <patch>
+               <is_consistent/>
+               <start_id>1354</start_id>
+               <end_id>1401</end_id>
+            </patch>
+            <regular>
+               <is_consistent/>
+               <start_id>1402</start_id>
+               <end_id>1419</end_id>
+            </regular>
+         </lengths>
+      </cable>
+
+      <!-- Canare L-4E6S -->
+      <cable>
+         <code>CSB_CNRE_L-4E6S</code>
+         <is_instrument/>
+         <price>3</price>
+         <specs>
+            <tone>
+               <brightness></brightness>
+               <capacitance></capacitance>
+            </tone>
+            <construction>
+               <flexibility></flexibility>
+               <shield></shield>
+               <diameter></diameter>
+            </construction>
+         </specs>
+         <colors>
+            <color>
                <name>black</name>
                <short_name>blk</short_name>
             </color>
          </colors>
+         <lengths>
+            <option_category_id>76</option_category_id>
+            <patch>
+               <is_consistent/>
+               <start_id>1420</start_id>
+               <end_id>1467</end_id>
+            </patch>
+            <regular>
+               <is_consistent/>
+               <start_id>1468</start_id>
+               <end_id>1485</end_id>
+            </regular>
+         </lengths>
       </cable>
+
+      <!-- Evidence Audio Monorail -->
+      <cable>
+         <code>CSB_EVIA_MNRL</code>
+         <is_instrument/>
+         <is_only_patch/>
+         <is_premium/>
+         <price>2</price>
+         <specs>
+            <tone>
+               <brightness></brightness>
+               <capacitance></capacitance>
+            </tone>
+            <construction>
+               <flexibility></flexibility>
+               <shield></shield>
+               <diameter></diameter>
+            </construction>
+         </specs>
+         <colors>
+            <color>
+               <name>red</name>
+               <short_name>red</short_name>
+            </color>
+         </colors>
+         <lengths>
+            <option_category_id>72</option_category_id>
+            <patch>
+               <is_consistent/>
+               <start_id>1156</start_id>
+               <end_id>1203</end_id>
+            </patch>
+            <regular>
+               <is_consistent/>
+               <start_id>1204</start_id>
+               <end_id>1221</end_id>
+            </regular>
+         </lengths>
+      </cable>
+
+      <!-- Evidence Audio Melody -->
+      <cable>
+         <code>CSB_EVIA_MLDY</code>
+         <is_instrument/>
+         <is_premium/>
+         <price>2</price>
+         <specs>
+            <tone>
+               <brightness></brightness>
+               <capacitance></capacitance>
+            </tone>
+            <construction>
+               <flexibility></flexibility>
+               <shield></shield>
+               <diameter></diameter>
+            </construction>
+         </specs>
+         <colors>
+            <color>
+               <name>blue</name>
+               <short_name>blu</short_name>
+            </color>
+            <color>
+               <name>black</name>
+               <short_name>blk</short_name>
+            </color>
+         </colors>
+         <lengths>
+            <option_category_id>71</option_category_id>
+            <patch>
+               <is_consistent/>
+               <start_id>1090</start_id>
+               <end_id>1137</end_id>
+            </patch>
+            <regular>
+               <is_consistent/>
+               <start_id>1138</start_id>
+               <end_id>1155</end_id>
+            </regular>
+         </lengths>
+      </cable>
+
+      <!-- Van Damme Classic XKE -->
+      <cable>
+         <code>CSB_VDMM_CLSC-XKE</code>
+         <is_instrument/>
+         <price>2</price>
+         <specs>
+            <tone>
+               <brightness></brightness>
+               <capacitance></capacitance>
+            </tone>
+            <construction>
+               <flexibility></flexibility>
+               <shield></shield>
+               <diameter></diameter>
+            </construction>
+         </specs>
+         <colors>
+            <option_category_id>149</option_category_id>
+            <color>
+               <id>1678</id>
+               <name>white</name>
+               <short_name>wht</short_name>
+            </color>
+            <color>
+               <id>1647</id>
+               <name>black</name>
+               <short_name>blk</short_name>
+               <default/>
+            </color>
+         </colors>
+         <lengths>
+            <option_category_id>78</option_category_id>
+            <patch>
+               <is_consistent/>
+               <start_id>1492</start_id>
+               <end_id>1539</end_id>
+            </patch>
+            <regular>
+               <is_consistent/>
+               <start_id>1540</start_id>
+               <end_id>1557</end_id>
+            </regular>
+         </lengths>
+      </cable>
+
    </cables>
 
    <plugs>
@@ -150,12 +301,12 @@
          <input_option_category_id>64</input_option_category_id>
          <output_option_category_id>65</output_option_category_id>
          <plug>
-            <input_option_id>373</input_option_id>
-            <output_option_id>381</output_option_id>
             <manufacturer>Switchcraft</manufacturer>
             <model>228 Pancake</model>
             <price>7</price>
             <color>
+               <input_option_id>373</input_option_id>
+               <output_option_id>381</output_option_id>
                <body>nickel</body>
                <connector>nickel</connector>
             </color>
@@ -164,12 +315,12 @@
          </plug>
 
          <plug>
-            <input_option_id>374</input_option_id>
-            <output_option_id>382</output_option_id>
             <manufacturer>Switchcraft</manufacturer>
             <model>280</model>
             <price>4</price>
             <color>
+               <input_option_id>374</input_option_id>
+               <output_option_id>382</output_option_id>
                <body>nickel</body>
                <connector>nickel</connector>
             </color>
@@ -177,12 +328,12 @@
          </plug>
 
          <plug>
-            <input_option_id>375</input_option_id>
-            <output_option_id>383</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2X-B</model>
             <price>9</price>
             <color>
+               <input_option_id>375</input_option_id>
+               <output_option_id>383</output_option_id>
                <body>black</body>
                <connector>gold</connector>
             </color>
@@ -190,12 +341,12 @@
          </plug>
 
          <plug>
-            <input_option_id>376</input_option_id>
-            <output_option_id>384</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2RX-B</model>
             <price>11</price>
             <color>
+               <input_option_id>376</input_option_id>
+               <output_option_id>384</output_option_id>
                <body>black</body>
                <connector>gold</connector>
             </color>
@@ -203,12 +354,12 @@
          </plug>
 
          <plug>
-            <input_option_id>377</input_option_id>
-            <output_option_id>385</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2X-Silent</model>
             <price>16</price>
             <color>
+               <input_option_id>377</input_option_id>
+               <output_option_id>385</output_option_id>
                <body>red</body>
                <connector>gold</connector>
             </color>
@@ -218,12 +369,12 @@
          </plug>
 
          <plug>
-            <input_option_id>378</input_option_id>
-            <output_option_id>386</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2RX-Silent</model>
             <price>20</price>
             <color>
+               <input_option_id>378</input_option_id>
+               <output_option_id>386</output_option_id>
                <body>red/black</body>
                <connector>gold</connector>
             </color>
@@ -233,12 +384,12 @@
          </plug>
 
          <plug>
-            <input_option_id>379</input_option_id>
-            <output_option_id>387</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NYS224G</model>
             <price>4</price>
             <color>
+               <input_option_id>379</input_option_id>
+               <output_option_id>387</output_option_id>
                <body>nickel</body>
                <connector>gold</connector>
             </color>
@@ -246,12 +397,12 @@
          </plug>
 
          <plug>
-            <input_option_id>380</input_option_id>
-            <output_option_id>388</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NYS224BG</model>
             <price>4</price>
             <color>
+               <input_option_id>380</input_option_id>
+               <output_option_id>388</output_option_id>
                <body>black</body>
                <connector>gold</connector>
             </color>
@@ -259,12 +410,12 @@
          </plug>
 
          <plug>
-            <input_option_id>725</input_option_id>
-            <output_option_id>726</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2C</model>
             <price>7</price>
             <color>
+               <input_option_id>725</input_option_id>
+               <output_option_id>726</output_option_id>
                <body>nickel</body>
                <connector>nickel</connector>
             </color>
@@ -273,12 +424,12 @@
          </plug>
 
          <plug>
-            <input_option_id>728</input_option_id>
-            <output_option_id>727</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2C-BAG</model>
             <price>7</price>
             <color>
+               <input_option_id>728</input_option_id>
+               <output_option_id>727</output_option_id>
                <body>black</body>
                <connector>nickel</connector>
             </color>
@@ -287,26 +438,27 @@
          </plug>
 
          <plug>
-            <input_option_id>729</input_option_id>
-            <output_option_id>730</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2C-B</model>
             <price>9</price>
             <color>
+               <input_option_id>729</input_option_id>
+               <output_option_id>730</output_option_id>
                <body>black</body>
                <connector>gold</connector>
             </color>
             <angle>straight</angle>
             <has_boots/>
+            <is_premium/>
          </plug>
 
          <plug>
-            <input_option_id>732</input_option_id>
-            <output_option_id>731</output_option_id>
             <manufacturer>Neutrik</manufacturer>
             <model>NP2RX</model>
             <price>11</price>
             <color>
+               <input_option_id>732</input_option_id>
+               <output_option_id>731</output_option_id>
                <body>nickel</body>
                <connector>nickel</connector>
             </color>
@@ -314,84 +466,70 @@
          </plug>
 
          <plug>
-            <input_option_id>1601</input_option_id>
-            <output_option_id>1616</output_option_id>
             <manufacturer>G&amp;H</manufacturer>
-            <model>BF2P-NGG</model>
+            <model>BF2P</model>
             <price>7</price>
-            <color>
-               <body>gold</body>
-               <connector>gold</connector>
-            </color>
-            <angle>straight</angle>
-            <is_premium/>
+            <colors>
+               <color>
+                  <suffix>GGG</suffix>
+                  <body>gold</body>
+                  <connector>gold</connector>
+                  <input_option_id>1603</input_option_id>
+                  <output_option_id>1618</output_option_id>
+               </color>
+               
+               <color>
+                  <suffix>NGG</suffix>
+                  <body>nickel</body>
+                  <connector>gold</connector>
+                  <input_option_id>1601</input_option_id>
+                  <output_option_id>1616</output_option_id>
+               </color>
+
+               <color>
+                  <default/>
+                  <suffix>BGG</suffix>
+                  <body>black</body>
+                  <connector>gold</connector>
+                  <input_option_id>1602</input_option_id>
+                  <output_option_id>1617</output_option_id>
+               </color>
+            </colors>
          </plug>
 
          <plug>
-            <input_option_id>1602</input_option_id>
-            <output_option_id>1617</output_option_id>
             <manufacturer>G&amp;H</manufacturer>
-            <model>BF2P-BGG</model>
-            <price>7</price>
-            <color>
-               <body>gold</body>
-               <connector>gold</connector>
-            </color>
-            <angle>straight</angle>
-         </plug>
-
-         <plug>
-            <input_option_id>1603</input_option_id>
-            <output_option_id>1618</output_option_id>
-            <manufacturer>G&amp;H</manufacturer>
-            <model>BF2P-GGG</model>
-            <price>7</price>
-            <color>
-               <body>gold</body>
-               <connector>gold</connector>
-            </color>
-            <angle>straight</angle>
-         </plug>
-
-         <plug>
-            <input_option_id>1605</input_option_id>
-            <output_option_id>1608</output_option_id>
-            <manufacturer>G&amp;H</manufacturer>
-            <model>RF2P-NGG</model>
+            <model>RF2P</model>
             <price>8</price>
-            <color>
-               <body>nickel</body>
-               <connector>gold</connector>
-            </color>
-            <angle>right</angle>
-         </plug>
+            <colors>
+               <color>
+                  <suffix>GGG</suffix>
+                  <body>gold</body>
+                  <connector>gold</connector>
+                  <input_option_id>1607</input_option_id>
+                  <output_option_id>1610</output_option_id>
+               </color>
+               
+               <color>
+                  <suffix>NGG</suffix>
+                  <body>nickel</body>
+                  <connector>gold</connector>
+                  <input_option_id>1605</input_option_id>
+                  <output_option_id>1608</output_option_id>
+               </color>
 
-         <plug>
-            <input_option_id>1606</input_option_id>
-            <output_option_id>1609</output_option_id>
-            <manufacturer>G&amp;H</manufacturer>
-            <model>RF2P-BGG</model>
-            <price>8</price>
-            <color>
-               <body>nickel</body>
-               <connector>gold</connector>
-            </color>
-            <angle>right</angle>
-         </plug>
-
-         <plug>
-            <input_option_id>1607</input_option_id>
-            <output_option_id>1610</output_option_id>
-            <manufacturer>G&amp;H</manufacturer>
-            <model>RF2P-GGG</model>
-            <price>8</price>
-            <color>
-               <body>nickel</body>
-               <connector>gold</connector>
-            </color>
-            <angle>right</angle>
+               <color>
+                  <default/>
+                  <suffix>BGG</suffix>
+                  <body>black</body>
+                  <connector>gold</connector>
+                  <input_option_id>1606</input_option_id>
+                  <output_option_id>1609</output_option_id>
+               </color>
+            </colors>
          </plug>
       </instrument>
+
       <boots>
          <np2c>
             <option_category_id>77</option_category_id>
@@ -418,6 +556,7 @@
             <boot>
                <option_id>1491</option_id>
                <color>black</color>
+               <default/>
             </boot>
          </np2c>
       </boots>
@@ -431,19 +570,44 @@
       </heatshrink>
 
       <techflex>
-         <option_category_id>146</option_category_id>
-         <option>
-            <id>1621</id>
-            <desc>black</desc>
-         </option>
-         <option>
-            <id>1622</id>
-            <desc>white</desc>
-         </option>
-         <option>
-            <id>1623</id>
-            <desc>gray</desc>
-         </option>
+         <color>
+            <option_category_id>146</option_category_id>
+            <option>
+               <id>1621</id>
+               <desc>black</desc>
+            </option>
+            <option>
+               <id>1622</id>
+               <desc>white</desc>
+            </option>
+            <option>
+               <id>1623</id>
+               <desc>gray</desc>
+            </option>
+         </color>
+         <length>
+            <option_category_id>148</option_category_id>
+            <feet_1>1627</feet_1>
+            <feet_2>1628</feet_2>
+            <feet_3>1629</feet_3>
+            <feet_4>1630</feet_4>
+            <feet_5>1631</feet_5>
+            <feet_6>1632</feet_6>
+            <feet_7>1633</feet_7>
+            <feet_8>1634</feet_8>
+            <feet_9>1635</feet_9>
+            <feet_10>1636</feet_10>
+            <feet_11>1637</feet_11>
+            <feet_12>1638</feet_12>
+            <feet_13>1639</feet_13>
+            <feet_14>1640</feet_14>
+            <feet_15>1641</feet_15>
+            <feet_16>1642</feet_16>
+            <feet_17>1643</feet_17>
+            <feet_18>1644</feet_18>
+            <feet_19>1645</feet_19>
+            <feet_20>1646</feet_20>
+         </length>
       </techflex>
    </other>
 
