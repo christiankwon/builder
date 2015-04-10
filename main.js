@@ -1,7 +1,6 @@
 (function ($) {
     "use strict";
-
-    var API_URL = "http://www.sinasoid.com/net/WebService.aspx?Login=christian@sinasoid.com&EncryptedPassword=270B89846E6469F62676974F08363789F23D40F8B853E565E8C1B924DD4E514B&EDI_Name=Generic\\Products&SELECT_Columns=*&WHERE_Column=p.ProductCode&WHERE_Value=",
+    var API_URL = "/net/WebService.aspx?Login=christian@sinasoid.com&EncryptedPassword=270B89846E6469F62676974F08363789F23D40F8B853E565E8C1B924DD4E514B&EDI_Name=Generic\\Products&SELECT_Columns=*&WHERE_Column=p.ProductCode&WHERE_Value=",
         XML_URL = '/v/t/Builder/options.xml',
         IMAGES_DIR = 'images/',
         INITIALIZED = false,
@@ -12,7 +11,9 @@
         DEFAULT_CABLETYPE_PREFIX = '',
         BLANK_IMAGE_URL = 'blank.png',
         Cable = function() {
-            this.storage = -1;
+            this.storage = null;
+            this.price = 0;
+            this.quantity = 1;
             this.cableType = {
                 prefix: DEFAULT_CABLETYPE_PREFIX,
                 type: DEFAULT_CABLETYPE_TYPE
@@ -32,14 +33,14 @@
                 model: '',
                 boot: '', // color
                 color: '',
-                index: -1
+                index: null
             };
             this.outputPlug = {
                 manufacturer: '',
                 model: '',
                 boot: '', // color
                 color: '',
-                index: -1
+                index: null
             };
             this.other = {
                 heatshrink: false,
@@ -102,6 +103,16 @@
                 break;
         }
         return name;
+    },
+
+    goToConfirm = function() {
+        $('div.builders').addClass('confirm');
+
+        $('.confirmation').children().not('button.close').remove();
+
+        $('.storage .build').each(function() {
+            $('.confirmation').append($('<pre/>').text(JSON.stringify($(this).data(),null,4)))
+        });
     },
 
     addToCart = function() {
@@ -179,6 +190,26 @@
         }
     },
 
+    launchModal = function() {
+        var $container = $('.modal');
+
+        $('body').addClass('modal-open');
+
+        $container.on('click', function() {
+            $('body').removeClass('modal-open');
+        });
+
+        $container.find('.info').click(function(e) {
+            e.stopPropagation();
+
+            alert("WINNER");
+        });
+    },
+
+    updateQuantity = function() {
+        CURRENT_CABLE.quantity = $(this).val();
+    },
+
     updateStorage = function() {
         function getUnits() {
             if( CURRENT_CABLE.length.type === 'regular' ) return 'ft'; 
@@ -189,16 +220,29 @@
             if( !CURRENT_CABLE.cableType.prefix || !CURRENT_CABLE.cable.code ) return '';
             return $('#' + CURRENT_CABLE.cableType.prefix + CURRENT_CABLE.cable.code).parent().data().name;
         }
+
         var $storage = $('.storage .build').filter(function() {
                 return $(this).data('storage') == CURRENT_CABLE.storage;
             }),
             $info = $storage.find('.information');
+
+        $storage.find('p.id span').text(CURRENT_CABLE.storage);
+        $storage.find('p.price').text(CURRENT_CABLE.price);
 
         $info.find('.type em').text(CURRENT_CABLE.cableType.type);
         $info.find('.cable em').text(getCable());
         $info.find('.length em').text(CURRENT_CABLE.length.amount + '' + getUnits());
         $info.find('.input em').text(CURRENT_CABLE.inputPlug.manufacturer + ' ' + CURRENT_CABLE.inputPlug.model);
         $info.find('.output em').text(CURRENT_CABLE.outputPlug.manufacturer + ' ' + CURRENT_CABLE.outputPlug.model);
+        $info.find('.options em').text('');
+        if( CURRENT_CABLE.other.heatshrink === true ) {
+            $info.find('.options em').text('Extra Heatshrink: Yes');
+        }
+        if( CURRENT_CABLE.other.techflex ) {
+            $info.find('.options em').append(document.createTextNode(' Techflex Shielding: Yes'));
+        }
+
+        storeThis.save();
     },
 
     getCableColor = function(color) {
@@ -225,12 +269,52 @@
         }
     },
 
+    calculateCost = function() {
+        var cablePrice = 0.00,
+            inputPlugCost = 0.00,
+            outputPlugCost = 0.00,
+            extraCosts = 0.00,
+            ppf = 0.00,
+            prefix = CURRENT_CABLE.cableType.prefix;
+
+        if( CURRENT_CABLE.cableType.type === 'instrument' ) {
+            ppf = CABLES.find('cable').filter(function() {
+                return $(this).children('code').text() === CURRENT_CABLE.cable.code;
+            }).find('price').text();
+            if( CURRENT_CABLE.length.type === 'regular' ) {
+                cablePrice = ppf * CURRENT_CABLE.length.amount;
+            } else if( CURRENT_CABLE.length.type === 'patch' ) {
+                cablePrice = +(ppf / 4) * ((Math.floor(CURRENT_CABLE.length.amount / 3))+1);
+            }
+        }
+
+        inputPlugCost = (CURRENT_CABLE.inputPlug.index ? +PLUGS.find(CURRENT_CABLE.cableType.type).find('plug').eq(CURRENT_CABLE.inputPlug.index).find('price').text() : 0);
+
+        outputPlugCost = (CURRENT_CABLE.outputPlug.index ? +PLUGS.find(CURRENT_CABLE.cableType.type).find('plug').eq(CURRENT_CABLE.outputPlug.index).find('price').text() : 0);
+
+        if( CURRENT_CABLE.other.techflex || CURRENT_CABLE.other.techflex === 'true' ) {
+            if( CURRENT_CABLE.cableType.type === 'instrument' ) {
+                var length = 0;
+                if( CURRENT_CABLE.length.type === 'regular' ) {
+                    extraCosts += 0.25 * CURRENT_CABLE.length.amount;
+                } else if( CURRENT_CABLE.length.type === 'patch' ) {
+                    extraCosts += 0.25 * Math.floor((CURRENT_CABLE.length.amount-1)/12) + 1;
+                }
+            }
+        }
+
+        var totalCost = cablePrice + inputPlugCost + outputPlugCost + extraCosts;
+
+        // return totalCost;
+        $('#price').text(totalCost);
+        CURRENT_CABLE.price = totalCost.toFixed(2);
+    },
+
     updateVisual = function() {
         var $display = $('div.display'),
             CC = clone(CURRENT_CABLE),
-            // inboot = '/' + getBootColor(CC.inputPlug.boot),
-            // outboot = '/' + getBootColor(CC.outputPlug.boot),
             cable_color = (CC.cable.color ? '.' + CC.cable.color : ''),
+            // outboot = '/' + getBootColor(CC.outputPlug.boot),
             cable_src = IMAGES_DIR + 'display/cable/' +
                         CC.cableType.type + '/' +
                         CC.length.type + '/' +
@@ -244,14 +328,36 @@
                          formatImage(CC.inputPlug.manufacturer) + '/' +
                          formatImage(CC.inputPlug.model + CC.inputPlug.color) + '.png',
 
-            outPlug_src = IMAGES_DIR + 'display/plug/' +
+            inBoot_src = IMAGES_DIR + 'display/plug/' +
                          CC.cableType.type + '/' +
-                         formatImage(CC.outputPlug.manufacturer) + '/' +
-                         formatImage(CC.outputPlug.model + CC.outputPlug.color) + '.png';
+                         formatImage(CC.inputPlug.manufacturer) + '/' +
+                         formatImage(CC.inputPlug.model.split('-')[0]) + '/' +
+                         CC.inputPlug.boot + '.png',
 
-        if ( CC.cable.code ) $display.find('.cable img').attr('src', cable_src);
-        if ( CC.inputPlug.manufacturer && CC.inputPlug.model ) $display.find('.inputPlug img').attr('src', inPlug_src);
-        if ( CC.outputPlug.manufacturer && CC.outputPlug.model ) $display.find('.outputPlug img').attr('src', outPlug_src);
+            outPlug_src = IMAGES_DIR + 'display/plug/' +
+                          CC.cableType.type + '/' +
+                          formatImage(CC.outputPlug.manufacturer) + '/' +
+                          formatImage(CC.outputPlug.model + CC.outputPlug.color) + '.png',
+
+            outBoot_src = IMAGES_DIR + 'display/plug/' +
+                          CC.cableType.type + '/' +
+                          formatImage(CC.outputPlug.manufacturer) + '/' +
+                          formatImage(CC.outputPlug.model.split('-')[0]) + '/' +
+                          CC.outputPlug.boot + '.png';
+
+        var cable = (CC.cable.code ? cable_src : BLANK_IMAGE_URL);
+        var input = (CC.inputPlug.manufacturer && CC.inputPlug.model ? inPlug_src : BLANK_IMAGE_URL);
+        var output = (CC.outputPlug.manufacturer && CC.outputPlug.model ? outPlug_src : BLANK_IMAGE_URL);
+        var inputBoot = (CC.inputPlug.boot ? inBoot_src : BLANK_IMAGE_URL);
+        var outputBoot = (CC.outputPlug.boot ?  outBoot_src : BLANK_IMAGE_URL);
+
+        $display.find('.cable img').attr('src', cable);
+        $display.find('.inputPlug img.plug').attr('src', input);
+        $display.find('.outputPlug img.plug').attr('src', output);
+        $display.find('.inputPlug img.boot').attr('src', inputBoot);
+        $display.find('.outputPlug img.boot').attr('src', outputBoot);
+
+        calculateCost();
     },
 
     updateDots = function() {
@@ -289,9 +395,9 @@
         } else if( ui.value ) {
             CURRENT_CABLE.length.amount = ui.value;
         }
-
         CURRENT_CABLE.length.type = $(ui.handle).parent().data('type');
         updateStorage();
+        calculateCost();
 
         if( !$(ui.handle).parents('li.length').find('input.visited').prop('checked') ) {
             $(ui.handle).parents('li.length').find('input.visited').prop('checked', true);
@@ -299,61 +405,62 @@
         }
     },
 
-    updateOptional = function() {
-        var $builder = $('ul.builder.selected'),
-            $current = $builder.find('li.current'),
-            $input   = $current.find('input.visited');
+    updateOther = function() {
+        var $parent = $(this).parents('.other').not('.filters').not('li'),
+            $visited   = $parent.parent().find('input.visited');
 
-        if( !$input.length || $input.prop('checked') ) return;
+        if( !$visited.prop('checked') ) $visited.prop('checked', true);
 
-        if( $current.hasClass('length') ) {
-            var $ruler   = $current.find('.ruler:visible'),
-                $slider  = $ruler.slider('instance');
-
-            CURRENT_CABLE.length.amount = $slider.options.value;
-            CURRENT_CABLE.length.type   = $ruler.data('type');
-        } else if( $current.hasClass('other') ) {
-            var heatshrink = ($current.find('.other.heatshrink input:checked').length ? true : false);
-            var techflex   = ($current.find('.other.techflex input:checked').length ? $current.find('.other.techflex input:checked').val() : '');
-            CURRENT_CABLE.other.heatshrink = heatshrink;
-            CURRENT_CABLE.other.techflex = techflex;
-        }
-
-        $input.prop('checked', true);
-    },
-
-    applyFilter = function(e) {
-        function getRating(option, category) {
-            var data = $(option).data(),
-                value = data.specs[category] * 1;
-            if( value >= 7 ) {
-                return 'high';
-            } else if ( value >= 4 ) {
-                return 'med';
+        if( $parent.hasClass('techflex') ) {
+            var $radios = $parent.find('input[name="' + $(this).attr('name') + '"]');
+            if( $(this).data('checked') ) {
+                $radios.prop('checked', false).data('checked', false);
             } else {
-                return 'low';
+                $radios.data('checked', false);
+                $(this).data('checked', true);
             }
         }
 
-        var button = this;
+        if( $parent.hasClass('heatshrink') ) {
+            CURRENT_CABLE.other.heatshrink = ($parent.find('input:checked').length ? true : false);
+        }
+
+        if( $parent.hasClass('techflex') ) {
+            CURRENT_CABLE.other.techflex = ($parent.find('input:checked').length ? $parent.find('input:checked').val() : '');
+        }
+
+        updateStorage();
+        calculateCost();
+    },
+
+    applyFilter = function(e) {
+        function getBrightnessFromCapacitance(val) {
+            if( +val < 27 ) return 'low';
+            else if( +val >= 27 && +val <= 36 ) return 'med';
+            else if( +val > 36 ) return 'high';
+            return ''; 
+        }
+        var $button = $(this);
 
         // Not a button click, called from a function
-        if( !button ) {
-            button = $('ul.builder.selected button.reset')[0];
-        }
-
-        if( !!this && $(this).data('checked') ) {
-            $(button).prop('checked', false);
-            $(button).data('checked', false);
+        if( $button.hasClass('reset') ) {
+            $button = $('ul.builder.selected button.reset');
+            $button.parent().find('input').prop('checked', false).data('checked', false);
         } else {
-            $(button).prop('checked', true);
-            $(button).data('checked', true);
+            var $radio = $button.parents('.filter').find('input[name="' + $button.attr('name') + '"]');
+
+            if( $button.data('checked') ) {
+                $radio.prop('checked', false).data('checked', false);
+            } else {
+                $radio.data('checked', false);
+                $button.data('checked', true);
+            }
         }
 
-        var $parent = $(button).parents('.filters').parent(), // <li class="cable current" />
+        var $parent = $button.parents('.filters').parent(), // <li class="cable current" />
             $options = $parent.find('.option'),
-            $radios = $(button).parents('.filters').find('input[type="radio"]:checked'),
-            $checks = $(button).parents('.filters').find('input[type="checkbox"]:checked');
+            $radios = $button.parents('.filters').find('input[type="radio"]:checked'),
+            $checks = $button.parents('.filters').find('input[type="checkbox"]:checked');
 
 
         $options.show();
@@ -365,8 +472,11 @@
                     filter = $this.attr('class');
 
                 $options.filter(function() {
-                    var rating = getRating(this, filter);
-                    return value !== rating;
+                    if( $this.hasClass('brightness') ) {
+                        return value !== getBrightnessFromCapacitance($(this).data().specs.capacitance);
+                    } else if( $this.hasClass('flexibility') ) {
+                        return value !== $(this).data().specs[filter];
+                    }
                 }).hide();
             });
 
@@ -391,13 +501,18 @@
 
         if( !$options.is(':visible') ) {
             // all gone
+            testA();
         } else {
             // something
+            testB();
         }
+        testC();
     },
 
     changeOption = function() {
-        var $option = $(this).parent();
+        var $option = $(this).parent(),
+            newCable = new Cable(),
+            set = true;
 
         if( $option.hasClass('cable') || $option.hasClass('plug')) {
             var $radio = $option.find('input[type="radio"]');
@@ -405,57 +520,59 @@
                 $radio.prop('checked', true);
             } else {
                 $radio.prop('checked', false);
+                set = false;
             }
         }
 
         if( $option.hasClass('cable') ) {
-            CURRENT_CABLE.cable.code = $option.data().code;
-            CURRENT_CABLE.cable.name = $option.data().name;
-            CURRENT_CABLE.cable.manufacturer = $option.data().manufacturer;
-
-            if( $option.find('.image .colors').length ) {
-                if( !CURRENT_CABLE.cable.color ) {
-                    var color = CABLES.find('cable')
-                        .filter(function() {
-                            return $(this).find('code').text() == CURRENT_CABLE.cable.code;
-                        })
-                        .find('default')
-                        .parent()
-                        .find('name')
-                        .text();
-                    CURRENT_CABLE.cable.color = color;
-                }
+            if( !set ) {
+                CURRENT_CABLE.cable = newCable.cable;
             } else {
-                CURRENT_CABLE.cable.color = '';
+                CURRENT_CABLE.cable.code = $option.data().code;
+                CURRENT_CABLE.cable.name = $option.data().name;
+                CURRENT_CABLE.cable.manufacturer = $option.data().manufacturer;
+
+                if( $option.find('.image .colors').length ) {
+                    var src = $option.find('.image img').attr('src'),
+                        color = src.substring(src.indexOf('.') + 1, src.lastIndexOf('.'));
+
+                    CURRENT_CABLE.cable.color = color;
+                } else {
+                    CURRENT_CABLE.cable.color = '';
+                }
+
+                if( $option.hasClass('only_patch') ) {
+                    $option.parents('ul.builder').addClass('only_patch');
+                    $option.parents('ul.builder').find('.length button[name="patch"]').click();
+                } else {
+                    $option.parents('ul.builder').removeClass('only_patch');
+                }
             }
         } else if( $option.hasClass('plug') ) {
             if( $option.parents('li').hasClass('inputPlug') ) {
-                CURRENT_CABLE.inputPlug.model = $option.data().model;
-                CURRENT_CABLE.inputPlug.manufacturer = $option.data().manufacturer;
-                CURRENT_CABLE.inputPlug.index = $option.data().index;
-                CURRENT_CABLE.inputPlug.boot = $option.data().boot;
-                CURRENT_CABLE.inputPlug.color = ($option.data().color ? '-' + $option.data().color : '');
+                if( !set ) {
+                    CURRENT_CABLE.inputPlug = newCable.inputPlug;
+                } else {
+                    CURRENT_CABLE.inputPlug.model = $option.data().model;
+                    CURRENT_CABLE.inputPlug.manufacturer = $option.data().manufacturer;
+                    CURRENT_CABLE.inputPlug.index = $option.data().index;
+                    CURRENT_CABLE.inputPlug.boot = $option.data().boot;
+                    CURRENT_CABLE.inputPlug.color = ($option.data().color ? '-' + $option.data().color : '');
+                }
             } else if( $option.parents('li').hasClass('outputPlug') ) {
-                CURRENT_CABLE.outputPlug.model = $option.data().model;
-                CURRENT_CABLE.outputPlug.manufacturer = $option.data().manufacturer;
-                CURRENT_CABLE.outputPlug.index = $option.data().index;
-                CURRENT_CABLE.outputPlug.boot = $option.data().boot;
-                CURRENT_CABLE.outputPlug.color = ($option.data().color ? '-' + $option.data().color : '');
-            }
-        } else if( $option.hasClass('heatshrink') ) {
-            if( $(this).prop('checked') ) {
-                CURRENT_CABLE.other.heatshrink = true;
-            } else {
-                CURRENT_CABLE.other.heatshrink = false;
-            }
-        } else if( $option.hasClass('techflex') ) {
-            if( !$(this).prop('checked') ) {
-                CURRENT_CABLE.other.techflex = '';
-            } else {
-                CURRENT_CABLE.other.techflex = $(this).val();
+                if( !set ) {
+                    CURRENT_CABLE.outputPlug = newCable.outputPlug;
+                } else {
+                    CURRENT_CABLE.outputPlug.model = $option.data().model;
+                    CURRENT_CABLE.outputPlug.manufacturer = $option.data().manufacturer;
+                    CURRENT_CABLE.outputPlug.index = $option.data().index;
+                    CURRENT_CABLE.outputPlug.boot = $option.data().boot;
+                    CURRENT_CABLE.outputPlug.color = ($option.data().color ? '-' + $option.data().color : '');
+                }
             }
         }
 
+        updateOther();
         updateStorage();
         updateVisual();
         updateDots();
@@ -483,8 +600,6 @@
     changeStep = function() {
         var $parent = $(this).parents('li');
 
-        updateOptional();
-
         $parent.removeClass('current');
 
         if( $(this).hasClass('next') ) {
@@ -501,8 +616,6 @@
         var index = $(this).parent().find('.dot').index(this),
             steps = $('ul.builder.selected');
 
-        updateOptional();
-
         steps.find('.current').removeClass('current');
         steps.children().eq(index).addClass('current');
 
@@ -510,9 +623,16 @@
     },
 
     switchChoice = function() {
-        $(this).parent().find('input[type="radio"]').prop('checked', true);
-        $(this).parents('li.length').children('input[type="hidden"]').first().removeClass().addClass($(this).attr('name'));
-        updateLength($(this).parents('li.length').find('div.rulers .ruler:visible').slider('instance'));
+        var $input = $(this).parents('li.length').children('input[name="switch"]'),
+            type = $(this).attr('name');
+
+        $(this).parent().find('input.visited').prop('checked', true);
+
+        $input.removeClass().addClass($(this).attr('name'));
+
+        updateLength($(this).parents('li.length').find('.ruler.' + type).slider('instance'));
+
+        updateVisual();
     },
 
     toggleSpecs = function(e) {
@@ -521,9 +641,11 @@
         $(this).parents('.option').toggleClass('specs');
     },
 
-    storage = function() {
+    storeThis = function() {
         function loadBuild(options) {
             CURRENT_CABLE.storage = options.storage;
+
+            CURRENT_CABLE.price = options.price;
 
             CURRENT_CABLE.cableType.prefix = options.cableType.prefix;
             CURRENT_CABLE.cableType.type = options.cableType.type;
@@ -531,7 +653,7 @@
             CURRENT_CABLE.cable.code = options.cable.code;
             CURRENT_CABLE.cable.color = options.cable.color;
 
-            CURRENT_CABLE.length.amount = options.length.amount;
+            CURRENT_CABLE.length.amount = +options.length.amount;
             CURRENT_CABLE.length.type = options.length.type;
 
             CURRENT_CABLE.inputPlug.manufacturer = options.inputPlug.manufacturer;
@@ -582,18 +704,18 @@
                 $length.find('.ruler.' + data.length.type).slider('value', data.length.amount);
             }
             if( data.inputPlug.index ) {
-                $('#' + prefix + '_inputPlug' + data.inputPlug.index).click();
+                $('#' + prefix + 'inputPlug_' + data.inputPlug.index).click();
             }
             if( data.inputPlug.boot ) {
-                $('#' + prefix + '_inputPlug' + data.inputPlug.index).parent().find('.boots').find('div').filter(function() {
+                $('#' + prefix + 'inputPlug_' + data.inputPlug.index).parent().find('.boots').find('div').filter(function() {
                     return $(this).hasClass(data.inputPlug.boot);
                 }).click();
             }
             if( data.outputPlug.index ) {
-                $('#' + prefix + '_inputPlug' + data.outputPlug.index).click();
+                $('#' + prefix + 'outputPlug_' + data.outputPlug.index).click();
             }
             if( data.outputPlug.boot ) {
-                $('#' + prefix + '_inputPlug' + data.outputPlug.index).parent().find('.boots').find('div').filter(function() {
+                $('#' + prefix + 'outputPlug_' + data.outputPlug.index).parent().find('.boots').find('div').filter(function() {
                     return $(this).hasClass(data.outputPlug.boot);
                 }).click();
             }
@@ -605,21 +727,39 @@
             }
         }
 
-        function save() {
-            $('.build').filter(function() {
+        function getCurrentStorage() {
+            return $('.storage .build').filter(function() {
                 return $(this).data('storage') == CURRENT_CABLE.storage;
-            }).data(CURRENT_CABLE);
+            });
+        }
+
+        function save() {
+            var $block = getCurrentStorage();
+            $block.data(CURRENT_CABLE);
+            store();
         }
 
         function remove() {
-            var storage = $container.find(checked).parent().data('storage');
-            $container.find(checked).parent().remove();
+            var $container = $('.storage .builds'),
+                $removeMe  = $container.find('input[name="storage_build"]:checked').parent(),
+                storage = $removeMe.data('storage');
 
-            if( storage == CURRENT_CABLE.storage ) reset();
+            $removeMe.remove();
+            localStorage.removeItem('build_' + storage);
+
+            if( storage == CURRENT_CABLE.storage ) {
+                if( !$container.find('.build').length ) {
+                    var $block = create();
+                    $('.storage .builds').append($block);
+                }
+                $container.find('.build').first().find('input[name="storage_build"]').prop('checked', true);
+                load();
+            }
         }
 
         function load() {
-            var data = $container.find(checked).parent().data();
+            var data = $('.storage .builds').find('input[name="storage_build"]:checked').parent().data();
+            if( this ) save();
 
             reset();
 
@@ -628,20 +768,40 @@
 
             // load builder from CURRENT_CABLE
             selectBuildOptions(CURRENT_CABLE);
+
+            // highlight current storage
+            $('.storage .build').removeClass('current').filter(function() {
+                return $(this).data().storage == CURRENT_CABLE.storage;
+            }).addClass('current');
         }
 
-        function getNextBlockNumber() {
-            if( !$('.storage .build').length ) {
-                return 1;
+        function create(storage) {
+            function getNextBlockNumber() {
+                if( !$('.storage .build').length ) {
+                    return 1;
+                }
+
+                var number = 0;
+
+                $('.storage .build').each(function() {
+                    if( +$(this).data('storage') > number ) {
+                        number = +$(this).data('storage');
+                    }
+                });
+
+
+                return number + 1;
             }
-            return ($('.storage .build').last().data('storage') * 1) + 1;
-        }
+            var i, $block = build();
 
-        function create() {
-            var $block = build(),
+            if(!storage) {
+                storage = new Cable();
                 i = getNextBlockNumber();
+            } else {
+                i = storeThis.storage;
+            }
 
-            $block.data(new Cable()).data('storage', i);
+            $block.data(storage).data('storage', i);
 
             return $block;
         }
@@ -649,19 +809,23 @@
         function generate() {
             var $block = create();
 
-            save();
             reset();
             CURRENT_CABLE.storage = $block.data('storage');
 
             $block.find('input[name="storage_build"]').prop('checked',true);
 
-            $container.append($block);
+            $('.storage .builds').append($block);
+            
+            // highlight current storage
+            $('.storage .build').removeClass('current').filter(function() {
+                return $(this).data().storage == CURRENT_CABLE.storage;
+            }).addClass('current');
         }
 
         function build() {
             var $block = $('<div/>').addClass('build'),
                 $select = $('<input/>').addClass('select'),
-                $image = $('<div/>').addClass('image'),
+                $identifier = $('<div/>').addClass('identifier'),
                 $information = $('<div/>').addClass('information');
 
             $select.attr({
@@ -669,10 +833,9 @@
                 name: 'storage_build'
             });
 
-            $image.append(
-                $('<img/>').addClass('cable').attr('src','http://placehold.it/100/eee'),
-                $('<img/>').addClass('plug input').attr('src','http://placehold.it/50/888'),
-                $('<img/>').addClass('plug output').attr('src','http://placehold.it/50/000')
+            $identifier.append(
+                $('<p/>').addClass('id').html('Cable <span></span>'),
+                $('<p/>').addClass('price')
             );
 
             $information.append(
@@ -681,23 +844,53 @@
                 $('<p/>').addClass('length').append($('<span/>').text('Length: '),$('<em/>')),
                 $('<p/>').addClass('input').append($('<span/>').text('Input Plug: '),$('<em/>')),
                 $('<p/>').addClass('output').append($('<span/>').text('Output Plug: '),$('<em/>')),
-                $('<p/>').addClass('options').append($('<span/>').text('Other Options: '),$('<em/>'))
+                $('<p/>').addClass('other').append($('<span/>').text('Other Options: '),$('<em/>'))
             );
 
-            return $block.append($select, $image, $information).click(function() {
+            return $block.append($select, $identifier, $information).on('click', function() {
                 $(this).find('input[name="storage_build"]').prop('checked',true);
             });
         }
-        var $container = $('.storage .builds'),
-            checked = 'input[name="storage_build"]:checked';
 
-        generate();
+        function store() {
+            var $block = getCurrentStorage();
+            data = $block.data();
+            localStorage.setItem('build_' + data.storage, JSON.stringify(data));
+        }
 
-        storage.save = save;
-        storage.load = load;
-        storage.build = build;
-        storage.remove = remove;
-        storage.generate = generate;
+        function recall(data) {
+            var $block = create(data);
+            $block.find('input[type="radio"]').prop('checked',true);
+            $('.storage .builds').prepend($block);
+            load();
+        }
+
+        storeThis.generate = generate;
+        storeThis.load = load;
+        storeThis.build = build;
+        storeThis.remove = remove;
+        storeThis.save = save;
+        storeThis.store = null;
+
+
+        if( !Modernizr.localstorage ) {
+            generate();
+            return;
+        }
+
+        storeThis.store = store;
+
+        if( !localStorage.length ) {
+            generate();
+        } else {
+            for (var i = 0; i < localStorage.length; i++) {
+                if( localStorage.key(i).indexOf('build_') > -1 ) {
+                    var data = JSON.parse(localStorage.getItem(localStorage.key(i)));
+                    recall(data);
+                }
+            }
+        }
+
     },
 
     /**
@@ -711,26 +904,6 @@
             output_plug_container = 'li.outputPlug div.options',
             other_container       = 'li.other div.options',
 
-        /**
-         * Helper function that retrieves information 
-         * @param {string} code Product code to be retrieved
-         * @param {function} callback Callback function
-         */
-        getData = function(callback, info) {
-            if( !info.code || !info.index && info.index !== 0 ) return;
-
-            $.get( API_URL + info.code )
-                .done(function(data) {
-                    callback(data, info);
-                })
-                .fail(function( jqXHR, textStatus, errorThrown ) {
-                    alert("ERROR CS03: " + info.code + " not found in the product database.");
-                    console.error(jqXHR);
-                    console.error(textStatus);
-                    console.error(errorThrown);
-                });
-        },
-
         getBuilderSkeleton = function(id) {
             var $skeleton = $('<ul/>').addClass('builder'),
                 $c = $('<li/>').addClass('cable'),
@@ -742,39 +915,26 @@
             var $reset = $('<button/>')
                 .addClass('reset')
                 .text('Reset')
-                .on('click', function() {
-                    $(this).parents('.filters').find('input:checked').prop('checked', false);
-                    applyFilter();
-                });
+                .on('click', applyFilter);
 
             var $filters = $('<div/>')
                     .addClass('filters')
                     .append($reset),
+
                 $options = $('<div/>')
-                    .addClass('options')
-                    .append(
-                        $('<div/>')
-                            .addClass('premium')
-                            .append(
-                                    $('<h3/>').text('Premium')
-                                ),
-                        $('<div/>')
-                            .addClass('standard')
-                            .append(
-                                    $('<h3/>').text('Standard')
-                                )
-                    ),
+                    .addClass('options'),
+
                 $step = $('<div/>')
                     .addClass('step')
                     .append(
                         $('<button/>')
                             .addClass('previous')
                             .text('Previous')
-                            .click(changeStep),
+                            .on('click', changeStep),
                         $('<button/>')
                             .addClass('next')
                             .text('Next')
-                            .click(changeStep)
+                            .on('click', changeStep)
                     );
 
             $c.append($filters.clone(true).addClass('cable'), $options.clone(true), $step.clone(true));
@@ -812,14 +972,13 @@
                                 .append($('<p/>').html('Cables for your pedalboard, rack system, or synthesizer modules.<br/><strong>3in-4ft</strong><br/><em>by the inch</em>'))
                         ),
                         $('<div/>').addClass('type').append($('<span/>').text(a)),
-                        $('<div/>').addClass('specs').append($('<img/>').attr('src','http://placehold.it/25')).click(function() {
-                            console.log(this);
+                        $('<div/>').addClass('specs').append($('<img/>').attr('src','http://placehold.it/25')).on('click', function() {
                             $(this).parent().toggleClass('specs');
                         }),
-                        $('<button/>').attr('name',a).text('select').click(switchChoice)
+                        $('<button/>').attr('name',a).text('select').on('click', switchChoice)
                     );
 
-                $choiceA.children().not('div.specs').not('button').click(function() {
+                $choiceA.children().not('div.specs').not('button').on('click', function() {
                     $(this).parent().find('button').click();
                 });
 
@@ -837,14 +996,13 @@
                                 .append($('<p/>').html('Cables for your instrument to ryour amp, di, or pedalboard.<br/><strong>3ft-20ft*</strong><br/><em>by the inch</em><span>*Any longer than 20ft and your cable can turn into a radio frequency antennae. Probably not a good thing</span>'))
                         ),
                         $('<div/>').addClass('type').append($('<span/>').text(b)),
-                        $('<div/>').addClass('specs').append($('<img/>').attr('src','http://placehold.it/25')).click(function() {
-                            console.log(this);
+                        $('<div/>').addClass('specs').append($('<img/>').attr('src','http://placehold.it/25')).on('click', function() {
                             $(this).parent().toggleClass('specs');
                         }),
-                        $('<button/>').attr('name',b).text('select').click(switchChoice)
+                        $('<button/>').attr('name',b).text('select').on('click', switchChoice)
                     );
 
-                $choiceB.children().not('div.specs').not('button').click(function() {
+                $choiceB.children().not('div.specs').not('button').on('click', function() {
                     $(this).parent().find('button').click();
                 });
 
@@ -884,7 +1042,7 @@
 
             $op.append($filters.clone(true).addClass('outputPlug'), $options.clone(true), $step.clone(true));
 
-            var $addToCartButton = $('<button/>').text('Checkout').addClass('next').click(addToCart);
+            var $addToCartButton = $('<button/>').text('Confirm').addClass('next').on('click', goToConfirm);
 
             $o.append($filters.clone(true).addClass('other'), $options.clone(true).empty(), $step.clone(true));
             $o.find('button.next').remove();
@@ -926,24 +1084,17 @@
                 $specs = $('<div/>')
                     .addClass('specs')
                     .append($('<span/>').text('Specs & Info'))
-                    .click(toggleSpecs);
+                    .on('click', toggleSpecs);
 
             if( type === 'cable' ) {
                 $image.append(
                     $('<div/>').addClass('info').append(
                         $('<ul/>')
-                            .addClass('tone')
+                            .addClass('details')
                             .append(
                                 $('<li/>')
                                     .addClass('title')
-                                    .text('Tone')
-                            ),
-                        $('<ul/>')
-                            .addClass('construction')
-                            .append(
-                                $('<li/>')
-                                    .addClass('title')
-                                    .text('Construction')
+                                    .text('Details')
                             )
                     )
                 );
@@ -955,7 +1106,7 @@
 
             $struct.append($selector, $image, $inner);
 
-            $struct.children().not('div.specs').not('.image div.boots').not('.image div.colors').click(changeOption);
+            $struct.children().not('div.specs').not('.image div.boots').not('.image div.colors').on('click', changeOption);
 
             return $struct;
         },
@@ -977,14 +1128,9 @@
 
             if( options.component.indexOf('cable') > -1 ) {
 
-                block.find('.specs div ul').eq(0)
+                block.find('div.info ul.details')
                     .append(
-                            $('<li/>').html('Brightness: <em>' + options.specs.brightness + '</em>'),
-                            $('<li/>').html('Capacitance: <em>' + options.specs.capacitance + '</em>')
-                        );
-
-                block.find('.specs div ul').eq(1)
-                    .append(
+                            $('<li/>').html('Capacitance: <em class="capacitance">' + options.specs.capacitance + '</em>'),
                             $('<li/>').html('Flexibility: <em>' + options.specs.flexibility + '</em>'),
                             $('<li/>').html('Shield: <em>' + options.specs.shield + '</em>'),
                             $('<li/>').html('Diameter: <em>' + options.specs.diameter + '</em>')
@@ -999,11 +1145,11 @@
          * @param cableType {string}
          * @param skeleton {jQuery Object}
          */
-        initCables = function(data, info) {
+        initCables = function(info) {
             function changeColor(e) {
                 e.stopPropagation();
 
-                CURRENT_CABLE.cable.color = this.className;
+                CURRENT_CABLE.cable.color = (this.className ? this.className : '');
 
                 var $img = $(this).parents('.image').find('img'),
                     src = $img.attr('src'),
@@ -1021,8 +1167,9 @@
                 $cable = CABLES.find(component).eq(index),
                 $block = getBlockSkeleton(component),
 
-                manufacturer = $(data).find('ProductManufacturer').text(),
-                name = $(data).find('ProductName').text(),
+                manufacturer = $cable.find('manufacturer').text(),
+                model = $cable.find('model').text(),
+                name = manufacturer + ' ' + model,
 
                 has_default_color = $cable.find('colors').find('default').parent(),
                 default_color = (has_default_color.length ? '.' + has_default_color.find('name').text() : ''),
@@ -1032,15 +1179,14 @@
                     name: name,
                     price: $cable.find('price').text(),
                     manufacturer: manufacturer,
-                    image_alt: $(data).find('ProductName').text(),
+                    image_alt: name,
                     image_src: IMAGES_DIR + 'builder/cable/' +
                                 cableType + '/' +
-                                manufacturer.toLowerCase().replace(/ /g,'-').toLowerCase() + '/' + 
-                                name.substring(manufacturer.length + 1).replace(/ /g,'-').toLowerCase() +
+                                formatImage(manufacturer) + '/' + 
+                                formatImage(model) +
                                 default_color + '.jpg',
                     component: prefix + component,
                     specs: {
-                        brightness:  $cable.find('brightness').text(),
                         capacitance: $cable.find('capacitance').text(),
                         flexibility: $cable.find('flexibility').text(),
                         shield:      $cable.find('shield').text(),
@@ -1112,7 +1258,7 @@
                         .append(
                             $('<div/>')
                                 .addClass($(this).find('name').text())
-                                .click(changeColor)
+                                .on('click', changeColor)
                         );
                 });
 
@@ -1228,7 +1374,7 @@
                         PLUGS.find('boots').find(model.toLowerCase()).children('boot').each(function() {
                             $('<div/>')
                                 .addClass($(this).find('color').text())
-                                .click(changeBoot)
+                                .on('click', changeBoot)
                                 .appendTo($container);
                         });
                         data.boot = default_color;
@@ -1244,7 +1390,7 @@
                             $('<div/>')
                                 .addClass($(this).find('body').text())
                                 .data('suffix', $(this).find('suffix').text())
-                                .click(changeColor)
+                                .on('click', changeColor)
                                 .appendTo($container);
                         });
 
@@ -1255,10 +1401,10 @@
 
                     $block.data(data).addClass('plug');
 
-                    if( $this.find('is_premium').length ) {
-                        skeleton.find(which_container[i]).find('.premium').append($block);
+                    if( $this.find('angle').text() == 'straight' ) {
+                        skeleton.find(which_container[i]).find('.straight').append($block);
                     } else {
-                        skeleton.find(which_container[i]).find('.standard').append($block);
+                        skeleton.find(which_container[i]).find('.right').append($block);
                     }
                 };
 
@@ -1272,7 +1418,13 @@
                 $container = $(skeleton).find(other_container);
 
 
-            $container.append($('<button/>').text('Reset').click(function(){$(this).parent().find('input:checked').prop('checked', false);}));
+            $container.append(
+                $('<button/>')
+                    .text('Reset')
+                    .on('click', function() {
+                        $(this).parent().find('input:checked').prop('checked', false);
+                        updateOther();
+                    }));
             $container.append($('<input/>').addClass('hidden visited').attr('type','radio'));
 
             OTHER.children().each(function() {
@@ -1290,7 +1442,7 @@
                                     id: prefix + name,
                                     type: 'checkbox'
                                 })
-                                .change(changeOption),
+                                .on('click', updateOther),
                             $('<label/>')
                                 .text(name)
                                 .attr('for', prefix + name)
@@ -1309,7 +1461,7 @@
                                 value: desc,
                                 type: 'radio',
                                 name: prefix + name
-                            }).change(changeOption),
+                            }).data('checked', false).on('click', updateOther),
                             $('<label/>')
                                 .text(desc)
                                 .attr('for', prefix + name + '_' + desc)
@@ -1320,13 +1472,24 @@
                 }
                 $opt.appendTo($container);
             });
+
+            $('<div/>').addClass('other quantity').append(
+                $('<h3/>').text('quantity'),
+                $('<input/>', {
+                    type: 'text',
+                    name: prefix + 'quantity',
+                    val: 1
+                }).on('change', updateQuantity)
+            ).appendTo($container);
         },
 
         initFilters = function() {
             var getCableFilter = function() {
                 function colorFilter(parent) {
                     var $filterContainer = $('<div/>').addClass('filterContainer color');
-                    $('<h2/>').text('Color:').appendTo($filterContainer);
+                    $('<h2/>').text('Color').click(function() {
+                        $(this).parent().toggleClass('filter-open');
+                    }).appendTo($filterContainer);
 
                     var colors = [], lcolors = [],// [long_name][short_name]
                         $filterColor = $('<div/>').addClass('filter'),
@@ -1389,7 +1552,7 @@
 
                         var $label = $('<label/>')
                                 .attr('for', 'filter-color-' + color)
-                                .text(value),
+                                .text(color),
                             $box = $('<input/>', {
                                 'type': 'checkbox',
                                 'name': $(parent).parents('ul.builder').data('prefix') + 'filter-color',
@@ -1407,7 +1570,9 @@
 
                 function brightnessFilter(parent) {
                     var $filterContainer = $('<div/>').addClass('filterContainer brightness');
-                    $('<h2/>').text('Brightness:').appendTo($filterContainer);
+                    $('<h2/>').text('Brightness').click(function() {
+                        $(this).parent().toggleClass('filter-open');
+                    }).appendTo($filterContainer);
 
                     var $filterBrightness = $('<div/>').addClass('filter'),
                         options = ['high','med', 'low'];
@@ -1422,7 +1587,7 @@
                                 'name': $(parent).parents('ul.builder').data('prefix') + 'filter-brightness',
                                 'id': 'filter-brightness-' + this,
                                 'value': this
-                            }).addClass('brightness').click(applyFilter);
+                            }).addClass('brightness').on('click', applyFilter);
 
                         $filter.append($radio, $label).appendTo($filterBrightness);
                     });
@@ -1434,7 +1599,9 @@
 
                 function flexibilityFilter(parent) {
                     var $filterContainer = $('<div/>').addClass('filterContainer flexibility');
-                    $('<h2/>').text('Flexibility:').appendTo($filterContainer);
+                    $('<h2/>').text('Flexibility').click(function() {
+                        $(this).parent().toggleClass('filter-open');
+                    }).appendTo($filterContainer);
 
                     var $filterFlexibility = $('<div/>').addClass('filter'),
                         options = ['high','med', 'low'];
@@ -1449,7 +1616,7 @@
                                 'name': $(parent).parents('ul.builder').data('prefix') + 'filter-flexibility',
                                 'id': 'filter-flexibility-' + this,
                                 'value': this
-                            }).addClass('flexibility').click(applyFilter);
+                            }).addClass('flexibility').on('click', applyFilter);
 
                         $filter.append($radio, $label).appendTo($filterFlexibility);
                     });
@@ -1503,6 +1670,48 @@
             var $skeleton = getBuilderSkeleton(type);
                 $skeleton.data('prefix', prefix);
 
+            $skeleton.find('.cable .options')
+                .append(
+                    $('<div/>')
+                        .addClass('premium')
+                        .append(
+                                $('<h3/>').text('Premium')
+                            ),
+                    $('<div/>')
+                        .addClass('standard')
+                        .append(
+                                $('<h3/>').text('Standard')
+                            )
+                );
+
+            $skeleton.find('.inputPlug .options')
+                .append(
+                    $('<div/>')
+                        .addClass('straight')
+                        .append(
+                                $('<h3/>').text('Straight Angle Plugs')
+                            ),
+                    $('<div/>')
+                        .addClass('right')
+                        .append(
+                                $('<h3/>').text('Right Angle Plugs')
+                            )
+                );
+
+            $skeleton.find('.outputPlug .options')
+                .append(
+                    $('<div/>')
+                        .addClass('straight')
+                        .append(
+                                $('<h3/>').text('Straight Angle Plugs')
+                            ),
+                    $('<div/>')
+                        .addClass('right')
+                        .append(
+                                $('<h3/>').text('Right Angle Plugs')
+                            )
+                );
+
             if( $data.has('default').length ) {
                 $tab.addClass('selected');
                 $skeleton.addClass('selected');
@@ -1516,18 +1725,17 @@
 
             $tab.data('tab', type)
                 .append($('<span/>').text(tag))
-                .click(changeTab);
+                .on('click', changeTab);
 
             CABLES.find('cable').filter(function() {
                 return $(this).find("is_" + type).length !== 0;
             }).each(function() {
                 var info = {
                         index: CABLES.find('cable').index(this),
-                        code: $(this).find('code').text(),
                         type: type,
                         skeleton: $skeleton
                     };
-                getData(initCables, info);
+                initCables(info);
             });
 
             initPlugs(type, $skeleton);
@@ -1551,38 +1759,58 @@
             $(this).find('li').first().addClass('current');
         });
 
-        $('.tracker .dot').click(switchStep);
+        $('.tracker .dot').on('click', switchStep);
+
+        $('.confirmation .close').on('click', function() {
+            $('div.builders').removeClass('confirm');
+        });
 
         init.filters();
 
-        storage();
+        storeThis();
 
         ready();
     },
 
+    testA = function() {
+        console.log("Test A");
+    },
+
+    testB = function() {
+        console.log("Test B");
+    },
+
+    testC = function() {
+        console.log("Test C");
+    },
+
+    testD = function() {
+        console.log("Test D");
+    },
+
+    testE = function() {
+        console.log("Test E");
+    },
+
     ready = function() {
-        $('#test').click(function() {
+        $('#test').on('click', function() {
             console.log(JSON.stringify(CURRENT_CABLE,null,4));
         });
 
-        $('#reset').click(function() {
-            reset();
+        $('#reset').on('click', function() {
+            launchModal();
         });
 
-        $('#new').click(function() {
-            storage.generate();
+        $('#new').on('click', function() {
+            storeThis.generate();
         });
 
-        $('#remove').click(function() {
-            storage.remove();
+        $('#remove').on('click', function() {
+            storeThis.remove();
         });
 
-        $('#save').click(function() {
-            storage.save();
-        });
-
-        $('#load').click(function() {
-            storage.load();
+        $('#load').on('click', function() {
+            storeThis.load();
         });
 
         $(window).resize(function() {
@@ -1608,6 +1836,16 @@
         // if page loads with GET options, load cable with options
         // if page loads with COMPARISON cables, load cables into comparison build and select first cable
 
+        $(document).ajaxStop(function() {
+            if( !INITIALIZED ) {
+                INITIALIZED = !INITIALIZED;
+                prep();
+            }
+        });
+
+        $(window).bind('beforeunload', function() {
+        });
+
         $.get( XML_URL )
             .done(function(data) {
                 var $data = $(data).find('data');
@@ -1625,13 +1863,6 @@
                 console.error(textStatus);
                 console.error(errorThrown);
             });
-
-        $(document).ajaxStop(function() {
-            if( !INITIALIZED ) {
-                INITIALIZED = !INITIALIZED;
-                prep();
-            }
-        });
     };
     start();
 

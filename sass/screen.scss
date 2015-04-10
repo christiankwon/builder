@@ -5,12 +5,7 @@
 @import "mixin/screensize";
 @import "mixin/clearfix";
 
-// @include display-flex(flex);
-// @include flex-direction(row | row-reverse | column | column-reverse);
-// @include flex-wrap(nowrap | wrap | wrap-reverse);
-// @include justify-content(flex-start | flex-end | center | baseline | stretch);
-// @include align-items(auto | flex-start | flex-end | center | baseline | stretch);
-// @include align-content(flex-start | flex-end | center | space-between | space-around | stretch);
+@import "blocks";
 
 #screen-width {
     position: fixed;
@@ -18,8 +13,8 @@
     right: 0;
     z-index: 10000;
     color: white;
-    &:after{ content: 'px'; }
     &:before{ content: 'width: '; }
+    &:after{ content: 'px'; }
 }
 
 #screen-height {
@@ -28,8 +23,8 @@
     left: 0;
     z-index: 10000;
     color: white;
-    &:after{ content: 'px'; }
     &:before{ content: 'height: '; }
+    &:after{ content: 'px'; }
 }
 
 #test {
@@ -39,616 +34,63 @@
     z-index: 9999;
 }
 
+#price {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+
+    &:before {
+        content: "$";
+    }
+}
 .loader {
     background: url("/v/s/images/customshop/builder/misc/page-loader.gif") no-repeat scroll 50% 50% rgb(0, 0, 0);
     position: fixed;
     left: 0;
+    display: none;
     right: 0;
     top: 0;
     bottom: 0;
     z-index: 9999;
+
+    div {
+        color: white;
+    }
 }
 
 html, body, .content, .body {
     height: 100%;
 }
 
-ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-button {
-    text-transform: uppercase;
-}
-
-div.body {
-    @include display-flex(flex);
-    @include flex-wrap(nowrap);
-    @include justify-content(space-around);
-    overflow-x: hidden; 
-}
-
-.tracker {
-    @include display-flex(flex);
-    @include align-items(flex-start);
-    @include justify-content(center);
-
-    .dot {
-        width: 10px;
-        height: 10px;
-        background-color: red;
-        border: solid 1px black;
-        border-radius: 50%;
-        margin-bottom: 0.5em;
-        cursor: pointer;
-    }
-
-    .dot.done {
-        background-color: green;
-    }
-}
-
-.display{
-    position: relative;
-    z-index: 1;
-
-    @include display-flex(flex);
-    @include align-items(center);
-    @include justify-content(center);
-
-    .outer {
-        width: 80%;
-        max-width: 500px;
-        max-height: 500px;
-        height: 80%;
-        .inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-
-            div {
-                &:first-child {
-                    height: 100%;
-                }
-                
-                &:not(:first-child) {
-                    position: absolute;
-                }
-
-                img {
-                    max-height: 99%;
-                }
-            }
-
-            .inputPlug {
-                // Mirror
-                @include transform(scaleX(-1));
-                img {
-                    @include transform(rotate(90deg));
-                }
-            }
-            .outputPlug {
-                img {
-                    @include transform(rotate(90deg));
-                }
-            }
-        }
-    }
-
-    .cable {
-        img {
-            max-width: 100%;
-            margin: 0 auto;
-        }
-    }
-    .inputPlug, .outputPlug {
-        img {
-
-        }
-    }
-}
-
-.builders {
-    @include align-self(center);
-    min-width: 300px;
-    position: relative;
-    z-index: 2;
-
-    .builder, .builder > li {
-        height: 100%;
-    }
-}
-
-.cableTypes {
-    @include display-flex(flex);
-    @include flex-direction(row);
-    @include justify-content(space-around);
-    text-align: center;
-    display: none;
-
-    .tab {
-        @include flex-grow(1);
-        cursor: pointer;
-        padding: 0.5em 0;
-        border: 2px solid #ccc;
-        border-bottom: none;
-        background-color: #676767;
-        color: white;
-        border-radius: 15px 15px 0 0;
-        text-transform: uppercase;
-        font-size: 12px;
-        letter-spacing: 1px;
-
-        &:not(:first-child) {
-            border-left: none;
-        }
-
-        &.selected {
-            background-color: #050505;
-        }
-    }
-}
-
-.builder {
-    border: solid 1px black;
-    border-top: none;
-    display: none;
-    position: relative;
-    background: #ddd;
-
-    &.selected {
-        display: block;
-    }
-
-    > li {
-        &.current {
-            display: block;
-        }
-        display: none;
-
-        // input[type="checkbox"] {
-        //     position: absolute;
-        // }
-        
-    }
-}
-
-.filters {
-    &.cable{}
-    &.inputPlug{}
-    &.outputPlug{}
-    &.other{}
-
-    height: 10%;
-    background-color: #73adbc;
-    text-transform: uppercase;
-    position: relative;
-    font-size: 10px;
-    letter-spacing: 1px;
-
-    @include display-flex(flex);
-    @include flex-direction(row);
-    @include flex-wrap(nowrap);
-
-    .filterContainer {
-        @include flex-grow(1);
-        @include display-flex(flex);
-        @include flex-direction(row);
-        @include flex-wrap(wrap);
-        @include align-items(center);
-        @include justify-content(center);
-
-        &.color {
-            @include flex-grow(2);
-
-            .filter {
-                @include display-flex(flex);
-                @include flex-direction(row);
-                @include flex-wrap(wrap);
-
-                .filter-option {width: 50%;}
-            }
-        }
-
-        .filter-option {
-            input, label {
-                display: inline-block;
-                vertical-align: middle;
-            }
-        }
-    }
-
-    h1 {
-        margin: 0;
-    }
-
-    button {
-        position: absolute;
-        right: 10px;
-        bottom: 10px;
-        background: none;
-        border: none;
-        text-transform: uppercase;
-    }
-}
-
-.options {
-    overflow-y: scroll;
-    height: 90%;
-    .premium, .standard {
-        @include display-flex(flex);
-        @include flex-direction(row);
-        @include flex-wrap(wrap);
-        padding-bottom: 58px;
-
-        h3 {
-            width: 100%;
-            text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: 3px;
-            font-size: 13px;
-            margin: 1.5em 1.5em 0.5em;
-        }
-    }
-}
-
-.option {
-    width: 22%;
-    margin: 1em 1.5%;
-    text-align: center;
-    color: white;
-    position: relative;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    min-width: 100px;
-    cursor: pointer;
-
-    div div {
-        height: 30px;
-        @include display-flex(flex);
-        @include align-items(center);
-        @include justify-content(center);
-    }
-    
-    .info {
-        @include transition(top 0.25s ease-in-out);
-        background-color: rgba(0,0,0,0.75);
-        position: absolute;
-        top: 100%;
-        width: 100%;
-        left: 0;
-        height: 100%;
-    }
-
-    &.specs .info {
-        top: 0;
-    }
-
-    .image {
-        overflow: hidden;
-        position: relative;
-
-        img {
-            height: auto;
-            width: 100%;
-        }
-
-        .overlay {
-            position: absolute;
-            top: 0;
-        }
-
-        .colors, .boots {
-            position: absolute;
-            z-index: 20;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 15px;
-
-            @include display-flex(flex);
-            @include flex-direction(row);
-            @include flex-wrap(no-wrap);
-
-            div {
-                width: 100%;
-                height: 15px;
-                cursor: pointer;
-            }
-
-            $colors: 'red' 'orange' 'yellow' 'green' 'black' 'violet' 'gray' 'white' 'gold';
-            @each $color in $colors {
-                .#{$color} {background-color: #{$color};}
-            }
-        }
-    }
-
-    .name {
-        background-color: #555;
-    }
-
-    .price {
-        background-color: #af9757;
-        font-weight: bolder;
-        font-size: 14px;
-
-        span:before {
-            content: '$';
-        }
-    }
-
-    .specs {
-        background-color: #6f9dbe;
-    }
-
-    .select {
-        background-color: #ff1200;
-
-        cursor: pointer;
-
-        button {
-            background: none;
-            border: none;
-            text-transform: inherit;
-        }
-
-        button:before {
-            position: absolute;
-            content: "";
-            height: 8px;
-            background-color: transparent;
-            bottom: 0;
-        }
-
-        button:after {
-            position: absolute;
-            content: "";
-            height: 8px;
-            background-color: transparent;
-            top: 0;
-        }
-    }
-
-    .selector {
-        display: none;
-    }
-
-    .select:after, .select:before {
-        position: absolute;
-        content: "";
-        height: 100%;
-        width: 8px;
-        background-color: transparent;
-        top: 0;
-    }
-
-    .selector:checked ~ .inner .select:before, &:hover .select:before {
-        background-color: #ff1200;
-        left: 0;
-        z-index: 30;
-    }
-
-    .selector:checked ~ .inner .select:after, &:hover .select:after {
-        background-color: #ff1200;
-        right: 0;
-        z-index: 30;
-    }
-
-    .selector:checked ~ .inner .select button:after, &:hover .select button:after, .selector:checked ~ .inner .select button:before, &:hover .select button:before {
-        background-color: #ff1200;
-        left: 0;
-        right: 0;
-        z-index: 30;
-    }
-}
-
-.step {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1em;
-    background-color: #444;
-    z-index: 100;
-    
-    button {
-        color: white;
-        border: solid 1px white;
-        text-transform: uppercase;
-        background: none;
-        padding: 0.5em 2.5em;
-        overflow: hidden;
-        font-size: 12px;
-        font-weight: bold;
-        letter-spacing: 1px;
-
-        &.previous {
-            float: left;
-        }
-
-        &.next {
-            float: right;
-        }
-    }
-}
-
-$types: patch regular;
-.length {
-    > input[name="switch"] {
-        @each $type in $types {
-            &.#{$type} {
-                & ~ .rulers .#{$type} {
-                    display: block;
-                }
-                & ~ .choices .#{$type} {
-                    outline: red 1px solid;
-                }
-            }
-        }
-    }
-
-    .choices {
-        @include display-flex(flex);
-        @include justify-content(space-around);
-        @include align-items(center);
-        text-align: center;
-
-        .choice {
-            width: 30%;
-            @include display-flex(flex);
-            @include flex-direction(row);
-            @include flex-wrap(wrap);
-
-            p, span, button {
-                text-transform: uppercase;
-            }
-
-            input[type="radio"] {
-                display: none;
-            }
-
-            .image {
-                width: 100%;
-                overflow: hidden;
-                position: relative;
-                img {
-                    display: inline-block;
-                }
-            }
-            .information {
-                @include transition(top 0.3s ease-in);
-                background-color: rgba(0,0,0,0.75);
-                left: 0;
-                color: white;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                height: 100%;
-            }
-
-            &.specs .information {
-                top: 0;
-            }
-            .type, .specs, button {
-                height: 35px;
-            }
-
-            .specs, .type {
-                @include display-flex(flex);
-                @include justify-content(center);
-                @include align-items(center);
-            }
-
-            .specs {
-                width: 50%;
-                background-color: brown;
-                img {
-                    display: inline-block;
-                    @include transform(rotate(0));
-                    @include transition(transform 0.3s ease-in-out);
-                }
-            }
-
-            &.specs .specs img {
-                @include transform(rotate(180deg));
-            }
-
-            .type {
-                width: 100%;
-                background-color: blue;
-                color: white;
-            }
-            button {
-                border: none;
-                width: 50%;
-                display: block;
-                background: yellow;
-            }
-        }
-    }
-
-    .rulers {
-        margin: 1em;
-        div, input {
-            display: none;
-        }
-    }
-}
-
-div.content {
-    @import "media";
-}
-
-div.storage {
-    @include display-flex(flex);
-    @include align-items(center);
-    @include flex-direction(column);
-    @include justify-content(center);
-    left: 0;
-    top: 0;
-    bottom: 0;
+.modal {
+    width: 100%;
+    height: 100%;
     position: fixed;
-    z-index: 100;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    background-color: rgba(0,0,0,0.75);
+    @include align-items(center);
+    @include display-flex(flex);
+    @include justify-content(center);
+    @include transition(all 0.3s ease);
+    .info {
+        background-color: red;
+        opacity: 0;
+        width: 1000px;
+        height: 600px;
+        @include transition(all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9) 0s);
+        @include transform(translateX(20%));
+    }
+}
 
-    .build {
-        position: relative;
-        cursor: pointer;
-        border: solid 2px black;
+body.modal-open .modal {
+    visibility: visible;
+        opacity: 1;
 
-        input[name="storage_build"]:checked + .image {
-            outline: solid red 1px;
-        }
-
-        input[type="radio"] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            z-index: 10;
-        }
-
-        .image {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            img {
-                position: absolute;
-            }
-            .cable {
-            }
-
-            .plug {
-                bottom: 0;
-            }
-
-            .input {
-                left: 0;
-            }
-
-            .output {
-                right: 0;
-            }
-        }
-
-        .information {
-            @include transition(width 0.3s ease-in-out);
-            background-color: #ddd;
-            position: absolute;
-            left: 100px;
-            top: -2px;     // should be -2px depending on border
-            bottom: -2px;  // should be -2px depending on border
-            width: 0;
-            overflow: hidden;
-            border: solid 2px black;
-            border-left: none;
-        }
-
-        &:hover .information {
-            &, & p {
-                width: 285px;
-            }
-        }
+    .info {
+        opacity: 1;
+        @include transform(translateX(0));
     }
 }

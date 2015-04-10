@@ -547,3 +547,15 @@ body {
 .hidden {
   display: none;
 }
+
+/* line 14, sass/styles.scss */
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* line 20, sass/styles.scss */
+button {
+  text-transform: uppercase;
+}

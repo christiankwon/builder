@@ -1,0 +1,208 @@
+.filters {
+    $primary: #af9757;
+    $secondary: #fff;
+    $accent: #000;
+
+    &:before {
+        color: #fff;
+        text-transform: uppercase;
+        align-self: center;
+        font-size: 14px;
+        font-weight: bolder;
+        letter-spacing: 1px;
+        margin-left: 20px;
+        cursor: default;
+        width: 150px;
+    }
+
+    &.cable:before {
+        content: "1. Cable Type";
+    }
+    &.length:before {
+        content: "2. Cable Length";
+    }
+    &.inputPlug:before {
+        content: "3. Input Plug";
+    }
+    &.outputPlug:before {
+        content: "4. Output Plug";
+    }
+    &.other:before {
+        content: "5. Other Options";
+    }
+
+    @include display-flex(flex);
+    @include flex-direction(row);
+    @include flex-wrap(nowrap);
+    background-color: $primary;
+    font-size: 11px;
+    height: 10%;
+    letter-spacing: 1px;
+    min-height: 75px;
+    position: relative;
+    text-transform: uppercase;
+
+    .filterContainer {
+        @include align-items(center);
+        @include display-flex(flex);
+        @include flex-direction(column);
+        @include flex-wrap(no-wrap);
+        @include justify-content(center);
+        cursor: pointer;
+        min-width: 130px;
+        width: (100 / 3) * 1%;
+        position: relative;
+
+
+        &.filter-open {
+            h2:after {
+                @include transform(rotate(180deg));
+            }
+
+            h2, .filter-option {
+                background-color: $accent;
+            }
+            .filter {
+                // border: solid 1px rgba(204,204,204,1);
+                z-index: 40;
+            }
+
+            div.filter-option {
+                @include transform(translateY(0));
+                opacity: 1;
+                visibility: visible;
+
+                @for $i from 1 through 7 {
+                    &:nth-child(#{$i}) {
+                        @include transition(all 0.1s #{0.1*$i}s ease-out);
+                    }
+                }
+                
+            }
+        }
+
+        h2:after {
+            border-color: $primary transparent;
+            border-style: solid solid none;
+            border-width: 7px 4px medium;
+            content: "";
+            display: block;
+            height: 0;
+            position: absolute;
+            right: 3em;
+            top: 32px;
+            width: 0;
+
+            @include transition(all 0.4s ease);
+            @include transform(rotate(0));
+        }
+
+        h2 {
+            background-color: $secondary;
+            color: $primary;
+            width: 150px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+            font-weight: bold;
+            justify-content: center;
+            margin: 0 0 2px;
+            @include transition(all 0.2s ease-in);
+        }
+
+        &.color {
+            .filter-option {
+                label {
+                    &:before, &:after {
+                        content: '';
+                        position: absolute;
+                        width: 10px;
+                        height: 10px;
+                    }
+                    &:before {
+                        left: 2em;
+                    }
+                    &:after {
+                        right: 2em;
+                        border-radius: 50%;
+                    }
+                }
+                $list: 'red' 'orange' 'yellow' 'green' 'black' 'white' 'green' 'blue';
+                @each $color in $list {
+                    input[value="#{$color}"] + label:after {
+                        background-color: #{$color};
+                    }
+                }
+                input[value="black"] + label:after {
+                    border: white solid 1px;
+                }
+                @for $i from 1 through 7 {
+                    &:nth-child(#{$i}) {
+                        @include transition(all 0.1s #{0.05*(7-$i)}s ease-out);
+                    }
+                }
+            }
+        }
+
+        &.brightness, &.flexibility {
+            .filter-option {
+                @for $i from 1 through 3 {
+                    &:nth-child(#{$i}) {
+                        @include transition(all 0.1s #{0.05*(3-$i)}s ease-out);
+                    }
+                }
+            }
+        }
+        
+    }
+    .filter {
+        @include transition(all 0.2s ease-in);
+        // border: solid 1px rgba(204,204,204,0);
+        left: 16px;
+        position: absolute;
+        top: 58px;
+
+        .filter-option {
+            @include display-flex(flex);
+            @include align-items(center);
+            @include justify-content(center);
+            @include transform(translateY(-40%));
+            background-color: $secondary;
+            color: $primary;
+            width: 150px;
+            height: 40px;
+            letter-spacing: 1px;
+            font-weight: bold;
+            position: relative;
+            margin: 0;
+            opacity: 0;
+            visibility: hidden;
+            width: 150px;
+
+            input:checked + label:before {
+                background-image: url('http://placehold.it/25');
+            }
+
+            input {
+                display: none;
+            }
+
+            label {
+                padding: 1.3em;
+                cursor: pointer;
+                text-align: center;
+                width: 100%;;
+            }
+        }
+    }
+
+    button {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        background: none;
+        border: none;
+        text-transform: uppercase;
+    }
+}

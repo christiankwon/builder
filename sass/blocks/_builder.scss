@@ -1,0 +1,526 @@
+@import "builder/filters";
+
+.builders {
+    @include align-self(center);
+    position: relative;
+    z-index: 2;
+
+    @include bp(max-width, $bp-small) {
+        height: 50%;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    @include bp(min-width, $bp-small + 1) {
+        height: 80%;
+        margin-right: 2em;
+    }
+
+    @include bpw($bp-small + 1, $bp-medium) {
+        width: 215px;
+    }
+
+    @include bpw($bp-medium + 1, $bp-large) {
+        width: 335px;
+    }
+
+    @include bpw($bp-large + 1, $bp-xlarge) {
+        width: 456px;
+    }
+
+    @include bp(min-width, $bp-xlarge + 1) {
+        width: 685px;
+    }
+}
+
+.cableTypes {
+    @include display-flex(flex);
+    @include flex-direction(row);
+    @include justify-content(space-around);
+    text-align: center;
+    display: none;
+
+    .tab {
+        @include flex-grow(1);
+        cursor: pointer;
+        padding: 0.5em 0;
+        border: 2px solid #ccc;
+        border-bottom: none;
+        background-color: #676767;
+        color: white;
+        border-radius: 15px 15px 0 0;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 1px;
+
+        &:not(:first-child) {
+            border-left: none;
+        }
+
+        &.selected {
+            background-color: #050505;
+        }
+    }
+}
+
+.builder {
+    background: #fdfdfd;
+    border: solid 1px black;
+    border-top: none;
+    display: none;
+    position: relative;
+    z-index: 10;
+
+    &, & > li {
+        height: 100%;
+    }
+
+    &.selected {
+        display: block;
+    }
+
+    > li {
+        display: none;
+        overflow: hidden;
+
+        &.current {
+            display: block;
+        }
+    }
+}
+
+.options {
+    overflow-y: scroll;
+    height: 90%;
+    position: relative;
+    width: calc(100% + 18px);
+    > div {
+        @include display-flex(flex);
+        @include flex-direction(row);
+        @include flex-wrap(wrap);
+        padding-bottom: 58px;
+
+        h3 {
+            width: 100%;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 3px;
+            font-size: 13px;
+            margin: 1.5em 1.5em 0.5em;
+        }
+    }
+}
+
+.option {
+    cursor: pointer;
+    color: white;
+    font-size: 10px;
+    letter-spacing: 1px;
+    min-width: 100px;
+    margin: 1em 1.5%;
+    max-width: 150px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    width: 22%;
+
+    @include bp(max-width, $bp-small) {
+        margin: 1em auto;
+    }
+
+
+    .inner div {
+        height: 30px;
+        @include display-flex(flex);
+        @include align-items(center);
+        @include justify-content(center);
+    }
+    
+    .info {
+        @include transition(top 0.25s ease-in-out);
+        background-color: rgba(0,0,0,0.75);
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        left: 0;
+        height: 100%;
+
+        @include display-flex(flex);
+        @include flex-direction(column);
+
+        ul {
+            text-align: left;
+            padding: 10px 0 0 10px;
+
+            li.title {
+                font-size: 12px;
+                font-weight: bold;
+                border: solid 1px white;
+                padding: 3px;
+                margin-bottom: 3px;
+                display: inline-block;
+                color: #eee;
+            }
+
+            li {
+                margin-bottom: 1px;
+                em {
+                    color: #92d9f3;
+                    font-style: none;
+                }
+            }
+
+            .capacitance:after {
+                content: " pf/ft";
+                font-size: 7px;
+            }
+        }
+    }
+
+    // specs open
+    &.specs .info {
+        top: 0;
+    }
+
+    .image {
+        overflow: hidden;
+        position: relative;
+
+        img {
+            height: auto;
+            width: 100%;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+        }
+
+        .colors, .boots {
+            position: absolute;
+            z-index: 20;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 15px;
+
+            @include display-flex(flex);
+            @include flex-direction(row);
+            @include flex-wrap(no-wrap);
+
+            div {
+                width: 100%;
+                height: 15px;
+                cursor: pointer;
+            }
+
+            $colors: 'red' 'orange' 'yellow' 'green' 'black' 'violet' 'gray' 'white' 'gold';
+            @each $color in $colors {
+                .#{$color} {background-color: #{$color};}
+            }
+        }
+    }
+
+    .name {
+        background-color: #555;
+        padding: 0 8px;
+    }
+
+    .price {
+        background-color: #af9757;
+        font-weight: bolder;
+        font-size: 14px;
+
+        span:before {
+            content: '$';
+        }
+    }
+
+    .specs {
+        background-color: #6f9dbe;
+    }
+
+    .select {
+        background-color: #ff1200;
+
+        cursor: pointer;
+
+        button {
+            background: none;
+            border: none;
+            text-transform: inherit;
+
+            &:before, &:after {
+                position: absolute;
+                content: "";
+                height: 6px;
+                background-color: transparent;
+                bottom: 0;
+            }
+
+            &:before {
+                top: 0;
+            }
+
+            &:after {
+                bottom: 0;
+            }
+        }
+    }
+
+    .selector {
+        display: none;
+    }
+
+    .select:after, .select:before {
+        position: absolute;
+        content: "";
+        height: 100%;
+        width: 6px;
+        background-color: transparent;
+        top: 0;
+    }
+
+    .selector:checked ~ .inner .select:before, &:hover .select:before {
+        background-color: #ff1200;
+        left: 0;
+        z-index: 30;
+    }
+
+    .selector:checked ~ .inner .select:after, &:hover .select:after {
+        background-color: #ff1200;
+        right: 0;
+        z-index: 30;
+    }
+
+    .selector:checked ~ .inner .select button:after, &:hover .select button:after, .selector:checked ~ .inner .select button:before, &:hover .select button:before {
+        background-color: #ff1200;
+        left: 0;
+        right: 0;
+        z-index: 30;
+    }
+}
+
+.step {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1em;
+    background-color: #444;
+    z-index: 100;
+    
+    button {
+        color: white;
+        border: solid 1px white;
+        text-transform: uppercase;
+        background: none;
+        padding: 0.5em 2.5em;
+        overflow: hidden;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 1px;
+
+        &.previous {
+            float: left;
+        }
+
+        &.next {
+            float: right;
+        }
+    }
+}
+
+.builder.only_patch {
+    .length .choice.regular {
+        display: none;
+    }
+}
+
+$types: patch regular;
+.length {
+    > input[name="switch"] {
+        @each $type in $types {
+            &.#{$type} {
+                & ~ .rulers .#{$type} {
+                    display: block;
+                }
+                & ~ .choices .#{$type} {
+                    outline: red 1px solid;
+                }
+            }
+        }
+    }
+
+    .choices {
+        @include display-flex(flex);
+        @include justify-content(space-around);
+        @include align-items(center);
+        text-align: center;
+
+        .choice {
+            width: 30%;
+            @include display-flex(flex);
+            @include flex-direction(row);
+            @include flex-wrap(wrap);
+
+            p, span, button {
+                text-transform: uppercase;
+            }
+
+            input[type="radio"] {
+                display: none;
+            }
+
+            .image {
+                width: 100%;
+                overflow: hidden;
+                position: relative;
+                img {
+                    display: inline-block;
+                }
+            }
+            .information {
+                @include transition(top 0.3s ease-in);
+                background-color: rgba(0,0,0,0.75);
+                left: 0;
+                color: white;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                height: 100%;
+            }
+
+            &.specs .information {
+                top: 0;
+            }
+            .type, .specs, button {
+                height: 35px;
+            }
+
+            .specs, .type {
+                @include display-flex(flex);
+                @include justify-content(center);
+                @include align-items(center);
+            }
+
+            .specs {
+                width: 50%;
+                background-color: brown;
+                img {
+                    display: inline-block;
+                    @include transform(rotate(0));
+                    @include transition(transform 0.3s ease-in-out);
+                }
+            }
+
+            &.specs .specs img {
+                @include transform(rotate(180deg));
+            }
+
+            .type {
+                width: 100%;
+                background-color: blue;
+                color: white;
+            }
+            button {
+                border: none;
+                width: 50%;
+                display: block;
+                background: yellow;
+            }
+        }
+    }
+
+    .rulers {
+        margin: 1em;
+        div, input {
+            display: none;
+        }
+    }
+}
+@include bp(max-width, $bp-small) {
+    .options {
+        width: 105%;
+        > div {
+            padding-top: 40px;
+            position: relative;
+
+            h3 {
+                position: absolute;
+                height: 15px;
+                top: 0;
+                left: 0;
+            }
+        }
+    }
+    .option {
+        @include display-flex(flex);
+        @include flex-direction(row);
+        width: 90%;
+        height: 100px;
+        max-width: 250px;
+
+        div {
+            &.image {
+                width: 40%;
+                height: 100%;
+            }
+            &.inner {
+                width: 60%;
+                height: 100%;
+            }
+            div {
+                height: 50%;
+            }
+        }
+
+        .image {
+            max-height: 100%;
+            position: relative;
+
+            img {
+                height: 100%;
+                width: auto;
+            }
+        }
+
+        .name {
+            width: 100%;
+            padding: 10px;
+        }
+
+        .price, .select {
+            width: 50%;
+        }
+        .price {
+            float: left;
+        }
+        .select {
+            float: right;
+        }
+
+        .specs {
+            span {
+                display: none;
+            }
+
+            width: 15px;
+            position: absolute;
+            left: 0;
+            height: 100%;
+            top: 0;
+
+            &.open {
+                width: 70%;
+            }
+        }
+
+        .select:before, .select:after {
+            width: 3px;
+        }
+        .select button:before, .select button:after {
+            height: 3px;
+        }
+    }
+}

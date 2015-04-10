@@ -1,0 +1,28 @@
+div.builders.confirm .confirmation {
+    left: 0;
+}
+
+.builders {
+    overflow: hidden;
+}
+
+.confirmation {
+    background-color: white;
+    height: 100%;
+    left: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 20;
+    border: solid 1px black;
+
+    @include transition(all 0.3s ease);
+
+    .close {
+        position: absolute;
+        right: 20px;
+        top: 5px;
+        border: none;
+        background: none;
+    }
+}

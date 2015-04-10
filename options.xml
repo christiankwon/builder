@@ -26,29 +26,20 @@
             is_only_patch
          is_proAudio
          is_speaker
-
-         color
-
-         from API
-         name
-         manufacturer
       -->
 
       <!-- Belden 9778 -->
       <cable>
          <code>CSB_BLDN_9778</code>
+         <model>9778</model>
+         <manufacturer>Belden</manufacturer>
          <is_instrument/>
-         <price>1</price>
+         <price>1.5</price>
          <specs>
-            <tone>
-               <brightness></brightness>
-               <capacitance></capacitance>
-            </tone>
-            <construction>
-               <flexibility></flexibility>
-               <shield></shield>
-               <diameter></diameter>
-            </construction>
+            <capacitance>44</capacitance>
+            <flexibility>med</flexibility>
+            <shield>spiral</shield>
+            <diameter></diameter>
          </specs>
          <colors>
             <color>
@@ -74,18 +65,15 @@
       <!-- Canare GS-6 -->
       <cable>
          <code>CSB_CNRE_GS-6</code>
+         <model>GS-6</model>
+         <manufacturer>Canare</manufacturer>
          <is_instrument/>
-         <price>3</price>
+         <price>1.5</price>
          <specs>
-            <tone>
-               <brightness></brightness>
-               <capacitance></capacitance>
-            </tone>
-            <construction>
-               <flexibility></flexibility>
-               <shield></shield>
-               <diameter></diameter>
-            </construction>
+            <capacitance>49</capacitance>
+            <flexibility>high</flexibility>
+            <shield>braided</shield>
+            <diameter></diameter>
          </specs>
          <colors>
             <option_category_id>149</option_category_id>
@@ -134,18 +122,15 @@
       <!-- Canare L-4E6S -->
       <cable>
          <code>CSB_CNRE_L-4E6S</code>
+         <model>L-4E6S</model>
+         <manufacturer>Canare</manufacturer>
          <is_instrument/>
          <price>3</price>
          <specs>
-            <tone>
-               <brightness></brightness>
-               <capacitance></capacitance>
-            </tone>
-            <construction>
-               <flexibility></flexibility>
-               <shield></shield>
-               <diameter></diameter>
-            </construction>
+            <capacitance>49</capacitance>
+            <flexibility>high</flexibility>
+            <shield>braided</shield>
+            <diameter></diameter>
          </specs>
          <colors>
             <color>
@@ -168,23 +153,130 @@
          </lengths>
       </cable>
 
+      <!-- Gotham GAC-1 Ultra Pro -->
+      <cable>
+         <code>CSB_GTHM_GAC-1_UP</code>
+         <model>GAC-1 Ultra Pro</model>
+         <manufacturer>Gotham</manufacturer>
+         <is_instrument/>
+         <price>1.50</price>
+         <specs>
+            <capacitance>21</capacitance>
+            <flexibility>high</flexibility>
+            <shield>spiral</shield>
+            <diameter></diameter>
+         </specs>
+         <colors>
+            <option_category_id>149</option_category_id>
+            <color>
+               <id>1647</id>
+               <default/>
+               <name>black</name>
+               <short_name>blk</short_name>
+            </color>
+            <color>
+               <id>1649</id>
+               <name>red</name>
+               <short_name>red</short_name>
+            </color>
+         </colors>
+         <lengths>
+            <option_category_id>74</option_category_id>
+            <patch>
+               <is_consistent/>
+               <start_id>1288</start_id>
+               <end_id>1335</end_id>
+            </patch>
+            <regular>
+               <is_consistent/>
+               <start_id>1336</start_id>
+               <end_id>1353</end_id>
+            </regular>
+         </lengths>
+      </cable>
+
+      <!-- Gotham GAC-1 -->
+      <cable>
+         <code>CSB_GTHM_GAC-1</code>
+         <model>GAC-1</model>
+         <manufacturer>Gotham</manufacturer>
+         <is_instrument/>
+         <price>1</price>
+         <specs>
+            <capacitance>44</capacitance>
+            <flexibility>high</flexibility>
+            <shield>spiral</shield>
+            <diameter></diameter>
+         </specs>
+         <colors>
+            <color>
+               <name>black</name>
+               <short_name>blk</short_name>
+            </color>
+         </colors>
+         <lengths>
+            <option_category_id>79</option_category_id>
+            <patch>
+               <is_consistent/>
+               <start_id>1653</start_id>
+               <end_id>1700</end_id>
+            </patch>
+            <regular>
+               <is_consistent/>
+               <start_id>1701</start_id>
+               <end_id>1718</end_id>
+            </regular>
+         </lengths>
+      </cable>
+
+      <!-- Gotham GAC-2 -->
+      <cable>
+         <code>CSB_GTHM_GAC-2</code>
+         <model>GAC-2</model>
+         <manufacturer>Gotham</manufacturer>
+         <is_instrument/>
+         <price>1.50</price>
+         <specs>
+            <capacitance>57</capacitance>
+            <flexibility>high</flexibility>
+            <shield>spiral</shield>
+            <diameter></diameter>
+         </specs>
+         <colors>
+            <color>
+               <name>black</name>
+               <short_name>blk</short_name>
+            </color>
+         </colors>
+         <lengths>
+            <option_category_id>80</option_category_id>
+            <patch>
+               <is_consistent/>
+               <start_id>1719</start_id>
+               <end_id>1766</end_id>
+            </patch>
+            <regular>
+               <is_consistent/>
+               <start_id>1767</start_id>
+               <end_id>1784</end_id>
+            </regular>
+         </lengths>
+      </cable>
+
       <!-- Evidence Audio Monorail -->
       <cable>
          <code>CSB_EVIA_MNRL</code>
+         <model>Monorail</model>
+         <manufacturer>Evidence Audio</manufacturer>
          <is_instrument/>
          <is_only_patch/>
          <is_premium/>
-         <price>2</price>
+         <price>3</price>
          <specs>
-            <tone>
-               <brightness></brightness>
-               <capacitance></capacitance>
-            </tone>
-            <construction>
-               <flexibility></flexibility>
-               <shield></shield>
-               <diameter></diameter>
-            </construction>
+            <capacitance>23</capacitance>
+            <flexibility>low</flexibility>
+            <shield>spiral</shield>
+            <diameter></diameter>
          </specs>
          <colors>
             <color>
@@ -210,19 +302,16 @@
       <!-- Evidence Audio Melody -->
       <cable>
          <code>CSB_EVIA_MLDY</code>
+         <model>Melody</model>
+         <manufacturer>Evidence Audio</manufacturer>
          <is_instrument/>
          <is_premium/>
-         <price>2</price>
+         <price>5</price>
          <specs>
-            <tone>
-               <brightness></brightness>
-               <capacitance></capacitance>
-            </tone>
-            <construction>
-               <flexibility></flexibility>
-               <shield></shield>
-               <diameter></diameter>
-            </construction>
+            <capacitance>28</capacitance>
+            <flexibility>low</flexibility>
+            <shield>spiral</shield>
+            <diameter></diameter>
          </specs>
          <colors>
             <color>
@@ -252,18 +341,15 @@
       <!-- Van Damme Classic XKE -->
       <cable>
          <code>CSB_VDMM_CLSC-XKE</code>
+         <model>Classic XKE</model>
+         <manufacturer>Van Damme</manufacturer>
          <is_instrument/>
          <price>2</price>
          <specs>
-            <tone>
-               <brightness></brightness>
-               <capacitance></capacitance>
-            </tone>
-            <construction>
-               <flexibility></flexibility>
-               <shield></shield>
-               <diameter></diameter>
-            </construction>
+            <capacitance>25</capacitance>
+            <flexibility>high</flexibility>
+            <shield>spiral</shield>
+            <diameter></diameter>
          </specs>
          <colors>
             <option_category_id>149</option_category_id>
@@ -311,7 +397,6 @@
                <connector>nickel</connector>
             </color>
             <angle>right</angle>
-            <is_premium/>
          </plug>
 
          <plug>
@@ -365,7 +450,6 @@
             </color>
             <angle>straight</angle>
             <silent/>
-            <is_premium/>
          </plug>
 
          <plug>
@@ -380,7 +464,6 @@
             </color>
             <angle>right</angle>
             <silent/>
-            <is_premium/>
          </plug>
 
          <plug>
@@ -449,7 +532,6 @@
             </color>
             <angle>straight</angle>
             <has_boots/>
-            <is_premium/>
          </plug>
 
          <plug>
@@ -495,6 +577,7 @@
                   <output_option_id>1617</output_option_id>
                </color>
             </colors>
+            <angle>straight</angle>
          </plug>
 
          <plug>
@@ -527,6 +610,7 @@
                   <output_option_id>1609</output_option_id>
                </color>
             </colors>
+            <angle>right</angle>
          </plug>
       </instrument>
 

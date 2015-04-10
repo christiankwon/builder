@@ -1,3 +1,12 @@
+# Temporary fix for [Listen warning]: Change block raise an execption: undefined method `to_tree' for nil:NilClass
+#https://github.com/Compass/compass/issues/1868
+# require 'compass/import-once/importer'
+# module Compass::ImportOnce::Importer
+#   def find(uri, options, *args)
+#     uri, force_import = handle_force_import(uri.gsub(/^\(NOT IMPORTED\) /, ''))
+#     maybe_replace_with_dummy_engine(super(uri, options, *args), options, force_import)
+#   end
+# end
 require 'compass/import-once/activate'
 # Require any additional compass plugins here.
 

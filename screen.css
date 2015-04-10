@@ -49,836 +49,13 @@ body:before {
   }
 }
 
-/* line 15, sass/screen.scss */
-#screen-width {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  z-index: 10000;
-  color: white;
-}
-/* line 21, sass/screen.scss */
-#screen-width:after {
-  content: 'px';
-}
-/* line 22, sass/screen.scss */
-#screen-width:before {
-  content: 'width: ';
-}
-
-/* line 25, sass/screen.scss */
-#screen-height {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 10000;
-  color: white;
-}
-/* line 31, sass/screen.scss */
-#screen-height:after {
-  content: 'px';
-}
-/* line 32, sass/screen.scss */
-#screen-height:before {
-  content: 'height: ';
-}
-
-/* line 35, sass/screen.scss */
-#test {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-}
-
-/* line 42, sass/screen.scss */
-.loader {
-  background: url("/v/s/images/customshop/builder/misc/page-loader.gif") no-repeat scroll 50% 50% black;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 9999;
-}
-
-/* line 52, sass/screen.scss */
-html, body, .content, .body {
-  height: 100%;
-}
-
-/* line 56, sass/screen.scss */
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* line 62, sass/screen.scss */
-button {
-  text-transform: uppercase;
-}
-
-/* line 66, sass/screen.scss */
-div.body {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  -webkit-justify-content: space-around;
-  justify-content: space-around;
-  overflow-x: hidden;
-}
-
-/* line 73, sass/screen.scss */
-.tracker {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: flex-start;
-  align-items: flex-start;
-  -webkit-justify-content: center;
-  justify-content: center;
-}
-/* line 78, sass/screen.scss */
-.tracker .dot {
-  width: 10px;
-  height: 10px;
-  background-color: red;
-  border: solid 1px black;
-  border-radius: 50%;
-  margin-bottom: 0.5em;
-  cursor: pointer;
-}
-/* line 88, sass/screen.scss */
-.tracker .dot.done {
-  background-color: green;
-}
-
-/* line 93, sass/screen.scss */
-.display {
-  position: relative;
-  z-index: 1;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-}
-/* line 101, sass/screen.scss */
-.display .outer {
-  width: 80%;
-  max-width: 500px;
-  max-height: 500px;
-  height: 80%;
-}
-/* line 106, sass/screen.scss */
-.display .outer .inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-/* line 112, sass/screen.scss */
-.display .outer .inner div:first-child {
-  height: 100%;
-}
-/* line 116, sass/screen.scss */
-.display .outer .inner div:not(:first-child) {
-  position: absolute;
-}
-/* line 120, sass/screen.scss */
-.display .outer .inner div img {
-  max-height: 99%;
-}
-/* line 125, sass/screen.scss */
-.display .outer .inner .inputPlug {
-  -moz-transform: scaleX(-1);
-  -ms-transform: scaleX(-1);
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
-}
-/* line 128, sass/screen.scss */
-.display .outer .inner .inputPlug img {
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-/* line 133, sass/screen.scss */
-.display .outer .inner .outputPlug img {
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-/* line 141, sass/screen.scss */
-.display .cable img {
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-/* line 153, sass/screen.scss */
-.builders {
-  -webkit-align-self: center;
-  align-self: center;
-  min-width: 300px;
-  position: relative;
-  z-index: 2;
-}
-/* line 159, sass/screen.scss */
-.builders .builder, .builders .builder > li {
-  height: 100%;
-}
-
-/* line 164, sass/screen.scss */
-.cableTypes {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-justify-content: space-around;
-  justify-content: space-around;
-  text-align: center;
-  display: none;
-}
-/* line 171, sass/screen.scss */
-.cableTypes .tab {
-  -webkit-flex-grow: 1;
-  flex-grow: 1;
-  cursor: pointer;
-  padding: 0.5em 0;
-  border: 2px solid #ccc;
-  border-bottom: none;
-  background-color: #676767;
-  color: white;
-  border-radius: 15px 15px 0 0;
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 1px;
-}
-/* line 184, sass/screen.scss */
-.cableTypes .tab:not(:first-child) {
-  border-left: none;
-}
-/* line 188, sass/screen.scss */
-.cableTypes .tab.selected {
-  background-color: #050505;
-}
-
-/* line 194, sass/screen.scss */
-.builder {
-  border: solid 1px black;
-  border-top: none;
-  display: none;
-  position: relative;
-  background: #ddd;
-}
-/* line 201, sass/screen.scss */
-.builder.selected {
-  display: block;
-}
-/* line 205, sass/screen.scss */
-.builder > li {
-  display: none;
-}
-/* line 206, sass/screen.scss */
-.builder > li.current {
-  display: block;
-}
-
-/* line 218, sass/screen.scss */
-.filters {
-  height: 10%;
-  background-color: #73adbc;
-  text-transform: uppercase;
-  position: relative;
-  font-size: 10px;
-  letter-spacing: 1px;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-}
-/* line 235, sass/screen.scss */
-.filters .filterContainer {
-  -webkit-flex-grow: 1;
-  flex-grow: 1;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-}
-/* line 243, sass/screen.scss */
-.filters .filterContainer.color {
-  -webkit-flex-grow: 2;
-  flex-grow: 2;
-}
-/* line 246, sass/screen.scss */
-.filters .filterContainer.color .filter {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-/* line 251, sass/screen.scss */
-.filters .filterContainer.color .filter .filter-option {
-  width: 50%;
-}
-/* line 256, sass/screen.scss */
-.filters .filterContainer .filter-option input, .filters .filterContainer .filter-option label {
-  display: inline-block;
-  vertical-align: middle;
-}
-/* line 263, sass/screen.scss */
-.filters h1 {
-  margin: 0;
-}
-/* line 267, sass/screen.scss */
-.filters button {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  background: none;
-  border: none;
-  text-transform: uppercase;
-}
-
-/* line 277, sass/screen.scss */
-.options {
-  overflow-y: scroll;
-  height: 90%;
-}
-/* line 280, sass/screen.scss */
-.options .premium, .options .standard {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-  padding-bottom: 58px;
-}
-/* line 286, sass/screen.scss */
-.options .premium h3, .options .standard h3 {
-  width: 100%;
-  text-transform: uppercase;
-  font-weight: bold;
-  letter-spacing: 3px;
-  font-size: 13px;
-  margin: 1.5em 1.5em 0.5em;
-}
-
-/* line 297, sass/screen.scss */
-.option {
-  width: 22%;
-  margin: 1em 1.5%;
-  text-align: center;
-  color: white;
-  position: relative;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  min-width: 100px;
-  cursor: pointer;
-}
-/* line 309, sass/screen.scss */
-.option div div {
-  height: 30px;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-}
-/* line 316, sass/screen.scss */
-.option .info {
-  -moz-transition: top 0.25s ease-in-out;
-  -o-transition: top 0.25s ease-in-out;
-  -webkit-transition: top 0.25s ease-in-out;
-  transition: top 0.25s ease-in-out;
-  background-color: rgba(0, 0, 0, 0.75);
-  position: absolute;
-  top: 100%;
-  width: 100%;
-  left: 0;
-  height: 100%;
-}
-/* line 326, sass/screen.scss */
-.option.specs .info {
-  top: 0;
-}
-/* line 330, sass/screen.scss */
-.option .image {
-  overflow: hidden;
-  position: relative;
-}
-/* line 334, sass/screen.scss */
-.option .image img {
-  height: auto;
-  width: 100%;
-}
-/* line 339, sass/screen.scss */
-.option .image .overlay {
-  position: absolute;
-  top: 0;
-}
-/* line 344, sass/screen.scss */
-.option .image .colors, .option .image .boots {
-  position: absolute;
-  z-index: 20;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 15px;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: no-wrap;
-  flex-wrap: no-wrap;
-}
-/* line 356, sass/screen.scss */
-.option .image .colors div, .option .image .boots div {
-  width: 100%;
-  height: 15px;
-  cursor: pointer;
-}
-/* line 364, sass/screen.scss */
-.option .image .colors .red, .option .image .boots .red {
-  background-color: red;
-}
-/* line 364, sass/screen.scss */
-.option .image .colors .orange, .option .image .boots .orange {
-  background-color: orange;
-}
-/* line 364, sass/screen.scss */
-.option .image .colors .yellow, .option .image .boots .yellow {
-  background-color: yellow;
-}
-/* line 364, sass/screen.scss */
-.option .image .colors .green, .option .image .boots .green {
-  background-color: green;
-}
-/* line 364, sass/screen.scss */
-.option .image .colors .black, .option .image .boots .black {
-  background-color: black;
-}
-/* line 364, sass/screen.scss */
-.option .image .colors .violet, .option .image .boots .violet {
-  background-color: violet;
-}
-/* line 364, sass/screen.scss */
-.option .image .colors .gray, .option .image .boots .gray {
-  background-color: gray;
-}
-/* line 364, sass/screen.scss */
-.option .image .colors .white, .option .image .boots .white {
-  background-color: white;
-}
-/* line 364, sass/screen.scss */
-.option .image .colors .gold, .option .image .boots .gold {
-  background-color: gold;
-}
-/* line 369, sass/screen.scss */
-.option .name {
-  background-color: #555;
-}
-/* line 373, sass/screen.scss */
-.option .price {
-  background-color: #af9757;
-  font-weight: bolder;
-  font-size: 14px;
-}
-/* line 378, sass/screen.scss */
-.option .price span:before {
-  content: '$';
-}
-/* line 383, sass/screen.scss */
-.option .specs {
-  background-color: #6f9dbe;
-}
-/* line 387, sass/screen.scss */
-.option .select {
-  background-color: #ff1200;
-  cursor: pointer;
-}
-/* line 392, sass/screen.scss */
-.option .select button {
-  background: none;
-  border: none;
-  text-transform: inherit;
-}
-/* line 398, sass/screen.scss */
-.option .select button:before {
-  position: absolute;
-  content: "";
-  height: 8px;
-  background-color: transparent;
-  bottom: 0;
-}
-/* line 406, sass/screen.scss */
-.option .select button:after {
-  position: absolute;
-  content: "";
-  height: 8px;
-  background-color: transparent;
-  top: 0;
-}
-/* line 415, sass/screen.scss */
-.option .selector {
-  display: none;
-}
-/* line 419, sass/screen.scss */
-.option .select:after, .option .select:before {
-  position: absolute;
-  content: "";
-  height: 100%;
-  width: 8px;
-  background-color: transparent;
-  top: 0;
-}
-/* line 428, sass/screen.scss */
-.option .selector:checked ~ .inner .select:before, .option:hover .select:before {
-  background-color: #ff1200;
-  left: 0;
-  z-index: 30;
-}
-/* line 434, sass/screen.scss */
-.option .selector:checked ~ .inner .select:after, .option:hover .select:after {
-  background-color: #ff1200;
-  right: 0;
-  z-index: 30;
-}
-/* line 440, sass/screen.scss */
-.option .selector:checked ~ .inner .select button:after, .option:hover .select button:after, .option .selector:checked ~ .inner .select button:before, .option:hover .select button:before {
-  background-color: #ff1200;
-  left: 0;
-  right: 0;
-  z-index: 30;
-}
-
-/* line 448, sass/screen.scss */
-.step {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1em;
-  background-color: #444;
-  z-index: 100;
-}
-/* line 457, sass/screen.scss */
-.step button {
-  color: white;
-  border: solid 1px white;
-  text-transform: uppercase;
-  background: none;
-  padding: 0.5em 2.5em;
-  overflow: hidden;
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-/* line 468, sass/screen.scss */
-.step button.previous {
-  float: left;
-}
-/* line 472, sass/screen.scss */
-.step button.next {
-  float: right;
-}
-
-/* line 483, sass/screen.scss */
-.length > input[name="switch"].patch ~ .rulers .patch {
-  display: block;
-}
-/* line 486, sass/screen.scss */
-.length > input[name="switch"].patch ~ .choices .patch {
-  outline: red 1px solid;
-}
-/* line 483, sass/screen.scss */
-.length > input[name="switch"].regular ~ .rulers .regular {
-  display: block;
-}
-/* line 486, sass/screen.scss */
-.length > input[name="switch"].regular ~ .choices .regular {
-  outline: red 1px solid;
-}
-/* line 493, sass/screen.scss */
-.length .choices {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-justify-content: space-around;
-  justify-content: space-around;
-  -webkit-align-items: center;
-  align-items: center;
-  text-align: center;
-}
-/* line 499, sass/screen.scss */
-.length .choices .choice {
-  width: 30%;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-/* line 505, sass/screen.scss */
-.length .choices .choice p, .length .choices .choice span, .length .choices .choice button {
-  text-transform: uppercase;
-}
-/* line 509, sass/screen.scss */
-.length .choices .choice input[type="radio"] {
-  display: none;
-}
-/* line 513, sass/screen.scss */
-.length .choices .choice .image {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-}
-/* line 517, sass/screen.scss */
-.length .choices .choice .image img {
-  display: inline-block;
-}
-/* line 521, sass/screen.scss */
-.length .choices .choice .information {
-  -moz-transition: top 0.3s ease-in;
-  -o-transition: top 0.3s ease-in;
-  -webkit-transition: top 0.3s ease-in;
-  transition: top 0.3s ease-in;
-  background-color: rgba(0, 0, 0, 0.75);
-  left: 0;
-  color: white;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  height: 100%;
-}
-/* line 532, sass/screen.scss */
-.length .choices .choice.specs .information {
-  top: 0;
-}
-/* line 535, sass/screen.scss */
-.length .choices .choice .type, .length .choices .choice .specs, .length .choices .choice button {
-  height: 35px;
-}
-/* line 539, sass/screen.scss */
-.length .choices .choice .specs, .length .choices .choice .type {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  align-items: center;
-}
-/* line 545, sass/screen.scss */
-.length .choices .choice .specs {
-  width: 50%;
-  background-color: brown;
-}
-/* line 548, sass/screen.scss */
-.length .choices .choice .specs img {
-  display: inline-block;
-  -moz-transform: rotate(0);
-  -ms-transform: rotate(0);
-  -webkit-transform: rotate(0);
-  transform: rotate(0);
-  -moz-transition: -moz-transform 0.3s ease-in-out;
-  -o-transition: -o-transform 0.3s ease-in-out;
-  -webkit-transition: -webkit-transform 0.3s ease-in-out;
-  transition: transform 0.3s ease-in-out;
-}
-/* line 555, sass/screen.scss */
-.length .choices .choice.specs .specs img {
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-/* line 559, sass/screen.scss */
-.length .choices .choice .type {
-  width: 100%;
-  background-color: blue;
-  color: white;
-}
-/* line 564, sass/screen.scss */
-.length .choices .choice button {
-  border: none;
-  width: 50%;
-  display: block;
-  background: yellow;
-}
-/* line 573, sass/screen.scss */
-.length .rulers {
-  margin: 1em;
-}
-/* line 575, sass/screen.scss */
-.length .rulers div, .length .rulers input {
-  display: none;
-}
-
-@media only screen and (max-width: 599px) {
-  /* line 2, sass/_media.scss */
-  div.content .body {
-    -webkit-flex-direction: column;
-    flex-direction: column;
-  }
-  /* line 5, sass/_media.scss */
-  div.content .display, div.content .builders {
-    margin: 0 auto;
-  }
-  /* line 8, sass/_media.scss */
-  div.content .tracker {
-    position: absolute;
-    z-index: 200;
-    bottom: 20px;
-    left: 45%;
-  }
-  /* line 14, sass/_media.scss */
-  div.content .display {
-    height: 50%;
-  }
-  /* line 17, sass/_media.scss */
-  div.content .builders {
-    height: 50%;
-    width: 100%;
-    margin: 0 auto;
-  }
-  /* line 23, sass/_media.scss */
-  div.content .builders .filters * {
-    display: none;
-  }
-  /* line 26, sass/_media.scss */
-  div.content .options {
-    width: 105%;
-  }
-  /* line 28, sass/_media.scss */
-  div.content .options > div {
-    padding-top: 40px;
-    position: relative;
-  }
-  /* line 32, sass/_media.scss */
-  div.content .options > div h3 {
-    position: absolute;
-    height: 15px;
-    top: 0;
-    left: 0;
-  }
-  /* line 40, sass/_media.scss */
-  div.content .option {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    width: 90%;
-    height: 100px;
-    max-width: 250px;
-  }
-  /* line 48, sass/_media.scss */
-  div.content .option div.image {
-    width: 40%;
-    height: 100%;
-  }
-  /* line 52, sass/_media.scss */
-  div.content .option div.inner {
-    width: 60%;
-    height: 100%;
-  }
-  /* line 56, sass/_media.scss */
-  div.content .option div div {
-    height: 50%;
-  }
-  /* line 61, sass/_media.scss */
-  div.content .option .image {
-    max-height: 100%;
-    position: relative;
-  }
-  /* line 65, sass/_media.scss */
-  div.content .option .image img {
-    height: 100%;
-    width: auto;
-  }
-  /* line 71, sass/_media.scss */
-  div.content .option .name {
-    width: 100%;
-    padding: 10px;
-  }
-  /* line 76, sass/_media.scss */
-  div.content .option .price, div.content .option .select {
-    width: 50%;
-  }
-  /* line 79, sass/_media.scss */
-  div.content .option .price {
-    float: left;
-  }
-  /* line 82, sass/_media.scss */
-  div.content .option .select {
-    float: right;
-  }
-  /* line 86, sass/_media.scss */
-  div.content .option .specs {
-    width: 15px;
-    position: absolute;
-    left: 0;
-    height: 100%;
-    top: 0;
-  }
-  /* line 87, sass/_media.scss */
-  div.content .option .specs span {
-    display: none;
-  }
-  /* line 97, sass/_media.scss */
-  div.content .option .specs.open {
-    width: 70%;
-  }
-  /* line 102, sass/_media.scss */
-  div.content .option .select:before, div.content .option .select:after {
-    width: 3px;
-  }
-  /* line 105, sass/_media.scss */
-  div.content .option .select button:before, div.content .option .select button:after {
-    height: 3px;
+@media only screen and (max-height: 600px) {
+  /* line 2, sass/blocks/_storage.scss */
+  .storage {
+    display: none !important;
   }
 }
-@media only screen and (min-width: 600px) {
-  /* line 112, sass/_media.scss */
-  div.content .body {
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    overflow: hidden;
-  }
-  /* line 116, sass/_media.scss */
-  div.content .display {
-    width: 60%;
-    height: 100%;
-  }
-  /* line 120, sass/_media.scss */
-  div.content .builders {
-    width: 30%;
-    height: 80%;
-    margin-right: 2em;
-  }
-  /* line 125, sass/_media.scss */
-  div.content .tracker {
-    -webkit-flex-direction: column;
-    flex-direction: column;
-  }
-}
-
-/* line 585, sass/screen.scss */
+/* line 7, sass/blocks/_storage.scss */
 div.storage {
   display: -webkit-flex;
   display: flex;
@@ -894,46 +71,49 @@ div.storage {
   position: fixed;
   z-index: 100;
 }
-/* line 596, sass/screen.scss */
+/* line 18, sass/blocks/_storage.scss */
 div.storage .build {
   position: relative;
   cursor: pointer;
-  border: solid 2px black;
 }
-/* line 601, sass/screen.scss */
-div.storage .build input[name="storage_build"]:checked + .image {
-  outline: solid red 1px;
+/* line 22, sass/blocks/_storage.scss */
+div.storage .build input[name="storage_build"]:checked + .identifier {
+  background-color: yellow;
 }
-/* line 605, sass/screen.scss */
+/* line 26, sass/blocks/_storage.scss */
 div.storage .build input[type="radio"] {
   position: absolute;
   left: 0;
   top: 0;
   z-index: 10;
+  visibility: hidden;
 }
-/* line 612, sass/screen.scss */
-div.storage .build .image {
+/* line 34, sass/blocks/_storage.scss */
+div.storage .build.current .identifier {
+  background-color: limegreen !important;
+}
+/* line 38, sass/blocks/_storage.scss */
+div.storage .build .identifier {
   position: relative;
   width: 100px;
   height: 100px;
+  border: solid 2px black;
+  border-left: none;
+  border-bottom: none;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
-/* line 616, sass/screen.scss */
-div.storage .build .image img {
-  position: absolute;
+/* line 54, sass/blocks/_storage.scss */
+div.storage .build .identifier p.price:before {
+  content: '$';
 }
-/* line 622, sass/screen.scss */
-div.storage .build .image .plug {
-  bottom: 0;
-}
-/* line 626, sass/screen.scss */
-div.storage .build .image .input {
-  left: 0;
-}
-/* line 630, sass/screen.scss */
-div.storage .build .image .output {
-  right: 0;
-}
-/* line 635, sass/screen.scss */
+/* line 60, sass/blocks/_storage.scss */
 div.storage .build .information {
   -moz-transition: width 0.3s ease-in-out;
   -o-transition: width 0.3s ease-in-out;
@@ -941,15 +121,1437 @@ div.storage .build .information {
   transition: width 0.3s ease-in-out;
   background-color: #ddd;
   position: absolute;
-  left: 100px;
-  top: -2px;
+  left: 98px;
+  top: 0;
   bottom: -2px;
   width: 0;
   overflow: hidden;
   border: solid 2px black;
   border-left: none;
 }
-/* line 649, sass/screen.scss */
-div.storage .build:hover .information, div.storage .build:hover .information p {
-  width: 285px;
+/* line 72, sass/blocks/_storage.scss */
+div.storage .build .information p {
+  font-size: 10px;
+  margin: 5px 0;
+}
+/* line 75, sass/blocks/_storage.scss */
+div.storage .build .information p span {
+  text-transform: lowercase;
+  width: 80px;
+  text-align: right;
+  display: inline-block;
+  margin-right: 2px;
+}
+/* line 82, sass/blocks/_storage.scss */
+div.storage .build .information p em {
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-style: normal;
+}
+/* line 91, sass/blocks/_storage.scss */
+div.storage .build .information p {
+  width: 280px;
+}
+/* line 94, sass/blocks/_storage.scss */
+div.storage .build:hover .information {
+  width: 280px;
+}
+/* line 99, sass/blocks/_storage.scss */
+div.storage .buttons {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+}
+/* line 103, sass/blocks/_storage.scss */
+div.storage .buttons button {
+  width: 100%;
+  height: 30px;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 10px;
+  opacity: 0.8;
+  -moz-transition: opacity 0.1s ease;
+  -o-transition: opacity 0.1s ease;
+  -webkit-transition: opacity 0.1s ease;
+  transition: opacity 0.1s ease;
+}
+/* line 113, sass/blocks/_storage.scss */
+div.storage .buttons button:hover {
+  opacity: 0.9;
+}
+/* line 116, sass/blocks/_storage.scss */
+div.storage .buttons button:nth-child(1) {
+  background-color: red;
+}
+/* line 118, sass/blocks/_storage.scss */
+div.storage .buttons button:nth-child(1):active {
+  color: red;
+  border: solid 1px red;
+  background-color: white;
+}
+/* line 124, sass/blocks/_storage.scss */
+div.storage .buttons button:nth-child(2) {
+  background-color: orange;
+}
+/* line 126, sass/blocks/_storage.scss */
+div.storage .buttons button:nth-child(2):active {
+  color: orange;
+  border: solid 1px orange;
+  background-color: white;
+}
+/* line 132, sass/blocks/_storage.scss */
+div.storage .buttons button:nth-child(3) {
+  background-color: yellow;
+}
+/* line 134, sass/blocks/_storage.scss */
+div.storage .buttons button:nth-child(3):active {
+  color: yellow;
+  border: solid 1px yellow;
+  background-color: white;
+}
+/* line 140, sass/blocks/_storage.scss */
+div.storage .buttons button:nth-child(4) {
+  background-color: green;
+}
+/* line 142, sass/blocks/_storage.scss */
+div.storage .buttons button:nth-child(4):active {
+  color: green;
+  border: solid 1px green;
+  background-color: white;
+}
+
+@media only screen and (max-width: 599px) {
+  /* line 152, sass/blocks/_storage.scss */
+  .storage {
+    height: 100px;
+    width: 100%;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+  }
+  /* line 159, sass/blocks/_storage.scss */
+  .storage .buttons button {
+    display: block;
+  }
+}
+/* line 1, sass/blocks/_display.scss */
+.display {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+@media only screen and (max-width: 599px) {
+  /* line 1, sass/blocks/_display.scss */
+  .display {
+    height: 50%;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 600px) {
+  /* line 1, sass/blocks/_display.scss */
+  .display {
+    width: 45%;
+    height: 100%;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  /* line 1, sass/blocks/_display.scss */
+  .display {
+    width: 60%;
+  }
+}
+/* line 23, sass/blocks/_display.scss */
+.display .outer {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  width: 80%;
+  height: 80%;
+}
+/* line 30, sass/blocks/_display.scss */
+.display .outer .inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+@media only screen and (max-width: 599px) {
+  /* line 30, sass/blocks/_display.scss */
+  .display .outer .inner {
+    max-width: 250px;
+    max-height: 250px;
+  }
+}
+/* line 41, sass/blocks/_display.scss */
+.display .outer .inner div:not(.cable) {
+  position: absolute;
+}
+/* line 48, sass/blocks/_display.scss */
+.display .cable {
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+/* line 54, sass/blocks/_display.scss */
+.display .cable img {
+  max-height: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+/* line 60, sass/blocks/_display.scss */
+.display .inputPlug, .display .outputPlug {
+  bottom: -40px;
+}
+/* line 62, sass/blocks/_display.scss */
+.display .inputPlug img, .display .outputPlug img {
+  height: 340px;
+  width: 340px;
+}
+/* line 65, sass/blocks/_display.scss */
+.display .inputPlug img.plug, .display .outputPlug img.plug {
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+/* line 68, sass/blocks/_display.scss */
+.display .inputPlug img.boot, .display .outputPlug img.boot {
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  position: absolute;
+}
+/* line 75, sass/blocks/_display.scss */
+.display .inputPlug {
+  -moz-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  left: 14px;
+}
+/* line 81, sass/blocks/_display.scss */
+.display .outputPlug {
+  right: 14px;
+}
+
+/* line 1, sass/blocks/builder/_filters.scss */
+.filters {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  background-color: #af9757;
+  font-size: 11px;
+  height: 10%;
+  letter-spacing: 1px;
+  min-height: 75px;
+  position: relative;
+  text-transform: uppercase;
+}
+/* line 6, sass/blocks/builder/_filters.scss */
+.filters:before {
+  color: #fff;
+  text-transform: uppercase;
+  align-self: center;
+  font-size: 14px;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  margin-left: 20px;
+  cursor: default;
+  width: 150px;
+}
+/* line 18, sass/blocks/builder/_filters.scss */
+.filters.cable:before {
+  content: "1. Cable Type";
+}
+/* line 21, sass/blocks/builder/_filters.scss */
+.filters.length:before {
+  content: "2. Cable Length";
+}
+/* line 24, sass/blocks/builder/_filters.scss */
+.filters.inputPlug:before {
+  content: "3. Input Plug";
+}
+/* line 27, sass/blocks/builder/_filters.scss */
+.filters.outputPlug:before {
+  content: "4. Output Plug";
+}
+/* line 30, sass/blocks/builder/_filters.scss */
+.filters.other:before {
+  content: "5. Other Options";
+}
+/* line 45, sass/blocks/builder/_filters.scss */
+.filters .filterContainer {
+  -webkit-align-items: center;
+  align-items: center;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-wrap: no-wrap;
+  flex-wrap: no-wrap;
+  -webkit-justify-content: center;
+  justify-content: center;
+  cursor: pointer;
+  min-width: 130px;
+  width: 33.33333%;
+  position: relative;
+}
+/* line 58, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.filter-open h2:after {
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+/* line 62, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.filter-open h2, .filters .filterContainer.filter-open .filter-option {
+  background-color: #000;
+}
+/* line 65, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.filter-open .filter {
+  z-index: 40;
+}
+/* line 70, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.filter-open div.filter-option {
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+/* line 76, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.filter-open div.filter-option:nth-child(1) {
+  -moz-transition: all 0.1s 0.1s ease-out;
+  -o-transition: all 0.1s 0.1s ease-out;
+  -webkit-transition: all 0.1s 0.1s ease-out;
+  transition: all 0.1s 0.1s ease-out;
+}
+/* line 76, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.filter-open div.filter-option:nth-child(2) {
+  -moz-transition: all 0.1s 0.2s ease-out;
+  -o-transition: all 0.1s 0.2s ease-out;
+  -webkit-transition: all 0.1s 0.2s ease-out;
+  transition: all 0.1s 0.2s ease-out;
+}
+/* line 76, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.filter-open div.filter-option:nth-child(3) {
+  -moz-transition: all 0.1s 0.3s ease-out;
+  -o-transition: all 0.1s 0.3s ease-out;
+  -webkit-transition: all 0.1s 0.3s ease-out;
+  transition: all 0.1s 0.3s ease-out;
+}
+/* line 76, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.filter-open div.filter-option:nth-child(4) {
+  -moz-transition: all 0.1s 0.4s ease-out;
+  -o-transition: all 0.1s 0.4s ease-out;
+  -webkit-transition: all 0.1s 0.4s ease-out;
+  transition: all 0.1s 0.4s ease-out;
+}
+/* line 76, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.filter-open div.filter-option:nth-child(5) {
+  -moz-transition: all 0.1s 0.5s ease-out;
+  -o-transition: all 0.1s 0.5s ease-out;
+  -webkit-transition: all 0.1s 0.5s ease-out;
+  transition: all 0.1s 0.5s ease-out;
+}
+/* line 76, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.filter-open div.filter-option:nth-child(6) {
+  -moz-transition: all 0.1s 0.6s ease-out;
+  -o-transition: all 0.1s 0.6s ease-out;
+  -webkit-transition: all 0.1s 0.6s ease-out;
+  transition: all 0.1s 0.6s ease-out;
+}
+/* line 76, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.filter-open div.filter-option:nth-child(7) {
+  -moz-transition: all 0.1s 0.7s ease-out;
+  -o-transition: all 0.1s 0.7s ease-out;
+  -webkit-transition: all 0.1s 0.7s ease-out;
+  transition: all 0.1s 0.7s ease-out;
+}
+/* line 84, sass/blocks/builder/_filters.scss */
+.filters .filterContainer h2:after {
+  border-color: #af9757 transparent;
+  border-style: solid solid none;
+  border-width: 7px 4px medium;
+  content: "";
+  display: block;
+  height: 0;
+  position: absolute;
+  right: 3em;
+  top: 32px;
+  width: 0;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  -moz-transform: rotate(0);
+  -ms-transform: rotate(0);
+  -webkit-transform: rotate(0);
+  transform: rotate(0);
+}
+/* line 100, sass/blocks/builder/_filters.scss */
+.filters .filterContainer h2 {
+  background-color: #fff;
+  color: #af9757;
+  width: 150px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 1px;
+  font-weight: bold;
+  justify-content: center;
+  margin: 0 0 2px;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+/* line 117, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option label:before, .filters .filterContainer.color .filter-option label:after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+}
+/* line 123, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option label:before {
+  left: 2em;
+}
+/* line 126, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option label:after {
+  right: 2em;
+  border-radius: 50%;
+}
+/* line 133, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option input[value="red"] + label:after {
+  background-color: red;
+}
+/* line 133, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option input[value="orange"] + label:after {
+  background-color: orange;
+}
+/* line 133, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option input[value="yellow"] + label:after {
+  background-color: yellow;
+}
+/* line 133, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option input[value="green"] + label:after {
+  background-color: green;
+}
+/* line 133, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option input[value="black"] + label:after {
+  background-color: black;
+}
+/* line 133, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option input[value="white"] + label:after {
+  background-color: white;
+}
+/* line 133, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option input[value="green"] + label:after {
+  background-color: green;
+}
+/* line 133, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option input[value="blue"] + label:after {
+  background-color: blue;
+}
+/* line 137, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option input[value="black"] + label:after {
+  border: white solid 1px;
+}
+/* line 141, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option:nth-child(1) {
+  -moz-transition: all 0.1s 0.3s ease-out;
+  -o-transition: all 0.1s 0.3s ease-out;
+  -webkit-transition: all 0.1s 0.3s ease-out;
+  transition: all 0.1s 0.3s ease-out;
+}
+/* line 141, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option:nth-child(2) {
+  -moz-transition: all 0.1s 0.25s ease-out;
+  -o-transition: all 0.1s 0.25s ease-out;
+  -webkit-transition: all 0.1s 0.25s ease-out;
+  transition: all 0.1s 0.25s ease-out;
+}
+/* line 141, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option:nth-child(3) {
+  -moz-transition: all 0.1s 0.2s ease-out;
+  -o-transition: all 0.1s 0.2s ease-out;
+  -webkit-transition: all 0.1s 0.2s ease-out;
+  transition: all 0.1s 0.2s ease-out;
+}
+/* line 141, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option:nth-child(4) {
+  -moz-transition: all 0.1s 0.15s ease-out;
+  -o-transition: all 0.1s 0.15s ease-out;
+  -webkit-transition: all 0.1s 0.15s ease-out;
+  transition: all 0.1s 0.15s ease-out;
+}
+/* line 141, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option:nth-child(5) {
+  -moz-transition: all 0.1s 0.1s ease-out;
+  -o-transition: all 0.1s 0.1s ease-out;
+  -webkit-transition: all 0.1s 0.1s ease-out;
+  transition: all 0.1s 0.1s ease-out;
+}
+/* line 141, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option:nth-child(6) {
+  -moz-transition: all 0.1s 0.05s ease-out;
+  -o-transition: all 0.1s 0.05s ease-out;
+  -webkit-transition: all 0.1s 0.05s ease-out;
+  transition: all 0.1s 0.05s ease-out;
+}
+/* line 141, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option:nth-child(7) {
+  -moz-transition: all 0.1s 0s ease-out;
+  -o-transition: all 0.1s 0s ease-out;
+  -webkit-transition: all 0.1s 0s ease-out;
+  transition: all 0.1s 0s ease-out;
+}
+/* line 151, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.brightness .filter-option:nth-child(1), .filters .filterContainer.flexibility .filter-option:nth-child(1) {
+  -moz-transition: all 0.1s 0.1s ease-out;
+  -o-transition: all 0.1s 0.1s ease-out;
+  -webkit-transition: all 0.1s 0.1s ease-out;
+  transition: all 0.1s 0.1s ease-out;
+}
+/* line 151, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.brightness .filter-option:nth-child(2), .filters .filterContainer.flexibility .filter-option:nth-child(2) {
+  -moz-transition: all 0.1s 0.05s ease-out;
+  -o-transition: all 0.1s 0.05s ease-out;
+  -webkit-transition: all 0.1s 0.05s ease-out;
+  transition: all 0.1s 0.05s ease-out;
+}
+/* line 151, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.brightness .filter-option:nth-child(3), .filters .filterContainer.flexibility .filter-option:nth-child(3) {
+  -moz-transition: all 0.1s 0s ease-out;
+  -o-transition: all 0.1s 0s ease-out;
+  -webkit-transition: all 0.1s 0s ease-out;
+  transition: all 0.1s 0s ease-out;
+}
+/* line 159, sass/blocks/builder/_filters.scss */
+.filters .filter {
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  left: 16px;
+  position: absolute;
+  top: 58px;
+}
+/* line 166, sass/blocks/builder/_filters.scss */
+.filters .filter .filter-option {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -moz-transform: translateY(-40%);
+  -ms-transform: translateY(-40%);
+  -webkit-transform: translateY(-40%);
+  transform: translateY(-40%);
+  background-color: #fff;
+  color: #af9757;
+  width: 150px;
+  height: 40px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  position: relative;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  width: 150px;
+}
+/* line 183, sass/blocks/builder/_filters.scss */
+.filters .filter .filter-option input:checked + label:before {
+  background-image: url("http://placehold.it/25");
+}
+/* line 187, sass/blocks/builder/_filters.scss */
+.filters .filter .filter-option input {
+  display: none;
+}
+/* line 191, sass/blocks/builder/_filters.scss */
+.filters .filter .filter-option label {
+  padding: 1.3em;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+}
+/* line 200, sass/blocks/builder/_filters.scss */
+.filters button {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  background: none;
+  border: none;
+  text-transform: uppercase;
+}
+
+/* line 3, sass/blocks/_builder.scss */
+.builders {
+  -webkit-align-self: center;
+  align-self: center;
+  position: relative;
+  z-index: 2;
+}
+@media only screen and (max-width: 599px) {
+  /* line 3, sass/blocks/_builder.scss */
+  .builders {
+    height: 50%;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 600px) {
+  /* line 3, sass/blocks/_builder.scss */
+  .builders {
+    height: 80%;
+    margin-right: 2em;
+  }
+}
+@media only screen and (min-width: 600px) and (max-width: 770px) {
+  /* line 3, sass/blocks/_builder.scss */
+  .builders {
+    width: 215px;
+  }
+}
+@media only screen and (min-width: 771px) and (max-width: 979px) {
+  /* line 3, sass/blocks/_builder.scss */
+  .builders {
+    width: 335px;
+  }
+}
+@media only screen and (min-width: 980px) and (max-width: 1199px) {
+  /* line 3, sass/blocks/_builder.scss */
+  .builders {
+    width: 456px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  /* line 3, sass/blocks/_builder.scss */
+  .builders {
+    width: 685px;
+  }
+}
+
+/* line 36, sass/blocks/_builder.scss */
+.cableTypes {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  text-align: center;
+  display: none;
+}
+/* line 43, sass/blocks/_builder.scss */
+.cableTypes .tab {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  cursor: pointer;
+  padding: 0.5em 0;
+  border: 2px solid #ccc;
+  border-bottom: none;
+  background-color: #676767;
+  color: white;
+  border-radius: 15px 15px 0 0;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+/* line 56, sass/blocks/_builder.scss */
+.cableTypes .tab:not(:first-child) {
+  border-left: none;
+}
+/* line 60, sass/blocks/_builder.scss */
+.cableTypes .tab.selected {
+  background-color: #050505;
+}
+
+/* line 66, sass/blocks/_builder.scss */
+.builder {
+  background: #fdfdfd;
+  border: solid 1px black;
+  border-top: none;
+  display: none;
+  position: relative;
+  z-index: 10;
+}
+/* line 74, sass/blocks/_builder.scss */
+.builder, .builder > li {
+  height: 100%;
+}
+/* line 78, sass/blocks/_builder.scss */
+.builder.selected {
+  display: block;
+}
+/* line 82, sass/blocks/_builder.scss */
+.builder > li {
+  display: none;
+  overflow: hidden;
+}
+/* line 86, sass/blocks/_builder.scss */
+.builder > li.current {
+  display: block;
+}
+
+/* line 92, sass/blocks/_builder.scss */
+.options {
+  overflow-y: scroll;
+  height: 90%;
+  position: relative;
+  width: calc(100% + 18px);
+}
+/* line 97, sass/blocks/_builder.scss */
+.options > div {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding-bottom: 58px;
+}
+/* line 103, sass/blocks/_builder.scss */
+.options > div h3 {
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 3px;
+  font-size: 13px;
+  margin: 1.5em 1.5em 0.5em;
+}
+
+/* line 114, sass/blocks/_builder.scss */
+.option {
+  cursor: pointer;
+  color: white;
+  font-size: 10px;
+  letter-spacing: 1px;
+  min-width: 100px;
+  margin: 1em 1.5%;
+  max-width: 150px;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  width: 22%;
+}
+@media only screen and (max-width: 599px) {
+  /* line 114, sass/blocks/_builder.scss */
+  .option {
+    margin: 1em auto;
+  }
+}
+/* line 132, sass/blocks/_builder.scss */
+.option .inner div {
+  height: 30px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+/* line 139, sass/blocks/_builder.scss */
+.option .info {
+  -moz-transition: top 0.25s ease-in-out;
+  -o-transition: top 0.25s ease-in-out;
+  -webkit-transition: top 0.25s ease-in-out;
+  transition: top 0.25s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.75);
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  left: 0;
+  height: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+/* line 151, sass/blocks/_builder.scss */
+.option .info ul {
+  text-align: left;
+  padding: 10px 0 0 10px;
+}
+/* line 155, sass/blocks/_builder.scss */
+.option .info ul li.title {
+  font-size: 12px;
+  font-weight: bold;
+  border: solid 1px white;
+  padding: 3px;
+  margin-bottom: 3px;
+  display: inline-block;
+  color: #eee;
+}
+/* line 165, sass/blocks/_builder.scss */
+.option .info ul li {
+  margin-bottom: 1px;
+}
+/* line 167, sass/blocks/_builder.scss */
+.option .info ul li em {
+  color: #92d9f3;
+  font-style: none;
+}
+/* line 173, sass/blocks/_builder.scss */
+.option .info ul .capacitance:after {
+  content: " pf/ft";
+  font-size: 7px;
+}
+/* line 181, sass/blocks/_builder.scss */
+.option.specs .info {
+  top: 0;
+}
+/* line 185, sass/blocks/_builder.scss */
+.option .image {
+  overflow: hidden;
+  position: relative;
+}
+/* line 189, sass/blocks/_builder.scss */
+.option .image img {
+  height: auto;
+  width: 100%;
+}
+/* line 194, sass/blocks/_builder.scss */
+.option .image .overlay {
+  position: absolute;
+  top: 0;
+}
+/* line 199, sass/blocks/_builder.scss */
+.option .image .colors, .option .image .boots {
+  position: absolute;
+  z-index: 20;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 15px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: no-wrap;
+  flex-wrap: no-wrap;
+}
+/* line 211, sass/blocks/_builder.scss */
+.option .image .colors div, .option .image .boots div {
+  width: 100%;
+  height: 15px;
+  cursor: pointer;
+}
+/* line 219, sass/blocks/_builder.scss */
+.option .image .colors .red, .option .image .boots .red {
+  background-color: red;
+}
+/* line 219, sass/blocks/_builder.scss */
+.option .image .colors .orange, .option .image .boots .orange {
+  background-color: orange;
+}
+/* line 219, sass/blocks/_builder.scss */
+.option .image .colors .yellow, .option .image .boots .yellow {
+  background-color: yellow;
+}
+/* line 219, sass/blocks/_builder.scss */
+.option .image .colors .green, .option .image .boots .green {
+  background-color: green;
+}
+/* line 219, sass/blocks/_builder.scss */
+.option .image .colors .black, .option .image .boots .black {
+  background-color: black;
+}
+/* line 219, sass/blocks/_builder.scss */
+.option .image .colors .violet, .option .image .boots .violet {
+  background-color: violet;
+}
+/* line 219, sass/blocks/_builder.scss */
+.option .image .colors .gray, .option .image .boots .gray {
+  background-color: gray;
+}
+/* line 219, sass/blocks/_builder.scss */
+.option .image .colors .white, .option .image .boots .white {
+  background-color: white;
+}
+/* line 219, sass/blocks/_builder.scss */
+.option .image .colors .gold, .option .image .boots .gold {
+  background-color: gold;
+}
+/* line 224, sass/blocks/_builder.scss */
+.option .name {
+  background-color: #555;
+  padding: 0 8px;
+}
+/* line 229, sass/blocks/_builder.scss */
+.option .price {
+  background-color: #af9757;
+  font-weight: bolder;
+  font-size: 14px;
+}
+/* line 234, sass/blocks/_builder.scss */
+.option .price span:before {
+  content: '$';
+}
+/* line 239, sass/blocks/_builder.scss */
+.option .specs {
+  background-color: #6f9dbe;
+}
+/* line 243, sass/blocks/_builder.scss */
+.option .select {
+  background-color: #ff1200;
+  cursor: pointer;
+}
+/* line 248, sass/blocks/_builder.scss */
+.option .select button {
+  background: none;
+  border: none;
+  text-transform: inherit;
+}
+/* line 253, sass/blocks/_builder.scss */
+.option .select button:before, .option .select button:after {
+  position: absolute;
+  content: "";
+  height: 6px;
+  background-color: transparent;
+  bottom: 0;
+}
+/* line 261, sass/blocks/_builder.scss */
+.option .select button:before {
+  top: 0;
+}
+/* line 265, sass/blocks/_builder.scss */
+.option .select button:after {
+  bottom: 0;
+}
+/* line 271, sass/blocks/_builder.scss */
+.option .selector {
+  display: none;
+}
+/* line 275, sass/blocks/_builder.scss */
+.option .select:after, .option .select:before {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 6px;
+  background-color: transparent;
+  top: 0;
+}
+/* line 284, sass/blocks/_builder.scss */
+.option .selector:checked ~ .inner .select:before, .option:hover .select:before {
+  background-color: #ff1200;
+  left: 0;
+  z-index: 30;
+}
+/* line 290, sass/blocks/_builder.scss */
+.option .selector:checked ~ .inner .select:after, .option:hover .select:after {
+  background-color: #ff1200;
+  right: 0;
+  z-index: 30;
+}
+/* line 296, sass/blocks/_builder.scss */
+.option .selector:checked ~ .inner .select button:after, .option:hover .select button:after, .option .selector:checked ~ .inner .select button:before, .option:hover .select button:before {
+  background-color: #ff1200;
+  left: 0;
+  right: 0;
+  z-index: 30;
+}
+
+/* line 304, sass/blocks/_builder.scss */
+.step {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1em;
+  background-color: #444;
+  z-index: 100;
+}
+/* line 313, sass/blocks/_builder.scss */
+.step button {
+  color: white;
+  border: solid 1px white;
+  text-transform: uppercase;
+  background: none;
+  padding: 0.5em 2.5em;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+/* line 324, sass/blocks/_builder.scss */
+.step button.previous {
+  float: left;
+}
+/* line 328, sass/blocks/_builder.scss */
+.step button.next {
+  float: right;
+}
+
+/* line 335, sass/blocks/_builder.scss */
+.builder.only_patch .length .choice.regular {
+  display: none;
+}
+
+/* line 345, sass/blocks/_builder.scss */
+.length > input[name="switch"].patch ~ .rulers .patch {
+  display: block;
+}
+/* line 348, sass/blocks/_builder.scss */
+.length > input[name="switch"].patch ~ .choices .patch {
+  outline: red 1px solid;
+}
+/* line 345, sass/blocks/_builder.scss */
+.length > input[name="switch"].regular ~ .rulers .regular {
+  display: block;
+}
+/* line 348, sass/blocks/_builder.scss */
+.length > input[name="switch"].regular ~ .choices .regular {
+  outline: red 1px solid;
+}
+/* line 355, sass/blocks/_builder.scss */
+.length .choices {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  -webkit-align-items: center;
+  align-items: center;
+  text-align: center;
+}
+/* line 361, sass/blocks/_builder.scss */
+.length .choices .choice {
+  width: 30%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+/* line 367, sass/blocks/_builder.scss */
+.length .choices .choice p, .length .choices .choice span, .length .choices .choice button {
+  text-transform: uppercase;
+}
+/* line 371, sass/blocks/_builder.scss */
+.length .choices .choice input[type="radio"] {
+  display: none;
+}
+/* line 375, sass/blocks/_builder.scss */
+.length .choices .choice .image {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+/* line 379, sass/blocks/_builder.scss */
+.length .choices .choice .image img {
+  display: inline-block;
+}
+/* line 383, sass/blocks/_builder.scss */
+.length .choices .choice .information {
+  -moz-transition: top 0.3s ease-in;
+  -o-transition: top 0.3s ease-in;
+  -webkit-transition: top 0.3s ease-in;
+  transition: top 0.3s ease-in;
+  background-color: rgba(0, 0, 0, 0.75);
+  left: 0;
+  color: white;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  height: 100%;
+}
+/* line 394, sass/blocks/_builder.scss */
+.length .choices .choice.specs .information {
+  top: 0;
+}
+/* line 397, sass/blocks/_builder.scss */
+.length .choices .choice .type, .length .choices .choice .specs, .length .choices .choice button {
+  height: 35px;
+}
+/* line 401, sass/blocks/_builder.scss */
+.length .choices .choice .specs, .length .choices .choice .type {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+/* line 407, sass/blocks/_builder.scss */
+.length .choices .choice .specs {
+  width: 50%;
+  background-color: brown;
+}
+/* line 410, sass/blocks/_builder.scss */
+.length .choices .choice .specs img {
+  display: inline-block;
+  -moz-transform: rotate(0);
+  -ms-transform: rotate(0);
+  -webkit-transform: rotate(0);
+  transform: rotate(0);
+  -moz-transition: -moz-transform 0.3s ease-in-out;
+  -o-transition: -o-transform 0.3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
+}
+/* line 417, sass/blocks/_builder.scss */
+.length .choices .choice.specs .specs img {
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+/* line 421, sass/blocks/_builder.scss */
+.length .choices .choice .type {
+  width: 100%;
+  background-color: blue;
+  color: white;
+}
+/* line 426, sass/blocks/_builder.scss */
+.length .choices .choice button {
+  border: none;
+  width: 50%;
+  display: block;
+  background: yellow;
+}
+/* line 435, sass/blocks/_builder.scss */
+.length .rulers {
+  margin: 1em;
+}
+/* line 437, sass/blocks/_builder.scss */
+.length .rulers div, .length .rulers input {
+  display: none;
+}
+
+@media only screen and (max-width: 599px) {
+  /* line 443, sass/blocks/_builder.scss */
+  .options {
+    width: 105%;
+  }
+  /* line 445, sass/blocks/_builder.scss */
+  .options > div {
+    padding-top: 40px;
+    position: relative;
+  }
+  /* line 449, sass/blocks/_builder.scss */
+  .options > div h3 {
+    position: absolute;
+    height: 15px;
+    top: 0;
+    left: 0;
+  }
+
+  /* line 457, sass/blocks/_builder.scss */
+  .option {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    width: 90%;
+    height: 100px;
+    max-width: 250px;
+  }
+  /* line 465, sass/blocks/_builder.scss */
+  .option div.image {
+    width: 40%;
+    height: 100%;
+  }
+  /* line 469, sass/blocks/_builder.scss */
+  .option div.inner {
+    width: 60%;
+    height: 100%;
+  }
+  /* line 473, sass/blocks/_builder.scss */
+  .option div div {
+    height: 50%;
+  }
+  /* line 478, sass/blocks/_builder.scss */
+  .option .image {
+    max-height: 100%;
+    position: relative;
+  }
+  /* line 482, sass/blocks/_builder.scss */
+  .option .image img {
+    height: 100%;
+    width: auto;
+  }
+  /* line 488, sass/blocks/_builder.scss */
+  .option .name {
+    width: 100%;
+    padding: 10px;
+  }
+  /* line 493, sass/blocks/_builder.scss */
+  .option .price, .option .select {
+    width: 50%;
+  }
+  /* line 496, sass/blocks/_builder.scss */
+  .option .price {
+    float: left;
+  }
+  /* line 499, sass/blocks/_builder.scss */
+  .option .select {
+    float: right;
+  }
+  /* line 503, sass/blocks/_builder.scss */
+  .option .specs {
+    width: 15px;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    top: 0;
+  }
+  /* line 504, sass/blocks/_builder.scss */
+  .option .specs span {
+    display: none;
+  }
+  /* line 514, sass/blocks/_builder.scss */
+  .option .specs.open {
+    width: 70%;
+  }
+  /* line 519, sass/blocks/_builder.scss */
+  .option .select:before, .option .select:after {
+    width: 3px;
+  }
+  /* line 522, sass/blocks/_builder.scss */
+  .option .select button:before, .option .select button:after {
+    height: 3px;
+  }
+}
+/* line 1, sass/blocks/_confirmation.scss */
+div.builders.confirm .confirmation {
+  left: 0;
+}
+
+/* line 5, sass/blocks/_confirmation.scss */
+.builders {
+  overflow: hidden;
+}
+
+/* line 9, sass/blocks/_confirmation.scss */
+.confirmation {
+  background-color: white;
+  height: 100%;
+  left: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 20;
+  border: solid 1px black;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+/* line 21, sass/blocks/_confirmation.scss */
+.confirmation .close {
+  position: absolute;
+  right: 20px;
+  top: 5px;
+  border: none;
+  background: none;
+}
+
+/* line 6, sass/_blocks.scss */
+div.body {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  overflow-x: hidden;
+}
+
+@media only screen and (max-width: 599px) {
+  /* line 14, sass/_blocks.scss */
+  .body {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+
+  /* line 17, sass/_blocks.scss */
+  .tracker {
+    position: absolute;
+    z-index: 200;
+    bottom: 20px;
+    left: 45%;
+  }
+}
+@media only screen and (min-width: 600px) {
+  /* line 26, sass/_blocks.scss */
+  .body {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    overflow: hidden;
+  }
+
+  /* line 30, sass/_blocks.scss */
+  .tracker {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}
+/* line 35, sass/_blocks.scss */
+.tracker {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+/* line 40, sass/_blocks.scss */
+.tracker .dot {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border: solid 1px black;
+  border-radius: 50%;
+  margin-bottom: 0.5em;
+  cursor: pointer;
+}
+/* line 50, sass/_blocks.scss */
+.tracker .dot.done {
+  background-color: green;
+}
+
+/* line 10, sass/screen.scss */
+#screen-width {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 10000;
+  color: white;
+}
+/* line 16, sass/screen.scss */
+#screen-width:before {
+  content: 'width: ';
+}
+/* line 17, sass/screen.scss */
+#screen-width:after {
+  content: 'px';
+}
+
+/* line 20, sass/screen.scss */
+#screen-height {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+  color: white;
+}
+/* line 26, sass/screen.scss */
+#screen-height:before {
+  content: 'height: ';
+}
+/* line 27, sass/screen.scss */
+#screen-height:after {
+  content: 'px';
+}
+
+/* line 30, sass/screen.scss */
+#test {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+/* line 37, sass/screen.scss */
+#price {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+}
+/* line 43, sass/screen.scss */
+#price:before {
+  content: "$";
+}
+
+/* line 47, sass/screen.scss */
+.loader {
+  background: url("/v/s/images/customshop/builder/misc/page-loader.gif") no-repeat scroll 50% 50% black;
+  position: fixed;
+  left: 0;
+  display: none;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 9999;
+}
+/* line 57, sass/screen.scss */
+.loader div {
+  color: white;
+}
+
+/* line 62, sass/screen.scss */
+html, body, .content, .body {
+  height: 100%;
+}
+
+/* line 66, sass/screen.scss */
+.modal {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.75);
+  -webkit-align-items: center;
+  align-items: center;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+/* line 78, sass/screen.scss */
+.modal .info {
+  background-color: red;
+  opacity: 0;
+  width: 1000px;
+  height: 600px;
+  -moz-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9) 0s;
+  -o-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9) 0s;
+  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+  -webkit-transition-delay: 0s;
+  transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9) 0s;
+  -moz-transform: translateX(20%);
+  -ms-transform: translateX(20%);
+  -webkit-transform: translateX(20%);
+  transform: translateX(20%);
+}
+
+/* line 88, sass/screen.scss */
+body.modal-open .modal {
+  visibility: visible;
+  opacity: 1;
+}
+/* line 92, sass/screen.scss */
+body.modal-open .modal .info {
+  opacity: 1;
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
 }

@@ -18,19 +18,19 @@ body {
             content: "You're on an XSMALL screen";
         }
 
-        @include bps($bp-xsmall + 1, $bp-small) {
+        @include bpw($bp-xsmall + 1, $bp-small) {
             content: "You're on an SMALL screen";
         }
 
-        @include bps($bp-small + 1, $bp-medium) {
+        @include bpw($bp-small + 1, $bp-medium) {
             content: "You're on an MEDIUM screen";
         }
 
-        @include bps($bp-medium + 1, $bp-large) {
+        @include bpw($bp-medium + 1, $bp-large) {
             content: "You're on an LARGE screen";
         }
 
-        @include bps($bp-large + 1, $bp-xlarge) {
+        @include bpw($bp-large + 1, $bp-xlarge) {
             content: "You're on an XLARGE screen";
         }
 

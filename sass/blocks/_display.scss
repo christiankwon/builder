@@ -1,0 +1,84 @@
+.display {
+    @include display-flex(flex);
+    @include align-items(center);
+    @include justify-content(center);
+    position: relative;
+    z-index: 1;
+
+    @include bp(max-width, $bp-small) {
+        height: 50%;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    @include bp(min-width, $bp-small + 1 ) {
+        width: 45%;
+        height: 100%;
+    }
+
+    @include bp(min-width, $bp-xlarge + 1) {
+        width: 60%;
+    }
+
+    .outer {
+        @include display-flex(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        width: 80%;
+        height: 80%;
+
+        .inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+
+            @include bp(max-width, $bp-small) {
+                max-width: 250px;
+                max-height: 250px;
+            }
+
+            div {
+                &:not(.cable) {
+                    position: absolute;
+                }
+            }
+        }
+    }
+
+    .cable {
+        width: 100%;
+        height: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+
+        img {
+            max-height: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+    }
+    .inputPlug, .outputPlug {
+        bottom: -40px;
+        img {
+            height: 340px;
+            width: 340px;
+            &.plug {
+                @include transform(rotate(90deg));
+            }
+            &.boot {
+                @include transform(rotate(180deg));
+                position: absolute;
+            }
+        }
+    }
+
+    .inputPlug {
+        // Mirror
+        @include transform(scaleX(-1));
+        left: 14px;
+    }
+
+    .outputPlug {
+        right: 14px;
+    }
+}

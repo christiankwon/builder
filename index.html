@@ -33,18 +33,20 @@
         <div id="screen-width"></div>
         <!--[if lt IE 9]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
         <div class="loader"></div>
-
+        <div id="price"></div>
+        <div class="modal">
+            <div class="info"></div>
+        </div>
         <div class="content">
             <button id="test">Test</button>
 
             <div class="storage">
                 <div class="builds"></div>
-                <div class="buttons">
-                    <button id="reset">Reset</button>
+                <div class="buttons"> 
                     <button id="new">new</button>
                     <button id="remove">remove</button>
-                    <button id="save">save</button>
                     <button id="load">load</button>
+                    <button id="save">save</button>
                 </div>
             </div>
             
@@ -53,16 +55,20 @@
                     <div class="outer">
                         <div class="inner">
                             <div class="cable"><img/></div>
-                            <div class="length"><img/></div>
-                            <div class="inputPlug"><img/></div>
-                            <div class="outputPlug"><img/></div>
-                            <div class="other"><img/></div>
+                            <!-- <div class="length"><img/></div> -->
+                            <div class="inputPlug"><img class="plug"/><img class="boot"/></div>
+                            <div class="outputPlug"><img class="plug"/><img class="boot"/></div>
+                            <!-- <div class="other"><img/></div> -->
                         </div>
                     </div>
+                    <!-- <button id="reset">reset</button> -->
                 </div>
 
                 <div class="builders">
-                    <ul class="cableTypes"></ul> 
+                    <div class="confirmation">
+                        <button class="close">X</button>
+                    </div>
+                    <ul class="cableTypes"></ul>
                 </div>
 
                 <div class="tracker">
