@@ -9,7 +9,11 @@
         DEFAULT_CABLE_LENGTH_TYPE = 'regular',
         DEFAULT_CABLETYPE_TYPE = '',
         DEFAULT_CABLETYPE_PREFIX = '',
-        BLANK_IMAGE_URL = 'blank.png',
+        DEFAULT_PLUG_HEIGHT = 300,
+        DEFAULT_PLUG_WIDTH = 180,
+        BLANK_PLUG_URL = IMAGES_DIR + 'plug_outline.png',
+        BLANK_CABLE_URL = IMAGES_DIR + 'cable_outline.png',
+        BLANK_IMAGE_URL = IMAGES_DIR + 'blank.png',
         Cable = function() {
             this.storage = null;
             this.price = 0;
@@ -43,10 +47,99 @@
                 index: null
             };
             this.other = {
+                reverse_plugs: false,
                 heatshrink: false,
                 techflex: '' // color
             };
         },
+
+    displayImages = function() {
+        var plug_width = 0,
+            plug_height = 0,
+
+        resizeImage = function() {
+            // assuming the height of the plug image is half of the cable image
+            var $plugs = $('.display img.plug'),
+                $boots = $('.display img.boot');
+
+            $plugs.height(getCableHeight() / 2);
+            $boots.height(getNewBootsHeight());
+
+            // 450 is the default offset
+            
+            $plugs.parent().css('top', (445/600) * getCableHeight() + 'px');
+
+            $('.display .inputPlug').css('left', getPlugOffSet());
+            $('.display .outputPlug').css('right', getPlugOffSet());
+            $('.display .inputPlug .boot, .display .outputPlug .boot').css('right', getBootRightOffset());
+            $('.display .inputPlug .boot, .display .outputPlug .boot').css('top', getBootTopOffset());
+        };
+
+        function getNewBootsHeight() {
+            var DEFAULT_BOOT_HEIGHT = 100;
+
+            return getCurrentPlugWidthRatio() * DEFAULT_BOOT_HEIGHT + 'px';
+        }
+
+        function getPlugWidth() {
+            var val;
+
+            val = $('.display .inputPlug img.plug').first().width();
+
+            if( !val ) return 0;
+
+            if( $('.display .inputPlug img.plug').attr('src').indexOf('blank.png') > -1 ){
+                if ($('.display .outputPlug img.plug').attr('src').indexOf('blank.png') > -1 ) {
+                    val = 0;
+                } else {
+                    val = $('.display .outputPlug img.plug').first().width();
+                }
+            }
+
+            return val;
+        }
+
+        function getCurrentPlugWidthRatio() {
+            return getPlugWidth() / DEFAULT_PLUG_WIDTH;
+        }
+
+        function getBootRightOffset() {
+            var default_offset = 12;
+
+            var offset = default_offset * getCurrentPlugWidthRatio();
+
+            return offset + 'px';
+        }
+
+        function getBootTopOffset() {
+            var default_offset = 3;
+
+            var offset = default_offset * getCurrentPlugWidthRatio();
+
+            return offset + 'px';
+        }
+
+        function getCableWidth() {
+            return $('.display .cable > img').width();
+        }
+
+        function getCableHeight() {
+            return $('.display .cable > img').height();
+        }
+
+        /**
+         * Center of plug is 37px from the right side.
+         * Center of cable is 24px from the side of the image
+         * @return {int} Resized image ratio multiplied by default widths
+         */
+        function getPlugOffSet() {
+            return -1 * ( (37 * getCurrentPlugWidthRatio()) - (24 * (getCableWidth() / 600)) ) + 'px';
+        }
+
+        resizeImage();
+
+        displayImages.resizeImage = resizeImage;
+    },
 
     /**
      * JSON hack to return a deep copy of an object
@@ -69,6 +162,8 @@
         $length.find('input.patch').val(12);
         $length.find('input.regular').val(10);
 
+        $display.find('img.plug').attr('src',BLANK_PLUG_URL);
+        $display.find('.cable > img').attr('src',BLANK_CABLE_URL);
         $display.find('img').attr('src',BLANK_IMAGE_URL);
 
         $('.tracker .dot').removeClass('done');
@@ -111,7 +206,7 @@
         $('.confirmation').children().not('button.close').remove();
 
         $('.storage .build').each(function() {
-            $('.confirmation').append($('<pre/>').text(JSON.stringify($(this).data(),null,4)))
+            $('.confirmation').append($('<pre/>').text(JSON.stringify($(this).data(),null,4)));
         });
     },
 
@@ -226,8 +321,9 @@
             }),
             $info = $storage.find('.information');
 
-        $storage.find('p.id span').text(CURRENT_CABLE.storage);
-        $storage.find('p.price').text(CURRENT_CABLE.price);
+        $storage.find('.identifier p.id').text(CURRENT_CABLE.storage);
+        $storage.find('.identifier p.type').text('Inst/Patch');
+        $storage.find('.identifier p.price').text(CURRENT_CABLE.price);
 
         $info.find('.type em').text(CURRENT_CABLE.cableType.type);
         $info.find('.cable em').text(getCable());
@@ -243,30 +339,6 @@
         }
 
         storeThis.save();
-    },
-
-    getCableColor = function(color) {
-        switch(color) {
-            case 'black': return '.b';
-            case 'green': return '.g';
-            case 'orange': return '.o';
-            case 'red': return '.r';
-            case 'yellow': return '.y';
-            case 'white': return '.w';
-            default: return '';
-        }
-    },
-
-    getBootColor = function(color) {
-        switch(color) {
-            case 'black': return 'b';
-            case 'green': return 'g';
-            case 'orange': return 'o';
-            case 'red': return 'r';
-            case 'violet': return 'v';
-            case 'yellow': return 'y';
-            default: return '';
-        }
     },
 
     calculateCost = function() {
@@ -306,7 +378,6 @@
         var totalCost = cablePrice + inputPlugCost + outputPlugCost + extraCosts;
 
         // return totalCost;
-        $('#price').text(totalCost);
         CURRENT_CABLE.price = totalCost.toFixed(2);
     },
 
@@ -314,7 +385,6 @@
         var $display = $('div.display'),
             CC = clone(CURRENT_CABLE),
             cable_color = (CC.cable.color ? '.' + CC.cable.color : ''),
-            // outboot = '/' + getBootColor(CC.outputPlug.boot),
             cable_src = IMAGES_DIR + 'display/cable/' +
                         CC.cableType.type + '/' +
                         CC.length.type + '/' +
@@ -322,7 +392,6 @@
                         formatImage(CC.cable.name.substring(CC.cable.manufacturer.length + 1)) +
                         cable_color + '.png',
 
-            // boot_color = ()
             inPlug_src = IMAGES_DIR + 'display/plug/' +
                          CC.cableType.type + '/' +
                          formatImage(CC.inputPlug.manufacturer) + '/' +
@@ -345,19 +414,20 @@
                           formatImage(CC.outputPlug.model.split('-')[0]) + '/' +
                           CC.outputPlug.boot + '.png';
 
-        var cable = (CC.cable.code ? cable_src : BLANK_IMAGE_URL);
-        var input = (CC.inputPlug.manufacturer && CC.inputPlug.model ? inPlug_src : BLANK_IMAGE_URL);
-        var output = (CC.outputPlug.manufacturer && CC.outputPlug.model ? outPlug_src : BLANK_IMAGE_URL);
+        var cable = (CC.cable.code ? cable_src : BLANK_CABLE_URL);
+        var input = (CC.inputPlug.manufacturer && CC.inputPlug.model ? inPlug_src : BLANK_PLUG_URL);
+        var output = (CC.outputPlug.manufacturer && CC.outputPlug.model ? outPlug_src : BLANK_PLUG_URL);
         var inputBoot = (CC.inputPlug.boot ? inBoot_src : BLANK_IMAGE_URL);
         var outputBoot = (CC.outputPlug.boot ?  outBoot_src : BLANK_IMAGE_URL);
 
-        $display.find('.cable img').attr('src', cable);
+        $display.find('.cable > img').attr('src', cable);
         $display.find('.inputPlug img.plug').attr('src', input);
         $display.find('.outputPlug img.plug').attr('src', output);
         $display.find('.inputPlug img.boot').attr('src', inputBoot);
         $display.find('.outputPlug img.boot').attr('src', outputBoot);
 
         calculateCost();
+        displayImages.resizeImage();
     },
 
     updateDots = function() {
@@ -387,6 +457,10 @@
                 $dot.removeClass('done');
             }
         });
+
+        $tracker.children().removeClass('current');
+        var current = $('ul.builder.selected').children('.current').attr('class').replace(/current/g, '').trim();
+        $tracker.find('.' + current).addClass('current');
     },
 
     updateLength = function(ui) {
@@ -429,6 +503,10 @@
             CURRENT_CABLE.other.techflex = ($parent.find('input:checked').length ? $parent.find('input:checked').val() : '');
         }
 
+        if( $parent.hasClass('reverse_plugs') ) {
+            CURRENT_CABLE.other.reverse_plugs = (CURRENT_CABLE.length.type === 'patch' && $parent.find('input:checked').length ? true : false);
+        }
+
         updateStorage();
         calculateCost();
     },
@@ -458,7 +536,8 @@
         }
 
         var $parent = $button.parents('.filters').parent(), // <li class="cable current" />
-            $options = $parent.find('.option'),
+            $containers = $parent.find('div.options'),
+            $options = $containers.find('.option'),
             $radios = $button.parents('.filters').find('input[type="radio"]:checked'),
             $checks = $button.parents('.filters').find('input[type="checkbox"]:checked');
 
@@ -480,33 +559,49 @@
                 }).hide();
             });
 
-            if( !$checks.length ) return;
+            if( $checks.length ) {
+                var $visible = $parent.find('.option:visible');
+                $visible.hide();
 
-            var $visible = $parent.find('.option:visible');
-            $visible.hide();
+                $checks.each(function() {
+                    var value = $(this).val();
+                    $visible.filter(function() {
+                        var colors = $(this).data().colors;
 
-            $checks.each(function() {
-                var value = $(this).val();
-                $visible.filter(function() {
-                    var colors = $(this).data().colors;
+                        for( var c in colors ) {
+                            if( c.indexOf(value) > -1 && c.indexOf('opt_') > -1 ) return true;
+                        }
 
-                    for( var c in colors ) {
-                        if( c.indexOf(value) > -1 && c.indexOf('opt_') > -1 ) return true;
+                        return false;
+                    }).show();
+                });
+            }
+        } else if( $parent.hasClass('inputPlug') ) {
+            $radios.each(function() {
+                var $this = $(this),
+                    value = $this.val(),
+                    filter = $this.attr('class');
+
+                $options.filter(function() {
+                    if( $this.hasClass('manufacturer') ) {
+                        return value !== $(this).data().manufacturer;
                     }
-
-                    return false;
-                }).show();
+                }).hide();
             });
         }
 
+        $containers.children('div').removeClass('hidden');
+        $containers.children('div').each(function() {
+            if( !$(this).children('.option').is(':visible') ) {
+                $(this).addClass('hidden');
+            }
+        });
+
         if( !$options.is(':visible') ) {
-            // all gone
-            testA();
+            clog("A");
         } else {
-            // something
-            testB();
+            clog("B");
         }
-        testC();
     },
 
     changeOption = function() {
@@ -556,8 +651,24 @@
                     CURRENT_CABLE.inputPlug.model = $option.data().model;
                     CURRENT_CABLE.inputPlug.manufacturer = $option.data().manufacturer;
                     CURRENT_CABLE.inputPlug.index = $option.data().index;
-                    CURRENT_CABLE.inputPlug.boot = $option.data().boot;
-                    CURRENT_CABLE.inputPlug.color = ($option.data().color ? '-' + $option.data().color : '');
+
+                    if( $option.find('.image .boots').length ) {
+                        var src = $option.find('.image img.overlay').attr('src'),
+                            color = src.substring(src.lastIndexOf('/') + 1, src.lastIndexOf('.'));
+
+                        CURRENT_CABLE.inputPlug.boot = color;
+                    } else {
+                        CURRENT_CABLE.inputPlug.boot = '';
+                    }
+
+                    if( $option.find('.image .colors').length ) {
+                        var src = $option.find('.image img').attr('src'),
+                            color = src.substring(src.lastIndexOf('-'), src.lastIndexOf('.'));
+
+                        CURRENT_CABLE.inputPlug.color = color;
+                    } else {
+                        CURRENT_CABLE.inputPlug.color = '';
+                    }
                 }
             } else if( $option.parents('li').hasClass('outputPlug') ) {
                 if( !set ) {
@@ -566,8 +677,24 @@
                     CURRENT_CABLE.outputPlug.model = $option.data().model;
                     CURRENT_CABLE.outputPlug.manufacturer = $option.data().manufacturer;
                     CURRENT_CABLE.outputPlug.index = $option.data().index;
-                    CURRENT_CABLE.outputPlug.boot = $option.data().boot;
-                    CURRENT_CABLE.outputPlug.color = ($option.data().color ? '-' + $option.data().color : '');
+
+                    if( $option.find('.image .boots').length ) {
+                        var src = $option.find('.image img.overlay').attr('src'),
+                            color = src.substring(src.lastIndexOf('/') + 1, src.lastIndexOf('.'));
+
+                        CURRENT_CABLE.outputPlug.boot = color;
+                    } else {
+                        CURRENT_CABLE.outputPlug.boot = '';
+                    }
+
+                    if( $option.find('.image .colors').length ) {
+                        var src = $option.find('.image img').attr('src'),
+                            color = src.substring(src.lastIndexOf('-'), src.lastIndexOf('.'));
+
+                        CURRENT_CABLE.outputPlug.color = color;
+                    } else {
+                        CURRENT_CABLE.outputPlug.color = '';
+                    }
                 }
             }
         }
@@ -687,12 +814,17 @@
             $('ul.builder#' + type).addClass('selected');
 
             if( data.cable.code ) {
+                var color; 
+                if( data.cable.color ) {
+                    color = data.cable.color;
+                }
                 $('#' + prefix + data.cable.code).click();
-            }
-            if( data.cable.color ) {
-                $('#' + prefix + data.cable.code).parent().find('.colors div').filter(function() {
-                    return $(this).hasClass(data.cable.color);
-                }).click();
+
+                if( color ) {
+                    $('#' + prefix + data.cable.code).parent().find('.colors div').filter(function() {
+                        return $(this).attr('class') === color; 
+                    }).click();
+                }
             }
             if( data.length.type && data.length.amount ) {
                 var $length = $('ul.builder.selected').find('.length');
@@ -704,20 +836,66 @@
                 $length.find('.ruler.' + data.length.type).slider('value', data.length.amount);
             }
             if( data.inputPlug.index ) {
+                var boot = '', color = '';
+
+                if( data.inputPlug.boot ) {
+                    boot = data.inputPlug.boot;
+                }
+
+                if( data.inputPlug.color ) {
+                    color = data.inputPlug.color;
+                }
+
                 $('#' + prefix + 'inputPlug_' + data.inputPlug.index).click();
-            }
-            if( data.inputPlug.boot ) {
-                $('#' + prefix + 'inputPlug_' + data.inputPlug.index).parent().find('.boots').find('div').filter(function() {
-                    return $(this).hasClass(data.inputPlug.boot);
-                }).click();
+
+                if( boot ) {
+                    $('#' + prefix + 'inputPlug_' + data.inputPlug.index).parent().find('.boots div').filter(function() {
+                        return $(this).attr('class') === boot;
+                    }).click();
+                }
+
+                if( color ) {
+                    color = color.replace(/-/g,'');
+
+                    color = PLUGS.find('plug').eq(data.inputPlug.index).find('color').filter(function() {
+                        return $(this).find('suffix').text() == color;
+                    }).find('body').text();
+
+                    $('#' + prefix + 'inputPlug_' + data.inputPlug.index).parent().find('.colors div').filter(function() {
+                        return $(this).attr('class') === color;
+                    }).click();
+                }
             }
             if( data.outputPlug.index ) {
+                var boot = '', color = '';
+
+                if( data.outputPlug.boot ) {
+                    boot = data.outputPlug.boot;
+                }
+
+                if( data.outputPlug.color ) {
+                    color = data.outputPlug.color;
+                }
+
                 $('#' + prefix + 'outputPlug_' + data.outputPlug.index).click();
-            }
-            if( data.outputPlug.boot ) {
-                $('#' + prefix + 'outputPlug_' + data.outputPlug.index).parent().find('.boots').find('div').filter(function() {
-                    return $(this).hasClass(data.outputPlug.boot);
-                }).click();
+
+                if( boot ) {
+                    $('#' + prefix + 'outputPlug_' + data.outputPlug.index).parent().find('.boots div').filter(function() {
+                        return $(this).attr('class') === boot;
+                    }).click();
+                }
+
+                if( color ) {
+                    color = color.replace(/-/g,'');
+
+                    color = PLUGS.find('plug').eq(data.outputPlug.index).find('color').filter(function() {
+                        return $(this).find('suffix').text() == color;
+                    }).find('body').text();
+
+                    $('#' + prefix + 'outputPlug_' + data.outputPlug.index).parent().find('.colors div').filter(function() {
+                        return $(this).attr('class') === color;
+                    }).click();
+                }
             }
             if( data.other.heatshrink ) {
                 $('#' + prefix + 'heatshrink').prop('checked', true);
@@ -728,15 +906,17 @@
         }
 
         function getCurrentStorage() {
-            return $('.storage .build').filter(function() {
+            var test = $('.storage .build').filter(function() {
                 return $(this).data('storage') == CURRENT_CABLE.storage;
             });
+
+            return test;
         }
 
         function save() {
             var $block = getCurrentStorage();
             $block.data(CURRENT_CABLE);
-            store();
+            store($block);
         }
 
         function remove() {
@@ -834,7 +1014,8 @@
             });
 
             $identifier.append(
-                $('<p/>').addClass('id').html('Cable <span></span>'),
+                $('<p/>').addClass('id'),
+                $('<p/>').addClass('type'),
                 $('<p/>').addClass('price')
             );
 
@@ -852,8 +1033,7 @@
             });
         }
 
-        function store() {
-            var $block = getCurrentStorage();
+        function store($block) {
             data = $block.data();
             localStorage.setItem('build_' + data.storage, JSON.stringify(data));
         }
@@ -891,6 +1071,23 @@
             }
         }
 
+    },
+
+    drawCanvas = function() {
+        // var canvas = document.getElementById('canvas_cable');
+        // if (canvas.getContext) {
+        //     var ctx = canvas.getContext('2d');
+
+        //     ctx.beginPath();
+        //     ctx.arc(75,75,50,0,Math.PI*2,true); // Outer circle
+        //     ctx.moveTo(110,75);
+        //     ctx.arc(75,75,35,0,Math.PI,false);  // Mouth (clockwise)
+        //     ctx.moveTo(65,65);
+        //     ctx.arc(60,65,5,0,Math.PI*2,true);  // Left eye
+        //     ctx.moveTo(95,65);
+        //     ctx.arc(90,65,5,0,Math.PI*2,true);  // Right eye
+        //     ctx.stroke();
+        // }
     },
 
     /**
@@ -1095,11 +1292,18 @@
                                 $('<li/>')
                                     .addClass('title')
                                     .text('Details')
-                            )
+                            ),
+                        $('<button/>')
+                            .addClass('more')
+                            .text('more info')
                     )
                 );
             } else if( type === 'plug' ) {
-                // TODO
+                $image.append(
+                    $('<div/>').addClass('info').append(
+                        $('<img/>').addClass('measurements')
+                    )
+                );
             }
 
             $inner.append($name, $price, $specs, $button);
@@ -1128,15 +1332,19 @@
 
             if( options.component.indexOf('cable') > -1 ) {
 
-                block.find('div.info ul.details')
-                    .append(
-                            $('<li/>').html('Capacitance: <em class="capacitance">' + options.specs.capacitance + '</em>'),
-                            $('<li/>').html('Flexibility: <em>' + options.specs.flexibility + '</em>'),
-                            $('<li/>').html('Shield: <em>' + options.specs.shield + '</em>'),
-                            $('<li/>').html('Diameter: <em>' + options.specs.diameter + '</em>')
-                        );
-            } else if( options.component.indexOf('plug') > -1 ) {
-                // TODO
+                block.find('div.info ul.details').append(
+                    $('<li/>').html('Capacitance: <em class="capacitance">' + options.specs.capacitance + '</em>'),
+                    $('<li/>').html('Flexibility: <em>' + options.specs.flexibility + '</em>'),
+                    $('<li/>').html('Shield: <em>' + options.specs.shield + '</em>'),
+                    $('<li/>').html('Diameter: <em>' + options.specs.diameter + '</em>')
+                );
+
+            } else if( options.component.indexOf('Plug') > -1 ) {
+                block.find('div.info img.measurements').attr({
+                    src: options.specs.image_src,
+                    alt: options.name + " Measurements"
+                });
+
             }
         },
 
@@ -1149,15 +1357,17 @@
             function changeColor(e) {
                 e.stopPropagation();
 
-                CURRENT_CABLE.cable.color = (this.className ? this.className : '');
-
                 var $img = $(this).parents('.image').find('img'),
                     src = $img.attr('src'),
                     color = src.substring(src.indexOf('.') + 1, src.lastIndexOf('.'));
 
                 $img.attr('src', src.replace(color, this.className));
 
-                if( $(this).parents('.option').find('input.selector').prop('checked') ) updateVisual();
+                if( $(this).parents('.option').find('input.selector').prop('checked') ) {
+                    CURRENT_CABLE.cable.color = (this.className ? this.className : '');
+                    updateVisual();
+                    updateStorage();
+                }
             }
             var component = 'cable',
                 $skeleton = info.skeleton,
@@ -1243,7 +1453,7 @@
                                         lengths[name + (j + 3)] = ($start.text() * 1) + j;
                                     }
                                 }
-                            } else {}// idk
+                            } else {} // not patch or regular cable
                         } else {} // missing either start or end tag
                     } else {}// look for individual numbers
                 });
@@ -1293,7 +1503,6 @@
                 e.stopPropagation();
 
                 var which = ($(this).parents('li').hasClass('inputPlug') ? 'inputPlug' : 'outputPlug');
-                CURRENT_CABLE[which].boot = this.className;
 
                 var $img = $(this).parents('.image').find('img.overlay'),
                     src = $img.attr('src'),
@@ -1301,14 +1510,17 @@
 
                 $img.attr('src', src.replace(color, this.className));
 
-                if( $(this).parents('.option').find('input.selector').prop('checked') ) updateVisual();
+                if( $(this).parents('.option').find('input.selector').prop('checked') ) {
+                    CURRENT_CABLE[which].boot = this.className;
+                    updateVisual();
+                    updateStorage();
+                }
             }
 
             function changeColor(e) {
                 e.stopPropagation();
 
                 var which = ($(this).parents('li').hasClass('inputPlug') ? 'inputPlug' : 'outputPlug');
-                CURRENT_CABLE[which].color = '-' + $(this).data('suffix');
 
                 var $img = $(this).parents('.image').find('img'),
                     src = $img.attr('src'),
@@ -1316,7 +1528,11 @@
 
                 $img.attr('src', src.replace(suffix, $(this).data('suffix')));
 
-                if( $(this).parents('.option').find('input.selector').prop('checked') ) updateVisual();
+                if( $(this).parents('.option').find('input.selector').prop('checked') ) {
+                    CURRENT_CABLE[which].color = '-' + $(this).data('suffix');
+                    updateVisual();
+                    updateStorage();
+                }
             }
             var $plugs = PLUGS.find(type).find('plug'),
                 which = ['inputPlug', 'outputPlug'],
@@ -1325,7 +1541,7 @@
 
                 build = function() {
                     var $this = $(this),
-                        $block = getBlockSkeleton(type),
+                        $block = getBlockSkeleton('plug'),
 
                         default_color = ($this.find('colors').length ? '-' + $this.find('colors').find('default').parent().find('suffix').text() : ''),
 
@@ -1343,7 +1559,10 @@
                             model: $this.find('model').text(),
                             index: $plugs.index(this),
                             specs: {
-                                image_src: 'http://placehold.it/200x200'
+                                image_src: IMAGES_DIR + 'builder/plug/' +
+                                           type + '/' +
+                                           formatImage($this.find('manufacturer').text()) + '/overlay/' +
+                                           formatImage($this.find('model').text()) + '.png'
                             }
                         },
                         data = {
@@ -1435,7 +1654,7 @@
                 
                 $opt.append($title);
 
-                if( name === 'heatshrink' ) {
+                if( name === 'heatshrink' || name === 'reverse_plugs' ) {
                     $opt.append(
                         $('<div/>').addClass('option').addClass(name).append(
                             $('<input/>', {
@@ -1444,7 +1663,7 @@
                                 })
                                 .on('click', updateOther),
                             $('<label/>')
-                                .text(name)
+                                .text(name.replace(/_/g, ' '))
                                 .attr('for', prefix + name)
                         )
                     );
@@ -1484,7 +1703,7 @@
         },
 
         initFilters = function() {
-            var getCableFilter = function() {
+            var initCableFilter = function() {
                 function colorFilter(parent) {
                     var $filterContainer = $('<div/>').addClass('filterContainer color');
                     $('<h2/>').text('Color').click(function() {
@@ -1631,9 +1850,50 @@
                     flexibilityFilter(this);
                     colorFilter(this);
                 });
-            };
+            },
 
-            getCableFilter();
+                initPlugFilter = function() {
+                    function manufacturerFilter(parent) {
+                        var $filterContainer = $('<div/>').addClass('filterContainer manufacturer');
+
+                        $('<h2/>').text('Manufacturer').click(function() {
+                            $(this).parent().toggleClass('filter-open');
+                        }).appendTo($filterContainer);
+                        var $filterBrightness = $('<div/>').addClass('filter'),
+                        options = [];
+
+                        $(parent).find('.options .option').each(function() {
+                            var manu = $(this).data('manufacturer');
+                            if( $.inArray(manu, options) === -1 ) options.push(manu);
+                        });
+
+                        $(options).each(function() {
+                            var $filter = $('<div/>').addClass('filter-option');
+                            var $label = $('<label/>')
+                                    .attr('for', 'filter-manufacturer-' + this)
+                                    .text(this),
+                                $radio = $('<input/>', {
+                                    'type': 'radio',
+                                    'name': $(parent).parents('ul.builder').data('prefix') + 'filter-manufacturer',
+                                    'id': 'filter-manufacturer-' + this,
+                                    'value': this
+                                }).addClass('manufacturer').on('click', applyFilter);
+
+                            $filter.append($radio, $label).appendTo($filterBrightness);
+                        });
+
+                        $filterContainer.append($filterBrightness);
+
+                        $(parent).find('.filters').append($filterContainer);
+                    }
+
+                    $('ul.builder li.inputPlug').each(function() {
+                        manufacturerFilter(this);
+                    });
+                }
+
+            initCableFilter();
+            initPlugFilter();
         },
 
         initBuilders = function() {
@@ -1745,6 +2005,7 @@
             $builders_container.append($skeleton);
         };
 
+        displayImages();
         if( CABLE_TYPES && CABLES && PLUGS && OTHER ) {
             CABLE_TYPES.find('type').each(initBuilders);
             init.filters = initFilters;
@@ -1765,31 +2026,16 @@
             $('div.builders').removeClass('confirm');
         });
 
+        drawCanvas();
+
         init.filters();
 
         storeThis();
-
         ready();
     },
 
-    testA = function() {
-        console.log("Test A");
-    },
-
-    testB = function() {
-        console.log("Test B");
-    },
-
-    testC = function() {
-        console.log("Test C");
-    },
-
-    testD = function() {
-        console.log("Test D");
-    },
-
-    testE = function() {
-        console.log("Test E");
+    clog = function(msg) {
+        console.log(msg);
     },
 
     ready = function() {
@@ -1816,6 +2062,8 @@
         $(window).resize(function() {
             $('#screen-width').text(window.innerWidth);
             $('#screen-height').text(window.innerHeight);
+
+            displayImages.resizeImage();
         }).resize();
 
         window.addEventListener("orientationchange", function() {
@@ -1823,6 +2071,7 @@
             $('#screen-height').text(window.innerHeight);
         }, false);
 
+        displayImages.resizeImage();
         $('.loader').fadeOut('fast');
     },
 

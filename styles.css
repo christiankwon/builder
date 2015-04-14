@@ -545,7 +545,7 @@ body {
 
 /* line 10, sass/styles.scss */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* line 14, sass/styles.scss */

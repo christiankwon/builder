@@ -34,21 +34,11 @@
     z-index: 9999;
 }
 
-#price {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 9999;
-
-    &:before {
-        content: "$";
-    }
-}
 .loader {
     background: url("/v/s/images/customshop/builder/misc/page-loader.gif") no-repeat scroll 50% 50% rgb(0, 0, 0);
     position: fixed;
     left: 0;
-    display: none;
+    // display: none;
     right: 0;
     top: 0;
     bottom: 0;

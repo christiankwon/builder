@@ -29,8 +29,11 @@
 
         .inner {
             position: relative;
+            max-height: 600px;
+            max-width: 600px;
+            margin-left: 125px;
             width: 100%;
-            height: 100%;
+
 
             @include bp(max-width, $bp-small) {
                 max-width: 250px;
@@ -38,6 +41,8 @@
             }
 
             div {
+                position: relative;
+
                 &:not(.cable) {
                     position: absolute;
                 }
@@ -48,37 +53,37 @@
     .cable {
         width: 100%;
         height: 100%;
-        max-width: 600px;
         margin: 0 auto;
 
-        img {
+        > img {
             max-height: 100%;
             max-width: 100%;
             margin: 0 auto;
         }
     }
     .inputPlug, .outputPlug {
-        bottom: -40px;
-        img {
-            height: 340px;
-            width: 340px;
-            &.plug {
-                @include transform(rotate(90deg));
-            }
-            &.boot {
-                @include transform(rotate(180deg));
-                position: absolute;
-            }
+        .boot {
+            position: absolute;
         }
     }
 
     .inputPlug {
         // Mirror
         @include transform(scaleX(-1));
-        left: 14px;
+        .boot {
+        }
     }
 
     .outputPlug {
-        right: 14px;
+        .boot {
+        }
+    }
+
+    canvas {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
     }
 }

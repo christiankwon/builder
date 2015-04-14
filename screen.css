@@ -56,6 +56,23 @@ body:before {
   }
 }
 /* line 7, sass/blocks/_storage.scss */
+.storage-container {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: center;
+  justify-content: center;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 100;
+}
+
+/* line 19, sass/blocks/_storage.scss */
 div.storage {
   display: -webkit-flex;
   display: flex;
@@ -65,22 +82,20 @@ div.storage {
   flex-direction: column;
   -webkit-justify-content: center;
   justify-content: center;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  position: fixed;
-  z-index: 100;
+  background-color: #ddd;
+  padding: 10px;
 }
-/* line 18, sass/blocks/_storage.scss */
+/* line 27, sass/blocks/_storage.scss */
 div.storage .build {
   position: relative;
   cursor: pointer;
+  border-bottom: solid 1px black;
 }
-/* line 22, sass/blocks/_storage.scss */
-div.storage .build input[name="storage_build"]:checked + .identifier {
-  background-color: yellow;
+/* line 32, sass/blocks/_storage.scss */
+div.storage .build:last-child {
+  border-bottom: none;
 }
-/* line 26, sass/blocks/_storage.scss */
+/* line 40, sass/blocks/_storage.scss */
 div.storage .build input[type="radio"] {
   position: absolute;
   left: 0;
@@ -88,18 +103,8 @@ div.storage .build input[type="radio"] {
   z-index: 10;
   visibility: hidden;
 }
-/* line 34, sass/blocks/_storage.scss */
-div.storage .build.current .identifier {
-  background-color: limegreen !important;
-}
-/* line 38, sass/blocks/_storage.scss */
+/* line 52, sass/blocks/_storage.scss */
 div.storage .build .identifier {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  border: solid 2px black;
-  border-left: none;
-  border-bottom: none;
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
@@ -108,33 +113,54 @@ div.storage .build .identifier {
   flex-direction: column;
   -webkit-justify-content: center;
   justify-content: center;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  z-index: 2;
 }
-/* line 54, sass/blocks/_storage.scss */
+/* line 62, sass/blocks/_storage.scss */
+div.storage .build .identifier p {
+  font-weight: bolder;
+}
+/* line 64, sass/blocks/_storage.scss */
+div.storage .build .identifier p.id {
+  font-size: 16px;
+}
+/* line 68, sass/blocks/_storage.scss */
+div.storage .build .identifier p.type {
+  text-transform: uppercase;
+  font-size: 10px;
+  margin: 7px;
+}
+/* line 74, sass/blocks/_storage.scss */
+div.storage .build .identifier p.price {
+  color: #cf2700;
+  font-size: 12px;
+}
+/* line 77, sass/blocks/_storage.scss */
 div.storage .build .identifier p.price:before {
   content: '$';
 }
-/* line 60, sass/blocks/_storage.scss */
+/* line 84, sass/blocks/_storage.scss */
 div.storage .build .information {
   -moz-transition: width 0.3s ease-in-out;
   -o-transition: width 0.3s ease-in-out;
   -webkit-transition: width 0.3s ease-in-out;
   transition: width 0.3s ease-in-out;
-  background-color: #ddd;
+  background-color: #ccc;
   position: absolute;
-  left: 98px;
+  left: 0;
   top: 0;
   bottom: -2px;
   width: 0;
   overflow: hidden;
-  border: solid 2px black;
-  border-left: none;
 }
-/* line 72, sass/blocks/_storage.scss */
+/* line 94, sass/blocks/_storage.scss */
 div.storage .build .information p {
   font-size: 10px;
   margin: 5px 0;
 }
-/* line 75, sass/blocks/_storage.scss */
+/* line 97, sass/blocks/_storage.scss */
 div.storage .build .information p span {
   text-transform: lowercase;
   width: 80px;
@@ -142,97 +168,106 @@ div.storage .build .information p span {
   display: inline-block;
   margin-right: 2px;
 }
-/* line 82, sass/blocks/_storage.scss */
+/* line 104, sass/blocks/_storage.scss */
 div.storage .build .information p em {
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 1px;
   font-style: normal;
 }
-/* line 91, sass/blocks/_storage.scss */
+/* line 113, sass/blocks/_storage.scss */
 div.storage .build .information p {
-  width: 280px;
+  width: 380px;
+  padding-left: 80px;
 }
-/* line 94, sass/blocks/_storage.scss */
+/* line 117, sass/blocks/_storage.scss */
 div.storage .build:hover .information {
-  width: 280px;
+  padding-left: 80px;
+  width: 380px;
 }
-/* line 99, sass/blocks/_storage.scss */
+/* line 121, sass/blocks/_storage.scss */
+div.storage .build:hover .information p {
+  padding-left: 0;
+}
+/* line 127, sass/blocks/_storage.scss */
 div.storage .buttons {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: column;
   flex-direction: column;
   width: 100%;
+  margin-top: 10px;
 }
-/* line 103, sass/blocks/_storage.scss */
+/* line 132, sass/blocks/_storage.scss */
 div.storage .buttons button {
   width: 100%;
   height: 30px;
   border: none;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 10px;
-  opacity: 0.8;
+  font-size: 9px;
+  font-weight: bolder;
+  opacity: 0.75;
   -moz-transition: opacity 0.1s ease;
   -o-transition: opacity 0.1s ease;
   -webkit-transition: opacity 0.1s ease;
   transition: opacity 0.1s ease;
 }
-/* line 113, sass/blocks/_storage.scss */
+/* line 143, sass/blocks/_storage.scss */
 div.storage .buttons button:hover {
   opacity: 0.9;
 }
-/* line 116, sass/blocks/_storage.scss */
+/* line 146, sass/blocks/_storage.scss */
 div.storage .buttons button:nth-child(1) {
-  background-color: red;
+  background-color: white;
+  color: black;
 }
-/* line 118, sass/blocks/_storage.scss */
+/* line 149, sass/blocks/_storage.scss */
 div.storage .buttons button:nth-child(1):active {
   color: red;
   border: solid 1px red;
   background-color: white;
 }
-/* line 124, sass/blocks/_storage.scss */
+/* line 155, sass/blocks/_storage.scss */
 div.storage .buttons button:nth-child(2) {
-  background-color: orange;
+  background-color: #838383;
 }
-/* line 126, sass/blocks/_storage.scss */
+/* line 157, sass/blocks/_storage.scss */
 div.storage .buttons button:nth-child(2):active {
-  color: orange;
-  border: solid 1px orange;
+  color: #838383;
+  border: solid 1px #838383;
   background-color: white;
 }
-/* line 132, sass/blocks/_storage.scss */
+/* line 163, sass/blocks/_storage.scss */
 div.storage .buttons button:nth-child(3) {
-  background-color: yellow;
+  background-color: #4c4c4c;
 }
-/* line 134, sass/blocks/_storage.scss */
+/* line 165, sass/blocks/_storage.scss */
 div.storage .buttons button:nth-child(3):active {
-  color: yellow;
-  border: solid 1px yellow;
+  color: #4c4c4c;
+  border: solid 1px #4c4c4c;
   background-color: white;
 }
-/* line 140, sass/blocks/_storage.scss */
+/* line 171, sass/blocks/_storage.scss */
 div.storage .buttons button:nth-child(4) {
-  background-color: green;
+  background-color: #fe531f;
 }
-/* line 142, sass/blocks/_storage.scss */
+/* line 173, sass/blocks/_storage.scss */
 div.storage .buttons button:nth-child(4):active {
-  color: green;
-  border: solid 1px green;
+  color: #fe531f;
+  border: solid 1px #fe531f;
   background-color: white;
 }
 
 @media only screen and (max-width: 599px) {
-  /* line 152, sass/blocks/_storage.scss */
+  /* line 183, sass/blocks/_storage.scss */
   .storage {
     height: 100px;
     width: 100%;
     -webkit-flex-direction: row;
     flex-direction: row;
   }
-  /* line 159, sass/blocks/_storage.scss */
+  /* line 190, sass/blocks/_storage.scss */
   .storage .buttons button {
     display: block;
   }
@@ -283,8 +318,10 @@ div.storage .buttons button:nth-child(4):active {
 /* line 30, sass/blocks/_display.scss */
 .display .outer .inner {
   position: relative;
+  max-height: 600px;
+  max-width: 600px;
+  margin-left: 125px;
   width: 100%;
-  height: 100%;
 }
 @media only screen and (max-width: 599px) {
   /* line 30, sass/blocks/_display.scss */
@@ -293,58 +330,44 @@ div.storage .buttons button:nth-child(4):active {
     max-height: 250px;
   }
 }
-/* line 41, sass/blocks/_display.scss */
+/* line 43, sass/blocks/_display.scss */
+.display .outer .inner div {
+  position: relative;
+}
+/* line 46, sass/blocks/_display.scss */
 .display .outer .inner div:not(.cable) {
   position: absolute;
 }
-/* line 48, sass/blocks/_display.scss */
+/* line 53, sass/blocks/_display.scss */
 .display .cable {
   width: 100%;
   height: 100%;
-  max-width: 600px;
   margin: 0 auto;
 }
-/* line 54, sass/blocks/_display.scss */
-.display .cable img {
+/* line 58, sass/blocks/_display.scss */
+.display .cable > img {
   max-height: 100%;
   max-width: 100%;
   margin: 0 auto;
 }
-/* line 60, sass/blocks/_display.scss */
-.display .inputPlug, .display .outputPlug {
-  bottom: -40px;
-}
-/* line 62, sass/blocks/_display.scss */
-.display .inputPlug img, .display .outputPlug img {
-  height: 340px;
-  width: 340px;
-}
 /* line 65, sass/blocks/_display.scss */
-.display .inputPlug img.plug, .display .outputPlug img.plug {
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-/* line 68, sass/blocks/_display.scss */
-.display .inputPlug img.boot, .display .outputPlug img.boot {
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-  transform: rotate(180deg);
+.display .inputPlug .boot, .display .outputPlug .boot {
   position: absolute;
 }
-/* line 75, sass/blocks/_display.scss */
+/* line 70, sass/blocks/_display.scss */
 .display .inputPlug {
   -moz-transform: scaleX(-1);
   -ms-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
-  left: 14px;
 }
-/* line 81, sass/blocks/_display.scss */
-.display .outputPlug {
-  right: 14px;
+/* line 82, sass/blocks/_display.scss */
+.display canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
 }
 
 /* line 1, sass/blocks/builder/_filters.scss */
@@ -407,27 +430,26 @@ div.storage .buttons button:nth-child(4):active {
   flex-wrap: no-wrap;
   -webkit-justify-content: center;
   justify-content: center;
-  cursor: pointer;
   min-width: 130px;
   width: 33.33333%;
   position: relative;
 }
-/* line 58, sass/blocks/builder/_filters.scss */
+/* line 57, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.filter-open h2:after {
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
-/* line 62, sass/blocks/builder/_filters.scss */
+/* line 61, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.filter-open h2, .filters .filterContainer.filter-open .filter-option {
   background-color: #000;
 }
-/* line 65, sass/blocks/builder/_filters.scss */
+/* line 64, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.filter-open .filter {
   z-index: 40;
 }
-/* line 70, sass/blocks/builder/_filters.scss */
+/* line 69, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.filter-open div.filter-option {
   -moz-transform: translateY(0);
   -ms-transform: translateY(0);
@@ -436,56 +458,56 @@ div.storage .buttons button:nth-child(4):active {
   opacity: 1;
   visibility: visible;
 }
-/* line 76, sass/blocks/builder/_filters.scss */
+/* line 75, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.filter-open div.filter-option:nth-child(1) {
+  -moz-transition: all 0.1s 0.025s ease-out;
+  -o-transition: all 0.1s 0.025s ease-out;
+  -webkit-transition: all 0.1s 0.025s ease-out;
+  transition: all 0.1s 0.025s ease-out;
+}
+/* line 75, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.filter-open div.filter-option:nth-child(2) {
+  -moz-transition: all 0.1s 0.05s ease-out;
+  -o-transition: all 0.1s 0.05s ease-out;
+  -webkit-transition: all 0.1s 0.05s ease-out;
+  transition: all 0.1s 0.05s ease-out;
+}
+/* line 75, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.filter-open div.filter-option:nth-child(3) {
+  -moz-transition: all 0.1s 0.075s ease-out;
+  -o-transition: all 0.1s 0.075s ease-out;
+  -webkit-transition: all 0.1s 0.075s ease-out;
+  transition: all 0.1s 0.075s ease-out;
+}
+/* line 75, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.filter-open div.filter-option:nth-child(4) {
   -moz-transition: all 0.1s 0.1s ease-out;
   -o-transition: all 0.1s 0.1s ease-out;
   -webkit-transition: all 0.1s 0.1s ease-out;
   transition: all 0.1s 0.1s ease-out;
 }
-/* line 76, sass/blocks/builder/_filters.scss */
-.filters .filterContainer.filter-open div.filter-option:nth-child(2) {
-  -moz-transition: all 0.1s 0.2s ease-out;
-  -o-transition: all 0.1s 0.2s ease-out;
-  -webkit-transition: all 0.1s 0.2s ease-out;
-  transition: all 0.1s 0.2s ease-out;
-}
-/* line 76, sass/blocks/builder/_filters.scss */
-.filters .filterContainer.filter-open div.filter-option:nth-child(3) {
-  -moz-transition: all 0.1s 0.3s ease-out;
-  -o-transition: all 0.1s 0.3s ease-out;
-  -webkit-transition: all 0.1s 0.3s ease-out;
-  transition: all 0.1s 0.3s ease-out;
-}
-/* line 76, sass/blocks/builder/_filters.scss */
-.filters .filterContainer.filter-open div.filter-option:nth-child(4) {
-  -moz-transition: all 0.1s 0.4s ease-out;
-  -o-transition: all 0.1s 0.4s ease-out;
-  -webkit-transition: all 0.1s 0.4s ease-out;
-  transition: all 0.1s 0.4s ease-out;
-}
-/* line 76, sass/blocks/builder/_filters.scss */
+/* line 75, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.filter-open div.filter-option:nth-child(5) {
-  -moz-transition: all 0.1s 0.5s ease-out;
-  -o-transition: all 0.1s 0.5s ease-out;
-  -webkit-transition: all 0.1s 0.5s ease-out;
-  transition: all 0.1s 0.5s ease-out;
+  -moz-transition: all 0.1s 0.125s ease-out;
+  -o-transition: all 0.1s 0.125s ease-out;
+  -webkit-transition: all 0.1s 0.125s ease-out;
+  transition: all 0.1s 0.125s ease-out;
 }
-/* line 76, sass/blocks/builder/_filters.scss */
+/* line 75, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.filter-open div.filter-option:nth-child(6) {
-  -moz-transition: all 0.1s 0.6s ease-out;
-  -o-transition: all 0.1s 0.6s ease-out;
-  -webkit-transition: all 0.1s 0.6s ease-out;
-  transition: all 0.1s 0.6s ease-out;
+  -moz-transition: all 0.1s 0.15s ease-out;
+  -o-transition: all 0.1s 0.15s ease-out;
+  -webkit-transition: all 0.1s 0.15s ease-out;
+  transition: all 0.1s 0.15s ease-out;
 }
-/* line 76, sass/blocks/builder/_filters.scss */
+/* line 75, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.filter-open div.filter-option:nth-child(7) {
-  -moz-transition: all 0.1s 0.7s ease-out;
-  -o-transition: all 0.1s 0.7s ease-out;
-  -webkit-transition: all 0.1s 0.7s ease-out;
-  transition: all 0.1s 0.7s ease-out;
+  -moz-transition: all 0.1s 0.175s ease-out;
+  -o-transition: all 0.1s 0.175s ease-out;
+  -webkit-transition: all 0.1s 0.175s ease-out;
+  transition: all 0.1s 0.175s ease-out;
 }
-/* line 84, sass/blocks/builder/_filters.scss */
+/* line 83, sass/blocks/builder/_filters.scss */
 .filters .filterContainer h2:after {
   border-color: #af9757 transparent;
   border-style: solid solid none;
@@ -494,8 +516,8 @@ div.storage .buttons button:nth-child(4):active {
   display: block;
   height: 0;
   position: absolute;
-  right: 3em;
-  top: 32px;
+  right: 2em;
+  top: 16px;
   width: 0;
   -moz-transition: all 0.4s ease;
   -o-transition: all 0.4s ease;
@@ -506,146 +528,149 @@ div.storage .buttons button:nth-child(4):active {
   -webkit-transform: rotate(0);
   transform: rotate(0);
 }
-/* line 100, sass/blocks/builder/_filters.scss */
+/* line 99, sass/blocks/builder/_filters.scss */
 .filters .filterContainer h2 {
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+  align-items: center;
   background-color: #fff;
   color: #af9757;
-  width: 150px;
-  height: 40px;
   display: flex;
-  align-items: center;
+  height: 40px;
   letter-spacing: 1px;
   font-weight: bold;
   justify-content: center;
   margin: 0 0 2px;
-  -moz-transition: all 0.2s ease-in;
-  -o-transition: all 0.2s ease-in;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
+  position: relative;
+  width: 150px;
+  z-index: 2;
+  cursor: pointer;
 }
-/* line 117, sass/blocks/builder/_filters.scss */
+/* line 119, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.color .filter-option label:before, .filters .filterContainer.color .filter-option label:after {
   content: '';
   position: absolute;
   width: 10px;
   height: 10px;
 }
-/* line 123, sass/blocks/builder/_filters.scss */
+/* line 125, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.color .filter-option label:before {
   left: 2em;
 }
-/* line 126, sass/blocks/builder/_filters.scss */
+/* line 128, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.color .filter-option label:after {
   right: 2em;
   border-radius: 50%;
 }
-/* line 133, sass/blocks/builder/_filters.scss */
+/* line 135, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="red"] + label:after {
   background-color: red;
 }
-/* line 133, sass/blocks/builder/_filters.scss */
+/* line 135, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="orange"] + label:after {
   background-color: orange;
 }
-/* line 133, sass/blocks/builder/_filters.scss */
+/* line 135, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="yellow"] + label:after {
   background-color: yellow;
 }
-/* line 133, sass/blocks/builder/_filters.scss */
+/* line 135, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="green"] + label:after {
   background-color: green;
 }
-/* line 133, sass/blocks/builder/_filters.scss */
+/* line 135, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="black"] + label:after {
   background-color: black;
 }
-/* line 133, sass/blocks/builder/_filters.scss */
+/* line 135, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="white"] + label:after {
   background-color: white;
 }
-/* line 133, sass/blocks/builder/_filters.scss */
+/* line 135, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="green"] + label:after {
   background-color: green;
 }
-/* line 133, sass/blocks/builder/_filters.scss */
+/* line 135, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="blue"] + label:after {
   background-color: blue;
 }
-/* line 137, sass/blocks/builder/_filters.scss */
+/* line 139, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="black"] + label:after {
   border: white solid 1px;
 }
-/* line 141, sass/blocks/builder/_filters.scss */
+/* line 143, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.color .filter-option:nth-child(1) {
-  -moz-transition: all 0.1s 0.3s ease-out;
-  -o-transition: all 0.1s 0.3s ease-out;
-  -webkit-transition: all 0.1s 0.3s ease-out;
-  transition: all 0.1s 0.3s ease-out;
-}
-/* line 141, sass/blocks/builder/_filters.scss */
-.filters .filterContainer.color .filter-option:nth-child(2) {
-  -moz-transition: all 0.1s 0.25s ease-out;
-  -o-transition: all 0.1s 0.25s ease-out;
-  -webkit-transition: all 0.1s 0.25s ease-out;
-  transition: all 0.1s 0.25s ease-out;
-}
-/* line 141, sass/blocks/builder/_filters.scss */
-.filters .filterContainer.color .filter-option:nth-child(3) {
-  -moz-transition: all 0.1s 0.2s ease-out;
-  -o-transition: all 0.1s 0.2s ease-out;
-  -webkit-transition: all 0.1s 0.2s ease-out;
-  transition: all 0.1s 0.2s ease-out;
-}
-/* line 141, sass/blocks/builder/_filters.scss */
-.filters .filterContainer.color .filter-option:nth-child(4) {
   -moz-transition: all 0.1s 0.15s ease-out;
   -o-transition: all 0.1s 0.15s ease-out;
   -webkit-transition: all 0.1s 0.15s ease-out;
   transition: all 0.1s 0.15s ease-out;
 }
-/* line 141, sass/blocks/builder/_filters.scss */
-.filters .filterContainer.color .filter-option:nth-child(5) {
+/* line 143, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option:nth-child(2) {
+  -moz-transition: all 0.1s 0.125s ease-out;
+  -o-transition: all 0.1s 0.125s ease-out;
+  -webkit-transition: all 0.1s 0.125s ease-out;
+  transition: all 0.1s 0.125s ease-out;
+}
+/* line 143, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option:nth-child(3) {
   -moz-transition: all 0.1s 0.1s ease-out;
   -o-transition: all 0.1s 0.1s ease-out;
   -webkit-transition: all 0.1s 0.1s ease-out;
   transition: all 0.1s 0.1s ease-out;
 }
-/* line 141, sass/blocks/builder/_filters.scss */
-.filters .filterContainer.color .filter-option:nth-child(6) {
+/* line 143, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option:nth-child(4) {
+  -moz-transition: all 0.1s 0.075s ease-out;
+  -o-transition: all 0.1s 0.075s ease-out;
+  -webkit-transition: all 0.1s 0.075s ease-out;
+  transition: all 0.1s 0.075s ease-out;
+}
+/* line 143, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option:nth-child(5) {
   -moz-transition: all 0.1s 0.05s ease-out;
   -o-transition: all 0.1s 0.05s ease-out;
   -webkit-transition: all 0.1s 0.05s ease-out;
   transition: all 0.1s 0.05s ease-out;
 }
-/* line 141, sass/blocks/builder/_filters.scss */
+/* line 143, sass/blocks/builder/_filters.scss */
+.filters .filterContainer.color .filter-option:nth-child(6) {
+  -moz-transition: all 0.1s 0.025s ease-out;
+  -o-transition: all 0.1s 0.025s ease-out;
+  -webkit-transition: all 0.1s 0.025s ease-out;
+  transition: all 0.1s 0.025s ease-out;
+}
+/* line 143, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.color .filter-option:nth-child(7) {
   -moz-transition: all 0.1s 0s ease-out;
   -o-transition: all 0.1s 0s ease-out;
   -webkit-transition: all 0.1s 0s ease-out;
   transition: all 0.1s 0s ease-out;
 }
-/* line 151, sass/blocks/builder/_filters.scss */
+/* line 153, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.brightness .filter-option:nth-child(1), .filters .filterContainer.flexibility .filter-option:nth-child(1) {
   -moz-transition: all 0.1s 0.1s ease-out;
   -o-transition: all 0.1s 0.1s ease-out;
   -webkit-transition: all 0.1s 0.1s ease-out;
   transition: all 0.1s 0.1s ease-out;
 }
-/* line 151, sass/blocks/builder/_filters.scss */
+/* line 153, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.brightness .filter-option:nth-child(2), .filters .filterContainer.flexibility .filter-option:nth-child(2) {
   -moz-transition: all 0.1s 0.05s ease-out;
   -o-transition: all 0.1s 0.05s ease-out;
   -webkit-transition: all 0.1s 0.05s ease-out;
   transition: all 0.1s 0.05s ease-out;
 }
-/* line 151, sass/blocks/builder/_filters.scss */
+/* line 153, sass/blocks/builder/_filters.scss */
 .filters .filterContainer.brightness .filter-option:nth-child(3), .filters .filterContainer.flexibility .filter-option:nth-child(3) {
   -moz-transition: all 0.1s 0s ease-out;
   -o-transition: all 0.1s 0s ease-out;
   -webkit-transition: all 0.1s 0s ease-out;
   transition: all 0.1s 0s ease-out;
 }
-/* line 159, sass/blocks/builder/_filters.scss */
+/* line 161, sass/blocks/builder/_filters.scss */
 .filters .filter {
   -moz-transition: all 0.2s ease-in;
   -o-transition: all 0.2s ease-in;
@@ -655,7 +680,7 @@ div.storage .buttons button:nth-child(4):active {
   position: absolute;
   top: 58px;
 }
-/* line 166, sass/blocks/builder/_filters.scss */
+/* line 167, sass/blocks/builder/_filters.scss */
 .filters .filter .filter-option {
   display: -webkit-flex;
   display: flex;
@@ -670,7 +695,7 @@ div.storage .buttons button:nth-child(4):active {
   background-color: #fff;
   color: #af9757;
   width: 150px;
-  height: 40px;
+  height: 35px;
   letter-spacing: 1px;
   font-weight: bold;
   position: relative;
@@ -679,22 +704,39 @@ div.storage .buttons button:nth-child(4):active {
   visibility: hidden;
   width: 150px;
 }
-/* line 183, sass/blocks/builder/_filters.scss */
+/* line 184, sass/blocks/builder/_filters.scss */
+.filters .filter .filter-option input:checked + label {
+  background-color: white;
+  border: solid 5px #838383;
+  opacity: 1;
+}
+/* line 188, sass/blocks/builder/_filters.scss */
 .filters .filter .filter-option input:checked + label:before {
   background-image: url("http://placehold.it/25");
 }
-/* line 187, sass/blocks/builder/_filters.scss */
+/* line 193, sass/blocks/builder/_filters.scss */
 .filters .filter .filter-option input {
   display: none;
 }
-/* line 191, sass/blocks/builder/_filters.scss */
+/* line 197, sass/blocks/builder/_filters.scss */
 .filters .filter .filter-option label {
-  padding: 1.3em;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
   cursor: pointer;
+  height: 100%;
   text-align: center;
   width: 100%;
+  opacity: 0.65;
 }
-/* line 200, sass/blocks/builder/_filters.scss */
+/* line 207, sass/blocks/builder/_filters.scss */
+.filters .filter .filter-option label:hover {
+  opacity: 0.9;
+}
+/* line 214, sass/blocks/builder/_filters.scss */
 .filters button {
   position: absolute;
   left: 10px;
@@ -882,17 +924,18 @@ div.storage .buttons button:nth-child(4):active {
   width: 100%;
   left: 0;
   height: 100%;
+  z-index: 30;
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: column;
   flex-direction: column;
 }
-/* line 151, sass/blocks/_builder.scss */
+/* line 152, sass/blocks/_builder.scss */
 .option .info ul {
   text-align: left;
   padding: 10px 0 0 10px;
 }
-/* line 155, sass/blocks/_builder.scss */
+/* line 156, sass/blocks/_builder.scss */
 .option .info ul li.title {
   font-size: 12px;
   font-weight: bold;
@@ -902,127 +945,140 @@ div.storage .buttons button:nth-child(4):active {
   display: inline-block;
   color: #eee;
 }
-/* line 165, sass/blocks/_builder.scss */
+/* line 166, sass/blocks/_builder.scss */
 .option .info ul li {
   margin-bottom: 1px;
 }
-/* line 167, sass/blocks/_builder.scss */
+/* line 168, sass/blocks/_builder.scss */
 .option .info ul li em {
   color: #92d9f3;
   font-style: none;
 }
-/* line 173, sass/blocks/_builder.scss */
+/* line 174, sass/blocks/_builder.scss */
 .option .info ul .capacitance:after {
   content: " pf/ft";
   font-size: 7px;
 }
-/* line 181, sass/blocks/_builder.scss */
+/* line 180, sass/blocks/_builder.scss */
+.option .info button.more {
+  background: none;
+  border: none;
+  bottom: 5px;
+  left: 0;
+  right: 0;
+  position: absolute;
+  width: 50%;
+}
+/* line 192, sass/blocks/_builder.scss */
 .option.specs .info {
   top: 0;
 }
-/* line 185, sass/blocks/_builder.scss */
+/* line 196, sass/blocks/_builder.scss */
 .option .image {
   overflow: hidden;
   position: relative;
 }
-/* line 189, sass/blocks/_builder.scss */
+/* line 200, sass/blocks/_builder.scss */
 .option .image img {
   height: auto;
   width: 100%;
 }
-/* line 194, sass/blocks/_builder.scss */
+/* line 205, sass/blocks/_builder.scss */
 .option .image .overlay {
   position: absolute;
   top: 0;
 }
-/* line 199, sass/blocks/_builder.scss */
+/* line 210, sass/blocks/_builder.scss */
 .option .image .colors, .option .image .boots {
   position: absolute;
   z-index: 20;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 15px;
+  bottom: 5px;
+  left: 5px;
+  top: 0;
+  width: 10px;
   display: -webkit-flex;
   display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: no-wrap;
-  flex-wrap: no-wrap;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
 }
-/* line 211, sass/blocks/_builder.scss */
+/* line 222, sass/blocks/_builder.scss */
 .option .image .colors div, .option .image .boots div {
-  width: 100%;
-  height: 15px;
+  width: 10px;
+  margin: 3px;
+  height: 10px;
   cursor: pointer;
+  border-radius: 50%;
 }
-/* line 219, sass/blocks/_builder.scss */
+/* line 232, sass/blocks/_builder.scss */
 .option .image .colors .red, .option .image .boots .red {
   background-color: red;
 }
-/* line 219, sass/blocks/_builder.scss */
+/* line 232, sass/blocks/_builder.scss */
 .option .image .colors .orange, .option .image .boots .orange {
   background-color: orange;
 }
-/* line 219, sass/blocks/_builder.scss */
+/* line 232, sass/blocks/_builder.scss */
 .option .image .colors .yellow, .option .image .boots .yellow {
   background-color: yellow;
 }
-/* line 219, sass/blocks/_builder.scss */
+/* line 232, sass/blocks/_builder.scss */
 .option .image .colors .green, .option .image .boots .green {
   background-color: green;
 }
-/* line 219, sass/blocks/_builder.scss */
+/* line 232, sass/blocks/_builder.scss */
 .option .image .colors .black, .option .image .boots .black {
   background-color: black;
 }
-/* line 219, sass/blocks/_builder.scss */
+/* line 232, sass/blocks/_builder.scss */
 .option .image .colors .violet, .option .image .boots .violet {
   background-color: violet;
 }
-/* line 219, sass/blocks/_builder.scss */
+/* line 232, sass/blocks/_builder.scss */
 .option .image .colors .gray, .option .image .boots .gray {
   background-color: gray;
 }
-/* line 219, sass/blocks/_builder.scss */
+/* line 232, sass/blocks/_builder.scss */
 .option .image .colors .white, .option .image .boots .white {
   background-color: white;
+  border: solid 1px black;
 }
-/* line 219, sass/blocks/_builder.scss */
+/* line 232, sass/blocks/_builder.scss */
 .option .image .colors .gold, .option .image .boots .gold {
   background-color: gold;
 }
-/* line 224, sass/blocks/_builder.scss */
+/* line 245, sass/blocks/_builder.scss */
 .option .name {
   background-color: #555;
   padding: 0 8px;
 }
-/* line 229, sass/blocks/_builder.scss */
+/* line 250, sass/blocks/_builder.scss */
 .option .price {
   background-color: #af9757;
   font-weight: bolder;
   font-size: 14px;
 }
-/* line 234, sass/blocks/_builder.scss */
+/* line 255, sass/blocks/_builder.scss */
 .option .price span:before {
   content: '$';
 }
-/* line 239, sass/blocks/_builder.scss */
+/* line 260, sass/blocks/_builder.scss */
 .option .specs {
   background-color: #6f9dbe;
 }
-/* line 243, sass/blocks/_builder.scss */
+/* line 264, sass/blocks/_builder.scss */
 .option .select {
   background-color: #ff1200;
   cursor: pointer;
 }
-/* line 248, sass/blocks/_builder.scss */
+/* line 269, sass/blocks/_builder.scss */
 .option .select button {
   background: none;
   border: none;
   text-transform: inherit;
 }
-/* line 253, sass/blocks/_builder.scss */
+/* line 274, sass/blocks/_builder.scss */
 .option .select button:before, .option .select button:after {
   position: absolute;
   content: "";
@@ -1030,19 +1086,19 @@ div.storage .buttons button:nth-child(4):active {
   background-color: transparent;
   bottom: 0;
 }
-/* line 261, sass/blocks/_builder.scss */
+/* line 282, sass/blocks/_builder.scss */
 .option .select button:before {
   top: 0;
 }
-/* line 265, sass/blocks/_builder.scss */
+/* line 286, sass/blocks/_builder.scss */
 .option .select button:after {
   bottom: 0;
 }
-/* line 271, sass/blocks/_builder.scss */
+/* line 292, sass/blocks/_builder.scss */
 .option .selector {
   display: none;
 }
-/* line 275, sass/blocks/_builder.scss */
+/* line 296, sass/blocks/_builder.scss */
 .option .select:after, .option .select:before {
   position: absolute;
   content: "";
@@ -1051,19 +1107,19 @@ div.storage .buttons button:nth-child(4):active {
   background-color: transparent;
   top: 0;
 }
-/* line 284, sass/blocks/_builder.scss */
+/* line 305, sass/blocks/_builder.scss */
 .option .selector:checked ~ .inner .select:before, .option:hover .select:before {
   background-color: #ff1200;
   left: 0;
   z-index: 30;
 }
-/* line 290, sass/blocks/_builder.scss */
+/* line 311, sass/blocks/_builder.scss */
 .option .selector:checked ~ .inner .select:after, .option:hover .select:after {
   background-color: #ff1200;
   right: 0;
   z-index: 30;
 }
-/* line 296, sass/blocks/_builder.scss */
+/* line 317, sass/blocks/_builder.scss */
 .option .selector:checked ~ .inner .select button:after, .option:hover .select button:after, .option .selector:checked ~ .inner .select button:before, .option:hover .select button:before {
   background-color: #ff1200;
   left: 0;
@@ -1071,7 +1127,7 @@ div.storage .buttons button:nth-child(4):active {
   z-index: 30;
 }
 
-/* line 304, sass/blocks/_builder.scss */
+/* line 325, sass/blocks/_builder.scss */
 .step {
   position: absolute;
   bottom: 0;
@@ -1081,7 +1137,7 @@ div.storage .buttons button:nth-child(4):active {
   background-color: #444;
   z-index: 100;
 }
-/* line 313, sass/blocks/_builder.scss */
+/* line 334, sass/blocks/_builder.scss */
 .step button {
   color: white;
   border: solid 1px white;
@@ -1093,37 +1149,37 @@ div.storage .buttons button:nth-child(4):active {
   font-weight: bold;
   letter-spacing: 1px;
 }
-/* line 324, sass/blocks/_builder.scss */
+/* line 345, sass/blocks/_builder.scss */
 .step button.previous {
   float: left;
 }
-/* line 328, sass/blocks/_builder.scss */
+/* line 349, sass/blocks/_builder.scss */
 .step button.next {
   float: right;
 }
 
-/* line 335, sass/blocks/_builder.scss */
+/* line 356, sass/blocks/_builder.scss */
 .builder.only_patch .length .choice.regular {
   display: none;
 }
 
-/* line 345, sass/blocks/_builder.scss */
+/* line 366, sass/blocks/_builder.scss */
 .length > input[name="switch"].patch ~ .rulers .patch {
   display: block;
 }
-/* line 348, sass/blocks/_builder.scss */
+/* line 369, sass/blocks/_builder.scss */
 .length > input[name="switch"].patch ~ .choices .patch {
   outline: red 1px solid;
 }
-/* line 345, sass/blocks/_builder.scss */
+/* line 366, sass/blocks/_builder.scss */
 .length > input[name="switch"].regular ~ .rulers .regular {
   display: block;
 }
-/* line 348, sass/blocks/_builder.scss */
+/* line 369, sass/blocks/_builder.scss */
 .length > input[name="switch"].regular ~ .choices .regular {
   outline: red 1px solid;
 }
-/* line 355, sass/blocks/_builder.scss */
+/* line 376, sass/blocks/_builder.scss */
 .length .choices {
   display: -webkit-flex;
   display: flex;
@@ -1133,7 +1189,7 @@ div.storage .buttons button:nth-child(4):active {
   align-items: center;
   text-align: center;
 }
-/* line 361, sass/blocks/_builder.scss */
+/* line 382, sass/blocks/_builder.scss */
 .length .choices .choice {
   width: 30%;
   display: -webkit-flex;
@@ -1143,25 +1199,25 @@ div.storage .buttons button:nth-child(4):active {
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
 }
-/* line 367, sass/blocks/_builder.scss */
+/* line 388, sass/blocks/_builder.scss */
 .length .choices .choice p, .length .choices .choice span, .length .choices .choice button {
   text-transform: uppercase;
 }
-/* line 371, sass/blocks/_builder.scss */
+/* line 392, sass/blocks/_builder.scss */
 .length .choices .choice input[type="radio"] {
   display: none;
 }
-/* line 375, sass/blocks/_builder.scss */
+/* line 396, sass/blocks/_builder.scss */
 .length .choices .choice .image {
   width: 100%;
   overflow: hidden;
   position: relative;
 }
-/* line 379, sass/blocks/_builder.scss */
+/* line 400, sass/blocks/_builder.scss */
 .length .choices .choice .image img {
   display: inline-block;
 }
-/* line 383, sass/blocks/_builder.scss */
+/* line 404, sass/blocks/_builder.scss */
 .length .choices .choice .information {
   -moz-transition: top 0.3s ease-in;
   -o-transition: top 0.3s ease-in;
@@ -1175,15 +1231,15 @@ div.storage .buttons button:nth-child(4):active {
   right: 0;
   height: 100%;
 }
-/* line 394, sass/blocks/_builder.scss */
+/* line 415, sass/blocks/_builder.scss */
 .length .choices .choice.specs .information {
   top: 0;
 }
-/* line 397, sass/blocks/_builder.scss */
+/* line 418, sass/blocks/_builder.scss */
 .length .choices .choice .type, .length .choices .choice .specs, .length .choices .choice button {
   height: 35px;
 }
-/* line 401, sass/blocks/_builder.scss */
+/* line 422, sass/blocks/_builder.scss */
 .length .choices .choice .specs, .length .choices .choice .type {
   display: -webkit-flex;
   display: flex;
@@ -1192,12 +1248,12 @@ div.storage .buttons button:nth-child(4):active {
   -webkit-align-items: center;
   align-items: center;
 }
-/* line 407, sass/blocks/_builder.scss */
+/* line 428, sass/blocks/_builder.scss */
 .length .choices .choice .specs {
   width: 50%;
   background-color: brown;
 }
-/* line 410, sass/blocks/_builder.scss */
+/* line 431, sass/blocks/_builder.scss */
 .length .choices .choice .specs img {
   display: inline-block;
   -moz-transform: rotate(0);
@@ -1209,46 +1265,46 @@ div.storage .buttons button:nth-child(4):active {
   -webkit-transition: -webkit-transform 0.3s ease-in-out;
   transition: transform 0.3s ease-in-out;
 }
-/* line 417, sass/blocks/_builder.scss */
+/* line 438, sass/blocks/_builder.scss */
 .length .choices .choice.specs .specs img {
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
-/* line 421, sass/blocks/_builder.scss */
+/* line 442, sass/blocks/_builder.scss */
 .length .choices .choice .type {
   width: 100%;
   background-color: blue;
   color: white;
 }
-/* line 426, sass/blocks/_builder.scss */
+/* line 447, sass/blocks/_builder.scss */
 .length .choices .choice button {
   border: none;
   width: 50%;
   display: block;
   background: yellow;
 }
-/* line 435, sass/blocks/_builder.scss */
+/* line 456, sass/blocks/_builder.scss */
 .length .rulers {
   margin: 1em;
 }
-/* line 437, sass/blocks/_builder.scss */
+/* line 458, sass/blocks/_builder.scss */
 .length .rulers div, .length .rulers input {
   display: none;
 }
 
 @media only screen and (max-width: 599px) {
-  /* line 443, sass/blocks/_builder.scss */
+  /* line 464, sass/blocks/_builder.scss */
   .options {
     width: 105%;
   }
-  /* line 445, sass/blocks/_builder.scss */
+  /* line 466, sass/blocks/_builder.scss */
   .options > div {
     padding-top: 40px;
     position: relative;
   }
-  /* line 449, sass/blocks/_builder.scss */
+  /* line 470, sass/blocks/_builder.scss */
   .options > div h3 {
     position: absolute;
     height: 15px;
@@ -1256,7 +1312,7 @@ div.storage .buttons button:nth-child(4):active {
     left: 0;
   }
 
-  /* line 457, sass/blocks/_builder.scss */
+  /* line 478, sass/blocks/_builder.scss */
   .option {
     display: -webkit-flex;
     display: flex;
@@ -1266,48 +1322,48 @@ div.storage .buttons button:nth-child(4):active {
     height: 100px;
     max-width: 250px;
   }
-  /* line 465, sass/blocks/_builder.scss */
+  /* line 486, sass/blocks/_builder.scss */
   .option div.image {
     width: 40%;
     height: 100%;
   }
-  /* line 469, sass/blocks/_builder.scss */
+  /* line 490, sass/blocks/_builder.scss */
   .option div.inner {
     width: 60%;
     height: 100%;
   }
-  /* line 473, sass/blocks/_builder.scss */
+  /* line 494, sass/blocks/_builder.scss */
   .option div div {
     height: 50%;
   }
-  /* line 478, sass/blocks/_builder.scss */
+  /* line 499, sass/blocks/_builder.scss */
   .option .image {
     max-height: 100%;
     position: relative;
   }
-  /* line 482, sass/blocks/_builder.scss */
+  /* line 503, sass/blocks/_builder.scss */
   .option .image img {
     height: 100%;
     width: auto;
   }
-  /* line 488, sass/blocks/_builder.scss */
+  /* line 509, sass/blocks/_builder.scss */
   .option .name {
     width: 100%;
     padding: 10px;
   }
-  /* line 493, sass/blocks/_builder.scss */
+  /* line 514, sass/blocks/_builder.scss */
   .option .price, .option .select {
     width: 50%;
   }
-  /* line 496, sass/blocks/_builder.scss */
+  /* line 517, sass/blocks/_builder.scss */
   .option .price {
     float: left;
   }
-  /* line 499, sass/blocks/_builder.scss */
+  /* line 520, sass/blocks/_builder.scss */
   .option .select {
     float: right;
   }
-  /* line 503, sass/blocks/_builder.scss */
+  /* line 524, sass/blocks/_builder.scss */
   .option .specs {
     width: 15px;
     position: absolute;
@@ -1315,19 +1371,19 @@ div.storage .buttons button:nth-child(4):active {
     height: 100%;
     top: 0;
   }
-  /* line 504, sass/blocks/_builder.scss */
+  /* line 525, sass/blocks/_builder.scss */
   .option .specs span {
     display: none;
   }
-  /* line 514, sass/blocks/_builder.scss */
+  /* line 535, sass/blocks/_builder.scss */
   .option .specs.open {
     width: 70%;
   }
-  /* line 519, sass/blocks/_builder.scss */
+  /* line 540, sass/blocks/_builder.scss */
   .option .select:before, .option .select:after {
     width: 3px;
   }
-  /* line 522, sass/blocks/_builder.scss */
+  /* line 543, sass/blocks/_builder.scss */
   .option .select button:before, .option .select button:after {
     height: 3px;
   }
@@ -1406,7 +1462,7 @@ div.body {
     flex-direction: column;
   }
 }
-/* line 35, sass/_blocks.scss */
+/* line 36, sass/_blocks.scss */
 .tracker {
   display: -webkit-flex;
   display: flex;
@@ -1415,19 +1471,117 @@ div.body {
   -webkit-justify-content: center;
   justify-content: center;
 }
-/* line 40, sass/_blocks.scss */
+/* line 44, sass/_blocks.scss */
 .tracker .dot {
-  width: 10px;
-  height: 10px;
-  background-color: red;
-  border: solid 1px black;
-  border-radius: 50%;
-  margin-bottom: 0.5em;
+  width: 31px;
+  height: 29.5px;
+  margin: 1em;
   cursor: pointer;
+  position: relative;
 }
-/* line 50, sass/_blocks.scss */
-.tracker .dot.done {
-  background-color: green;
+/* line 51, sass/_blocks.scss */
+.tracker .dot:before {
+  background-size: 100%;
+  content: "";
+  width: 31px;
+  height: 29.5px;
+  display: block;
+  position: absolute;
+  left: 0;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+/* line 67, sass/_blocks.scss */
+.tracker .cable:before {
+  background-image: url("images/misc/tracker/cable-unfinished.png");
+}
+/* line 71, sass/_blocks.scss */
+.tracker .cable.done:before {
+  background-image: url("images/misc/tracker/cable-complete.png");
+}
+/* line 75, sass/_blocks.scss */
+.tracker .cable.current:before {
+  background-image: url("images/misc/tracker/cable.png");
+}
+/* line 79, sass/_blocks.scss */
+.tracker .cable.current:before, .tracker .cable:hover:before {
+  width: 38.75px;
+  height: 36.875px;
+  left: -3.6875px;
+}
+/* line 67, sass/_blocks.scss */
+.tracker .length:before {
+  background-image: url("images/misc/tracker/length-unfinished.png");
+}
+/* line 71, sass/_blocks.scss */
+.tracker .length.done:before {
+  background-image: url("images/misc/tracker/length-complete.png");
+}
+/* line 75, sass/_blocks.scss */
+.tracker .length.current:before {
+  background-image: url("images/misc/tracker/length.png");
+}
+/* line 79, sass/_blocks.scss */
+.tracker .length.current:before, .tracker .length:hover:before {
+  width: 38.75px;
+  height: 36.875px;
+  left: -3.6875px;
+}
+/* line 67, sass/_blocks.scss */
+.tracker .inputPlug:before {
+  background-image: url("images/misc/tracker/inputPlug-unfinished.png");
+}
+/* line 71, sass/_blocks.scss */
+.tracker .inputPlug.done:before {
+  background-image: url("images/misc/tracker/inputPlug-complete.png");
+}
+/* line 75, sass/_blocks.scss */
+.tracker .inputPlug.current:before {
+  background-image: url("images/misc/tracker/inputPlug.png");
+}
+/* line 79, sass/_blocks.scss */
+.tracker .inputPlug.current:before, .tracker .inputPlug:hover:before {
+  width: 38.75px;
+  height: 36.875px;
+  left: -3.6875px;
+}
+/* line 67, sass/_blocks.scss */
+.tracker .outputPlug:before {
+  background-image: url("images/misc/tracker/outputPlug-unfinished.png");
+}
+/* line 71, sass/_blocks.scss */
+.tracker .outputPlug.done:before {
+  background-image: url("images/misc/tracker/outputPlug-complete.png");
+}
+/* line 75, sass/_blocks.scss */
+.tracker .outputPlug.current:before {
+  background-image: url("images/misc/tracker/outputPlug.png");
+}
+/* line 79, sass/_blocks.scss */
+.tracker .outputPlug.current:before, .tracker .outputPlug:hover:before {
+  width: 38.75px;
+  height: 36.875px;
+  left: -3.6875px;
+}
+/* line 67, sass/_blocks.scss */
+.tracker .other:before {
+  background-image: url("images/misc/tracker/other-unfinished.png");
+}
+/* line 71, sass/_blocks.scss */
+.tracker .other.done:before {
+  background-image: url("images/misc/tracker/other-complete.png");
+}
+/* line 75, sass/_blocks.scss */
+.tracker .other.current:before {
+  background-image: url("images/misc/tracker/other.png");
+}
+/* line 79, sass/_blocks.scss */
+.tracker .other.current:before, .tracker .other:hover:before {
+  width: 38.75px;
+  height: 36.875px;
+  left: -3.6875px;
 }
 
 /* line 10, sass/screen.scss */
@@ -1473,39 +1627,26 @@ div.body {
 }
 
 /* line 37, sass/screen.scss */
-#price {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 9999;
-}
-/* line 43, sass/screen.scss */
-#price:before {
-  content: "$";
-}
-
-/* line 47, sass/screen.scss */
 .loader {
   background: url("/v/s/images/customshop/builder/misc/page-loader.gif") no-repeat scroll 50% 50% black;
   position: fixed;
   left: 0;
-  display: none;
   right: 0;
   top: 0;
   bottom: 0;
   z-index: 9999;
 }
-/* line 57, sass/screen.scss */
+/* line 47, sass/screen.scss */
 .loader div {
   color: white;
 }
 
-/* line 62, sass/screen.scss */
+/* line 52, sass/screen.scss */
 html, body, .content, .body {
   height: 100%;
 }
 
-/* line 66, sass/screen.scss */
+/* line 56, sass/screen.scss */
 .modal {
   width: 100%;
   height: 100%;
@@ -1525,7 +1666,7 @@ html, body, .content, .body {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-/* line 78, sass/screen.scss */
+/* line 68, sass/screen.scss */
 .modal .info {
   background-color: red;
   opacity: 0;
@@ -1542,12 +1683,12 @@ html, body, .content, .body {
   transform: translateX(20%);
 }
 
-/* line 88, sass/screen.scss */
+/* line 78, sass/screen.scss */
 body.modal-open .modal {
   visibility: visible;
   opacity: 1;
 }
-/* line 92, sass/screen.scss */
+/* line 82, sass/screen.scss */
 body.modal-open .modal .info {
   opacity: 1;
   -moz-transform: translateX(0);

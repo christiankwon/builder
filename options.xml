@@ -39,7 +39,7 @@
             <capacitance>44</capacitance>
             <flexibility>med</flexibility>
             <shield>spiral</shield>
-            <diameter></diameter>
+            <diameter>0.23</diameter>
          </specs>
          <colors>
             <color>
@@ -73,7 +73,7 @@
             <capacitance>49</capacitance>
             <flexibility>high</flexibility>
             <shield>braided</shield>
-            <diameter></diameter>
+            <diameter>0.227</diameter>
          </specs>
          <colors>
             <option_category_id>149</option_category_id>
@@ -130,7 +130,7 @@
             <capacitance>49</capacitance>
             <flexibility>high</flexibility>
             <shield>braided</shield>
-            <diameter></diameter>
+            <diameter>0.231</diameter>
          </specs>
          <colors>
             <color>
@@ -164,7 +164,7 @@
             <capacitance>21</capacitance>
             <flexibility>high</flexibility>
             <shield>spiral</shield>
-            <diameter></diameter>
+            <diameter>0.241</diameter>
          </specs>
          <colors>
             <option_category_id>149</option_category_id>
@@ -206,7 +206,7 @@
             <capacitance>44</capacitance>
             <flexibility>high</flexibility>
             <shield>spiral</shield>
-            <diameter></diameter>
+            <diameter>0.211</diameter>
          </specs>
          <colors>
             <color>
@@ -240,7 +240,7 @@
             <capacitance>57</capacitance>
             <flexibility>high</flexibility>
             <shield>spiral</shield>
-            <diameter></diameter>
+            <diameter>0.216</diameter>
          </specs>
          <colors>
             <color>
@@ -276,7 +276,7 @@
             <capacitance>23</capacitance>
             <flexibility>low</flexibility>
             <shield>spiral</shield>
-            <diameter></diameter>
+            <diameter>0.162</diameter>
          </specs>
          <colors>
             <color>
@@ -311,7 +311,7 @@
             <capacitance>28</capacitance>
             <flexibility>low</flexibility>
             <shield>spiral</shield>
-            <diameter></diameter>
+            <diameter>0.254</diameter>
          </specs>
          <colors>
             <color>
@@ -349,7 +349,7 @@
             <capacitance>25</capacitance>
             <flexibility>high</flexibility>
             <shield>spiral</shield>
-            <diameter></diameter>
+            <diameter>0.235</diameter>
          </specs>
          <colors>
             <option_category_id>149</option_category_id>
@@ -693,6 +693,10 @@
             <feet_20>1646</feet_20>
          </length>
       </techflex>
+      <reverse_plugs>
+         <option_id>1785</option_id>
+         <option_category_id>150</option_category_id>
+      </reverse_plugs>
    </other>
 
 </data>

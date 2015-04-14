@@ -48,7 +48,6 @@
         @include flex-direction(column);
         @include flex-wrap(no-wrap);
         @include justify-content(center);
-        cursor: pointer;
         min-width: 130px;
         width: (100 / 3) * 1%;
         position: relative;
@@ -74,7 +73,7 @@
 
                 @for $i from 1 through 7 {
                     &:nth-child(#{$i}) {
-                        @include transition(all 0.1s #{0.1*$i}s ease-out);
+                        @include transition(all 0.1s #{0.025*$i}s ease-out);
                     }
                 }
                 
@@ -89,8 +88,8 @@
             display: block;
             height: 0;
             position: absolute;
-            right: 3em;
-            top: 32px;
+            right: 2em;
+            top: 16px;
             width: 0;
 
             @include transition(all 0.4s ease);
@@ -98,17 +97,20 @@
         }
 
         h2 {
+            @include transition(all 0.1s ease-in);
+            align-items: center;
             background-color: $secondary;
             color: $primary;
-            width: 150px;
-            height: 40px;
             display: flex;
-            align-items: center;
+            height: 40px;
             letter-spacing: 1px;
             font-weight: bold;
             justify-content: center;
             margin: 0 0 2px;
-            @include transition(all 0.2s ease-in);
+            position: relative;
+            width: 150px;
+            z-index: 2;
+            cursor: pointer;
         }
 
         &.color {
@@ -139,7 +141,7 @@
                 }
                 @for $i from 1 through 7 {
                     &:nth-child(#{$i}) {
-                        @include transition(all 0.1s #{0.05*(7-$i)}s ease-out);
+                        @include transition(all 0.1s #{0.025*(7-$i)}s ease-out);
                     }
                 }
             }
@@ -158,7 +160,6 @@
     }
     .filter {
         @include transition(all 0.2s ease-in);
-        // border: solid 1px rgba(204,204,204,0);
         left: 16px;
         position: absolute;
         top: 58px;
@@ -171,7 +172,7 @@
             background-color: $secondary;
             color: $primary;
             width: 150px;
-            height: 40px;
+            height: 35px;
             letter-spacing: 1px;
             font-weight: bold;
             position: relative;
@@ -180,8 +181,13 @@
             visibility: hidden;
             width: 150px;
 
-            input:checked + label:before {
-                background-image: url('http://placehold.it/25');
+            input:checked + label {
+                background-color: white;
+                border: solid 5px #838383;
+                opacity: 1;
+                &:before {
+                    background-image: url('http://placehold.it/25');
+                }
             }
 
             input {
@@ -189,10 +195,18 @@
             }
 
             label {
-                padding: 1.3em;
+                @include display-flex(flex);
+                @include align-items(center);
+                @include justify-content(center);
                 cursor: pointer;
+                height: 100%;
                 text-align: center;
-                width: 100%;;
+                width: 100%;
+                opacity: 0.65;
+
+                &:hover {
+                    opacity: 0.9;
+                }
             }
         }
     }
