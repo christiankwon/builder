@@ -2,6 +2,10 @@
     .storage {
         display: none !important;
     }
+
+    .display {
+        padding-left: 0;
+    }
 }
 
 .storage-container {
@@ -12,7 +16,7 @@
     left: 10px;
     top: 0;
     bottom: 0;
-    position: fixed;
+    position: absolute;
     z-index: 100;
 }
 
@@ -24,17 +28,24 @@ div.storage {
     background-color: #ddd;
     padding: 10px;
 
+    .builds {
+        @include display-flex(flex);
+        @include flex-direction(column);
+    }
+
+
     .build {
         position: relative;
         cursor: pointer;
         border-bottom: solid 1px black;
+        order: 99;
 
         &:last-child {
             border-bottom: none;
         }
 
         input[name="storage_build"]:checked + .identifier {
-            // background-color: yellow;
+            background-color: #ccc;
         }
 
         input[type="radio"] {
@@ -60,9 +71,10 @@ div.storage {
             z-index: 2;
 
             p {
-                font-weight:  bolder;
+                font-weight:  700;
                 &.id {
                     font-size: 16px;
+                    font-weight:  800;
                 }
 
                 &.type {
@@ -130,30 +142,33 @@ div.storage {
         width: 100%;
         margin-top: 10px;
         button {
-            width: 100%;
-            height: 30px;
+            @include transition(opacity 0.1s ease);
             border: none;
-            text-transform: uppercase;
+            height: 30px;
             letter-spacing: 1px;
             font-size: 9px;
             font-weight: bolder;
-            opacity: 0.75;
-            @include transition(opacity 0.1s ease);
+            opacity: 1;
+            text-transform: uppercase;
+            width: 100%;
         }
         button:hover {
-            opacity: 0.9;
+            opacity: 0.85;
+        }
+        button:active {
+            opacity: 1;
         }
         button:nth-child(1) {
             background-color: white;
             color: black;
             &:active {
-                color: red;
-                border: solid 1px red;
-                background-color: white;
+                color: white;
+                background-color: black;
             }
         }
         button:nth-child(2) {
             background-color: #838383;
+            color: white;
             &:active {
                 color: #838383;
                 border: solid 1px #838383;
@@ -162,6 +177,7 @@ div.storage {
         }
         button:nth-child(3) {
             background-color: #4c4c4c;
+            color: white;
             &:active {
                 color: #4c4c4c;
                 border: solid 1px #4c4c4c;
@@ -170,6 +186,7 @@ div.storage {
         }
         button:nth-child(4) {
             background-color: #fe531f;
+            color: white;
             &:active {
                 color: #fe531f;
                 border: solid 1px #fe531f;

@@ -1,0 +1,151 @@
+.display {
+    @include display-flex(flex);
+    @include align-items(center);
+    @include justify-content(center);
+    position: relative;
+    z-index: 1;
+    padding-left: 125px;
+
+    @include bp(max-width, $bp-small) {
+        height: 50%;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    @include bp(min-width, $bp-small + 1 ) {
+        width: 50%;
+        height: 100%;
+    }
+
+    @include bp(min-width, $bp-xlarge + 1) {
+        width: 60%;
+    }
+
+    .outer {
+        @include display-flex(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        width: 80%;
+        height: 80%;
+        margin-bottom: 100px;
+
+        .inner {
+            position: relative;
+            max-height: 500px;
+            max-width: 500px;
+            width: 100%;
+            height: 100%;
+
+
+            @include bp(max-width, $bp-small) {
+                max-width: 250px;
+                max-height: 250px;
+            }
+
+            div {
+                position: relative;
+
+                &:not(.cable) {
+                    position: absolute;
+                }
+            }
+        }
+    }
+
+    .cable {
+        width: 100%;
+        // height: 100%;
+        margin: 0 auto;
+        position: relative;
+
+        $line-width: 1px;
+        $line-color: #aaa;
+        $line-length: 30px;
+
+        $circle-diameter: 10px;
+
+        &:before, &:after {
+            background-color: $line-color;
+            content: "";
+            position: absolute;
+            display: block;
+            left: 50%;
+        }
+        &:before {
+            // line
+            top: -1 * $line-length + 10px;
+            margin-left: -1/2 * $line-width;
+            width: $line-width;
+            height: $line-length;
+        }
+
+        &:after {
+            // circle
+            width: $circle-diameter;
+            height: $circle-diameter;
+            top: -1 * $line-length;
+            border-radius: 50%;
+            margin-left: -1/2 * $circle-diameter;
+        }
+    }
+    .inputPlug, .outputPlug {
+        .plug {
+            height: 300px;
+            max-width: 180px;
+        }
+        .boot {
+            position: absolute;
+        }
+    }
+
+    .inputPlug {
+        // Mirror
+        @include transform(scaleX(-1));
+        .boot {
+        }
+    }
+
+    .outputPlug {
+        .boot {
+        }
+    }
+}
+
+.body {
+    &.patch {
+        .cable > img {
+            max-height: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+    }
+
+    &.regular {
+        .cable > img {
+            height: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+    }
+}
+
+.body.patch {
+    .display {
+        .inner {
+            max-width: 450px;
+        }
+        .inputPlug, .outputPlug {
+            img {
+                @include transform(rotate(-45deg));
+            }
+        }
+    }
+}
+
+.body.delay {
+    .inputPlug, .outputPlug {
+        img {
+            @include transition(all 2s 2s ease);
+        }
+    }
+}

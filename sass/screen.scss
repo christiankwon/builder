@@ -10,7 +10,7 @@
 #screen-width {
     position: fixed;
     bottom: 0;
-    right: 0;
+    left: 0;
     z-index: 10000;
     color: white;
     &:before{ content: 'width: '; }
@@ -20,7 +20,7 @@
 #screen-height {
     position: fixed;
     bottom: 0;
-    left: 0;
+    right: 0;
     z-index: 10000;
     color: white;
     &:before{ content: 'height: '; }
@@ -38,7 +38,7 @@
     background: url("/v/s/images/customshop/builder/misc/page-loader.gif") no-repeat scroll 50% 50% rgb(0, 0, 0);
     position: fixed;
     left: 0;
-    // display: none;
+    display: none;
     right: 0;
     top: 0;
     bottom: 0;
@@ -49,7 +49,7 @@
     }
 }
 
-html, body, .content, .body {
+html, body, .content, .body, .production, .confirmation {
     height: 100%;
 }
 

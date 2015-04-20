@@ -7,7 +7,7 @@
          <name>Instrument/Patch</name>
          <default>1</default>
       </type>
-   
+      <!-- 
       <type>
          <id>CSB2</id>
          <name>Pro Audio</name>
@@ -17,6 +17,7 @@
          <id>CSB3</id>
          <name>Speaker</name>
       </type>
+      -->
   
    </cableTypes>
 

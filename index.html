@@ -18,11 +18,8 @@
         <link href="screen.css" media="screen" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
 
-        <!-- <link href="stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css"/> -->
-        <!-- <link href="stylesheets/print.css" media="print" rel="stylesheet" type="text/css" /> -->
-        <!--[if IE]>
-            <link rel="stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" href="main.css" />
-        <![endif]-->
+        <!-- <link href="jScrollPane/jquery.jscrollpane.css" media="screen" rel="stylesheet" type="text/css"/> -->
+
 
         <!-- General scripts -->
         <script src="/v/s/js/vendor/modernizr-2.8.3.js"></script>
@@ -37,56 +34,72 @@
             <div class="info"></div>
         </div>
         <div class="content">
-            <button id="test">Test</button>
+            <div class="production">
+                <button id="test">Test</button>
 
-            <div class="storage-container">
-                <div class="storage">
-                    <div class="builds"></div>
-                    <div class="buttons"> 
-                        <button id="new">new</button>
-                        <button id="remove">remove</button>
-                        <button id="load">load</button>
-                        <button id="save">save</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="body">
-                <div class="display">
-                    <div class="outer">
-                        <div class="inner">
-                            <div class="cable">
-                                <img/>
-                                <!-- <canvas id="canvas_cable" /> -->
-                                <div class="inputPlug">
-                                    <img class="plug"/>
-                                    <img class="boot"/>
-                                    <!-- <canvas/> -->
-                                </div>
-                                <div class="outputPlug">
-                                    <img class="plug"/>
-                                    <img class="boot"/>
-                                    <!-- <canvas/> -->
-                                </div>
+                <div class="body regular">
+                    <div class="storage-container">
+                        <div class="storage">
+                            <div class="builds"></div>
+                            <div class="buttons"> 
+                                <button id="new">new</button>
+                                <button id="remove">remove</button>
+                                <button id="load">load</button>
+                                <button id="save">save</button>
                             </div>
                         </div>
                     </div>
-                    <!-- <button id="reset">reset</button> -->
-                </div>
-
-                <div class="builders">
-                    <div class="confirmation">
-                        <button class="close">X</button>
+                    
+                    <div class="display">
+                        <div class="outer">
+                            <div class="inner">
+                                <div class="cable">
+                                    <img/>
+                                    <div class="inputPlug">
+                                        <img class="plug"/>
+                                        <img class="boot"/>
+                                    </div>
+                                    <div class="outputPlug">
+                                        <img class="plug"/>
+                                        <img class="boot"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <button id="reset">reset</button> -->
                     </div>
-                    <ul class="cableTypes"></ul>
-                </div>
 
-                <div class="tracker">
-                    <div class="dot cable"></div>
-                    <div class="dot length"></div>
-                    <div class="dot inputPlug"></div>
-                    <div class="dot outputPlug"></div>
-                    <div class="dot other"></div>
+                    <div class="builders">
+                        <ul class="cableTypes"></ul>
+                    </div>
+
+                    <div class="tracker">
+                        <div class="dot cable"></div>
+                        <div class="dot length"></div>
+                        <div class="dot inputPlug"></div>
+                        <div class="dot outputPlug"></div>
+                        <div class="dot other"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="confirmation">
+                <div class="return">
+                    <span>Back to the cable builder</span>
+                </div>
+                <div class="details">
+                    <div class="cart">
+                        <div class="outer">
+                            <div class="inner">
+                                <img src="http://placehold.it/100" />
+                                <h1>We're ready to build.</h1>
+                                <h2>Every cable bought through the Cable Builder<br/>is hand built to order. Your cable order will<br/>be ready within <strong>3 business days.</strong></h2>
+                                <ul class="items"></ul>
+                                <button class="checkout">Checkout</button>
+                                <button class="return">Back to the Cable Builder</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -94,6 +107,7 @@
         <!-- General scripts -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+        <script src="jquery.ui.touch-punch.min.js"></script>
         <script>
             window.jQuery || document.write('<script src="/v/s/js/vendor/jquery-1.11.1.min.js"><\/script>')
         </script>
@@ -102,6 +116,10 @@
 
         <!-- Page specific scripts -->
 
+        <!--<script type="text/javascript" src="jScrollPane/jquery.jscrollpane.min.js"></script>
+        <script type="text/javascript" src="jScrollPane/jquery.mousewheel.js"></script>
+        <script type="text/javascript" src="jScrollPane/mwheelIntent.js"></script>-->
+        <script type="text/javascript" src="jquery.slimscroll.js"></script>
         <script type="text/javascript" src="main.js"></script>
 
         <!-- Google analytics
