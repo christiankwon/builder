@@ -139,8 +139,6 @@
                     font-size: 14px;
                 }
                 .specs {
-                    @include display-flex(flex);
-                    @include flex-direction(column);
                     @include transition(all 0.5s 0 ease);
                     font-size: 11px;
                     color: #535353;
@@ -151,6 +149,7 @@
 
                     span {
                         margin-bottom: 2px;
+                        display: block;
                     }
                 }
 

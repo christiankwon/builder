@@ -23,6 +23,11 @@ $dots: cable length inputPlug outputPlug other;
     @include align-items(flex-start);
     @include justify-content(center);
 
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
     $dot-width: 62px * 0.5;
     $dot-height: 59px * 0.5;
 

@@ -2,9 +2,12 @@
     @include display-flex(flex);
     @include align-items(center);
     @include justify-content(center);
+    @include transition(width 0.3s ease-out, opacity 0.3s ease-in);
+
     position: relative;
     z-index: 1;
     padding-left: 125px;
+    opacity: 1;
 
     @include bp(max-width, $bp-small) {
         height: 50%;
@@ -17,10 +20,6 @@
         height: 100%;
     }
 
-    @include bp(min-width, $bp-xlarge + 1) {
-        width: 60%;
-    }
-
     .outer {
         @include display-flex(flex);
         @include align-items(center);
@@ -31,13 +30,36 @@
 
         .inner {
             position: relative;
-            max-height: 500px;
-            max-width: 500px;
             width: 100%;
             height: 100%;
 
 
             @include bp(max-width, $bp-small) {
+                max-width: 250px;
+                max-height: 250px;
+            }
+
+            @include bpw($bp-small + 1, $bp-medium) {
+                max-width: 170px;
+                max-height: 170px;
+            }
+
+            @include bpw($bp-medium + 1, $bp-large) {
+                max-width: 280px;
+                max-height: 280px;
+            }
+
+            @include bpw($bp-large + 1, $bp-xlarge) {
+                max-width: 350px;
+                max-height: 350px;
+            }
+
+            @include bp(min-width, $bp-xlarge + 1) {
+                max-height: 500px;
+                max-width: 500px;
+            }
+
+            @include bp(max-height, 450px) {
                 max-width: 250px;
                 max-height: 250px;
             }
@@ -57,36 +79,6 @@
         // height: 100%;
         margin: 0 auto;
         position: relative;
-
-        $line-width: 1px;
-        $line-color: #aaa;
-        $line-length: 30px;
-
-        $circle-diameter: 10px;
-
-        &:before, &:after {
-            background-color: $line-color;
-            content: "";
-            position: absolute;
-            display: block;
-            left: 50%;
-        }
-        &:before {
-            // line
-            top: -1 * $line-length + 10px;
-            margin-left: -1/2 * $line-width;
-            width: $line-width;
-            height: $line-length;
-        }
-
-        &:after {
-            // circle
-            width: $circle-diameter;
-            height: $circle-diameter;
-            top: -1 * $line-length;
-            border-radius: 50%;
-            margin-left: -1/2 * $circle-diameter;
-        }
     }
     .inputPlug, .outputPlug {
         .plug {
@@ -113,18 +105,30 @@
 
 .body {
     &.patch {
-        .cable > img {
-            max-height: 100%;
-            max-width: 100%;
-            margin: 0 auto;
+        .display {
+            .cable > img {
+                max-height: 100%;
+                max-width: 100%;
+                margin: 0 auto;
+            }
+
+            .inner {
+                height: 20%;
+                width: 70%;
+            }
         }
     }
 
     &.regular {
-        .cable > img {
-            height: 100%;
-            width: 100%;
-            margin: 0 auto;
+        .display {
+            .cable > img {
+                height: 100%;
+                width: 100%;
+                margin: 0 auto;
+            }
+            .inner {
+                height: 70%;
+            }
         }
     }
 }
@@ -132,11 +136,14 @@
 .body.patch {
     .display {
         .inner {
-            max-width: 450px;
+            max-width: 400px;
         }
         .inputPlug, .outputPlug {
             img {
-                @include transform(rotate(-45deg));
+                // triangles 8-11-sqrt(185) and 9-12-15
+                // triangles made from pixel distances from dot to dot in patch image
+                // angle of rotation roughly a little more than 36
+                @include transform(rotate(-36deg));
             }
         }
     }
@@ -148,4 +155,10 @@
             @include transition(all 2s 2s ease);
         }
     }
+}
+
+.body.expanded .display {
+    @include transition(opacity 0.15s ease-out);
+    width: 0;
+    opacity: 0;
 }

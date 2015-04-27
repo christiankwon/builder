@@ -1,9 +1,5 @@
-.filters {
-    $primary: #af9757;
-    $secondary: #fff;
-    $accent: #000;
-
-    &:before {
+ul.builder li {
+    & > .filters:before {
         color: #fff;
         text-transform: uppercase;
         align-self: center;
@@ -15,21 +11,27 @@
         width: 150px;
     }
 
-    &.cable:before {
+    &.cable > .filters:before {
         content: "1. Cable Type";
     }
-    &.length:before {
+    &.length > .filters:before {
         content: "2. Cable Length";
     }
-    &.inputPlug:before {
+    &.inputPlug > .filters:before {
         content: "3. Input Plug";
     }
-    &.outputPlug:before {
+    &.outputPlug > .filters:before {
         content: "4. Output Plug";
     }
-    &.other:before {
+    &.other > .filters:before {
         content: "5. Other Options";
     }
+}
+
+.filters {
+    $primary: #af9757;
+    $secondary: #fff;
+    $accent: #000;
 
     @include display-flex(flex);
     @include flex-direction(row);
@@ -46,11 +48,79 @@
     .filterContainer {
         @include align-self(center);
         min-width: 85px;
+        max-width: 150px;
         width: 23%;
         margin-right: 1%;
         position: relative;
         height: 50%;
         max-height: 40px;
+
+        &.filter-open {
+            h2:before, h2:after {
+                display: none !important;
+            }
+        }
+
+        &.filter-on {
+            .filter-open h2:after, .filter-open h2:before {
+                display: none;
+            }
+            h2:after {
+                @include align-items(center);
+                background-color: white;
+                content: "";
+                @include display-flex(flex);
+                left: 0;
+                height: 100%;
+                @include justify-content(center);
+                position: absolute;
+                top: 0;
+                width: 100%;
+                background-repeat: no-repeat;
+                background-position: 80% center;
+            }
+
+            $list: 'high' 'med' 'low' 'switchcraft' 'neutrik' 'gandh';
+            @each $item in $list {
+                &.filter-on-#{$item} h2:after {
+                    content: "#{$item}";
+
+                    @if $item == 'gandh' {
+                        content: "G&H";
+                    }
+                }
+            }
+
+            $color: 'red' 'orange' 'yellow' 'green' 'blue' 'black' 'white' 'multiple';
+            @each $item in $color {
+                &.filter-on-#{$item} h2:after {
+                    content: "#{$item}";
+                    background-image: url($media-folder + 'misc/filters/#{$item}.png');
+                }
+            }
+
+            h2:before {
+                top: -11px;
+                opacity: 1;
+            }
+        }
+
+        &:after {
+            border-color: $primary transparent;
+            border-style: solid solid none;
+            border-width: 7px 4px medium;
+            content: "";
+            display: block;
+            height: 0;
+            position: absolute;
+            right: 1em;
+            top: 40%;
+            width: 0;
+            z-index: 3;
+
+            @include transition(all 0.4s ease);
+            @include transform(rotate(0));
+        }
 
         &.manufacturer {
             width: 30%;
@@ -74,8 +144,8 @@
         }
 
         &.filter-open {
-            h2:after {
-                @include transform(rotate(180deg));
+            &:after {
+                @include transform(rotate(-180deg));
             }
 
             h2, .filter-option {
@@ -98,37 +168,6 @@
                     }
                 }
             }
-
-            // .filter-on {
-            //     top: auto;
-            //     z-index: 1;
-            // }
-        }
-
-        // .filter-on {
-        //     top: 0;
-        //     z-index: 3;
-
-        //     .filter-selected {
-        //         visibility: visible;
-        //         opacity: 1;
-        //     }
-        // }
-
-        h2:after {
-            border-color: $primary transparent;
-            border-style: solid solid none;
-            border-width: 7px 4px medium;
-            content: "";
-            display: block;
-            height: 0;
-            position: absolute;
-            right: 1em;
-            top: 40%;
-            width: 0;
-
-            @include transition(all 0.4s ease);
-            @include transform(rotate(0));
         }
 
         h2 {
@@ -145,6 +184,38 @@
             position: relative;
             max-width: 150px;
             z-index: 2;
+
+            &:before {
+                position: absolute;
+                display: block;
+                text-transform: uppercase;
+                top: 0;
+                left: 0;
+                opacity: 0;
+                color: white;
+                @include transition(all 0.2s ease-out);
+            }
+
+            &.brightness:before {
+                content: "Brightness";
+            }
+
+            &.flexibility:before {
+                content: "Flexibility";
+            }
+
+            &.color:before {
+                content: "Color";
+            }
+
+            &.manufacturer:before {
+                content: "Manufacturer";
+            }
+        }
+
+        .filter-open h2:before {
+            top: 11px;
+            opacity: 1;
         }
 
         &.color {
@@ -190,8 +261,14 @@
                 }
             }
         }
-        
+
+        @include bp(max-width, 1400px) {
+            &:after {
+                display: none;
+            }
+        }
     }
+
     .filter {
         @include transition(all 0.2s ease-in, z-index 0.2s step-end);
         position: absolute;
@@ -246,6 +323,7 @@
         }
     }
 
+
     button {
         display: none;
         position: absolute;
@@ -271,6 +349,40 @@
     @include bp(max-width, 979px) {
         button, div {
             display: none;
+        }
+    }
+
+    li.length & > div {
+        position: absolute;
+        right: 5%;
+        top: 20%;
+        width: 90%;
+        height: 60%;
+
+        img {
+            position: absolute;
+            right: 0;
+
+            &.measurement {
+                top: 15px;
+                width: 0%;
+                max-width: 440px;
+                max-height: none;
+                z-index: 3;
+                @include transition(width 0.3s ease-out);
+
+            }
+
+            &.notice {
+                top: 0;
+                max-height: 100%;
+                max-width: 100%;
+                cursor: pointer;
+            }
+        }
+
+        &.showNotice .measurement {
+            width: 100%;
         }
     }
 }

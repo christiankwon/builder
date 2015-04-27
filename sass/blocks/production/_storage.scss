@@ -1,13 +1,3 @@
-@include bp(max-height, 600px) {
-    .storage {
-        display: none !important;
-    }
-
-    .display {
-        padding-left: 0;
-    }
-}
-
 .storage-container {
     @include display-flex(flex);
     @include align-items(center);
@@ -151,12 +141,25 @@ div.storage {
             opacity: 1;
             text-transform: uppercase;
             width: 100%;
+            position: relative;
         }
         button:hover {
             opacity: 0.85;
         }
         button:active {
             opacity: 1;
+        }
+        button[disabled]:after {
+            background-color: black;
+            color: white;
+            content: "max";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            line-height: 30px;
+
         }
         button:nth-child(1) {
             background-color: white;

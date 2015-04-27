@@ -1,25 +1,35 @@
 @import "builder/filters";
+@import "builder/lengths";
 
-.body.regular {
-    .other.reverse_plugs {
-        display: none;
-    }
-}
-
-.body.patch.reverse_plugs {
-    .display .inputPlug {
-        @include transform(rotate(90deg) scaleX(1));
+.body {
+    &.regular {
+        .other.reverse_plugs {
+            display: none;
+        }
     }
 
-    .display .inputPlug .plug {
-        position: relative;
-        left: -72px;
-        top: 71px;
+    &.patch {
+        &.reverse_plugs {
+            .display .inputPlug {
+                @include transform(rotate(90deg) scaleX(1));
+
+                .plug {
+                    position: relative;
+                    left: -72px;
+                    top: 71px;
+                }
+            }
+        }
+    }
+
+    &.expanded .builders {
+        width: 80%;
     }
 }
 
 .builders {
     @include align-self(center);
+    @include transition(width 0.3s ease-out);
     position: relative;
     z-index: 2;
 
@@ -31,38 +41,17 @@
 
     @include bp(min-width, $bp-small + 1) {
         height: 80%;
-        margin-right: 2em;
+        margin-right: 65px;
+        width: 50%;
     }
 
-    $scroll: 0;
-
-    $fit2: 1230px;
-    $fit3: 1400px;
-    @include bp(max-width, $fit2) {
-        width: 350px + $scroll;
+    .options .outer {
+        width: 95%;
     }
+}
 
-    @include bpw($fit2 + 1 + 5, $fit3) {
-        width: 520px + $scroll;
-    }
-
-    @include bp(min-width, $fit3 + 1) {
-        width: 690px + $scroll;
-    }
-
-    .options > div {
-        @include bp(max-width, $fit2) {
-            width: 340px + $scroll;
-        }
-
-        @include bpw($fit2 + 1, $fit3) {
-            width: 510px + $scroll;
-        }
-
-        @include bp(min-width, $fit3 + 1) {
-            width: 680px + $scroll;
-        }
-    }
+.slimScrollDiv {
+    padding-bottom: 30px;
 }
 
 .cableTypes {
@@ -119,146 +108,65 @@
             display: block;
         }
     }
-}
 
-li.length {
-    $types: patch regular;
+    button.expand {
+        width: 30px;
+        height: 30px;
+        background-color: white;
+        position: absolute;
+        left: -31px;
+        top: 50%;
+        border: solid 1px black;
+        border-right: 0;
 
-    .builder.only_patch {
-        .length .choice.regular {
-            display: none;
+        &:after {
+            position: absolute;
+            left: 9px;
+            top: 8px;
+            display: block;
+            content: "";
+            width: 0;
+            height: 0;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-right: 10px solid black;
+            border-left: none;
+            @include transition(all 0.3s ease-out);
+        }
+
+        .body.expanded &:after {
+            left: 10px;
+            @include transform(rotate(180deg));
         }
     }
-
-    > input[name="switch"] {
-        @each $type in $types {
-            &.#{$type} {
-                & ~ .rulers .#{$type} {
-                    display: block;
-                }
-                & ~ .choices .#{$type} {
-                    outline: #ff1200 6px solid;
-                }
-            }
-        }
-    }
-
-    .measurement {
-        margin: 1em auto;
-        max-width: 285px;
-        width: 90%;
-    }
-
-    .choices {
-        @include display-flex(flex);
-        @include justify-content(space-around);
-        @include align-items(center);
-        text-align: center;
-
-        .choice {
-            height: 20%;
-            max-width: 40%;
-            color: white;
-            @include display-flex(flex);
-            @include flex-direction(row);
-
-            p, span, button {
-                text-transform: uppercase;
-            }
-
-            input[type="radio"] {
-                display: none;
-            }
-
-            .image {
-                width: 100%;
-                height: auto;
-                overflow: hidden;
-                position: relative;
-                img {
-                    display: block;
-                    width: 100%;
-                    height: 100%;
-                }
-            }
-            .information {
-                @include transition(top 0.3s ease-in);
-                background-color: rgba(0,0,0,0.75);
-                left: 0;
-                color: white;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                height: 100%;
-            }
-
-            &.specs .information {
-                top: 0;
-            }
-            .type, .specs, button {
-                height: 35px;
-            }
-
-            .specs, .type {
-                @include display-flex(flex);
-                @include justify-content(center);
-                @include align-items(center);
-            }
-
-            .specs {
-                background-color: #6f9dbe;
-            }
-
-            &.specs .specs img {
-                @include transform(rotate(180deg));
-            }
-
-            .type {
-                width: 100%;
-                background-color: #494949;
-            }
-            button {
-                border: none;
-                display: block;
-                background: #ff1200;
-            }
-        }
-    }
-
-    .rulers {
-        margin: 1em;
-        div, input {
-            display: none;
-        }
-
-        .ruler {
-            background-size: calc(100% + 2em) auto;
-            background-position: -19px 0;
-            border: none;
-            border-radius: 0;
-            height: 125px;
-
-            span.ui-slider-handle {
-                top: 2em;
-                margin-left: 0;
-            }
-        }
-        .ruler.patch {
-            background-image: url($media-folder + 'misc/length/instrument/ruler-patch.png');
-        }
-        .ruler.regular {
-            background-image: url($media-folder + 'misc/length/instrument/ruler-regular.png');
-        }
-    }
-
 }
 
 li.other {
-    .options .other {
-        @include justify-content(center);
+    .options {
+        padding: 2em;
+    }
+
+    .option {
+        cursor: default;
+    }
+
+    .other.outer h3 {
+        margin: 0;
+    }
+
+    .options .outer {
+        display: block;
+        margin: 0 auto;
+        
+        &:not(:last-child) {
+            border-bottom: 1px solid black;
+        }
+
         &.techflex {
             order: 1;
             width: 100%;
+            @include display-flex(flex);
+            @include justify-content(center);
         }
 
         &.heatshrink, &.reverse_plugs {
@@ -341,18 +249,14 @@ li.other {
             }
         }
     }
-
-
-
 }
 
 .options {
     overflow-y: scroll;
     height: 90%;
     position: relative;
-    @include display-flex(flex);
-    @include flex-direction(row);
-    @include flex-wrap(wrap);
+    z-index: 2;
+    
     .outer {
         @include display-flex(flex);
         @include flex-direction(row);
@@ -472,7 +376,9 @@ li.other {
 
         .overlay {
             position: absolute;
-            top: 0;
+            top: -2px;
+            width: 102%;
+            left: -2.5px;
         }
 
         .colors, .boots {
@@ -609,19 +515,61 @@ li.other {
         font-size: 12px;
         font-weight: bold;
         letter-spacing: 1px;
+        position: relative;
+
+        &:before, &:after {
+            content: "";
+            position: absolute;
+            display: block;
+            height: 0;
+            width: 0;
+            top: 7px;
+        }
+
+        $step-width: 5px;
+        $step-height: 7px;
 
         &.previous {
             float: left;
+
+            &:before {
+                left: 5px;
+                border-top: $step-width solid transparent;
+                border-bottom: $step-width solid transparent;
+                border-right: $step-height solid white;
+                border-left: none;
+            }
+
+            &:after {
+                left: 10px;
+                border-top: $step-width solid transparent;
+                border-bottom: $step-width solid transparent;
+                border-right: 2px solid #444;
+                border-left: none;
+            }
         }
 
         &.next {
             float: right;
+
+            &:before {
+                right: 5px;
+                border-top: $step-width solid transparent;
+                border-bottom: $step-width solid transparent;
+                border-left: $step-height solid white;
+                border-right: none;
+            }
+
+            &:after {
+                right: 10px;
+                border-top: $step-width solid transparent;
+                border-bottom: $step-width solid transparent;
+                border-left: 2px solid #444;
+                border-right: none;
+            }
         }
     }
 }
-
-
-
 
 @include bp(max-width, $bp-small) {
     .options {
