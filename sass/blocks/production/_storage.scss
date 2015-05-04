@@ -21,6 +21,19 @@ div.storage {
     .builds {
         @include display-flex(flex);
         @include flex-direction(column);
+        position: relative;
+
+        .counter {
+            bottom: -10px;
+            position: absolute;
+            right: 0;
+            z-index: 5;
+            font-size: 10px;
+
+            strong {
+                font-weight: 400;
+            }
+        }
     }
 
     $block-size: 80px;
@@ -149,7 +162,8 @@ div.storage {
         @include display-flex(flex);
         @include flex-direction(column);
         width: 100%;
-        margin-top: 10px;
+        margin-top: 20px;
+
         button {
             @include transition(opacity 0.1s ease);
             border: none;

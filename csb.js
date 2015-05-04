@@ -1557,6 +1557,10 @@
             store($block);
         }
 
+        function updateBuildCounter() {
+            $('.storage').find('p.counter strong').text($('.storage .builds .build').length);
+        }
+
         function remove() {
             functionLog('storeThis/remove');
             var $container = $('.storage .builds'),
@@ -1578,6 +1582,8 @@
             if( $('#storage_new').prop('disabled') ) {
                 $('#storage_new').prop('disabled', false);
             }
+
+            updateBuildCounter();
         }
 
         function reNumberStorage() {
@@ -1704,6 +1710,8 @@
                 $('#storage_new').prop('disabled', true);
                 return;
             }
+
+            updateBuildCounter();
         }
 
         function build() {
@@ -1796,6 +1804,7 @@
         }
 
         reNumberStorage();
+        updateBuildCounter();
 
         if( !numberLocalStorage ) {
             $('#body').addClass('regular');
