@@ -1580,6 +1580,17 @@
         }
 
         function reNumberStorage() {
+            function styleStorage() {
+                // give first cable class first
+                $builds.filter(function() {
+                    return $(this).css('order') == 1;
+                }).addClass('first');
+
+                // give largest numbered build class last
+                $builds.filter(function() {
+                    return $(this).css('order') == largest;
+                }).addClass('last');
+            }
             var largest = 0,
                 $builds = $('.storage .build');
 
@@ -1587,7 +1598,11 @@
                 if( $(this).data().storage > largest ) largest = $(this).data().storage;
             });
 
-            if( largest === $builds.length ) return;
+            // if the numbers are already in order, return
+            if( largest === $builds.length ) {
+                styleStorage();
+                return;
+            }
 
             $builds.each(function(i) {
                 var j = i + 1;
@@ -1595,6 +1610,7 @@
                 $(this).css('order', j);
                 $(this).find('p.id').text(j);
             });
+            styleStorage();
         }
 
         function load() {
@@ -1756,7 +1772,6 @@
         storeThis.remove = remove;
         storeThis.save = save;
         storeThis.store = null;
-
 
         if( !Modernizr.localstorage ) {
             generate();

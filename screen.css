@@ -118,14 +118,10 @@ div.storage .build {
   order: 99;
 }
 /* line 34, sass/blocks/production/_storage.scss */
-div.storage .build:last-child {
-  border-bottom: none;
-}
-/* line 38, sass/blocks/production/_storage.scss */
 div.storage .build input[name="storage_build"]:checked + .identifier {
   background-color: #ccc;
 }
-/* line 42, sass/blocks/production/_storage.scss */
+/* line 38, sass/blocks/production/_storage.scss */
 div.storage .build input[type="radio"] {
   position: absolute;
   left: 0;
@@ -133,7 +129,7 @@ div.storage .build input[type="radio"] {
   z-index: 10;
   visibility: hidden;
 }
-/* line 54, sass/blocks/production/_storage.scss */
+/* line 50, sass/blocks/production/_storage.scss */
 div.storage .build .identifier {
   display: -webkit-flex;
   display: flex;
@@ -148,39 +144,39 @@ div.storage .build .identifier {
   height: 80px;
   z-index: 2;
 }
-/* line 64, sass/blocks/production/_storage.scss */
+/* line 60, sass/blocks/production/_storage.scss */
 div.storage .build .identifier p {
   font-weight: 700;
 }
-/* line 66, sass/blocks/production/_storage.scss */
+/* line 62, sass/blocks/production/_storage.scss */
 div.storage .build .identifier p.id {
   font-size: 16px;
   font-weight: 800;
 }
-/* line 71, sass/blocks/production/_storage.scss */
+/* line 67, sass/blocks/production/_storage.scss */
 div.storage .build .identifier p.type {
   text-transform: uppercase;
   font-size: 10px;
   margin: 7px;
 }
-/* line 77, sass/blocks/production/_storage.scss */
+/* line 73, sass/blocks/production/_storage.scss */
 div.storage .build .identifier p.price {
   color: #cf2700;
   font-size: 12px;
 }
-/* line 80, sass/blocks/production/_storage.scss */
+/* line 76, sass/blocks/production/_storage.scss */
 div.storage .build .identifier p.price:before {
   content: '$';
 }
-/* line 88, sass/blocks/production/_storage.scss */
-div.storage .build:first-child .information {
+/* line 83, sass/blocks/production/_storage.scss */
+div.storage .build.first .information {
   border-top: 0;
 }
-/* line 92, sass/blocks/production/_storage.scss */
-div.storage .build:last-child .information {
+/* line 87, sass/blocks/production/_storage.scss */
+div.storage .build.last, div.storage .build.last .information {
   border-bottom: 0;
 }
-/* line 96, sass/blocks/production/_storage.scss */
+/* line 91, sass/blocks/production/_storage.scss */
 div.storage .build .information {
   -moz-transition: width 0.3s ease-in-out;
   -o-transition: width 0.3s ease-in-out;
@@ -198,12 +194,12 @@ div.storage .build .information {
   border-width: 1px 0;
   border-style: solid;
 }
-/* line 110, sass/blocks/production/_storage.scss */
+/* line 105, sass/blocks/production/_storage.scss */
 div.storage .build .information p {
   font-size: 10px;
   margin: 3px 0;
 }
-/* line 113, sass/blocks/production/_storage.scss */
+/* line 108, sass/blocks/production/_storage.scss */
 div.storage .build .information p span {
   text-transform: lowercase;
   width: 80px;
@@ -211,36 +207,36 @@ div.storage .build .information p span {
   display: inline-block;
   margin-right: 2px;
 }
-/* line 120, sass/blocks/production/_storage.scss */
+/* line 115, sass/blocks/production/_storage.scss */
 div.storage .build .information p em {
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 1px;
   font-style: normal;
 }
-/* line 129, sass/blocks/production/_storage.scss */
+/* line 124, sass/blocks/production/_storage.scss */
 div.storage .build .information p {
   width: 380px;
   padding-left: 80px;
 }
-/* line 134, sass/blocks/production/_storage.scss */
+/* line 129, sass/blocks/production/_storage.scss */
 div.storage .build:hover .information, div.storage .build.open .information {
   padding-left: 80px;
   width: 380px;
 }
-/* line 138, sass/blocks/production/_storage.scss */
+/* line 133, sass/blocks/production/_storage.scss */
 div.storage .build:hover .information p, div.storage .build.open .information p {
   padding-left: 0;
 }
-/* line 144, sass/blocks/production/_storage.scss */
+/* line 139, sass/blocks/production/_storage.scss */
 div.storage .build.alert .identifier {
   background-color: rgba(255, 0, 0, 0.3) !important;
 }
-/* line 147, sass/blocks/production/_storage.scss */
+/* line 142, sass/blocks/production/_storage.scss */
 div.storage .build.alert .information p.error {
   color: #c00;
 }
-/* line 153, sass/blocks/production/_storage.scss */
+/* line 148, sass/blocks/production/_storage.scss */
 div.storage .buttons {
   display: -webkit-flex;
   display: flex;
@@ -249,7 +245,7 @@ div.storage .buttons {
   width: 100%;
   margin-top: 10px;
 }
-/* line 158, sass/blocks/production/_storage.scss */
+/* line 153, sass/blocks/production/_storage.scss */
 div.storage .buttons button {
   -moz-transition: opacity 0.1s ease;
   -o-transition: opacity 0.1s ease;
@@ -265,15 +261,15 @@ div.storage .buttons button {
   width: 100%;
   position: relative;
 }
-/* line 170, sass/blocks/production/_storage.scss */
+/* line 165, sass/blocks/production/_storage.scss */
 div.storage .buttons button:hover {
   opacity: 0.85;
 }
-/* line 173, sass/blocks/production/_storage.scss */
+/* line 168, sass/blocks/production/_storage.scss */
 div.storage .buttons button:active {
   opacity: 1;
 }
-/* line 176, sass/blocks/production/_storage.scss */
+/* line 171, sass/blocks/production/_storage.scss */
 div.storage .buttons button[disabled]:after {
   background-color: black;
   color: white;
@@ -285,44 +281,44 @@ div.storage .buttons button[disabled]:after {
   height: 100%;
   line-height: 30px;
 }
-/* line 188, sass/blocks/production/_storage.scss */
+/* line 183, sass/blocks/production/_storage.scss */
 div.storage .buttons button:nth-child(1) {
   background-color: white;
   color: black;
 }
-/* line 191, sass/blocks/production/_storage.scss */
+/* line 186, sass/blocks/production/_storage.scss */
 div.storage .buttons button:nth-child(1):active {
   color: white;
   background-color: black;
 }
-/* line 196, sass/blocks/production/_storage.scss */
+/* line 191, sass/blocks/production/_storage.scss */
 div.storage .buttons button:nth-child(2) {
   background-color: #838383;
   color: white;
 }
-/* line 199, sass/blocks/production/_storage.scss */
+/* line 194, sass/blocks/production/_storage.scss */
 div.storage .buttons button:nth-child(2):active {
   color: #838383;
   border: solid 1px #838383;
   background-color: white;
 }
-/* line 205, sass/blocks/production/_storage.scss */
+/* line 200, sass/blocks/production/_storage.scss */
 div.storage .buttons button:nth-child(3) {
   background-color: #4c4c4c;
   color: white;
 }
-/* line 208, sass/blocks/production/_storage.scss */
+/* line 203, sass/blocks/production/_storage.scss */
 div.storage .buttons button:nth-child(3):active {
   color: #4c4c4c;
   border: solid 1px #4c4c4c;
   background-color: white;
 }
-/* line 214, sass/blocks/production/_storage.scss */
+/* line 209, sass/blocks/production/_storage.scss */
 div.storage .buttons button:nth-child(4) {
   background-color: #fe531f;
   color: white;
 }
-/* line 217, sass/blocks/production/_storage.scss */
+/* line 212, sass/blocks/production/_storage.scss */
 div.storage .buttons button:nth-child(4):active {
   color: #fe531f;
   border: solid 1px #fe531f;
@@ -330,14 +326,14 @@ div.storage .buttons button:nth-child(4):active {
 }
 
 @media only screen and (max-width: 599px) {
-  /* line 227, sass/blocks/production/_storage.scss */
+  /* line 222, sass/blocks/production/_storage.scss */
   .storage {
     height: 100px;
     width: 100%;
     -webkit-flex-direction: row;
     flex-direction: row;
   }
-  /* line 234, sass/blocks/production/_storage.scss */
+  /* line 229, sass/blocks/production/_storage.scss */
   .storage .buttons button {
     display: block;
   }

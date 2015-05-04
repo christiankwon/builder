@@ -31,10 +31,6 @@ div.storage {
         border-bottom: solid 1px black;
         order: 99;
 
-        &:last-child {
-            border-bottom: none;
-        }
-
         input[name="storage_build"]:checked + .identifier {
             background-color: #ccc;
         }
@@ -84,12 +80,11 @@ div.storage {
             }
         }
 
-
-        &:first-child .information {
+        &.first .information {
             border-top: 0;
         }
 
-        &:last-child .information {
+        &.last, &.last .information {
             border-bottom: 0;
         }
 
