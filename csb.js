@@ -1678,6 +1678,9 @@
             }
 
             $block.data(storage).data('storage', i).css('order', i);
+            $block.find('.identifier .id').text(i);
+            $block.find('.identifier .type').text('inst/patch');
+            $block.find('.identifier .price').text('0.00');
             return $block;
         }
 
@@ -1901,8 +1904,7 @@
                 visited     = $visited.clone(true);
 
                 /**
-                 * [length type, unit, min, max, initial]
-                 * @type {Array}
+                 * [length type, unit, min, max, initial value]
                  */
                 arr = [['patch', 'in', 3, 48, 12], ['regular', 'ft', 3, 20, 10]];
 

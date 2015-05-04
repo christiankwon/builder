@@ -2271,11 +2271,41 @@ li.other .option.techflex label:before {
 }
 /* line 736, sass/blocks/production/_builder.scss */
 .introduction {
-  width: 100%;
+  width: calc(100% - 65px);
   height: 100%;
   position: absolute;
   z-index: 99;
   background-color: white;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  letter-spacing: 1px;
+  text-align: center;
+  border: solid 2px black;
+  cursor: pointer;
+}
+/* line 751, sass/blocks/production/_builder.scss */
+.introduction h1 {
+  text-transform: uppercase;
+  font-size: 20px;
+}
+/* line 756, sass/blocks/production/_builder.scss */
+.introduction button {
+  background-color: #fe531f;
+  color: white;
+  padding: 0.5em 1em;
+  border: none;
+}
+/* line 762, sass/blocks/production/_builder.scss */
+.introduction button:active, .introduction button:focus {
+  background-color: white;
+  color: #fe531f;
+  border: #fe531f solid 2px;
 }
 
 @media only screen and (max-width: 599px) {
