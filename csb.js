@@ -2870,6 +2870,12 @@
         $otherSelector.find('.dot').on('click', function() {
             pointerClick('other');
         });
+
+        $('#techflexOverlay').on('click', function() {
+            if( $(this).is(':visible') ) {
+                $('.tracker .dot.other').click();
+            }
+        });
     },
 
     clog = function(msg) {

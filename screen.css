@@ -499,32 +499,33 @@ div.storage .buttons button:nth-child(4):active {
   background-size: 100%;
   border: solid 1px black;
   border-radius: 50%;
+  cursor: pointer;
   display: none;
-  z-index: 15;
   top: 10%;
+  z-index: 15;
 }
-/* line 158, sass/blocks/production/display/_pointers.scss */
+/* line 159, sass/blocks/production/display/_pointers.scss */
 #techflexOverlay.black {
   display: block;
   background-image: url("images/display/techflex/black.png");
 }
-/* line 158, sass/blocks/production/display/_pointers.scss */
+/* line 159, sass/blocks/production/display/_pointers.scss */
 #techflexOverlay.gray {
   display: block;
   background-image: url("images/display/techflex/gray.png");
 }
-/* line 158, sass/blocks/production/display/_pointers.scss */
+/* line 159, sass/blocks/production/display/_pointers.scss */
 #techflexOverlay.white {
   display: block;
   background-image: url("images/display/techflex/white.png");
 }
-/* line 164, sass/blocks/production/display/_pointers.scss */
+/* line 165, sass/blocks/production/display/_pointers.scss */
 #body.regular #techflexOverlay {
   right: 11%;
   width: 15%;
   padding-bottom: 15%;
 }
-/* line 170, sass/blocks/production/display/_pointers.scss */
+/* line 171, sass/blocks/production/display/_pointers.scss */
 #body.patch #techflexOverlay {
   left: 20%;
   padding-bottom: 15%;
