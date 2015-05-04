@@ -380,6 +380,7 @@
             src = this.src;
             this.src = src.substring(0, src.lastIndexOf('/')  + 1) + 'black.png';
         });
+        $builder.find('.option.specs').removeClass('specs');
 
         $length.find('input[name="switch"]').removeClass().addClass('regular');
         $length.find('.rulerContainer.patch .ruler').slider('value',12);
@@ -1690,6 +1691,9 @@
             $block.find('input[name="storage_build"]').prop('checked',true);
 
             $('.storage .builds').append($block);
+
+            // reset builder to first step
+            $('ul.builder.selected > li').removeClass('current').first().addClass('current');
             
             // highlight current storage
             $('.storage .build').removeClass('current').filter(function() {
