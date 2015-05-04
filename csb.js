@@ -950,8 +950,8 @@
 
         $('#body .display .outer').addClass('loading');
 
-        var cb = '?cb=' + new Date().getTime(),
-        // var cb = '',
+        // var cb = '?cb=' + new Date().getTime(),
+        var cb = '',
             $display = $('div.display'),
             CC = clone(CURRENT_CABLE),
             cable_color = (CC.cable.color ? '.' + CC.cable.color : ''),
@@ -984,14 +984,7 @@
                           formatTextForImageUrl(CC.outputPlug.model.split('-')[0]) + '/' +
                           CC.outputPlug.boot + '.png' + cb,
 
-            num_images = $display.find('img').length,
-
-            loaded = function() {
-                num_images--;
-                if( num_images === 0 ) {
-                    displayImages.resizeImage('updateVisual');
-                }
-            };
+            num_images = $display.find('img').length;
 
         var $cableImage = $display.find('.cable > img'),
             $inputPlugImage = $display.find('.inputPlug img.plug'),
@@ -1005,39 +998,22 @@
             inputBoot = (CC.inputPlug.boot ? inBoot_src : BLANK_IMAGE_URL),
             outputBoot = (CC.outputPlug.boot ?  outBoot_src : BLANK_IMAGE_URL);
 
-        if( $cableImage.attr('src').substring(0, $cableImage.attr('src').lastIndexOf('?')) !== cable.substring(0, cable.lastIndexOf('?')) ) {
-            $cableImage.attr('src', cable).one('load', loaded);
-        } else {
-            num_images--; 
-        }
+        $display.imagesLoaded().done( function( instance ) {
+            console.log($('.display .cable > img')[0].complete);
+            displayImages.resizeImage('updateVisual');
+        })
+        .progress( function( instance, image ) {
+            if( image.img.src.indexOf('display/cable') == -1 ) return;
+            var result = image.isLoaded ? 'loaded' : 'broken';
+            console.log(image);
+            console.log( 'image is ' + result + ' for ' + image.img.src );
+        });
 
-        if( $inputPlugImage.attr('src').substring(0, $inputPlugImage.attr('src').lastIndexOf('?')) !== input.substring(0, input.lastIndexOf('?')) ) {
-            $inputPlugImage.attr('src', input).one('load', loaded);
-        } else {
-            num_images--;
-        }
-
-        if( $outputPlugImage.attr('src').substring(0, $outputPlugImage.attr('src').lastIndexOf('?')) !== output.substring(0, output.lastIndexOf('?')) ) {
-            $outputPlugImage.attr('src', output).one('load', loaded);
-        } else {
-            num_images--;
-        }
-
-        if( $inputBootImage.attr('src').substring(0, $inputBootImage.attr('src').lastIndexOf('?')) !== inputBoot.substring(0, inputBoot.lastIndexOf('?')) ) {
-            $inputBootImage.attr('src', inputBoot).one('load', loaded);
-        } else {
-            num_images--;
-        }
-
-        if( $outputBootImage.attr('src').substring(0, $outputBootImage.attr('src').lastIndexOf('?')) !== outputBoot.substring(0, outputBoot.lastIndexOf('?')) ) {
-            $outputBootImage.attr('src', outputBoot).one('load', loaded);
-        } else {
-            num_images--;
-        }
-
-        if( num_images === 0 ) {
-            $('#body .display .outer').removeClass('loading');
-        }
+        $cableImage.attr('src', cable);
+        $inputPlugImage.attr('src', input);
+        $outputPlugImage.attr('src', output);
+        $inputBootImage.attr('src', inputBoot);
+        $outputBootImage.attr('src', outputBoot);
     },
 
     updateDots = function() {
@@ -1459,12 +1435,12 @@
 
             if( !prefix || !type ) return;
 
+
             $('ul.builder').removeClass('selected');
             $('ul.builder#' + type).addClass('selected');
 
             $('.options.active').removeClass('active');
             $('.option.selected').removeClass('selected');
-
 
             $('div#body').removeClass().addClass(data.length.type);
 
@@ -1622,13 +1598,16 @@
 
         function load() {
             functionLog('storeThis/load');
-
             var data = $('.storage .builds').find('input[name="storage_build"]:checked').parent().data();
 
-            if( this ) save();
+            // if a build is selected
+            // checks to make sure this call isnt from initialization
+            if( this ) {
+                if( CURRENT_CABLE.storage === data.storage ) {
+                    return false;
+                }
 
-            if( CURRENT_CABLE.storage === data.storage ) {
-                return false;
+                save();
             }
 
             $('.storage .build.open').removeClass('open');
@@ -1649,7 +1628,7 @@
             }).addClass('current');
         }
 
-        function create(storage) {
+        function create(data) {
             functionLog('storeThis/create');
             function getNextBlockNumber() {
                 functionLog('storeThis/create/getNextBlockNumber');
@@ -1670,17 +1649,20 @@
             }
             var i, $block = build();
 
-            if(!storage) {
-                storage = new Cable();
+            if(!data) {
+                data = new Cable();
                 i = getNextBlockNumber();
             } else {
-                i = storage.storage;
+                i = data.storage;
             }
 
-            $block.data(storage).data('storage', i).css('order', i);
+            $block.data(data).data('storage', i).css('order', i);
+
+            // instantiate text fields with default text
             $block.find('.identifier .id').text(i);
             $block.find('.identifier .type').text('inst/patch');
             $block.find('.identifier .price').text('0.00');
+
             return $block;
         }
 
@@ -1775,10 +1757,6 @@
 
         $('#storage_remove').on('click', function() {
             remove();
-        });
-
-        $('#storage_load').on('click', function() {
-            load();
         });
 
         storeThis.generate = generate;
@@ -2926,7 +2904,16 @@
             alwaysVisible: true,
             start: 'top',
             allowPageScroll: true,
+            railVisible: true,
+
+            // start scroll at the top every time
+            scrollTo: 0,
             touchScrollStep: 50
+        }).on('slimscroll', function(e, pos) {
+            // reach top|bottom
+        }).on('slimscrolling', function(a,b) {
+            console.log(a);
+            console.log(b);
         });
     },
 
@@ -2998,9 +2985,12 @@
             }
         });
 
-        $(window).on('resize', windowResize).resize();
+        var goWindowResize = debounce(function() {
+            windowResize();
+        }, 250);
 
-        window.addEventListener("orientationchange", windowResize, false);
+        $(window).on('resize', goWindowResize).resize();
+        window.addEventListener("orientationchange", goWindowResize, false);
 
         $(window).bind('beforeunload', function() {
         });
@@ -3017,8 +3007,6 @@
      */
     start = function() {
         functionLog('start');
-        // if page loads with GET options, load cable with options
-        // if page loads with COMPARISON cables, load cables into comparison build and select first cable
         displayImages('start');
 
         $(document).ajaxStop(function() {

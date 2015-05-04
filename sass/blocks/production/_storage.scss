@@ -211,16 +211,16 @@ div.storage {
                 background-color: white;
             }
         }
+        // button:nth-child(3) {
+        //     background-color: #4c4c4c;
+        //     color: white;
+        //     &:active {
+        //         color: #4c4c4c;
+        //         border: solid 1px #4c4c4c;
+        //         background-color: white;
+        //     }
+        // }
         button:nth-child(3) {
-            background-color: #4c4c4c;
-            color: white;
-            &:active {
-                color: #4c4c4c;
-                border: solid 1px #4c4c4c;
-                background-color: white;
-            }
-        }
-        button:nth-child(4) {
             background-color: #fe531f;
             color: white;
             &:active {
@@ -232,17 +232,17 @@ div.storage {
     }
 }
 
-@include bp(max-width, $bp-small) {
-    .storage {
-        height: 100px;
-        width: 100%;
+// @include bp(max-width, $bp-small) {
+//     .storage {
+//         height: 100px;
+//         width: 100%;
 
-        @include flex-direction(row);
+//         @include flex-direction(row);
 
-        .buttons {
-            button {
-                display: block;
-            }
-        }
-    }
-}
+//         .buttons {
+//             button {
+//                 display: block;
+//             }
+//         }
+//     }
+// }

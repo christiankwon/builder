@@ -34,17 +34,17 @@
     z-index: 2;
     margin-left: 0;
 
-    @include bp(max-width, $bp-small) {
-        height: 50%;
-        margin: 0 auto;
-        width: 100%;
-    }
+    // @include bp(max-width, $bp-small) {
+    //     height: 50%;
+    //     margin: 0 auto;
+    //     width: 100%;
+    // }
 
-    @include bp(min-width, $bp-small + 1) {
+    // @include bp(min-width, $bp-small + 1) {
         height: 80%;
         padding-right: 65px;
         width: 50%;
-    }
+    // }
 
     .options .outer {
         width: 95%;
@@ -388,6 +388,16 @@ li.other {
 
             &:hover {
                 text-decoration: underline;
+            }
+        }
+    }
+
+    &.cable {
+        .price span {
+            &:after {
+                content: "/ft";
+                font-size: 8px;
+                font-weight: 300;
             }
         }
     }
