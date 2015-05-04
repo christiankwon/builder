@@ -77,7 +77,7 @@ ul.builder li {
                 top: 0;
                 width: 100%;
                 background-repeat: no-repeat;
-                background-position: 80% center;
+                background-position: 10% center;
             }
 
             $list: 'high' 'med' 'low' 'switchcraft' 'neutrik' 'gandh';
@@ -364,13 +364,13 @@ ul.builder li {
             right: 0;
 
             &.measurement {
-                top: 15px;
+                top: 20px;
                 width: 0%;
                 max-width: 440px;
                 max-height: none;
                 z-index: 3;
-                @include transition(width 0.3s ease-out);
-
+                border: solid 0 black;
+                @include transition(all 0.3s ease-out);
             }
 
             &.notice {
@@ -382,6 +382,7 @@ ul.builder li {
         }
 
         &.showNotice .measurement {
+            border-width: 3px;
             width: 100%;
         }
     }
@@ -389,4 +390,12 @@ ul.builder li {
 
 .options.empty:before {
     content: "Sorry, no matches! Try broadening your options.";
+    display: block;
+    font-size: 15px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-top: 2em;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
 }

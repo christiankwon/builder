@@ -2,31 +2,23 @@
 @import "blocks/production";
 @import "blocks/confirmation";
 
-div.body {
-    @include display-flex(flex);
-    @include flex-wrap(nowrap);
-    @include justify-content(space-around);
-    overflow-x: hidden; 
+#body {
+    overflow: hidden;
+
+    .display {
+        float: left;
+    }
+
+    .builders {
+        float: right;
+    }
 }
 
-div.content {
+#content {
     overflow: hidden;
     position: relative;
 
     > div {
         position: relative;
-    }
-}
-
-@include bp(max-width, $bp-small) {
-    .body {
-        @include flex-direction(column);
-    }
-}
-
-@include bp(min-width, $bp-small + 1) {
-    .body {
-        @include flex-direction(row);
-        overflow: hidden;
     }
 }

@@ -23,6 +23,7 @@ div.storage {
         @include flex-direction(column);
     }
 
+    $block-size: 80px;
 
     .build {
         position: relative;
@@ -56,8 +57,8 @@ div.storage {
             @include flex-direction(column);
             @include justify-content(center);
             position: relative;
-            width: 80px;
-            height: 80px;
+            width: $block-size;
+            height: $block-size;
             z-index: 2;
 
             p {
@@ -83,19 +84,32 @@ div.storage {
             }
         }
 
+
+        &:first-child .information {
+            border-top: 0;
+        }
+
+        &:last-child .information {
+            border-bottom: 0;
+        }
+
         .information {
             @include transition(width 0.3s ease-in-out);
             background-color: #ccc;
             position: absolute;
             left: 0;
-            top: 0;
-            bottom: -2px;
+            top: -1px;
+            bottom: -1px;
             width: 0;
             overflow: hidden;
+            cursor: default;
+            border-color: black;
+            border-width: 1px 0;
+            border-style: solid;
 
             p {
                 font-size: 10px;
-                margin: 5px 0;
+                margin: 3px 0;
                 span {
                     text-transform: lowercase;
                     width: 80px;
@@ -114,14 +128,24 @@ div.storage {
 
         .information p {
             width: 380px;
-            padding-left: 80px;
+            padding-left: $block-size;
         }
-        &:hover .information {
-            padding-left: 80px;
+
+        &:hover .information, &.open .information {
+            padding-left: $block-size;
             width: 380px;
 
-            p{
+            p {
                 padding-left: 0;
+            }
+        }
+
+        &.alert {
+            .identifier {
+                background-color: rgba(255,0,0,0.3) !important;
+            }
+            .information p.error {
+                color: #c00;
             }
         }
     }

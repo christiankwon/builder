@@ -1,13 +1,21 @@
 header {
-    height: 50px;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 300;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    line-height: 50px;
+    background-color: white;
     border-bottom: solid 2px gray;
+    height: 50px;
     position: absolute;
     top: 0;
     width: 100%;
+    z-index: 15;
+    @include display-flex(flex);
+    @include align-items(center);
+
+    a {
+        display: inline-block;
+        height: 80%;
+
+        img {
+            max-height: 100%;
+
+        }
+    }
 }

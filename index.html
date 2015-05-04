@@ -31,16 +31,20 @@
         <!--[if lt IE 9]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
         <div class="loader"></div>
         <div class="modal">
+            <button class='close'>X</button>
             <div class="info"></div>
         </div>
         <header>
-            header goes here
+            <a href="#" title="Go to the home page"><img src="images/home.png" alt="Sinasoid"/></a>
+            <a href="#" title="Go back to the Custom Shop"><img src="images/cs.png" alt="Custom Shop"/></a>
+            <!-- header goes here -->
         </header>
-        <div class="content">
-            <button id="test">Test</button>
-            <button id="test2">Test2</button>
-            <div class="production">
-                <div class="body">
+        <div id="content">
+            <button class="" id="test">Test</button>
+            <button class="hidden" id="test2">Test2</button>
+
+            <div id="production">
+                <div id="body">
                     <div class="storage-container">
                         <div class="storage">
                             <div class="builds"></div>
@@ -56,13 +60,33 @@
                     <div class="display">
                         <div class="outer">
                             <div class="inner">
+                                <div id="otherSelector" class="pointer">
+                                    <div class="dot"></div>
+                                </div>
                                 <div class="cable">
                                     <img/>
+                                    <div id="techflexOverlay"></div>
+                                    <div id="cableSelector" class="pointer">
+                                        <div class="dot"></div>
+                                        <div class="line"></div>   
+                                    </div>
+                                    <div id="lengthSelector" class="pointer">
+                                        <div class="dot"></div>
+                                        <div class="line"></div>   
+                                    </div>
                                     <div class="inputPlug">
+                                        <div id="inputPlugSelector" class="pointer">
+                                            <div class="dot"></div>
+                                            <div class="line"></div>   
+                                        </div>
                                         <img class="plug"/>
                                         <img class="boot"/>
                                     </div>
                                     <div class="outputPlug">
+                                        <div id="outputPlugSelector" class="pointer">
+                                            <div class="dot"></div>
+                                            <div class="line"></div>   
+                                        </div>
                                         <img class="plug"/>
                                         <img class="boot"/>
                                     </div>
@@ -86,7 +110,7 @@
                 </div>
             </div>
 
-            <div class="confirmation">
+            <div id="confirmation">
                 <div class="return">
                     <span>Back to the cable builder</span>
                 </div>
@@ -94,10 +118,13 @@
                     <div class="cart">
                         <div class="outer">
                             <div class="inner">
-                                <img src="http://placehold.it/100" />
+                                <img src="images/cs.png" />
                                 <h1>We're ready to build.</h1>
                                 <h2>Every cable bought through the Cable Builder<br/>is hand built to order. Your cable order will<br/>be ready within <strong>3 business days.</strong></h2>
                                 <ul class="items"></ul>
+                                <div class="totals">
+                                    <h4>Total: <strong></strong></h4>
+                                </div>
                                 <button class="checkout">Checkout</button>
                                 <button class="return">Back to the Cable Builder</button>
                             </div>
@@ -123,7 +150,7 @@
         <script type="text/javascript" src="jScrollPane/jquery.mousewheel.js"></script>
         <script type="text/javascript" src="jScrollPane/mwheelIntent.js"></script>-->
         <script type="text/javascript" src="jquery.slimscroll.js"></script>
-        <script type="text/javascript" src="main.js"></script>
+        <script type="text/javascript" src="csb.js"></script>
 
         <!-- Google analytics
         <script>

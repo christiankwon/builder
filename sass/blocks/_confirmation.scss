@@ -1,9 +1,14 @@
-.confirmation {
+#confirmation {
     $return-height: 50px;
 
     background-color: white;
     width: 100%;
     border: solid 1px black;
+    z-index: 20;
+
+    .slimScrollDiv {
+        padding: 0;
+    }
 
     div.return {
         @include display-flex(flex);
@@ -49,25 +54,27 @@
         max-width: 800px;
         margin: 1em auto;
         overflow: hidden;
-        padding: 50px 0;
+        padding: 50px 0 25px;
         border: solid 1px #aaa;
     }
 
     .outer {
         height: 100%;
-        max-width: 500px;
+        max-width: 600px;
         overflow: hidden;
         margin: 0 auto;
     }
 
     .inner {
-        overflow-y: scroll;
-        width: calc(100% + 18px);
         text-align: center;
         height: 100%;
-
+        width: 100%;
+        max-width: 550px;
+        margin-left: 25px;
         > img {
             margin: 0 auto;
+            width: 75px;
+            height: 75px;
         }
 
         > h1 {
@@ -225,6 +232,23 @@
             .price {
                 width: 25%;
                 font-weight: bolder;
+            }
+        }
+    }
+
+    .totals {
+        h4 {
+            text-align: right;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 1px;
+
+            strong {
+                font-size: 15px;
+                font-weight: 500;
+                letter-spacing: 2px;
+                color: #d00;
             }
         }
     }

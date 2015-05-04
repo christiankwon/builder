@@ -35,7 +35,7 @@
          <model>9778</model>
          <manufacturer>Belden</manufacturer>
          <is_instrument/>
-         <price>1.5</price>
+         <price>1.50</price>
          <specs>
             <capacitance>44</capacitance>
             <flexibility>med</flexibility>
@@ -69,7 +69,7 @@
          <model>GS-6</model>
          <manufacturer>Canare</manufacturer>
          <is_instrument/>
-         <price>1.5</price>
+         <price>1.50</price>
          <specs>
             <capacitance>49</capacitance>
             <flexibility>high</flexibility>
@@ -79,9 +79,9 @@
          <colors>
             <option_category_id>149</option_category_id>
             <color>
-               <id>1651</id>
-               <name>yellow</name>
-               <short_name>ylw</short_name>
+               <id>1649</id>
+               <name>red</name>
+               <short_name>red</short_name>
             </color>
             <color>
                <id>1650</id>
@@ -89,9 +89,9 @@
                <short_name>org</short_name>
             </color>
             <color>
-               <id>1649</id>
-               <name>red</name>
-               <short_name>red</short_name>
+               <id>1651</id>
+               <name>yellow</name>
+               <short_name>ylw</short_name>
             </color>
             <color>
                <id>1652</id>
@@ -170,15 +170,15 @@
          <colors>
             <option_category_id>149</option_category_id>
             <color>
+               <id>1649</id>
+               <name>red</name>
+               <short_name>red</short_name>
+            </color>
+            <color>
                <id>1647</id>
                <default/>
                <name>black</name>
                <short_name>blk</short_name>
-            </color>
-            <color>
-               <id>1649</id>
-               <name>red</name>
-               <short_name>red</short_name>
             </color>
          </colors>
          <lengths>
@@ -617,29 +617,36 @@
 
       <boots>
          <np2c>
-            <option_category_id>77</option_category_id>
+            <input_option_category_id>77</input_option_category_id>
+            <output_option_category_id>151</output_option_category_id>
             <boot>
-               <option_id>1486</option_id>
-               <color>orange</color>
-            </boot>
-            <boot>
-               <option_id>1487</option_id>
-               <color>green</color>
-            </boot>
-            <boot>
-               <option_id>1488</option_id>
-               <color>gray</color>
-            </boot>
-            <boot>
-               <option_id>1489</option_id>
+               <input_option_id>1489</input_option_id>
+               <output_option_id>1789</output_option_id>
                <color>red</color>
             </boot>
             <boot>
-               <option_id>1490</option_id>
+               <input_option_id>1486</input_option_id>
+               <output_option_id>1786</output_option_id>
+               <color>orange</color>
+            </boot>
+            <boot>
+               <input_option_id>1487</input_option_id>
+               <output_option_id>1787</output_option_id>
+               <color>green</color>
+            </boot>
+            <boot>
+               <input_option_id>1490</input_option_id>
+               <output_option_id>1790</output_option_id>
                <color>violet</color>
             </boot>
             <boot>
-               <option_id>1491</option_id>
+               <input_option_id>1488</input_option_id>
+               <output_option_id>1788</output_option_id>
+               <color>gray</color>
+            </boot>
+            <boot>
+               <input_option_id>1491</input_option_id>
+               <output_option_id>1791</output_option_id>
                <color>black</color>
                <default/>
             </boot>
@@ -649,18 +656,9 @@
 
          
    <other>
-      <heatshrink>
-         <option_id>1599</option_id>
-         <option_category_id>143</option_category_id>
-      </heatshrink>
-
       <techflex>
          <color>
             <option_category_id>146</option_category_id>
-            <option>
-               <id>1621</id>
-               <desc>black</desc>
-            </option>
             <option>
                <id>1622</id>
                <desc>white</desc>
@@ -668,6 +666,10 @@
             <option>
                <id>1623</id>
                <desc>gray</desc>
+            </option>
+            <option>
+               <id>1621</id>
+               <desc>black</desc>
             </option>
          </color>
          <length>
@@ -694,6 +696,12 @@
             <feet_20>1646</feet_20>
          </length>
       </techflex>
+      
+      <heatshrink>
+         <option_id>1599</option_id>
+         <option_category_id>143</option_category_id>
+      </heatshrink>
+
       <reverse_plugs>
          <option_id>1785</option_id>
          <option_category_id>150</option_category_id>

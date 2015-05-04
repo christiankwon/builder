@@ -17,6 +17,13 @@
     }
 }
 
+#production {
+    @include background-image(linear-gradient(to bottom, #fff, #fafafa));
+    margin-top: 50px;
+    height: calc(100% - 50px);
+    overflow: hidden;
+}
+
 $dots: cable length inputPlug outputPlug other;
 .tracker {
     @include display-flex(flex);
@@ -27,6 +34,7 @@ $dots: cable length inputPlug outputPlug other;
     right: 0;
     top: 0;
     bottom: 0;
+    z-index: 5;
 
     $dot-width: 62px * 0.5;
     $dot-height: 59px * 0.5;

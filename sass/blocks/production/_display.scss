@@ -1,3 +1,4 @@
+@import 'display/pointers';
 .display {
     @include display-flex(flex);
     @include align-items(center);
@@ -26,43 +27,29 @@
         @include justify-content(center);
         width: 80%;
         height: 80%;
-        margin-bottom: 100px;
+
+        &.loading {
+            position: relative;
+
+            &:before {
+                position: absolute;
+                content: "";
+                display: block;
+                width: 100%;
+                top: 0;
+                left: 0;
+                height: 100%;
+                background-size: 30%;
+                background: url("/v/s/images/loading.gif") no-repeat scroll center center / 30% auto rgba(50,50,50,0.5);
+                z-index: 999;
+
+            }
+        }
 
         .inner {
             position: relative;
             width: 100%;
             height: 100%;
-
-
-            @include bp(max-width, $bp-small) {
-                max-width: 250px;
-                max-height: 250px;
-            }
-
-            @include bpw($bp-small + 1, $bp-medium) {
-                max-width: 170px;
-                max-height: 170px;
-            }
-
-            @include bpw($bp-medium + 1, $bp-large) {
-                max-width: 280px;
-                max-height: 280px;
-            }
-
-            @include bpw($bp-large + 1, $bp-xlarge) {
-                max-width: 350px;
-                max-height: 350px;
-            }
-
-            @include bp(min-width, $bp-xlarge + 1) {
-                max-height: 500px;
-                max-width: 500px;
-            }
-
-            @include bp(max-height, 450px) {
-                max-width: 250px;
-                max-height: 250px;
-            }
 
             div {
                 position: relative;
@@ -76,17 +63,30 @@
 
     .cable {
         width: 100%;
-        // height: 100%;
+        height: 100%;
         margin: 0 auto;
         position: relative;
+
+        > img {
+            height: 100%;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 5;
+        }
     }
     .inputPlug, .outputPlug {
+        position: relative;
+        z-index: 10;
+
         .plug {
             height: 300px;
-            max-width: 180px;
+            position: relative;
+            z-index: 5;
         }
         .boot {
             position: absolute;
+            z-index: 10;
         }
     }
 
@@ -103,62 +103,32 @@
     }
 }
 
-.body {
+#body {
     &.patch {
         .display {
-            .cable > img {
-                max-height: 100%;
-                max-width: 100%;
-                margin: 0 auto;
-            }
 
-            .inner {
-                height: 20%;
-                width: 70%;
+            .inputPlug, .outputPlug {
+                img {
+                    // triangles 8-11-sqrt(185) and 9-12-15
+                    // triangles made from pixel distances from dot to dot in patch image
+                    // angle of rotation roughly a little more than 36
+                    @include transform(rotate(-36deg));
+                }
             }
         }
     }
 
-    &.regular {
-        .display {
-            .cable > img {
-                height: 100%;
-                width: 100%;
-                margin: 0 auto;
-            }
-            .inner {
-                height: 70%;
-            }
-        }
-    }
-}
-
-.body.patch {
-    .display {
-        .inner {
-            max-width: 400px;
-        }
+    &.delay {
         .inputPlug, .outputPlug {
             img {
-                // triangles 8-11-sqrt(185) and 9-12-15
-                // triangles made from pixel distances from dot to dot in patch image
-                // angle of rotation roughly a little more than 36
-                @include transform(rotate(-36deg));
+                @include transition(all 2s 2s ease);
             }
         }
     }
-}
 
-.body.delay {
-    .inputPlug, .outputPlug {
-        img {
-            @include transition(all 2s 2s ease);
-        }
+    &.expanded .display {
+        @include transition(width 0.3s ease-out, opacity 0.15s ease-out);
+        width: 0%;
+        opacity: 0;
     }
-}
-
-.body.expanded .display {
-    @include transition(opacity 0.15s ease-out);
-    width: 0;
-    opacity: 0;
 }

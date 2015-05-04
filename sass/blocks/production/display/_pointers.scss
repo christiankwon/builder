@@ -1,0 +1,176 @@
+$dot-offset: -2px;
+
+#body {
+    &.regular {
+        #cableSelector {
+            top: 20px;
+        }
+        #outputPlugSelector, #inputPlugSelector {
+            right: -5%;
+            top: 65px;
+        }
+        #lengthSelector {
+            top: 40%;
+            right: -5%;
+        }
+    }
+
+    &.patch {
+        #cableSelector {
+            top: 10px;
+        }
+        #outputPlugSelector, #inputPlugSelector {
+            right: 10%;
+            top: 25%;
+        }
+
+        #lengthSelector {
+            top: 40%;
+            right: 7.5%;
+        }
+    }
+}
+
+.pointer {
+    .dot {
+        background-color: #bcbcbc;
+        width: 15px;
+        height: 15px;
+        border-radius: 7.5px;
+        cursor: pointer;
+        overflow: hidden;
+        position: relative;
+        z-index: 50;
+        padding: 0;
+        line-height: 25px;
+        @include transition(all 0.25s ease-in-out);
+
+        &:hover {
+            width: 150px;
+            height: 25px;
+
+            @include transition(width 0.25s ease, height 0.2s ease 0.15s);
+        }
+        &:before {
+            width: 150px;
+            text-align: center;
+            display: block;
+        }
+    }
+
+    .line {
+        background-color: #bcbcbc;
+    }
+}
+
+#cableSelector {
+    top: 20px;
+    left: 50%;
+    margin-left: -5px;
+
+    .line {
+        height: 40px;
+        width: 1px;
+        left: 5px;
+        bottom: 0;
+    }
+    .dot {
+        top: -50px;
+        left: $dot-offset;
+
+        &:before {
+            content: "Edit Cable";
+        }
+    }
+}
+
+#lengthSelector {
+    width: 10%;
+
+    .line {
+        height: 1px;
+        width: 100%;
+        top: 5px;
+        left: 0;
+    }
+    .dot {
+        top: $dot-offset;
+        left: 100%;
+
+        &:before {
+            content: "Edit Length";
+        }
+    }
+}
+
+#outputPlugSelector, #inputPlugSelector {
+    width: 25%;
+
+    .line {
+        height: 1px;
+        width: 100%;
+        top: 5px;
+        left: 0;
+    }
+
+    .dot {
+        left: 100%;
+        top: $dot-offset;
+    }
+}
+
+#inputPlugSelector {
+    .dot:before {
+        content: "Edit Input Plug";
+        @include transform(scaleX(-1));
+    }
+}
+
+#outputPlugSelector {
+    .dot:before {
+        content: "Edit Output Plug";
+    }
+}
+
+#otherSelector {
+    top: -1em;
+    left: -1em;
+    z-index: 100;
+
+    .dot {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        background: url($media-folder + 'display/wrench.png') no-repeat center center #bcbcbc;
+    }
+}
+
+#techflexOverlay {
+    background-size: 100%;
+    border: solid 1px black;
+    border-radius: 50%;
+    display: none;
+    z-index: 15;
+    top: 10%;
+    
+    $colors: 'black' 'gray' 'white';
+    @each $color in $colors {
+        &.#{$color} {
+            display: block;
+            background-image: url($media-folder + 'display/techflex/#{$color}.png');
+        }
+    }
+
+    #body.regular & {
+        right: 11%;
+        width: 15%;
+        padding-bottom: 15%;
+    }
+
+    #body.patch & {
+        left: 20%;
+        padding-bottom: 15%;
+        right: auto;
+        width: 15%;
+    }
+}
