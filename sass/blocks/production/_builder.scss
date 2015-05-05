@@ -310,6 +310,41 @@ li.other {
             }
         }
     }
+
+    &.top ~ .scrollIndicator {
+        .seeMore.up {
+            display: none;
+        }
+    }
+
+    &.bottom ~ .scrollIndicator {
+        .seeMore.down {
+            display: none;
+        }
+    }
+
+    & ~ .scrollIndicator {
+        width: 25px;
+        height: 50px;
+        position: absolute;
+        left: 0;
+        bottom: 58px;
+
+        .seeMore {
+            width: 100%;
+            height: 50%;
+            position: absolute;
+            &.up {
+                background-color: red;
+                top: 0;
+            }
+
+            &.down {
+                background-color: blue;
+                bottom: 0;
+            }
+        }
+    }
 }
 
 .option {

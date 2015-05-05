@@ -2911,10 +2911,31 @@
             touchScrollStep: 50
         }).on('slimscroll', function(e, pos) {
             // reach top|bottom
-        }).on('slimscrolling', function(a,b) {
-            console.log(a);
-            console.log(b);
-        });
+            $(e.target).removeClass().addClass('options').addClass(pos);
+        }).on('slimscrolling', function(e) {
+            // return pos of scrollbar
+            // $(e.target).data('percentage') for percent position of scrollbar
+            var $self = $(e.target),
+                percentage = +$self.data('percentage');
+
+            if( percentage === 0 || percentage === 1 ) {
+                return;
+            }
+
+            $(e.target).removeClass().addClass('options');
+        }).addClass('top');
+
+        if( !$('ul.builder li .options').has('.scrollIndicator').length ) {
+            var scrollIndicator = $('<div/>').addClass('scrollIndicator');
+            scrollIndicator.append(
+                $('<div/>').addClass('seeMore').addClass('up'),
+                $('<div/>').addClass('seeMore').addClass('down')
+            );
+            $('ul.builder li .options').each(function() {
+                $(this).parent().append(scrollIndicator.clone(true));
+            });
+        }
+
     },
 
     prep = function() {
