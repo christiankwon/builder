@@ -1255,8 +1255,27 @@ li.length .filters > div.showNotice .measurement {
   border-width: 3px;
   width: 100%;
 }
+/* line 390, sass/blocks/production/builder/_filters.scss */
+.filters .clearFilter {
+  background-color: #af9757;
+  bottom: -15px;
+  color: #fff;
+  display: none;
+  height: 15px;
+  line-height: 15px;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  width: 100px;
+  z-index: 200;
+}
+/* line 405, sass/blocks/production/builder/_filters.scss */
+.filters .filter-on ~ .clearFilter {
+  display: block;
+}
 
-/* line 391, sass/blocks/production/builder/_filters.scss */
+/* line 410, sass/blocks/production/builder/_filters.scss */
 .options.empty:before {
   content: "Sorry, no matches! Try broadening your options.";
   display: block;
@@ -2035,75 +2054,109 @@ li.other .option.techflex label:before {
 .option .specs {
   background-color: #6f9dbe;
 }
-/* line 551, sass/blocks/production/_builder.scss */
+/* line 553, sass/blocks/production/_builder.scss */
+.option .selector:checked ~ .inner .select:after, .option .selector:checked ~ .inner .select:before, .option .selector:checked ~ .inner .select button:before, .option .selector:checked ~ .inner .select button:after, .option:hover .select:after, .option:hover .select:before, .option:hover .select button:before, .option:hover .select button:after {
+  background-color: #ff1200;
+  z-index: 30;
+}
+/* line 560, sass/blocks/production/_builder.scss */
+.option .selector {
+  display: none;
+}
+/* line 565, sass/blocks/production/_builder.scss */
+.option .selector:checked ~ .inner .select:after, .option .selector:checked ~ .inner .select:before {
+  width: 6px;
+}
+/* line 569, sass/blocks/production/_builder.scss */
+.option .selector:checked ~ .inner .select button:before, .option .selector:checked ~ .inner .select button:after {
+  height: 6px;
+}
+/* line 573, sass/blocks/production/_builder.scss */
+.option .selector:checked ~ .inner .select:before {
+  left: 0;
+}
+/* line 577, sass/blocks/production/_builder.scss */
+.option .selector:checked ~ .inner .select:after {
+  right: 0;
+}
+/* line 581, sass/blocks/production/_builder.scss */
+.option .selector:checked ~ .inner .select button:before {
+  top: 0;
+}
+/* line 585, sass/blocks/production/_builder.scss */
+.option .selector:checked ~ .inner .select button:after {
+  bottom: 0;
+}
+/* line 595, sass/blocks/production/_builder.scss */
+.option:hover .select:after, .option:hover .select:before {
+  width: 4px;
+}
+/* line 599, sass/blocks/production/_builder.scss */
+.option:hover .select button:before, .option:hover .select button:after {
+  height: 4px;
+}
+/* line 603, sass/blocks/production/_builder.scss */
+.option:hover .select:before {
+  left: 0;
+}
+/* line 607, sass/blocks/production/_builder.scss */
+.option:hover .select:after {
+  right: 0;
+}
+/* line 611, sass/blocks/production/_builder.scss */
+.option:hover .select button:before {
+  top: 0;
+}
+/* line 615, sass/blocks/production/_builder.scss */
+.option:hover .select button:after {
+  bottom: 0;
+}
+/* line 621, sass/blocks/production/_builder.scss */
 .option .select {
   background-color: #ff1200;
   cursor: pointer;
 }
-/* line 556, sass/blocks/production/_builder.scss */
+/* line 625, sass/blocks/production/_builder.scss */
+.option .select:after, .option .select:before, .option .select button:before, .option .select button:after {
+  content: "";
+  background-color: transparent;
+  display: block;
+  position: absolute;
+}
+/* line 632, sass/blocks/production/_builder.scss */
+.option .select:after, .option .select:before {
+  top: 0;
+  bottom: 0;
+}
+/* line 637, sass/blocks/production/_builder.scss */
+.option .select button:before, .option .select button:after {
+  left: 0;
+  right: 0;
+}
+/* line 642, sass/blocks/production/_builder.scss */
 .option .select button {
   background: none;
   border: none;
   text-transform: inherit;
 }
-/* line 561, sass/blocks/production/_builder.scss */
-.option .select button:before, .option .select button:after {
-  position: absolute;
-  content: "";
-  height: 6px;
-  background-color: transparent;
-  bottom: 0;
-}
-/* line 569, sass/blocks/production/_builder.scss */
-.option .select button:before {
-  top: 0;
-}
-/* line 573, sass/blocks/production/_builder.scss */
-.option .select button:after {
-  bottom: 0;
-}
-/* line 577, sass/blocks/production/_builder.scss */
+/* line 647, sass/blocks/production/_builder.scss */
 .option .select button .pickme {
   display: block;
 }
-/* line 581, sass/blocks/production/_builder.scss */
+/* line 651, sass/blocks/production/_builder.scss */
 .option .select button .picked {
   display: none;
 }
-/* line 587, sass/blocks/production/_builder.scss */
-.option .selector {
-  display: none;
-}
-/* line 591, sass/blocks/production/_builder.scss */
-.option .select:after, .option .select:before {
-  position: absolute;
-  content: "";
-  height: 100%;
-  width: 6px;
-  background-color: transparent;
+/* line 655, sass/blocks/production/_builder.scss */
+.option .select button:before {
   top: 0;
 }
-/* line 600, sass/blocks/production/_builder.scss */
-.option .selector:checked ~ .inner .select:before, .option:hover .select:before {
-  background-color: #ff1200;
-  left: 0;
-  z-index: 30;
-}
-/* line 606, sass/blocks/production/_builder.scss */
-.option .selector:checked ~ .inner .select:after, .option:hover .select:after {
-  background-color: #ff1200;
-  right: 0;
-  z-index: 30;
-}
-/* line 612, sass/blocks/production/_builder.scss */
-.option .selector:checked ~ .inner .select button:after, .option:hover .select button:after, .option .selector:checked ~ .inner .select button:before, .option:hover .select button:before {
-  background-color: #ff1200;
-  left: 0;
-  right: 0;
-  z-index: 30;
+/* line 659, sass/blocks/production/_builder.scss */
+.option .select button:after {
+  bottom: 0;
 }
 
-/* line 620, sass/blocks/production/_builder.scss */
+/* line 667, sass/blocks/production/_builder.scss */
 .step {
   position: absolute;
   bottom: 0;
@@ -2113,7 +2166,7 @@ li.other .option.techflex label:before {
   background-color: #444;
   z-index: 100;
 }
-/* line 629, sass/blocks/production/_builder.scss */
+/* line 676, sass/blocks/production/_builder.scss */
 .step button {
   color: white;
   border: solid 1px white;
@@ -2126,7 +2179,7 @@ li.other .option.techflex label:before {
   letter-spacing: 1px;
   position: relative;
 }
-/* line 641, sass/blocks/production/_builder.scss */
+/* line 688, sass/blocks/production/_builder.scss */
 .step button:before, .step button:after {
   content: "";
   position: absolute;
@@ -2135,11 +2188,11 @@ li.other .option.techflex label:before {
   width: 0;
   top: 7px;
 }
-/* line 653, sass/blocks/production/_builder.scss */
+/* line 700, sass/blocks/production/_builder.scss */
 .step button.previous {
   float: left;
 }
-/* line 656, sass/blocks/production/_builder.scss */
+/* line 703, sass/blocks/production/_builder.scss */
 .step button.previous:before {
   left: 5px;
   border-top: 5px solid transparent;
@@ -2147,7 +2200,7 @@ li.other .option.techflex label:before {
   border-right: 7px solid white;
   border-left: none;
 }
-/* line 664, sass/blocks/production/_builder.scss */
+/* line 711, sass/blocks/production/_builder.scss */
 .step button.previous:after {
   left: 10px;
   border-top: 5px solid transparent;
@@ -2155,11 +2208,11 @@ li.other .option.techflex label:before {
   border-right: 2px solid #444;
   border-left: none;
 }
-/* line 673, sass/blocks/production/_builder.scss */
+/* line 720, sass/blocks/production/_builder.scss */
 .step button.next {
   float: right;
 }
-/* line 676, sass/blocks/production/_builder.scss */
+/* line 723, sass/blocks/production/_builder.scss */
 .step button.next:before {
   right: 5px;
   border-top: 5px solid transparent;
@@ -2167,7 +2220,7 @@ li.other .option.techflex label:before {
   border-left: 7px solid white;
   border-right: none;
 }
-/* line 684, sass/blocks/production/_builder.scss */
+/* line 731, sass/blocks/production/_builder.scss */
 .step button.next:after {
   right: 10px;
   border-top: 5px solid transparent;
@@ -2177,16 +2230,16 @@ li.other .option.techflex label:before {
 }
 
 @media only screen and (max-width: 599px) {
-  /* line 696, sass/blocks/production/_builder.scss */
+  /* line 743, sass/blocks/production/_builder.scss */
   .options {
     width: 105%;
   }
-  /* line 698, sass/blocks/production/_builder.scss */
+  /* line 745, sass/blocks/production/_builder.scss */
   .options .outer {
     padding-top: 40px;
     position: relative;
   }
-  /* line 702, sass/blocks/production/_builder.scss */
+  /* line 749, sass/blocks/production/_builder.scss */
   .options .outer h3 {
     position: absolute;
     height: 15px;
@@ -2194,7 +2247,7 @@ li.other .option.techflex label:before {
     left: 0;
   }
 
-  /* line 710, sass/blocks/production/_builder.scss */
+  /* line 757, sass/blocks/production/_builder.scss */
   .option {
     display: -webkit-flex;
     display: flex;
@@ -2204,48 +2257,48 @@ li.other .option.techflex label:before {
     height: 100px;
     max-width: 250px;
   }
-  /* line 718, sass/blocks/production/_builder.scss */
+  /* line 765, sass/blocks/production/_builder.scss */
   .option div.image {
     width: 40%;
     height: 100%;
   }
-  /* line 722, sass/blocks/production/_builder.scss */
+  /* line 769, sass/blocks/production/_builder.scss */
   .option div.inner {
     width: 60%;
     height: 100%;
   }
-  /* line 726, sass/blocks/production/_builder.scss */
+  /* line 773, sass/blocks/production/_builder.scss */
   .option div div {
     height: 50%;
   }
-  /* line 731, sass/blocks/production/_builder.scss */
+  /* line 778, sass/blocks/production/_builder.scss */
   .option .image {
     max-height: 100%;
     position: relative;
   }
-  /* line 735, sass/blocks/production/_builder.scss */
+  /* line 782, sass/blocks/production/_builder.scss */
   .option .image img {
     height: 100%;
     width: auto;
   }
-  /* line 741, sass/blocks/production/_builder.scss */
+  /* line 788, sass/blocks/production/_builder.scss */
   .option .name {
     width: 100%;
     padding: 10px;
   }
-  /* line 746, sass/blocks/production/_builder.scss */
+  /* line 793, sass/blocks/production/_builder.scss */
   .option .price, .option .select {
     width: 50%;
   }
-  /* line 749, sass/blocks/production/_builder.scss */
+  /* line 796, sass/blocks/production/_builder.scss */
   .option .price {
     float: left;
   }
-  /* line 752, sass/blocks/production/_builder.scss */
+  /* line 799, sass/blocks/production/_builder.scss */
   .option .select {
     float: right;
   }
-  /* line 756, sass/blocks/production/_builder.scss */
+  /* line 803, sass/blocks/production/_builder.scss */
   .option .specs {
     width: 15px;
     position: absolute;
@@ -2253,30 +2306,64 @@ li.other .option.techflex label:before {
     height: 100%;
     top: 0;
   }
-  /* line 757, sass/blocks/production/_builder.scss */
+  /* line 804, sass/blocks/production/_builder.scss */
   .option .specs span {
     display: none;
   }
-  /* line 767, sass/blocks/production/_builder.scss */
+  /* line 814, sass/blocks/production/_builder.scss */
   .option .specs.open {
     width: 70%;
   }
-  /* line 772, sass/blocks/production/_builder.scss */
+  /* line 819, sass/blocks/production/_builder.scss */
   .option .select:before, .option .select:after {
     width: 3px;
   }
-  /* line 775, sass/blocks/production/_builder.scss */
+  /* line 822, sass/blocks/production/_builder.scss */
   .option .select button:before, .option .select button:after {
     height: 3px;
   }
 }
-/* line 781, sass/blocks/production/_builder.scss */
-.introduction {
-  width: calc(100% - 65px);
+/* line 829, sass/blocks/production/_builder.scss */
+#production:before {
+  content: "";
+  background-color: white;
+  display: block;
   height: 100%;
   position: absolute;
-  z-index: 99;
-  background-color: white;
+  width: 100%;
+  z-index: 0;
+  opacity: 0;
+  -moz-transition: opacity 1s ease, z-index 1s step-end;
+  -o-transition: opacity 1s ease, z-index 1s step-end;
+  -webkit-transition: opacity 1s ease, z-index 1s step-end;
+  transition: opacity 1s ease, z-index 1s step-end;
+}
+/* line 841, sass/blocks/production/_builder.scss */
+#production .builders {
+  -moz-transition: z-index 1s step-end;
+  -o-transition: z-index 1s step-end;
+  -webkit-transition: z-index 1s step-end;
+  transition: z-index 1s step-end;
+}
+/* line 846, sass/blocks/production/_builder.scss */
+#production.introduction:before {
+  z-index: 200;
+  opacity: 1;
+  -moz-transition: all 0s step-start;
+  -o-transition: all 0s step-start;
+  -webkit-transition: all 0s step-start;
+  transition: all 0s step-start;
+}
+/* line 852, sass/blocks/production/_builder.scss */
+#production.introduction .builders {
+  -moz-transition: z-index 0s step-start;
+  -o-transition: z-index 0s step-start;
+  -webkit-transition: z-index 0s step-start;
+  transition: z-index 0s step-start;
+  z-index: 201;
+}
+/* line 858, sass/blocks/production/_builder.scss */
+#production .introduction {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
@@ -2285,28 +2372,49 @@ li.other .option.techflex label:before {
   justify-content: center;
   -webkit-flex-direction: column;
   flex-direction: column;
-  letter-spacing: 1px;
-  text-align: center;
+  background-color: white;
   border: solid 2px black;
   cursor: pointer;
+  height: 100%;
+  letter-spacing: 1px;
+  position: absolute;
+  text-align: center;
+  width: calc(100% - 65px);
+  z-index: 99;
 }
-/* line 796, sass/blocks/production/_builder.scss */
-.introduction h1 {
+/* line 873, sass/blocks/production/_builder.scss */
+#production .introduction h1 {
   text-transform: uppercase;
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 2em;
 }
-/* line 801, sass/blocks/production/_builder.scss */
-.introduction button {
-  background-color: #fe531f;
-  color: white;
-  padding: 0.5em 1em;
+/* line 880, sass/blocks/production/_builder.scss */
+#production .introduction h2 {
+  font-style: italic;
+  margin: 1.5em 0 2.5em;
+}
+/* line 885, sass/blocks/production/_builder.scss */
+#production .introduction p {
+  font-size: 12px;
+  line-height: 15px;
+  margin: 1em auto;
+  width: 60%;
+}
+/* line 892, sass/blocks/production/_builder.scss */
+#production .introduction button {
+  background-color: #ff1300;
   border: none;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 1em 3.5em;
 }
-/* line 807, sass/blocks/production/_builder.scss */
-.introduction button:active, .introduction button:focus {
+/* line 900, sass/blocks/production/_builder.scss */
+#production .introduction button:active, #production .introduction button:focus {
   background-color: white;
-  color: #fe531f;
-  border: #fe531f solid 2px;
+  color: #ff1300;
+  border: #ff1300 solid 2px;
 }
 
 @media only screen and (max-width: 599px) {
@@ -2882,4 +2990,9 @@ body.modal-open .modal .info {
   -ms-transform: translateX(0);
   -webkit-transform: translateX(0);
   transform: translateX(0);
+}
+
+/* line 96, sass/screen.scss */
+.slimScrollBar[style*="display: none"] ~ .slimScrollRail, .slimScrollBar[style*="display: none"] ~ .scrollIndicator {
+  display: none !important;
 }

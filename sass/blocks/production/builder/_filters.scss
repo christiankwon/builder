@@ -386,6 +386,25 @@ ul.builder li {
             width: 100%;
         }
     }
+
+    .clearFilter {
+        background-color: $primary;
+        bottom: -15px;
+        color: $secondary;
+        display: none;
+        height: 15px;
+        line-height: 15px;
+        cursor: pointer;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        width: 100px;
+        z-index: 200;
+    }
+
+    .filter-on ~ .clearFilter {
+        display: block;
+    }
 }
 
 .options.empty:before {

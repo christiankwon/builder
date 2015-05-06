@@ -75,9 +75,13 @@
         var $builders = $('#body > .builders'),
             $intro = $('<div/>').addClass('introduction');
 
-        $intro.append(
-            $('<h1/>').text('Welcome to the cable builder!'),
-            $('<button/>').text('Click here to begin!')
+        $intro.html(
+            "<h1>Welcome to the cable builder!</h1>" +
+            "<p>Build a cable to the exact specs you want&#8212;cable type, length, plugs, and even options like Techflex and extra protection.</p>" +
+            "<p>Our cables are built with touring musicians in mind. With our Custom Shop cables, you can rest assured that your cables will perform at 100% when it really matters.</p>" +
+            "<p>Anyways, let's get started!</p>" +
+            "<h2>First, let's pick a cable type.</h2>" +
+            "<button>To Step 1!</button>"
         ).on('click', function() {
             var self = $(this),
                 animation_time = 400;
@@ -91,14 +95,15 @@
                 'opacity': 1
             }, animation_time);
             setTimeout(function() {
-                clog(self);
                 self.remove();
             }, animation_time);
+
+            $('#production').removeClass('introduction');
         });
 
+        $('#production').addClass('introduction');
         $builders.next().css('opacity', 0).css('visibility', 'hidden');
         $builders.find('button.expand').css('opacity', 0).css('visibility', 'hidden');
-
         $builders.prepend($intro);
     },
 
@@ -459,8 +464,8 @@
                     $('<label/>').text('Qty'),
                     $('<input/>').attr('type', 'text').on('keyup', updateQuantity),
                     $('<button/>').text('Remove').click(function() {
-                            //todo
-                    }).addClass('hidden')
+                        
+                    })
                 ),
                 $('<div/>').addClass('price').append(
                     $('<p/>')
@@ -484,6 +489,7 @@
                 cable_name += ' | ' + data.cable.color.charAt(0).toUpperCase() + data.cable.color.slice(1);
             }
 
+            // input plug
             var ip = data.inputPlug;
             cable_input = ip.manufacturer + ' ' + ip.model;
             if( ip.boot ) cable_input += ' | ' + ip.boot.charAt(0).toUpperCase() + ip.boot.slice(1);
@@ -499,6 +505,7 @@
                 cable_input += ' | ' + temp_color;
             }
 
+            // output plug
             var op = data.outputPlug;
             cable_output = op.manufacturer + ' ' + op.model;
             if( op.boot ) cable_output += ' | ' + op.boot.charAt(0).toUpperCase() + op.boot.slice(1);
@@ -514,6 +521,7 @@
                 cable_output += ' | ' + temp_color;
             }
 
+            // other
             var o = data.other;
             if( o.heatshrink ) {
                 cable_other += "Tour-Proof; ";
@@ -551,7 +559,7 @@
             // price
             $block.find('.price p').text('$' + (data.price * data.quantity).toFixed(2));
 
-            $block.css('order', data.storage);
+            $block.css('order', data.storage).attr('data-storage-index', data.storage);
         }
 
         function checkData(data) {
@@ -599,10 +607,13 @@
         $('.storage .alert').removeClass('alert');
         $('.storage .open').removeClass('open');
 
-        $('.storage .build').each(function() {
+        $('.storage .build').each(function(i) {
+            clog(i);
             if( !checkData($(this).data()) ) {
                 bool = false;
-                return false;
+
+                // break on first error
+                // return false;
             } else {
                 var $block = buildLineItem();
                 fillLineItem($block, $(this).data());
@@ -617,7 +628,7 @@
     },
 
     calculateTotalCost = function() {
-        var $this = $('#confirmation .totals h3 strong'),
+        var $this = $('#confirmation .totals h4 strong'),
             $builds = $('.storage .build'),
             totalCost = 0.00;
 
@@ -816,7 +827,7 @@
     },
 
     updateStorage = function(caller) {
-        functionLog((caller ? caller + '-->' : '') + 'updateStorage');
+        functionLog('updateStorage');
         function getUnits() {
             functionLog('updateStorage/getUnits');
             if( CURRENT_CABLE.length.type === 'regular' ) return 'ft'; 
@@ -1066,7 +1077,7 @@
         CURRENT_CABLE.length.amount = value;
 
         CURRENT_CABLE.length.type = $(ui.handle).parent().data('type');
-        updateStorage('updateLength');
+        updateStorage();
 
         if( !$(ui.handle).parents('li.length').find('input.visited').prop('checked') ) {
             $(ui.handle).parents('li.length').find('input.visited').prop('checked', true);
@@ -1112,7 +1123,7 @@
             }
         }
 
-        updateStorage('updateOther');
+        updateStorage();
     },
 
     applyFilter = function() {
@@ -1234,12 +1245,12 @@
 
     changeOption = function() {
         functionLog('changeOption');
-        cbreak('changeOption');
         var $option = $(this).parent(),
+            component = $option.data().component,
             newCable = new Cable(),
             set = true, src, color;
 
-        if( $option.hasClass('cable') || $option.hasClass('plug')) {
+        if( component === 'cable' || component === 'plug' ) {
             var $radio = $option.find('input[type="radio"]');
             if( !$radio.prop('checked') ) {
                 $radio.prop('checked', true);
@@ -1255,7 +1266,7 @@
             }
         }
 
-        if( $option.hasClass('cable') ) {
+        if( component === 'cable' ) {
             if( !set ) {
                 CURRENT_CABLE.cable = newCable.cable;
             } else {
@@ -1279,7 +1290,7 @@
                     $option.parents('ul.builder').removeClass('only_patch');
                 }
             }
-        } else if( $option.hasClass('plug') ) {
+        } else if( component === 'plug' ) {
             if( $option.parents('li').hasClass('inputPlug') ) {
                 if( !set ) {
                     CURRENT_CABLE.inputPlug = newCable.inputPlug;
@@ -1333,7 +1344,7 @@
             }
         }
 
-        updateStorage('changeOption');
+        updateStorage();
         updateDots();
     },
 
@@ -1513,7 +1524,7 @@
 
             $('input[name="' + prefix + 'quantity"]').val(data.quantity);
 
-            updateStorage('selectBuildOptions');
+            updateStorage();
             updateDots();
         }
 
@@ -1792,6 +1803,33 @@
             generate();
             showIntro();
         }
+    },
+
+    update = function() {
+        var list = {},
+            $that = $(this);
+
+        var visual = function(args) {
+            list[args] = 'testing';
+            pushVisual(list);
+        },
+
+        pushVisual = debounce(function(list) {
+            clog(list);
+            list = {};
+        }, 2000),
+        
+        backpack = function(args) {
+
+        },
+
+        dots = function(args) {
+
+        };
+
+        update.visual = visual;
+        update.backpack = backpack;
+        update.dots = dots;
     },
 
     /**
@@ -2152,7 +2190,7 @@
                 if( $(this).parents('.option').find('input.selector').prop('checked') ) {
                     CURRENT_CABLE.cable.color = (this.className ? this.className : '');
 
-                    updateStorage('initCables/changeColor');
+                    updateStorage();
                 }
             }
             var component = 'cable',
@@ -2273,6 +2311,8 @@
             }).addClass('cable');
             fillBlock($block, options);
 
+            $block.attr('data-component', component);
+
             // if the cable is only supposed to be a patch cable
             if( $cable.find('is_only_patch').length ) $block.addClass('only_patch');
 
@@ -2300,7 +2340,7 @@
 
                 if( $(this).parents('.option').find('input.selector').prop('checked') ) {
                     CURRENT_CABLE[which].boot = this.className;
-                    updateStorage('initPlugs/changeBoot');
+                    updateStorage();
                 }
             }
 
@@ -2318,17 +2358,18 @@
 
                 if( $(this).parents('.option').find('input.selector').prop('checked') ) {
                     CURRENT_CABLE[which].color = '-' + $(this).data('suffix');
-                    updateStorage('initPlugs/changeColor');
+                    updateStorage();
                 }
             }
             var $plugs = PLUGS.find(type).find('plug'),
                 which = ['inputPlug', 'outputPlug'],
                 which_container = [input_plug_container, output_plug_container],
                 prefix = skeleton.data('prefix'),
+                component = 'plug',
 
                 build = function() {
                     var $this = $(this),
-                        $block = getBlockSkeleton('plug'),
+                        $block = getBlockSkeleton(component),
 
                         manufacturer = $this.find('manufacturer').text(),
                         model = $this.find('model').text(),
@@ -2412,6 +2453,7 @@
                     }
 
                     $block.data(data).addClass('plug');
+                    $block.attr('data-component', component);
 
                     if( $this.find('angle').text() == 'straight' ) {
                         skeleton.find(which_container[i]).find('.straight').append($block);
@@ -2499,7 +2541,8 @@
 
         initFilters = function() {
             functionLog('init/initFilters');
-            var filterOpen = function() {
+            var prefix = $('ul.builder').data('prefix'),
+            filterOpen = function() {
                 if( !$(this).parent().hasClass('filter-open') ) {
                     $(this).parent().addClass('filter-open').siblings().removeClass('filter-open');
                 } else {
@@ -2514,6 +2557,23 @@
                     $('ul.builder .filterContainer').removeClass('filter-open');
                     $(this).off('click');
                 });
+            },
+
+            getClearFilterButton = function() {
+                var $button = $('<div/>')
+                        .addClass('clearFilter')
+                        .text('Clear filters')
+                        .on('click', function() {
+                            var $p = $(this).parent(),
+                                $n = $p.next();
+                            $p.find('input:checked').prop('checked', false);
+                            $p.find('.filterContainer').removeClass().addClass('filterContainer');
+                            $n.find('.hidden').removeClass('hidden');
+                            $n.find('.option:hidden').show();
+                            $n.find('.options.empty').removeClass('empty');
+                        });
+
+                return $button;
             },
 
             initCableFilter = function() {
@@ -2583,12 +2643,12 @@
                         }
 
                         var $label = $('<label/>')
-                                .attr('for', 'filter-color-' + color)
+                                .attr('for', prefix + 'filter-color-' + color)
                                 .text(color),
                             $box = $('<input/>', {
                                 'type': 'checkbox',
-                                'name': $(parent).parents('ul.builder').data('prefix') + 'filter-color',
-                                'id': 'filter-color-' + color,
+                                'name': prefix + 'filter-color',
+                                'id': prefix + 'filter-color-' + color,
                                 'value': color
                             }).addClass('color').change(applyFilter);
 
@@ -2609,14 +2669,14 @@
                         options = ['high','med', 'low'];
 
                     $(options).each(function() {
-                        var $filter = $('<div/>').addClass('filter-option');
-                        var $label = $('<label/>')
-                                .attr('for', 'filter-brightness-' + this)
+                        var $filter = $('<div/>').addClass('filter-option'),
+                            $label = $('<label/>')
+                                .attr('for', prefix + 'filter-brightness-' + this)
                                 .text(this),
                             $radio = $('<input/>', {
                                 'type': 'radio',
-                                'name': $(parent).parents('ul.builder').data('prefix') + 'filter-brightness',
-                                'id': 'filter-brightness-' + this,
+                                'name':  prefix + 'filter-brightness',
+                                'id': prefix + 'filter-brightness-' + this,
                                 'value': this
                             }).addClass('brightness').on('click', applyFilter);
 
@@ -2637,14 +2697,14 @@
                         options = ['high','med', 'low'];
 
                     $(options).each(function() {
-                        var $filter = $('<div/>').addClass('filter-option');
-                        var $label = $('<label/>')
-                                .attr('for', 'filter-flexibility-' + this)
+                        var $filter = $('<div/>').addClass('filter-option'),
+                            $label = $('<label/>')
+                                .attr('for', prefix + 'filter-flexibility-' + this)
                                 .text(this),
                             $radio = $('<input/>', {
                                 'type': 'radio',
-                                'name': $(parent).parents('ul.builder').data('prefix') + 'filter-flexibility',
-                                'id': 'filter-flexibility-' + this,
+                                'name': prefix + 'filter-flexibility',
+                                'id': prefix + 'filter-flexibility-' + this,
                                 'value': this
                             }).addClass('flexibility').on('click', applyFilter);
 
@@ -2660,6 +2720,8 @@
                     brightnessFilter(this);
                     flexibilityFilter(this);
                     colorFilter(this);
+
+                    $(this).find('.filters').append(getClearFilterButton());
                 });
             },
 
@@ -2679,14 +2741,14 @@
                     });
 
                     $(options).each(function() {
-                        var $filter = $('<div/>').addClass('filter-option');
-                        var $label = $('<label/>')
-                                .attr('for', $(parent).attr('class') + '-filter-manufacturer-' + this)
+                        var $filter = $('<div/>').addClass('filter-option'),
+                            $label = $('<label/>')
+                                .attr('for', prefix + $(parent).attr('class') + '-filter-manufacturer-' + this)
                                 .text(this),
                             $radio = $('<input/>', {
                                 'type': 'radio',
-                                'name': $(parent).parents('ul.builder').data('prefix') + $(parent).attr('class') + '-filter-manufacturer',
-                                'id': $(parent).attr('class') + '-filter-manufacturer-' + this,
+                                'name':  prefix + $(parent).attr('class') + '-filter-manufacturer',
+                                'id': prefix + $(parent).attr('class') + '-filter-manufacturer-' + this,
                                 'value': this
                             }).addClass('manufacturer').on('click', applyFilter);
 
@@ -2700,6 +2762,7 @@
 
                 $('ul.builder li.inputPlug, ul.builder li.outputPlug').each(function() {
                     manufacturerFilter(this);
+                    $(this).find('.filters').append(getClearFilterButton());
                 });
             };
 
@@ -2925,12 +2988,13 @@
             $(e.target).removeClass().addClass('options');
         }).addClass('top');
 
-        if( !$('ul.builder li .options').has('.scrollIndicator').length ) {
+        if( !$('ul.builder li .options').siblings('.scrollIndicator').length ) {
             var scrollIndicator = $('<div/>').addClass('scrollIndicator');
             scrollIndicator.append(
                 $('<div/>').addClass('seeMore').addClass('up'),
                 $('<div/>').addClass('seeMore').addClass('down')
             );
+
             $('ul.builder li .options').each(function() {
                 $(this).parent().append(scrollIndicator.clone(true));
             });
@@ -2951,7 +3015,6 @@
         });
 
         init.filters();
-
         rebuildScroll();
 
         initializeDisplayPointers();
@@ -2971,6 +3034,7 @@
             touchScrollStep: 50
         });
 
+        update();
         storeThis();
 
         window.xmlReady = true;
@@ -3029,6 +3093,10 @@
     start = function() {
         functionLog('start');
         displayImages('start');
+
+        update();
+        update.visual('a');
+        update.visual('b');
 
         $(document).ajaxStop(function() {
             if( !INITIALIZED ) {

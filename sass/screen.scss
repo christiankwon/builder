@@ -91,3 +91,9 @@ body.modal-open .modal {
         @include transform(translateX(0));
     }
 }
+
+.slimScrollBar[style*="display: none"] {
+    & ~ .slimScrollRail, & ~ .scrollIndicator {
+        display: none !important;
+    }
+}
