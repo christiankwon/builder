@@ -31,6 +31,7 @@ ul.builder li {
 .filters {
     $primary: #af9757;
     $secondary: #fff;
+    $tertiary: #867443;
     $accent: #000;
 
     @include display-flex(flex);
@@ -38,6 +39,7 @@ ul.builder li {
     @include flex-wrap(nowrap);
     @include align-items(center);
     background-color: $primary;
+    border-bottom: solid 5px $tertiary;
     font-size: 11px;
     letter-spacing: 1px;
     position: relative;
@@ -176,6 +178,7 @@ ul.builder li {
             @include align-items(center);
             @include justify-content(center);
             background-color: $secondary;
+            border-bottom: solid 3px #ccc;
             color: $primary;
             cursor: pointer;
             height: 100%;
@@ -388,18 +391,32 @@ ul.builder li {
     }
 
     .clearFilter {
-        background-color: $primary;
+        background-color: $tertiary;
         bottom: -15px;
         color: $secondary;
-        display: none;
-        height: 15px;
-        line-height: 15px;
         cursor: pointer;
+        display: none;
+        font-size: 9px;
+        height: 15px;
+        letter-spacing: 1px;
+        line-height: 15px;
+        padding-left: 15px;
         position: absolute;
         right: 0;
         text-align: center;
-        width: 100px;
+        width: 115px;
         z-index: 200;
+
+        &:before {
+            background: url($media-folder + "/misc/filters/x.png") no-repeat scroll center center / 100% 100% transparent;
+            content: "";
+            display: block;
+            height: 8px;
+            left: 9px;
+            position: absolute;
+            top: 3.5px;
+            width: 8px;
+        }
     }
 
     .filter-on ~ .clearFilter {
@@ -407,14 +424,29 @@ ul.builder li {
     }
 }
 
-.options.empty:before {
-    content: "Sorry, no matches! Try broadening your options.";
-    display: block;
-    font-size: 15px;
-    font-weight: 300;
-    letter-spacing: 1px;
-    margin-top: 2em;
-    text-align: center;
-    text-transform: uppercase;
-    width: 100%;
+.options.empty {
+    &:before, &:after {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 360px;
+        text-align: center;
+        width: 100%;
+    }
+    &:before {
+        content: "Sorry!";
+        font-size: 30px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        margin-top: 3em;
+    }
+
+    &:after {
+        content: "None of these options match your criteria. Try broadening some options and try again.";
+        font-size: 16px;
+        font-weight: 300;
+        letter-spacing: 1px;
+        line-height: 25px;
+        margin-top: 1em;
+    }
 }

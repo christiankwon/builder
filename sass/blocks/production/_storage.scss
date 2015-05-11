@@ -15,7 +15,7 @@ div.storage {
     @include align-items(center);
     @include flex-direction(column);
     @include justify-content(center);
-    background-color: #ddd;
+    background-color: #444;
     padding: 10px;
 
     .builds {
@@ -41,7 +41,7 @@ div.storage {
     .build {
         position: relative;
         cursor: pointer;
-        border-bottom: solid 1px black;
+        border-bottom: solid 5px #999;
         order: 99;
 
         input[name="storage_build"]:checked + .identifier {
@@ -58,6 +58,9 @@ div.storage {
 
         &.current .identifier {
             // background-color: limegreen !important;
+            p {
+                color: black;
+            }
         }
 
         .identifier {
@@ -72,6 +75,8 @@ div.storage {
 
             p {
                 font-weight:  700;
+                color: #d0d0d0;
+
                 &.id {
                     font-size: 16px;
                     font-weight:  800;
@@ -95,10 +100,12 @@ div.storage {
 
         &.first .information {
             border-top: 0;
+            top: 0;
         }
 
         &.last, &.last .information {
             border-bottom: 0;
+            bottom: 0;
         }
 
         .information {
@@ -106,13 +113,13 @@ div.storage {
             background-color: #ccc;
             position: absolute;
             left: 0;
-            top: -1px;
-            bottom: -1px;
+            top: -5px;
+            bottom: -5px;
             width: 0;
             overflow: hidden;
             cursor: default;
-            border-color: black;
-            border-width: 1px 0;
+            border-color: #999;
+            border-width: 5px 0;
             border-style: solid;
 
             p {
@@ -137,6 +144,11 @@ div.storage {
         .information p {
             width: 380px;
             padding-left: $block-size;
+        }
+        &:hover {
+            .identifier p:not(.price), .information {
+                color: black;
+            }
         }
 
         &:hover .information, &.open .information {

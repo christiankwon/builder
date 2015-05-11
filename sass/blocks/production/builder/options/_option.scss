@@ -1,0 +1,339 @@
+.option {
+    border: solid 1px #ccc;
+    cursor: pointer;
+    color: white;
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin: 10px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    width: 150px;
+    z-index: 2;
+
+    @include bp(max-width, $bp-small) {
+        margin: 1em auto;
+    }
+
+    .inner div {
+        height: 30px;
+        @include display-flex(flex);
+        @include align-items(center);
+        @include justify-content(center);
+    }
+    
+    .info {
+        @include transition(top 0.25s ease-in-out);
+        background-color: rgba(0,0,0,0.75);
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        left: 0;
+        height: 100%;
+        z-index: 30;
+
+        @include display-flex(flex);
+        @include flex-direction(column);
+
+        ul {
+            text-align: left;
+            padding: 10px 0 0 10px;
+
+            li.title {
+                font-size: 12px;
+                font-weight: 800;
+                margin-bottom: 11px;
+                letter-spacing: 1.5px;
+                display: inline-block;
+                color: #eee;
+            }
+
+            li {
+                margin-bottom: 6px;
+                em {
+                    color: #92d9f3;
+                    font-style: none;
+                }
+            }
+
+            .capacitance:after {
+                content: " pf/ft";
+                font-size: 7px;
+            }
+        }
+
+        button.more {
+            background: none;
+            border: none;
+            bottom: 5px;
+            display: none;
+            left: 0;
+            right: 0;
+            position: absolute;
+            width: 50%;
+            margin: 0 auto;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &.cable {
+        .price span {
+            &:after {
+                content: "/ft";
+                font-size: 8px;
+                font-weight: 300;
+            }
+        }
+    }
+
+    // specs open
+    &.specs .info {
+        top: 0;
+    }
+
+    .image {
+        overflow: hidden;
+        position: relative;
+
+        img {
+            height: auto;
+            width: 100%;
+        }
+
+        .overlay {
+            position: absolute;
+            top: -2px;
+            width: 102%;
+            left: -2.5px;
+        }
+
+        .colors, .boots {
+            position: absolute;
+            z-index: 20;
+            bottom: 5px;
+            left: 5px;
+            top: 0;
+            width: 10px;
+
+            @include display-flex(flex);
+            @include flex-direction(column);
+            @include justify-content(flex-end);
+
+            div {
+                width: 10px;
+                margin: 3px;
+                height: 10px;
+                cursor: pointer;
+                border-radius: 50%;
+            }
+
+            .red {
+                background-color: #e90d2f;
+            }
+
+            .orange {
+                background-color: #ff864f;
+            }
+
+            .yellow {
+                background-color: #fcf86c;
+                border: solid 1px #ccc;
+                width: 11px;
+                height: 11px;
+            }
+
+            .green {
+                background-color: #25c265;
+            }
+
+            .violet {
+                background-color: #6154ba;
+            }
+
+            .black {
+                background-color: #000;
+            }
+
+            .gray {
+                background-color: #999da3;
+            }
+
+            .white {
+                background-color: #fff;
+                border: solid 1px #aeaeae;
+                width: 11px;
+                height: 11px;
+            }
+
+            .gold {
+                background-color: #fff282;
+                border: solid 1px #bbb;
+                width: 11px;
+                height: 11px;
+            }
+
+            .nickel {
+                background-color: #dce4f5;
+            }
+        }
+    }
+
+    .name {
+        background-color: #555;
+        padding: 0 8px;
+    }
+
+    .price {
+        background-color: #af9757;
+        font-weight: bolder;
+        font-size: 14px;
+
+        span:before {
+            content: '$';
+        }
+    }
+
+    .specs {
+        background-color: #6f9dbe;
+    }
+
+    .selector:checked ~ .inner, &:hover {
+        .select {
+            &:after, &:before, button:before, button:after {
+                background-color: #ff1200;
+                z-index: 30;
+            }
+        }
+    }
+
+    .selector {
+        display: none;
+
+        &:checked ~ .inner {
+            .select {
+                &:after, &:before {
+                    width: 6px;
+                }
+
+                button:before, button:after {
+                    height: 6px;
+                }
+
+                &:before {
+                    left: 0;
+                }
+
+                &:after {
+                    right: 0;
+                }
+
+                button:before {
+                    top: 0;
+                }
+
+                button:after {
+                    bottom: 0;
+                }
+            }
+            
+        }
+    }
+
+    &:hover {
+        .select {
+            &:after, &:before {
+                width: 4px;
+            }
+
+            button:before, button:after {
+                height: 4px;
+            }
+
+            &:before {
+                left: 0;
+            }
+
+            &:after {
+                right: 0;
+            }
+
+            button:before {
+                top: 0;
+            }
+
+            button:after {
+                bottom: 0;
+            }
+        }
+    }
+
+    .select {
+        background-color: #ff1200;
+        cursor: pointer;
+
+        &:after, &:before, button:before, button:after {
+            content: "";
+            background-color: transparent;
+            display: block;
+            position: absolute;
+        }
+
+        &:after, &:before {
+            top: 0;
+            bottom: 0;
+        }
+
+        button:before, button:after {
+            left: 0;
+            right: 0;
+        }
+
+        button {
+            background: none;
+            border: none;
+            text-transform: inherit;
+
+            .pickme {
+                display: block;
+            }
+
+            .picked {
+                display: none;
+            }
+
+            &:before {
+                top: 0;
+            }
+
+            &:after {
+                bottom: 0;
+            }
+        }
+    }
+
+    &[data-oos-option="true"] {
+        cursor: default;
+
+        .image:after {
+            background: url($media-folder + 'misc/outofstock.png') no-repeat scroll center center / 100% auto transparent;
+            content: "";
+            width: 100%;
+            height: 100%;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        &:hover {
+            .select {
+                &:before, &:after, button:before, button:after {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+}

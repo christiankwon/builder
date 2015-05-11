@@ -35,6 +35,7 @@
          <model>9778</model>
          <manufacturer>Belden</manufacturer>
          <is_instrument/>
+         <out_of_stock/>
          <price>1.50</price>
          <specs>
             <capacitance>44</capacitance>
@@ -87,6 +88,7 @@
                <id>1650</id>
                <name>orange</name>
                <short_name>org</short_name>
+               <out_of_stock/>
             </color>
             <color>
                <id>1651</id>
@@ -391,6 +393,7 @@
             <manufacturer>Switchcraft</manufacturer>
             <model>228 Pancake</model>
             <price>7</price>
+            <out_of_stock/>
             <color>
                <input_option_id>373</input_option_id>
                <output_option_id>381</output_option_id>

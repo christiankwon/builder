@@ -73,12 +73,38 @@ html, body, #content, #body, #confirmation {
     @include justify-content(center);
     @include transition(all 0.3s ease);
     .info {
-        background-color: red;
+        background-color: white;
         opacity: 0;
         width: 1000px;
         height: 600px;
+        max-width: 80%;
+        max-height: 80%;
         @include transition(all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9) 0s);
         @include transform(translateX(20%));
+    }
+
+    .tourproof {
+        width: 800px;
+        text-align: center;
+        margin: 0 auto;
+
+        p {
+            letter-spacing: 1px;
+            margin: 1em auto;
+            font-size: 12px;
+            line-height: 20px;
+            width: 520px;
+
+            &:first-child {
+                margin-top: 2em;
+            }
+        }
+
+        img {
+            position: absolute;
+            bottom: 0;
+            max-height: 60%;
+        }
     }
 }
 
