@@ -1,21 +1,64 @@
 header {
+    $font-color: #7c7c7c;
+    $font-accent: #666;
+
     background-color: white;
     border-bottom: solid 2px gray;
-    height: 50px;
+    height: 52px;
     position: absolute;
     top: 0;
     width: 100%;
     z-index: 15;
-    @include display-flex(flex);
-    @include align-items(center);
 
-    a {
-        display: inline-block;
-        height: 80%;
+    .outer {
+        width: 100%;
+        height: 30px;
+        max-width: 500px;
+        margin: 10px auto;
+        line-height: 30px;
 
-        img {
-            max-height: 100%;
+        a.logo {
+            float: left;
+            height: 100%;
+            text-align: center;
 
+            img {
+                max-height: 100%;
+
+            }
+        }
+
+        ul {
+            @include clearfix;
+            clear: none;
+            margin: 0 auto;
+            width: 430px;
+
+            li {
+                float: left;
+                padding: 0 2em;
+                text-align: center;
+
+                &:not(:last-child) {
+                    border-right: solid 1px #ccc;
+                }
+
+                a {
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    font-size: 11px;
+                    letter-spacing: 3px;
+                    text-decoration: none;
+                }
+
+                a, a:visited {
+                    color: $font-color;
+                }
+
+                a:hover, a:focus, a:active {
+                    color: $font-accent;
+                }
+            }
         }
     }
 }

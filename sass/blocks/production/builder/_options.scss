@@ -254,7 +254,7 @@ li.other {
 
                 input {
                     width: 50px;
-                    padding: 1em;
+                    padding: 0.5em;
                     text-align: center;
                     border: solid 1px #333;
                     background-color: white;
@@ -283,15 +283,18 @@ li.other {
         }
 
         input[value="white"] + label:before {
-            background-image: url('http://placehold.it/75/fff/fff');
+            background-image: url($media-folder + '/display/techflex/white.png');
+            background-color: red;
         }
 
         input[value="black"] + label:before {
-            background-image: url('http://placehold.it/75/000/000');
+            background-image: url($media-folder + '/display/techflex/black.png');
+            background-color: red;
         }
 
         input[value="gray"] + label:before {
-            background-image: url('http://placehold.it/75/aaa/aaa');
+            background-image: url($media-folder + '/display/techflex/gray.png');
+            background-color: red;
         }
 
         input + label:after {

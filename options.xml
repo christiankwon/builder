@@ -70,6 +70,8 @@
          <model>GS-6</model>
          <manufacturer>Canare</manufacturer>
          <is_instrument/>
+         <is_premium/>
+         <order>3</order>
          <price>1.50</price>
          <specs>
             <capacitance>49</capacitance>
@@ -125,6 +127,7 @@
       <!-- Canare L-4E6S -->
       <cable>
          <code>CSB_CNRE_L-4E6S</code>
+         <order>1</order>
          <model>L-4E6S</model>
          <manufacturer>Canare</manufacturer>
          <is_instrument/>

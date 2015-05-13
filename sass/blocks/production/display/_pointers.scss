@@ -152,6 +152,7 @@ $dot-offset: -2px;
     cursor: pointer;
     display: none;
     top: 10%;
+    width: 15%;
     z-index: 15;
     
     $colors: 'black' 'gray' 'white';
@@ -162,16 +163,14 @@ $dot-offset: -2px;
         }
     }
 
-    #body.regular & {
-        right: 11%;
-        width: 15%;
-        padding-bottom: 15%;
-    }
+}
+#body.regular #techflexOverlay {
+    right: 11%;
+    padding-bottom: 15%;
+}
 
-    #body.patch & {
-        left: 20%;
-        padding-bottom: 15%;
-        right: auto;
-        width: 15%;
-    }
+#body.patch #techflexOverlay {
+    left: 20%;
+    padding-bottom: 15%;
+    right: auto;
 }

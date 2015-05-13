@@ -1,10 +1,9 @@
+.builder.only_patch .choice.regular {
+    display: none;
+}
+
 li.length {
     $types: patch regular;
-
-    .builder.only_patch & .choice.regular {
-        display: none;
-    }
-
 
     input[name="switch"] {
         @each $type in $types {

@@ -25,10 +25,11 @@ div.storage {
 
         .counter {
             bottom: -10px;
+            color: #aaa;
+            font-size: 10px;
             position: absolute;
             right: 0;
             z-index: 5;
-            font-size: 10px;
 
             strong {
                 font-weight: 400;
@@ -54,6 +55,10 @@ div.storage {
             top: 0;
             z-index: 10;
             visibility: hidden;
+        }
+
+        &.complete .identifier {
+            background-color: rgb(58, 190, 20);
         }
 
         &.current .identifier {
@@ -223,15 +228,6 @@ div.storage {
                 background-color: white;
             }
         }
-        // button:nth-child(3) {
-        //     background-color: #4c4c4c;
-        //     color: white;
-        //     &:active {
-        //         color: #4c4c4c;
-        //         border: solid 1px #4c4c4c;
-        //         background-color: white;
-        //     }
-        // }
         button:nth-child(3) {
             background-color: #fe531f;
             color: white;
@@ -243,18 +239,3 @@ div.storage {
         }
     }
 }
-
-// @include bp(max-width, $bp-small) {
-//     .storage {
-//         height: 100px;
-//         width: 100%;
-
-//         @include flex-direction(row);
-
-//         .buttons {
-//             button {
-//                 display: block;
-//             }
-//         }
-//     }
-// }

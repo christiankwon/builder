@@ -35,13 +35,32 @@
             <div class="info"></div>
         </div>
         <header>
-            <a href="#" title="Go to the home page"><img src="images/home.png" alt="Sinasoid"/></a>
-            <a href="#" title="Go back to the Custom Shop"><img src="images/cs.png" alt="Custom Shop"/></a>
-            <!-- header goes here -->
+            <div class="outer">
+                <a class="logo" href="/v/customshop.html" title="Go back to the Custom Shop"><img src="images/cs.png" alt="Custom Shop"/></a>
+                
+                <ul>
+                    <li><a href="/Default.asp">Home</a></li>
+                    <li><a href="/v/customshop.html">Custom Shop</a></li>
+                    <li><a href="/category-s/2124.htm">Premade</a></li>
+                </ul>
+            </div>
         </header>
         <div id="content">
             <button class="" id="test">Test</button>
             <button class="hidden" id="test2">Test2</button>
+
+            <div id="introduction">
+                <div class="outer">
+                    <div class="inner">
+                        <h1>Welcome to the cable builder!</h1>
+                        <p>Build a cable to the exact specs you want&#8212;cable type, length, plugs, and even options like Techflex and extra protection.</p>
+                        <p>Our cables are built with touring musicians in mind. With our Custom Shop cables, you can rest assured that your cables will perform at 100% when it really matters.</p>
+                        <p>Anyways, let's get started!</p>
+                        <h2>First, let's pick a cable type.</h2>
+                        <button>To Step 1!</button>
+                    </div>
+                </div>
+            </div>
 
             <div id="production">
                 <div id="body">
@@ -68,16 +87,16 @@
                                     <img/>
                                     <div id="techflexOverlay"></div>
                                     <div id="cableSelector" class="pointer">
-                                        <div class="dot"></div>
+                                        <div class="dot">1</div>
                                         <div class="line"></div>   
                                     </div>
                                     <div id="lengthSelector" class="pointer">
-                                        <div class="dot"></div>
+                                        <div class="dot">2</div>
                                         <div class="line"></div>   
                                     </div>
                                     <div class="inputPlug">
                                         <div id="inputPlugSelector" class="pointer">
-                                            <div class="dot"></div>
+                                            <div class="dot">4</div>
                                             <div class="line"></div>   
                                         </div>
                                         <img class="plug"/>
@@ -85,7 +104,7 @@
                                     </div>
                                     <div class="outputPlug">
                                         <div id="outputPlugSelector" class="pointer">
-                                            <div class="dot"></div>
+                                            <div class="dot">5</div>
                                             <div class="line"></div>   
                                         </div>
                                         <img class="plug"/>

@@ -1,8 +1,8 @@
-#production {
-    @import 'production/storage';
-    @import 'production/display';
-    @import 'production/builder';
+@import 'production/storage';
+@import 'production/display';
+@import 'production/builder';
 
+#production {
     @include background-image(url($media-folder + 'background.jpg'));
     margin-top: 50px;
     height: calc(100% - 50px);
