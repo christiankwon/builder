@@ -108,7 +108,7 @@
 
     & ~ .scrollIndicator {
         width: 25px;
-        height: 50px;
+        height: 28px;
         position: absolute;
         left: 0;
         bottom: 66px;
@@ -118,12 +118,13 @@
             height: 50%;
             position: absolute;
             &.up {
-                background-color: red;
+                background: url($media-folder + 'builder/indicator.png') no-repeat scroll center center / 60% auto transparent;
                 top: 0;
+                @include transform(scaleY(-1));
             }
 
             &.down {
-                background-color: blue;
+                background: url($media-folder + 'builder/indicator.png') no-repeat scroll center center / 60% auto transparent;
                 bottom: 0;
             }
         }
@@ -135,6 +136,7 @@ li.other {
         padding: 2em;
         max-width: 600px;
         margin: 0 auto;
+        min-width: 350px;
 
         span.extraCost {
             color: #aaa;
@@ -207,7 +209,7 @@ li.other {
                     }
 
                     label {
-                        background-image: url($media-folder + 'check.png');
+                        background-image: url($media-folder + 'builder/check.png');
                         background-size: 100%;
                         background-repeat: no-repeat;
                         background-position: center top;
@@ -226,11 +228,14 @@ li.other {
                     width: 15px;
                     height: 15px;
                     background-color: #ccc;
-                    border: solid 1px black;
+                    border: solid 1px #bbb;
                     border-radius: 50%;
                     font-size: 10px;
                     font-weight: 300;
                     padding-left: 2px;
+                    position: relative;
+                    right: -5px;
+                    top: -3px;
                 }
                 span.extraCost {
                     float: left;
@@ -246,6 +251,20 @@ li.other {
                     height: 80%;
                     width: 1px;
                     display: block;
+                }
+
+                .option {
+                    @include bp(max-width, 950px) {
+                        width: 90%;
+                    }
+
+                    @include bpw(951px, 1110px) {
+                        width: 80%;
+                    }
+
+                    @include bpw(1111px, 1230px) {
+                        width: 70%;
+                    }
                 }
             }
 
@@ -278,23 +297,27 @@ li.other {
             display: none;
         }
 
+        .techflexColor {
+            color: black;
+        }
+
         input {
             display: none;
         }
 
         input[value="white"] + label:before {
-            background-image: url($media-folder + '/display/techflex/white.png');
-            background-color: red;
+            background-image: url($media-folder + 'misc/other/techflex/white.png');
+            background-color: black;
         }
 
         input[value="black"] + label:before {
-            background-image: url($media-folder + '/display/techflex/black.png');
-            background-color: red;
+            background-image: url($media-folder + 'misc/other/techflex/black.png');
+            background-color: white;
         }
 
         input[value="gray"] + label:before {
-            background-image: url($media-folder + '/display/techflex/gray.png');
-            background-color: red;
+            background-image: url($media-folder + 'misc/other/techflex/gray.png');
+            background-color: white;
         }
 
         input + label:after {

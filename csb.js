@@ -10,9 +10,9 @@
         DEFAULT_CABLETYPE_PREFIX = '',
         DEFAULT_PLUG_HEIGHT = 300,
         DEFAULT_PLUG_WIDTH = 180,
-        BLANK_PLUG_URL = IMAGES_DIR + 'plug_outline.png',
-        BLANK_PATCH_CABLE_URL = IMAGES_DIR + 'cable_patch_outline.png',
-        BLANK_REGULAR_CABLE_URL = IMAGES_DIR + 'cable_regular_outline.png',
+        BLANK_PLUG_URL = IMAGES_DIR + 'display/plug_outline.png',
+        BLANK_PATCH_CABLE_URL = IMAGES_DIR + 'display/cable_patch_outline.png',
+        BLANK_REGULAR_CABLE_URL = IMAGES_DIR + 'display/cable_regular_outline.png',
         BLANK_IMAGE_URL = IMAGES_DIR + 'blank.png',
         COUNTER = 0,
         BENCH = 0,
@@ -188,13 +188,28 @@
             var cableHeight = getCableHeight(),
                 plugOffSet = getPlugOffSet(),
                 bootTopOffSet = getBootTopOffSet(),
-                bootRightOffSet = getBootRightOffSet();
+                bootRightOffSet = getBootRightOffSet(),
+                inputPlugOffSet, outputPlugOffSet;
+
+            if( typeof plugOffSet === 'object' && plugOffSet.length === 2) {
+                inputPlugOffSet = plugOffSet[0];
+                outputPlugOffSet = plugOffSet[1] + 1;
+            } else {
+                inputPlugOffSet = plugOffSet;
+                outputPlugOffSet = plugOffSet + 1;
+            }
 
             // 355|368 is the default offset at full size
             $plugs.parent().css('top', ((CURRENT_CABLE.length.type === 'regular' ? 355 : 368 ) / 500) * cableHeight + 'px');
 
-            $('.display .inputPlug').css('left', plugOffSet);
-            $('.display .outputPlug').css('right', plugOffSet - 1);
+            if( CURRENT_CABLE.other.reverse_plugs ) {
+                $('.display .inputPlug img.plug').css('top', -1 * (20/50) * cableHeight);
+            } else {
+                $('.display .inputPlug img.plug').css('top', 0);
+            }
+
+            $('.display .inputPlug').css('left', inputPlugOffSet);
+            $('.display .outputPlug').css('right', outputPlugOffSet);
             $('.display .inputPlug .boot').css('right', bootRightOffSet);
             $('.display .outputPlug .boot').css('right', bootRightOffSet + (2 * getCurrentPlugWidthRatio()));
             $('.display .inputPlug .boot, .display .outputPlug .boot').css('top', bootTopOffSet);
@@ -360,7 +375,11 @@
                 cableWidth = getCableWidth();
 
             if( CURRENT_CABLE.length.type === 'patch' ) {
-                return -97 * plugWidthRatio;
+                if( CURRENT_CABLE.other.reverse_plugs ) {
+                    return [-180 * plugWidthRatio, -97 * plugWidthRatio];
+                } else {
+                    return -97 * plugWidthRatio;
+                }
             } else if( CURRENT_CABLE.length.type === 'regular' ) {
                 // 31 and 10 are the px distances from the edge of the image to the closest dot where the images are supposed to align
                 return -1 * ( (31 * plugWidthRatio) - (10 * (cableWidth / 600)) );
@@ -575,7 +594,10 @@
             functionLog('goToConfirm/checkData');
             var check = true,
                 mark = function(type) {
-                    var $target = $('.storage .build').eq(+data.storage - 1);
+                    clog(JSON.stringify(data, null, 4));
+                    var $target = $('.storage .build').filter(function() {
+                        return $(this).data().storage === data.storage;
+                    });
 
                     $target.addClass('open').addClass('alert');
                     $target.find('p.' + type).addClass('error');
@@ -642,7 +664,10 @@
             $builds = $('.storage .build'),
             totalCost = 0.00;
 
-        $builds.each(function() {
+        $builds.each(function(i) {
+            clog(i);
+            clog($(this).data().quantity);
+            clog($(this).data().price);
             totalCost += $(this).data().quantity * $(this).data().price;
         });
 
@@ -807,8 +832,12 @@
                 $('body').removeClass('modal-open');
             })
             .find('.info').click(function(e) {
-                e.stopPropagation();
-            }).html(data);
+                if( e.target !== $('.modal button.close').get(0)) 
+                    e.stopPropagation();
+            }).html(data).prepend(
+                $('<button/>').addClass('close').on('click', function() {
+                    $('body').removeClass('model-open');
+                }));
     },
 
     updateQuantity = function() {
@@ -895,11 +924,19 @@
     updateDots = function() {
         functionLog('updateDots');
 
-        var $tracker = $('.tracker');
+        var $tracker = $('.tracker'),
+            $pointers = $('.display .dot'),
+            $builds = $('.storage .build');
 
         $tracker.children().removeClass('current');
+        $pointers.removeClass('current');
+        $builds.removeClass('open');
+
         var current = $('ul.builder.selected').children('.current').attr('class').replace(/current/g, '').trim();
         $tracker.find('.' + current).addClass('current');
+        $pointers.parent().filter(function() {
+            return $(this).attr('id').indexOf(current) > -1;
+        }).find('.dot').addClass('current');
 
         if( current === 'length' ) {
             CURRENT_CABLE.length.visited = true;
@@ -1283,6 +1320,7 @@
 
             if( data.other.reverse_plugs ) {
                 $('#' + prefix + 'reverse_plugs').prop('checked', true).data('checked', true);
+                $('#body').addClass('reverse_plugs');
             }
 
             if( data.other.heatshrink ) {
@@ -1323,6 +1361,7 @@
 
         function updateBuildCounter() {
             $('.storage').find('p.counter strong').text($('.storage .builds .build').length);
+            reNumberStorage();
         }
 
         function remove() {
@@ -1354,6 +1393,8 @@
             functionLog('storeThis/reNumberStorage');
             function styleStorage() {
                 functionLog('storeThis/reNumberStorage/styleStorage');
+                $builds.removeClass('first last');
+
                 // give first cable class first
                 $builds.filter(function() {
                     return $(this).css('order') == 1;
@@ -1482,6 +1523,7 @@
             }).addClass('current');
 
             updateBuildCounter();
+            displayImages.resizeImage();
 
             if( $('.storage .build').length >= 5 ) {
                 $('#storage_new').prop('disabled', true);
@@ -1508,6 +1550,11 @@
             ).click(function() {
                 $(this).siblings('input').prop('checked', true);
                 storeThis.load();
+
+                if( $(this).parent().hasClass('alert') ) {
+                    var step = $(this).next().find('.error').first().index();
+                    $('.tracker .dot').eq(step - 1).click();
+                }
             });
 
             $information.append(
@@ -1590,7 +1637,8 @@
             visual_changes = {
                 cable: false,
                 inputPlug: false,
-                outputPlug: false
+                outputPlug: false,
+                other: false
             },
 
             resetVisualChanges = function() {
@@ -1598,7 +1646,8 @@
                 visual_changes = {
                     cable: false,
                     inputPlug: false,
-                    outputPlug: false
+                    outputPlug: false,
+                    other: false
                 }
             },
 
@@ -1607,7 +1656,8 @@
                 visual_changes = {
                     cable: true,
                     inputPlug: true,
-                    outputPlug: true
+                    outputPlug: true,
+                    other: true
                 };
 
                 CURRENT_CABLE = data;
@@ -1694,6 +1744,10 @@
                             CURRENT_CABLE.outputPlug.boot + '.png' + cb;
                     outputBoot_src = (CURRENT_CABLE.outputPlug.boot ?  outputBoot_src : BLANK_IMAGE_URL);
                     $outputBootImage.attr('src', outputBoot_src);
+                }
+
+                if( changes.other ) {
+
                 }
                     
                 $display.imagesLoaded().done( function( instance ) {
@@ -1817,6 +1871,8 @@
 
                 if( complete ) {
                     $storage.addClass('complete');
+                } else {
+                    $storage.removeClass('complete');
                 }
             },
 
@@ -1866,6 +1922,9 @@
 
                 } else if( data.component === 'other' ) {
                     CURRENT_CABLE[data.component][data.type] = data.value;
+                    if( data.type === 'reverse_plugs' ) {
+                        t = 'other';
+                    }
 
                 } else if( data.component === 'quantity' ) {
                     CURRENT_CABLE[data.component] = data.value;
@@ -2424,7 +2483,14 @@
             }
 
             // if the cable is only supposed to be a patch cable
-            if( $cable.find('is_only_patch').length ) $block.attr('data-only_patch', true);
+            if( $cable.find('is_only_patch').length ) {
+                $block.attr('data-only_patch', true);
+                $block.append(
+                    $('<div/>')
+                        .addClass('notice_onlyPatch')
+                        .append($('<span/>').text('This cable is only available as a patch cable.'))
+                );
+            }
 
             // append cable to premium or standard container
             if( $cable.find('is_premium').length ) {
@@ -2649,7 +2715,7 @@
                             .on('click', function() {
                                 var modalInfo = $('<div/>').addClass('tourproof').html('' + 
                                     '<p>Our Tour Proof option is just one more way for us to improve thelongevity of your cable. By Tour Proofing a cable, we reinforce the two most common points of cable failure:</p>' +
-                                    '<p>1. We ensure that it’s not physically possible for the hot connections to come in contact with any other part of the plug.<p/>' +
+                                    '<p>1. We ensure that it’s not physically possible for the hot connections to come in contact with any other part of the plug.</p>' +
                                     '<p>2. We apply the exact amount of strain relief tubing necessary for a perfectly snug fit where the plug meets the cable.</p>' +
                                     '<img src="' + IMAGES_DIR + 'misc/other/tourproof.jpg' + '"/>'
                                 );
@@ -2703,6 +2769,10 @@
                             desc = $(this).find('desc').text();
 
                         $option.append(
+                            $('<span/>', {
+                                text: desc,
+                                'class': 'techflexColor'
+                            }),
                             $('<input/>', {
                                 id: prefix + name + '_' + desc,
                                 value: desc,
@@ -3254,6 +3324,8 @@
             $('#body .display .outer').addClass('loading');
             goWindowResize();
         }).resize();
+
+        $('.tracker .dot').first().click();
 
         scrollToSection('production');
         setTimeout(function() {

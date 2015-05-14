@@ -1,13 +1,14 @@
 ul.builder li {
     & > .filters:before {
-        color: #fff;
-        text-transform: uppercase;
         align-self: center;
+        color: #fff;
+        cursor: default;
+        display: block;
         font-size: 14px;
         font-weight: bolder;
         letter-spacing: 1px;
         margin-left: 20px;
-        cursor: default;
+        text-transform: uppercase;
         width: 150px;
     }
 
@@ -408,7 +409,7 @@ ul.builder li {
         z-index: 200;
 
         &:before {
-            background: url($media-folder + "/misc/filters/x.png") no-repeat scroll center center / 100% 100% transparent;
+            background: url($media-folder + "misc/x.white.png") no-repeat scroll center center / 100% 100% transparent;
             content: "";
             display: block;
             height: 8px;

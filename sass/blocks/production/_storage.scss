@@ -57,12 +57,20 @@ div.storage {
             visibility: hidden;
         }
 
-        &.complete .identifier {
-            background-color: rgb(58, 190, 20);
+        &.complete .identifier p.id {
+            &:before {
+                background: url($media-folder + 'backpack/complete.png') no-repeat scroll center center / 100% auto transparent;
+                content: "";
+                display: block;
+                height: 17px;
+                position: absolute;
+                right: 14px;
+                top: 12px;
+                width: 14px;
+            }
         }
 
         &.current .identifier {
-            // background-color: limegreen !important;
             p {
                 color: black;
             }

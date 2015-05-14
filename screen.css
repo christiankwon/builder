@@ -63,8 +63,8 @@ header {
 header .outer {
   width: 100%;
   height: 30px;
-  max-width: 500px;
-  margin: 10px auto;
+  max-width: 800px;
+  margin: 0 auto;
   line-height: 30px;
 }
 /* line 20, sass/blocks/_header.scss */
@@ -83,8 +83,8 @@ header .outer ul {
   display: table;
   clear: both;
   clear: none;
-  margin: 0 auto;
-  width: 430px;
+  margin: 10px auto;
+  width: 90%;
 }
 /* line 37, sass/blocks/_header.scss */
 header .outer ul li {
@@ -110,7 +110,19 @@ header .outer ul li a, header .outer ul li a:visited {
 }
 /* line 58, sass/blocks/_header.scss */
 header .outer ul li a:hover, header .outer ul li a:focus, header .outer ul li a:active {
-  color: #666;
+  color: #3c3c3c;
+}
+/* line 62, sass/blocks/_header.scss */
+header .outer ul li .cart {
+  background: url("/v/s/images/header/cart.png") no-repeat scroll center center/100% auto transparent;
+  height: 20px;
+  width: 20px;
+  display: block;
+  margin-top: 5px;
+}
+/* line 69, sass/blocks/_header.scss */
+header .outer ul li .cart:hover {
+  background-image: url("/v/s/images/header/cart-hover.png");
 }
 
 /* line 1, sass/blocks/_introduction.scss */
@@ -268,15 +280,22 @@ div.storage .build input[type="radio"] {
   z-index: 10;
   visibility: hidden;
 }
-/* line 60, sass/blocks/production/_storage.scss */
-div.storage .build.complete .identifier {
-  background-color: #3abe14;
+/* line 61, sass/blocks/production/_storage.scss */
+div.storage .build.complete .identifier p.id:before {
+  background: url("images/backpack/complete.png") no-repeat scroll center center/100% auto transparent;
+  content: "";
+  display: block;
+  height: 17px;
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  width: 14px;
 }
-/* line 66, sass/blocks/production/_storage.scss */
+/* line 74, sass/blocks/production/_storage.scss */
 div.storage .build.current .identifier p {
   color: black;
 }
-/* line 71, sass/blocks/production/_storage.scss */
+/* line 79, sass/blocks/production/_storage.scss */
 div.storage .build .identifier {
   display: -webkit-flex;
   display: flex;
@@ -291,42 +310,42 @@ div.storage .build .identifier {
   height: 80px;
   z-index: 2;
 }
-/* line 81, sass/blocks/production/_storage.scss */
+/* line 89, sass/blocks/production/_storage.scss */
 div.storage .build .identifier p {
   font-weight: 700;
   color: #d0d0d0;
 }
-/* line 85, sass/blocks/production/_storage.scss */
+/* line 93, sass/blocks/production/_storage.scss */
 div.storage .build .identifier p.id {
   font-size: 16px;
   font-weight: 800;
 }
-/* line 90, sass/blocks/production/_storage.scss */
+/* line 98, sass/blocks/production/_storage.scss */
 div.storage .build .identifier p.type {
   text-transform: uppercase;
   font-size: 10px;
   margin: 7px;
 }
-/* line 96, sass/blocks/production/_storage.scss */
+/* line 104, sass/blocks/production/_storage.scss */
 div.storage .build .identifier p.price {
   color: #cf2700;
   font-size: 12px;
 }
-/* line 99, sass/blocks/production/_storage.scss */
+/* line 107, sass/blocks/production/_storage.scss */
 div.storage .build .identifier p.price:before {
   content: '$';
 }
-/* line 106, sass/blocks/production/_storage.scss */
+/* line 114, sass/blocks/production/_storage.scss */
 div.storage .build.first .information {
   border-top: 0;
   top: 0;
 }
-/* line 111, sass/blocks/production/_storage.scss */
+/* line 119, sass/blocks/production/_storage.scss */
 div.storage .build.last, div.storage .build.last .information {
   border-bottom: 0;
   bottom: 0;
 }
-/* line 116, sass/blocks/production/_storage.scss */
+/* line 124, sass/blocks/production/_storage.scss */
 div.storage .build .information {
   -moz-transition: width 0.3s ease-in-out;
   -o-transition: width 0.3s ease-in-out;
@@ -344,12 +363,12 @@ div.storage .build .information {
   border-width: 5px 0;
   border-style: solid;
 }
-/* line 130, sass/blocks/production/_storage.scss */
+/* line 138, sass/blocks/production/_storage.scss */
 div.storage .build .information p {
   font-size: 10px;
   margin: 3px 0;
 }
-/* line 133, sass/blocks/production/_storage.scss */
+/* line 141, sass/blocks/production/_storage.scss */
 div.storage .build .information p span {
   text-transform: lowercase;
   width: 80px;
@@ -357,40 +376,40 @@ div.storage .build .information p span {
   display: inline-block;
   margin-right: 2px;
 }
-/* line 140, sass/blocks/production/_storage.scss */
+/* line 148, sass/blocks/production/_storage.scss */
 div.storage .build .information p em {
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 1px;
   font-style: normal;
 }
-/* line 149, sass/blocks/production/_storage.scss */
+/* line 157, sass/blocks/production/_storage.scss */
 div.storage .build .information p {
   width: 380px;
   padding-left: 80px;
 }
-/* line 154, sass/blocks/production/_storage.scss */
+/* line 162, sass/blocks/production/_storage.scss */
 div.storage .build:hover .identifier p:not(.price), div.storage .build:hover .information {
   color: black;
 }
-/* line 159, sass/blocks/production/_storage.scss */
+/* line 167, sass/blocks/production/_storage.scss */
 div.storage .build:hover .information, div.storage .build.open .information {
   padding-left: 80px;
   width: 380px;
 }
-/* line 163, sass/blocks/production/_storage.scss */
+/* line 171, sass/blocks/production/_storage.scss */
 div.storage .build:hover .information p, div.storage .build.open .information p {
   padding-left: 0;
 }
-/* line 169, sass/blocks/production/_storage.scss */
+/* line 177, sass/blocks/production/_storage.scss */
 div.storage .build.alert .identifier {
   background-color: rgba(255, 0, 0, 0.3) !important;
 }
-/* line 172, sass/blocks/production/_storage.scss */
+/* line 180, sass/blocks/production/_storage.scss */
 div.storage .build.alert .information p.error {
   color: #c00;
 }
-/* line 178, sass/blocks/production/_storage.scss */
+/* line 186, sass/blocks/production/_storage.scss */
 div.storage .buttons {
   display: -webkit-flex;
   display: flex;
@@ -399,7 +418,7 @@ div.storage .buttons {
   width: 100%;
   margin-top: 20px;
 }
-/* line 184, sass/blocks/production/_storage.scss */
+/* line 192, sass/blocks/production/_storage.scss */
 div.storage .buttons button {
   -moz-transition: opacity 0.1s ease;
   -o-transition: opacity 0.1s ease;
@@ -415,15 +434,15 @@ div.storage .buttons button {
   width: 100%;
   position: relative;
 }
-/* line 196, sass/blocks/production/_storage.scss */
+/* line 204, sass/blocks/production/_storage.scss */
 div.storage .buttons button:hover {
   opacity: 0.85;
 }
-/* line 199, sass/blocks/production/_storage.scss */
+/* line 207, sass/blocks/production/_storage.scss */
 div.storage .buttons button:active {
   opacity: 1;
 }
-/* line 202, sass/blocks/production/_storage.scss */
+/* line 210, sass/blocks/production/_storage.scss */
 div.storage .buttons button[disabled]:after {
   background-color: black;
   color: white;
@@ -435,196 +454,262 @@ div.storage .buttons button[disabled]:after {
   height: 100%;
   line-height: 30px;
 }
-/* line 214, sass/blocks/production/_storage.scss */
+/* line 222, sass/blocks/production/_storage.scss */
 div.storage .buttons button:nth-child(1) {
   background-color: white;
   color: black;
 }
-/* line 217, sass/blocks/production/_storage.scss */
+/* line 225, sass/blocks/production/_storage.scss */
 div.storage .buttons button:nth-child(1):active {
   color: white;
   background-color: black;
 }
-/* line 222, sass/blocks/production/_storage.scss */
+/* line 230, sass/blocks/production/_storage.scss */
 div.storage .buttons button:nth-child(2) {
   background-color: #838383;
   color: white;
 }
-/* line 225, sass/blocks/production/_storage.scss */
+/* line 233, sass/blocks/production/_storage.scss */
 div.storage .buttons button:nth-child(2):active {
   color: #838383;
   border: solid 1px #838383;
   background-color: white;
 }
-/* line 231, sass/blocks/production/_storage.scss */
+/* line 239, sass/blocks/production/_storage.scss */
 div.storage .buttons button:nth-child(3) {
   background-color: #fe531f;
   color: white;
 }
-/* line 234, sass/blocks/production/_storage.scss */
+/* line 242, sass/blocks/production/_storage.scss */
 div.storage .buttons button:nth-child(3):active {
   color: #fe531f;
   border: solid 1px #fe531f;
   background-color: white;
 }
 
-/* line 5, sass/blocks/production/display/_pointers.scss */
+/* line 7, sass/blocks/production/display/_pointers.scss */
 #body.regular #cableSelector {
   top: 20px;
 }
-/* line 8, sass/blocks/production/display/_pointers.scss */
+/* line 10, sass/blocks/production/display/_pointers.scss */
 #body.regular #outputPlugSelector, #body.regular #inputPlugSelector {
   right: -5%;
   top: 65px;
 }
-/* line 12, sass/blocks/production/display/_pointers.scss */
+/* line 14, sass/blocks/production/display/_pointers.scss */
 #body.regular #lengthSelector {
   top: 40%;
   right: -5%;
 }
-/* line 19, sass/blocks/production/display/_pointers.scss */
+/* line 21, sass/blocks/production/display/_pointers.scss */
 #body.patch #cableSelector {
   top: 10px;
 }
-/* line 22, sass/blocks/production/display/_pointers.scss */
+/* line 24, sass/blocks/production/display/_pointers.scss */
 #body.patch #outputPlugSelector, #body.patch #inputPlugSelector {
   right: 10%;
   top: 25%;
 }
-/* line 27, sass/blocks/production/display/_pointers.scss */
+/* line 29, sass/blocks/production/display/_pointers.scss */
 #body.patch #lengthSelector {
   top: 40%;
   right: 7.5%;
 }
 
-/* line 35, sass/blocks/production/display/_pointers.scss */
+/* line 37, sass/blocks/production/display/_pointers.scss */
 .pointer .dot {
-  background-color: #bcbcbc;
-  width: 15px;
-  height: 15px;
-  border-radius: 7.5px;
-  cursor: pointer;
-  overflow: hidden;
-  position: relative;
-  z-index: 50;
-  padding: 0;
-  line-height: 25px;
   -moz-transition: all 0.25s ease-in-out;
   -o-transition: all 0.25s ease-in-out;
   -webkit-transition: all 0.25s ease-in-out;
   transition: all 0.25s ease-in-out;
-}
-/* line 48, sass/blocks/production/display/_pointers.scss */
-.pointer .dot:hover {
-  width: 150px;
-  height: 25px;
-  -moz-transition: width 0.25s ease, height 0.2s ease 0.15s;
-  -o-transition: width 0.25s ease, height 0.2s ease 0.15s;
-  -webkit-transition: width 0.25s ease, height 0.2s ease;
-  -webkit-transition-delay: 0s, 0.15s;
-  transition: width 0.25s ease, height 0.2s ease 0.15s;
-}
-/* line 54, sass/blocks/production/display/_pointers.scss */
-.pointer .dot:before {
-  width: 150px;
+  background-color: #bcbcbc;
+  border: solid 1px #b5b5b5;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 12px;
+  height: 24px;
+  line-height: 24px;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
   text-align: center;
-  display: block;
+  width: 24px;
+  z-index: 50;
 }
-/* line 61, sass/blocks/production/display/_pointers.scss */
+/* line 53, sass/blocks/production/display/_pointers.scss */
+.pointer .dot.current, .pointer .dot:hover {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+/* line 60, sass/blocks/production/display/_pointers.scss */
+.pointer .dot:before {
+  background-size: 70% auto;
+  background-color: #bcbcbc;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: block;
+  content: "";
+  height: 50px;
+  opacity: 0;
+  position: absolute;
+  text-align: center;
+  top: 3px;
+  width: 50px;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+/* line 75, sass/blocks/production/display/_pointers.scss */
+.pointer .dot.current:before, .pointer .dot:hover:before {
+  opacity: 1;
+}
+/* line 80, sass/blocks/production/display/_pointers.scss */
 .pointer .line {
   background-color: #bcbcbc;
 }
 
-/* line 66, sass/blocks/production/display/_pointers.scss */
+/* line 85, sass/blocks/production/display/_pointers.scss */
 #cableSelector {
   top: 20px;
   left: 50%;
   margin-left: -5px;
 }
-/* line 71, sass/blocks/production/display/_pointers.scss */
+/* line 90, sass/blocks/production/display/_pointers.scss */
 #cableSelector .line {
   height: 40px;
   width: 1px;
   left: 5px;
   bottom: 0;
 }
-/* line 77, sass/blocks/production/display/_pointers.scss */
+/* line 96, sass/blocks/production/display/_pointers.scss */
 #cableSelector .dot {
   top: -50px;
-  left: -2px;
+  left: -7px;
 }
-/* line 81, sass/blocks/production/display/_pointers.scss */
+/* line 100, sass/blocks/production/display/_pointers.scss */
+#cableSelector .dot.current:before {
+  background-image: url("images/misc/tracker/cable.png");
+}
+/* line 104, sass/blocks/production/display/_pointers.scss */
 #cableSelector .dot:before {
-  content: "Edit Cable";
+  background-image: url("images/misc/tracker/cable-complete.png");
+}
+/* line 108, sass/blocks/production/display/_pointers.scss */
+#cableSelector .dot.current, #cableSelector .dot:hover {
+  left: -20px;
+  top: -75px;
 }
 
-/* line 87, sass/blocks/production/display/_pointers.scss */
+/* line 115, sass/blocks/production/display/_pointers.scss */
 #lengthSelector {
   width: 10%;
 }
-/* line 90, sass/blocks/production/display/_pointers.scss */
+/* line 118, sass/blocks/production/display/_pointers.scss */
 #lengthSelector .line {
   height: 1px;
   width: 100%;
   top: 5px;
   left: 0;
 }
-/* line 96, sass/blocks/production/display/_pointers.scss */
+/* line 124, sass/blocks/production/display/_pointers.scss */
 #lengthSelector .dot {
-  top: -2px;
+  top: -7px;
   left: 100%;
 }
-/* line 100, sass/blocks/production/display/_pointers.scss */
+/* line 128, sass/blocks/production/display/_pointers.scss */
+#lengthSelector .dot.current:before {
+  background-image: url("images/misc/tracker/length.png");
+}
+/* line 132, sass/blocks/production/display/_pointers.scss */
 #lengthSelector .dot:before {
-  content: "Edit Length";
+  background-image: url("images/misc/tracker/length-complete.png");
+}
+/* line 136, sass/blocks/production/display/_pointers.scss */
+#lengthSelector .dot.current, #lengthSelector .dot:hover {
+  top: -20px;
 }
 
-/* line 106, sass/blocks/production/display/_pointers.scss */
+/* line 142, sass/blocks/production/display/_pointers.scss */
 #outputPlugSelector, #inputPlugSelector {
   width: 25%;
 }
-/* line 109, sass/blocks/production/display/_pointers.scss */
+/* line 145, sass/blocks/production/display/_pointers.scss */
 #outputPlugSelector .line, #inputPlugSelector .line {
   height: 1px;
   width: 100%;
   top: 5px;
   left: 0;
 }
-/* line 116, sass/blocks/production/display/_pointers.scss */
+/* line 152, sass/blocks/production/display/_pointers.scss */
 #outputPlugSelector .dot, #inputPlugSelector .dot {
   left: 100%;
-  top: -2px;
+  top: -7px;
 }
 
-/* line 123, sass/blocks/production/display/_pointers.scss */
-#inputPlugSelector .dot:before {
-  content: "Edit Input Plug";
+/* line 159, sass/blocks/production/display/_pointers.scss */
+#inputPlugSelector .dot {
   -moz-transform: scaleX(-1);
   -ms-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
 }
-
-/* line 130, sass/blocks/production/display/_pointers.scss */
-#outputPlugSelector .dot:before {
-  content: "Edit Output Plug";
+/* line 162, sass/blocks/production/display/_pointers.scss */
+#inputPlugSelector .dot.current:before {
+  background-image: url("images/misc/tracker/inputPlug.png");
+}
+/* line 165, sass/blocks/production/display/_pointers.scss */
+#inputPlugSelector .dot:before {
+  background-image: url("images/misc/tracker/inputPlug-complete.png");
+}
+/* line 169, sass/blocks/production/display/_pointers.scss */
+#inputPlugSelector .dot.current, #inputPlugSelector .dot:hover {
+  top: -20px;
 }
 
-/* line 135, sass/blocks/production/display/_pointers.scss */
+/* line 178, sass/blocks/production/display/_pointers.scss */
+#outputPlugSelector .dot.current:before {
+  background-image: url("images/misc/tracker/outputPlug.png");
+}
+/* line 181, sass/blocks/production/display/_pointers.scss */
+#outputPlugSelector .dot:before {
+  background-image: url("images/misc/tracker/outputPlug-complete.png");
+}
+/* line 184, sass/blocks/production/display/_pointers.scss */
+#outputPlugSelector .dot.current, #outputPlugSelector .dot:hover {
+  top: -20px;
+}
+
+/* line 190, sass/blocks/production/display/_pointers.scss */
 #otherSelector {
   top: -1em;
   left: -1em;
   z-index: 100;
 }
-/* line 140, sass/blocks/production/display/_pointers.scss */
+/* line 195, sass/blocks/production/display/_pointers.scss */
 #otherSelector .dot {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  background: url("images/display/wrench.png") no-repeat center center #bcbcbc;
+  background-image: url("images/misc/tracker/other-complete.png");
+  background-position: center 6px;
+  background-repeat: no-repeat;
+  background-size: 80% auto;
+  width: 50px;
+  height: 50px;
+}
+/* line 203, sass/blocks/production/display/_pointers.scss */
+#otherSelector .dot.current {
+  background-image: url("images/misc/tracker/other.png");
+}
+/* line 207, sass/blocks/production/display/_pointers.scss */
+#otherSelector .dot:before {
+  background-color: transparent;
 }
 
-/* line 148, sass/blocks/production/display/_pointers.scss */
+/* line 213, sass/blocks/production/display/_pointers.scss */
 #techflexOverlay {
   background-size: 100%;
   border: solid 1px black;
@@ -635,29 +720,29 @@ div.storage .buttons button:nth-child(3):active {
   width: 15%;
   z-index: 15;
 }
-/* line 160, sass/blocks/production/display/_pointers.scss */
+/* line 225, sass/blocks/production/display/_pointers.scss */
 #techflexOverlay.black {
   display: block;
   background-image: url("images/display/techflex/black.png");
 }
-/* line 160, sass/blocks/production/display/_pointers.scss */
+/* line 225, sass/blocks/production/display/_pointers.scss */
 #techflexOverlay.gray {
   display: block;
   background-image: url("images/display/techflex/gray.png");
 }
-/* line 160, sass/blocks/production/display/_pointers.scss */
+/* line 225, sass/blocks/production/display/_pointers.scss */
 #techflexOverlay.white {
   display: block;
   background-image: url("images/display/techflex/white.png");
 }
 
-/* line 167, sass/blocks/production/display/_pointers.scss */
+/* line 232, sass/blocks/production/display/_pointers.scss */
 #body.regular #techflexOverlay {
   right: 11%;
   padding-bottom: 15%;
 }
 
-/* line 172, sass/blocks/production/display/_pointers.scss */
+/* line 237, sass/blocks/production/display/_pointers.scss */
 #body.patch #techflexOverlay {
   left: 20%;
   padding-bottom: 15%;
@@ -721,7 +806,7 @@ div.storage .buttons button:nth-child(3):active {
   left: 0;
   height: 100%;
   background-size: 30%;
-  background: url("/v/s/images/loading.gif") no-repeat scroll center center/30% auto rgba(50, 50, 50, 0.5);
+  background: url("/v/s/images/loading.gif") no-repeat scroll center center/30% auto rgba(255, 255, 255, 0.75);
   z-index: 999;
 }
 /* line 49, sass/blocks/production/_display.scss */
@@ -777,14 +862,29 @@ div.storage .buttons button:nth-child(3):active {
   transform: scaleX(-1);
 }
 
-/* line 111, sass/blocks/production/_display.scss */
+/* line 112, sass/blocks/production/_display.scss */
 #body.patch .display .inputPlug img, #body.patch .display .outputPlug img {
-  -moz-transform: rotate(-36deg);
-  -ms-transform: rotate(-36deg);
-  -webkit-transform: rotate(-36deg);
-  transform: rotate(-36deg);
+  -moz-transform: rotate(-38deg);
+  -ms-transform: rotate(-38deg);
+  -webkit-transform: rotate(-38deg);
+  transform: rotate(-38deg);
 }
-/* line 123, sass/blocks/production/_display.scss */
+/* line 119, sass/blocks/production/_display.scss */
+#body.patch.reverse_plugs .display .inputPlug img {
+  -moz-transform: rotate(-38deg) scaleX(-1);
+  -ms-transform: rotate(-38deg) scaleX(-1);
+  -webkit-transform: rotate(-38deg) scaleX(-1);
+  transform: rotate(-38deg) scaleX(-1);
+}
+/* line 124, sass/blocks/production/_display.scss */
+#body.patch.reverse_plugs #inputPlugSelector {
+  right: 100%;
+}
+/* line 127, sass/blocks/production/_display.scss */
+#body.patch.reverse_plugs #inputPlugSelector .dot {
+  left: -20px;
+}
+/* line 136, sass/blocks/production/_display.scss */
 #body.delay .inputPlug img, #body.delay .outputPlug img {
   -moz-transition: all 2s ease 2s;
   -o-transition: all 2s ease 2s;
@@ -792,7 +892,7 @@ div.storage .buttons button:nth-child(3):active {
   -webkit-transition-delay: 2s;
   transition: all 2s ease 2s;
 }
-/* line 129, sass/blocks/production/_display.scss */
+/* line 142, sass/blocks/production/_display.scss */
 #body.expanded .display {
   -moz-transition: width 0.3s ease-out, opacity 0.15s ease-out;
   -o-transition: width 0.3s ease-out, opacity 0.15s ease-out;
@@ -804,38 +904,39 @@ div.storage .buttons button:nth-child(3):active {
 
 /* line 2, sass/blocks/production/builder/_filters.scss */
 ul.builder li > .filters:before {
-  color: #fff;
-  text-transform: uppercase;
   align-self: center;
+  color: #fff;
+  cursor: default;
+  display: block;
   font-size: 14px;
   font-weight: bolder;
   letter-spacing: 1px;
   margin-left: 20px;
-  cursor: default;
+  text-transform: uppercase;
   width: 150px;
 }
-/* line 14, sass/blocks/production/builder/_filters.scss */
+/* line 15, sass/blocks/production/builder/_filters.scss */
 ul.builder li.cable > .filters:before {
   content: "1. Cable Type";
 }
-/* line 17, sass/blocks/production/builder/_filters.scss */
+/* line 18, sass/blocks/production/builder/_filters.scss */
 ul.builder li.length > .filters:before {
   content: "2. Cable Length";
 }
-/* line 20, sass/blocks/production/builder/_filters.scss */
+/* line 21, sass/blocks/production/builder/_filters.scss */
 ul.builder li.inputPlug > .filters:before {
   content: "3. Input Plug";
 }
-/* line 23, sass/blocks/production/builder/_filters.scss */
+/* line 24, sass/blocks/production/builder/_filters.scss */
 ul.builder li.outputPlug > .filters:before {
   content: "4. Output Plug";
 }
-/* line 26, sass/blocks/production/builder/_filters.scss */
+/* line 27, sass/blocks/production/builder/_filters.scss */
 ul.builder li.other > .filters:before {
   content: "5. Other Options";
 }
 
-/* line 31, sass/blocks/production/builder/_filters.scss */
+/* line 32, sass/blocks/production/builder/_filters.scss */
 .filters {
   display: -webkit-flex;
   display: flex;
@@ -854,7 +955,7 @@ ul.builder li.other > .filters:before {
   max-height: 10%;
   height: 100%;
 }
-/* line 50, sass/blocks/production/builder/_filters.scss */
+/* line 51, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer {
   -webkit-align-self: center;
   align-self: center;
@@ -866,15 +967,15 @@ ul.builder li.other > .filters:before {
   height: 50%;
   max-height: 40px;
 }
-/* line 61, sass/blocks/production/builder/_filters.scss */
+/* line 62, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-open h2:before, .filters .filterContainer.filter-open h2:after {
   display: none !important;
 }
-/* line 67, sass/blocks/production/builder/_filters.scss */
+/* line 68, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on .filter-open h2:after, .filters .filterContainer.filter-on .filter-open h2:before {
   display: none;
 }
-/* line 70, sass/blocks/production/builder/_filters.scss */
+/* line 71, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on h2:after {
   -webkit-align-items: center;
   align-items: center;
@@ -892,77 +993,77 @@ ul.builder li.other > .filters:before {
   background-repeat: no-repeat;
   background-position: 10% center;
 }
-/* line 87, sass/blocks/production/builder/_filters.scss */
+/* line 88, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on.filter-on-high h2:after {
   content: "high";
 }
-/* line 87, sass/blocks/production/builder/_filters.scss */
+/* line 88, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on.filter-on-med h2:after {
   content: "med";
 }
-/* line 87, sass/blocks/production/builder/_filters.scss */
+/* line 88, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on.filter-on-low h2:after {
   content: "low";
 }
-/* line 87, sass/blocks/production/builder/_filters.scss */
+/* line 88, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on.filter-on-switchcraft h2:after {
   content: "switchcraft";
 }
-/* line 87, sass/blocks/production/builder/_filters.scss */
+/* line 88, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on.filter-on-neutrik h2:after {
   content: "neutrik";
 }
-/* line 87, sass/blocks/production/builder/_filters.scss */
+/* line 88, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on.filter-on-gandh h2:after {
   content: "gandh";
   content: "G&H";
 }
-/* line 98, sass/blocks/production/builder/_filters.scss */
+/* line 99, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on.filter-on-red h2:after {
   content: "red";
   background-image: url("images/misc/filters/red.png");
 }
-/* line 98, sass/blocks/production/builder/_filters.scss */
+/* line 99, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on.filter-on-orange h2:after {
   content: "orange";
   background-image: url("images/misc/filters/orange.png");
 }
-/* line 98, sass/blocks/production/builder/_filters.scss */
+/* line 99, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on.filter-on-yellow h2:after {
   content: "yellow";
   background-image: url("images/misc/filters/yellow.png");
 }
-/* line 98, sass/blocks/production/builder/_filters.scss */
+/* line 99, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on.filter-on-green h2:after {
   content: "green";
   background-image: url("images/misc/filters/green.png");
 }
-/* line 98, sass/blocks/production/builder/_filters.scss */
+/* line 99, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on.filter-on-blue h2:after {
   content: "blue";
   background-image: url("images/misc/filters/blue.png");
 }
-/* line 98, sass/blocks/production/builder/_filters.scss */
+/* line 99, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on.filter-on-black h2:after {
   content: "black";
   background-image: url("images/misc/filters/black.png");
 }
-/* line 98, sass/blocks/production/builder/_filters.scss */
+/* line 99, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on.filter-on-white h2:after {
   content: "white";
   background-image: url("images/misc/filters/white.png");
 }
-/* line 98, sass/blocks/production/builder/_filters.scss */
+/* line 99, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on.filter-on-multiple h2:after {
   content: "multiple";
   background-image: url("images/misc/filters/multiple.png");
 }
-/* line 104, sass/blocks/production/builder/_filters.scss */
+/* line 105, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-on h2:before {
   top: -11px;
   opacity: 1;
 }
-/* line 110, sass/blocks/production/builder/_filters.scss */
+/* line 111, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer:after {
   border-color: #af9757 transparent;
   border-style: solid solid none;
@@ -984,39 +1085,39 @@ ul.builder li.other > .filters:before {
   -webkit-transform: rotate(0);
   transform: rotate(0);
 }
-/* line 127, sass/blocks/production/builder/_filters.scss */
+/* line 128, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.manufacturer {
   width: 30%;
   max-width: 185px;
 }
 @media only screen and (min-width: 1199px) {
-  /* line 132, sass/blocks/production/builder/_filters.scss */
+  /* line 133, sass/blocks/production/builder/_filters.scss */
   .filters .filterContainer.manufacturer h2 {
     max-width: 185px;
   }
 }
 @media only screen and (max-width: 1198px) {
-  /* line 138, sass/blocks/production/builder/_filters.scss */
+  /* line 139, sass/blocks/production/builder/_filters.scss */
   .filters .filterContainer.manufacturer h2 {
     max-width: 136px;
   }
 }
-/* line 143, sass/blocks/production/builder/_filters.scss */
+/* line 144, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.manufacturer .filter {
   max-width: 185px;
 }
-/* line 149, sass/blocks/production/builder/_filters.scss */
+/* line 150, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-open:after {
   -moz-transform: rotate(-180deg);
   -ms-transform: rotate(-180deg);
   -webkit-transform: rotate(-180deg);
   transform: rotate(-180deg);
 }
-/* line 153, sass/blocks/production/builder/_filters.scss */
+/* line 154, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-open h2, .filters .filterContainer.filter-open .filter-option {
   background-color: #000;
 }
-/* line 157, sass/blocks/production/builder/_filters.scss */
+/* line 158, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-open .filter {
   -moz-transition: z-index 0s step-end;
   -o-transition: z-index 0s step-end;
@@ -1024,7 +1125,7 @@ ul.builder li.other > .filters:before {
   transition: z-index 0s step-end;
   z-index: 40;
 }
-/* line 162, sass/blocks/production/builder/_filters.scss */
+/* line 163, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-open div.filter-option {
   -moz-transform: translateY(0);
   -ms-transform: translateY(0);
@@ -1033,56 +1134,56 @@ ul.builder li.other > .filters:before {
   opacity: 1;
   visibility: visible;
 }
-/* line 168, sass/blocks/production/builder/_filters.scss */
+/* line 169, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-open div.filter-option:nth-child(1) {
   -moz-transition: all 0.1s 0.025s ease-out;
   -o-transition: all 0.1s 0.025s ease-out;
   -webkit-transition: all 0.1s 0.025s ease-out;
   transition: all 0.1s 0.025s ease-out;
 }
-/* line 168, sass/blocks/production/builder/_filters.scss */
+/* line 169, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-open div.filter-option:nth-child(2) {
   -moz-transition: all 0.1s 0.05s ease-out;
   -o-transition: all 0.1s 0.05s ease-out;
   -webkit-transition: all 0.1s 0.05s ease-out;
   transition: all 0.1s 0.05s ease-out;
 }
-/* line 168, sass/blocks/production/builder/_filters.scss */
+/* line 169, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-open div.filter-option:nth-child(3) {
   -moz-transition: all 0.1s 0.075s ease-out;
   -o-transition: all 0.1s 0.075s ease-out;
   -webkit-transition: all 0.1s 0.075s ease-out;
   transition: all 0.1s 0.075s ease-out;
 }
-/* line 168, sass/blocks/production/builder/_filters.scss */
+/* line 169, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-open div.filter-option:nth-child(4) {
   -moz-transition: all 0.1s 0.1s ease-out;
   -o-transition: all 0.1s 0.1s ease-out;
   -webkit-transition: all 0.1s 0.1s ease-out;
   transition: all 0.1s 0.1s ease-out;
 }
-/* line 168, sass/blocks/production/builder/_filters.scss */
+/* line 169, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-open div.filter-option:nth-child(5) {
   -moz-transition: all 0.1s 0.125s ease-out;
   -o-transition: all 0.1s 0.125s ease-out;
   -webkit-transition: all 0.1s 0.125s ease-out;
   transition: all 0.1s 0.125s ease-out;
 }
-/* line 168, sass/blocks/production/builder/_filters.scss */
+/* line 169, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-open div.filter-option:nth-child(6) {
   -moz-transition: all 0.1s 0.15s ease-out;
   -o-transition: all 0.1s 0.15s ease-out;
   -webkit-transition: all 0.1s 0.15s ease-out;
   transition: all 0.1s 0.15s ease-out;
 }
-/* line 168, sass/blocks/production/builder/_filters.scss */
+/* line 169, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.filter-open div.filter-option:nth-child(7) {
   -moz-transition: all 0.1s 0.175s ease-out;
   -o-transition: all 0.1s 0.175s ease-out;
   -webkit-transition: all 0.1s 0.175s ease-out;
   transition: all 0.1s 0.175s ease-out;
 }
-/* line 175, sass/blocks/production/builder/_filters.scss */
+/* line 176, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer h2 {
   -moz-transition: all 0.1s ease-in;
   -o-transition: all 0.1s ease-in;
@@ -1105,7 +1206,7 @@ ul.builder li.other > .filters:before {
   max-width: 150px;
   z-index: 2;
 }
-/* line 191, sass/blocks/production/builder/_filters.scss */
+/* line 192, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer h2:before {
   position: absolute;
   display: block;
@@ -1119,143 +1220,143 @@ ul.builder li.other > .filters:before {
   -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
-/* line 202, sass/blocks/production/builder/_filters.scss */
+/* line 203, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer h2.brightness:before {
   content: "Brightness";
 }
-/* line 206, sass/blocks/production/builder/_filters.scss */
+/* line 207, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer h2.flexibility:before {
   content: "Flexibility";
 }
-/* line 210, sass/blocks/production/builder/_filters.scss */
+/* line 211, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer h2.color:before {
   content: "Color";
 }
-/* line 214, sass/blocks/production/builder/_filters.scss */
+/* line 215, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer h2.manufacturer:before {
   content: "Manufacturer";
 }
-/* line 219, sass/blocks/production/builder/_filters.scss */
+/* line 220, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer .filter-open h2:before {
   top: 11px;
   opacity: 1;
 }
-/* line 227, sass/blocks/production/builder/_filters.scss */
+/* line 228, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option label:before, .filters .filterContainer.color .filter-option label:after {
   content: '';
   position: absolute;
   width: 10px;
   height: 10px;
 }
-/* line 233, sass/blocks/production/builder/_filters.scss */
+/* line 234, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option label:before {
   left: 2em;
 }
-/* line 236, sass/blocks/production/builder/_filters.scss */
+/* line 237, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option label:after {
   right: 2em;
   border-radius: 50%;
 }
-/* line 243, sass/blocks/production/builder/_filters.scss */
+/* line 244, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="red"] + label:after {
   background-color: red;
 }
-/* line 243, sass/blocks/production/builder/_filters.scss */
+/* line 244, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="orange"] + label:after {
   background-color: orange;
 }
-/* line 243, sass/blocks/production/builder/_filters.scss */
+/* line 244, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="yellow"] + label:after {
   background-color: yellow;
 }
-/* line 243, sass/blocks/production/builder/_filters.scss */
+/* line 244, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="green"] + label:after {
   background-color: green;
 }
-/* line 243, sass/blocks/production/builder/_filters.scss */
+/* line 244, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="black"] + label:after {
   background-color: black;
 }
-/* line 243, sass/blocks/production/builder/_filters.scss */
+/* line 244, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="white"] + label:after {
   background-color: white;
 }
-/* line 243, sass/blocks/production/builder/_filters.scss */
+/* line 244, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="green"] + label:after {
   background-color: green;
 }
-/* line 243, sass/blocks/production/builder/_filters.scss */
+/* line 244, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="blue"] + label:after {
   background-color: blue;
 }
-/* line 247, sass/blocks/production/builder/_filters.scss */
+/* line 248, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option input[value="black"] + label:after {
   border: white solid 1px;
 }
-/* line 251, sass/blocks/production/builder/_filters.scss */
+/* line 252, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option:nth-child(1) {
   -moz-transition: all 0.1s 0.15s ease-out;
   -o-transition: all 0.1s 0.15s ease-out;
   -webkit-transition: all 0.1s 0.15s ease-out;
   transition: all 0.1s 0.15s ease-out;
 }
-/* line 251, sass/blocks/production/builder/_filters.scss */
+/* line 252, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option:nth-child(2) {
   -moz-transition: all 0.1s 0.125s ease-out;
   -o-transition: all 0.1s 0.125s ease-out;
   -webkit-transition: all 0.1s 0.125s ease-out;
   transition: all 0.1s 0.125s ease-out;
 }
-/* line 251, sass/blocks/production/builder/_filters.scss */
+/* line 252, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option:nth-child(3) {
   -moz-transition: all 0.1s 0.1s ease-out;
   -o-transition: all 0.1s 0.1s ease-out;
   -webkit-transition: all 0.1s 0.1s ease-out;
   transition: all 0.1s 0.1s ease-out;
 }
-/* line 251, sass/blocks/production/builder/_filters.scss */
+/* line 252, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option:nth-child(4) {
   -moz-transition: all 0.1s 0.075s ease-out;
   -o-transition: all 0.1s 0.075s ease-out;
   -webkit-transition: all 0.1s 0.075s ease-out;
   transition: all 0.1s 0.075s ease-out;
 }
-/* line 251, sass/blocks/production/builder/_filters.scss */
+/* line 252, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option:nth-child(5) {
   -moz-transition: all 0.1s 0.05s ease-out;
   -o-transition: all 0.1s 0.05s ease-out;
   -webkit-transition: all 0.1s 0.05s ease-out;
   transition: all 0.1s 0.05s ease-out;
 }
-/* line 251, sass/blocks/production/builder/_filters.scss */
+/* line 252, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option:nth-child(6) {
   -moz-transition: all 0.1s 0.025s ease-out;
   -o-transition: all 0.1s 0.025s ease-out;
   -webkit-transition: all 0.1s 0.025s ease-out;
   transition: all 0.1s 0.025s ease-out;
 }
-/* line 251, sass/blocks/production/builder/_filters.scss */
+/* line 252, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.color .filter-option:nth-child(7) {
   -moz-transition: all 0.1s 0s ease-out;
   -o-transition: all 0.1s 0s ease-out;
   -webkit-transition: all 0.1s 0s ease-out;
   transition: all 0.1s 0s ease-out;
 }
-/* line 261, sass/blocks/production/builder/_filters.scss */
+/* line 262, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.brightness .filter-option:nth-child(1), .filters .filterContainer.flexibility .filter-option:nth-child(1) {
   -moz-transition: all 0.1s 0.1s ease-out;
   -o-transition: all 0.1s 0.1s ease-out;
   -webkit-transition: all 0.1s 0.1s ease-out;
   transition: all 0.1s 0.1s ease-out;
 }
-/* line 261, sass/blocks/production/builder/_filters.scss */
+/* line 262, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.brightness .filter-option:nth-child(2), .filters .filterContainer.flexibility .filter-option:nth-child(2) {
   -moz-transition: all 0.1s 0.05s ease-out;
   -o-transition: all 0.1s 0.05s ease-out;
   -webkit-transition: all 0.1s 0.05s ease-out;
   transition: all 0.1s 0.05s ease-out;
 }
-/* line 261, sass/blocks/production/builder/_filters.scss */
+/* line 262, sass/blocks/production/builder/_filters.scss */
 .filters .filterContainer.brightness .filter-option:nth-child(3), .filters .filterContainer.flexibility .filter-option:nth-child(3) {
   -moz-transition: all 0.1s 0s ease-out;
   -o-transition: all 0.1s 0s ease-out;
@@ -1263,12 +1364,12 @@ ul.builder li.other > .filters:before {
   transition: all 0.1s 0s ease-out;
 }
 @media only screen and (max-width: 1400px) {
-  /* line 269, sass/blocks/production/builder/_filters.scss */
+  /* line 270, sass/blocks/production/builder/_filters.scss */
   .filters .filterContainer:after {
     display: none;
   }
 }
-/* line 275, sass/blocks/production/builder/_filters.scss */
+/* line 276, sass/blocks/production/builder/_filters.scss */
 .filters .filter {
   -moz-transition: all 0.2s ease-in, z-index 0.2s step-end;
   -o-transition: all 0.2s ease-in, z-index 0.2s step-end;
@@ -1279,7 +1380,7 @@ ul.builder li.other > .filters:before {
   max-width: 150px;
   z-index: 1;
 }
-/* line 282, sass/blocks/production/builder/_filters.scss */
+/* line 283, sass/blocks/production/builder/_filters.scss */
 .filters .filter .filter-option {
   display: -webkit-flex;
   display: flex;
@@ -1303,21 +1404,21 @@ ul.builder li.other > .filters:before {
   visibility: hidden;
   width: 100%;
 }
-/* line 299, sass/blocks/production/builder/_filters.scss */
+/* line 300, sass/blocks/production/builder/_filters.scss */
 .filters .filter .filter-option input:checked + label {
   background-color: white;
   border: solid 5px #838383;
   opacity: 1;
 }
-/* line 303, sass/blocks/production/builder/_filters.scss */
+/* line 304, sass/blocks/production/builder/_filters.scss */
 .filters .filter .filter-option input:checked + label:before {
   background-image: url("http://placehold.it/25");
 }
-/* line 308, sass/blocks/production/builder/_filters.scss */
+/* line 309, sass/blocks/production/builder/_filters.scss */
 .filters .filter .filter-option input {
   display: none;
 }
-/* line 312, sass/blocks/production/builder/_filters.scss */
+/* line 313, sass/blocks/production/builder/_filters.scss */
 .filters .filter .filter-option label {
   display: -webkit-flex;
   display: flex;
@@ -1331,11 +1432,11 @@ ul.builder li.other > .filters:before {
   width: 100%;
   opacity: 0.65;
 }
-/* line 322, sass/blocks/production/builder/_filters.scss */
+/* line 323, sass/blocks/production/builder/_filters.scss */
 .filters .filter .filter-option label:hover {
   opacity: 0.9;
 }
-/* line 330, sass/blocks/production/builder/_filters.scss */
+/* line 331, sass/blocks/production/builder/_filters.scss */
 .filters button {
   display: none;
   position: absolute;
@@ -1346,22 +1447,22 @@ ul.builder li.other > .filters:before {
   text-transform: uppercase;
 }
 @media only screen and (max-width: 1250px) {
-  /* line 342, sass/blocks/production/builder/_filters.scss */
+  /* line 343, sass/blocks/production/builder/_filters.scss */
   .filters .filterContainer h2:after {
     display: none;
   }
-  /* line 346, sass/blocks/production/builder/_filters.scss */
+  /* line 347, sass/blocks/production/builder/_filters.scss */
   .filters .filterContainer.color .filter-option label:after {
     right: 1em;
   }
 }
 @media only screen and (max-width: 979px) {
-  /* line 353, sass/blocks/production/builder/_filters.scss */
+  /* line 354, sass/blocks/production/builder/_filters.scss */
   .filters button, .filters div {
     display: none;
   }
 }
-/* line 358, sass/blocks/production/builder/_filters.scss */
+/* line 359, sass/blocks/production/builder/_filters.scss */
 li.length .filters > div {
   position: absolute;
   right: 5%;
@@ -1369,12 +1470,12 @@ li.length .filters > div {
   width: 90%;
   height: 60%;
 }
-/* line 365, sass/blocks/production/builder/_filters.scss */
+/* line 366, sass/blocks/production/builder/_filters.scss */
 li.length .filters > div img {
   position: absolute;
   right: 0;
 }
-/* line 369, sass/blocks/production/builder/_filters.scss */
+/* line 370, sass/blocks/production/builder/_filters.scss */
 li.length .filters > div img.measurement {
   top: 20px;
   width: 0%;
@@ -1387,19 +1488,19 @@ li.length .filters > div img.measurement {
   -webkit-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
-/* line 379, sass/blocks/production/builder/_filters.scss */
+/* line 380, sass/blocks/production/builder/_filters.scss */
 li.length .filters > div img.notice {
   top: 0;
   max-height: 100%;
   max-width: 100%;
   cursor: pointer;
 }
-/* line 387, sass/blocks/production/builder/_filters.scss */
+/* line 388, sass/blocks/production/builder/_filters.scss */
 li.length .filters > div.showNotice .measurement {
   border-width: 3px;
   width: 100%;
 }
-/* line 393, sass/blocks/production/builder/_filters.scss */
+/* line 394, sass/blocks/production/builder/_filters.scss */
 .filters .clearFilter {
   background-color: #867443;
   bottom: -15px;
@@ -1417,9 +1518,9 @@ li.length .filters > div.showNotice .measurement {
   width: 115px;
   z-index: 200;
 }
-/* line 410, sass/blocks/production/builder/_filters.scss */
+/* line 411, sass/blocks/production/builder/_filters.scss */
 .filters .clearFilter:before {
-  background: url("images//misc/filters/x.png") no-repeat scroll center center/100% 100% transparent;
+  background: url("images/misc/x.white.png") no-repeat scroll center center/100% 100% transparent;
   content: "";
   display: block;
   height: 8px;
@@ -1428,12 +1529,12 @@ li.length .filters > div.showNotice .measurement {
   top: 3.5px;
   width: 8px;
 }
-/* line 422, sass/blocks/production/builder/_filters.scss */
+/* line 423, sass/blocks/production/builder/_filters.scss */
 .filters .filter-on ~ .clearFilter {
   display: block;
 }
 
-/* line 428, sass/blocks/production/builder/_filters.scss */
+/* line 429, sass/blocks/production/builder/_filters.scss */
 .options.empty:before, .options.empty:after {
   display: block;
   margin-left: auto;
@@ -1442,7 +1543,7 @@ li.length .filters > div.showNotice .measurement {
   text-align: center;
   width: 100%;
 }
-/* line 436, sass/blocks/production/builder/_filters.scss */
+/* line 437, sass/blocks/production/builder/_filters.scss */
 .options.empty:before {
   content: "Sorry!";
   font-size: 30px;
@@ -1450,7 +1551,7 @@ li.length .filters > div.showNotice .measurement {
   letter-spacing: 2px;
   margin-top: 3em;
 }
-/* line 444, sass/blocks/production/builder/_filters.scss */
+/* line 445, sass/blocks/production/builder/_filters.scss */
 .options.empty:after {
   content: "None of these options match your criteria. Try broadening some options and try again.";
   font-size: 16px;
@@ -2004,10 +2105,67 @@ li.length .rulers .ui-state-active {
   bottom: 0;
 }
 /* line 318, sass/blocks/production/builder/options/_option.scss */
+.option .notice_onlyPatch {
+  background: url("images/builder/notice.png") no-repeat scroll center center/100% auto transparent;
+  border-radius: 50%;
+  height: 10px;
+  position: absolute;
+  right: 10px;
+  top: 158px;
+  width: 10px;
+  /**
+   * notice fade transitions
+   */
+}
+/* line 327, sass/blocks/production/builder/options/_option.scss */
+.option .notice_onlyPatch span {
+  background-color: #eee;
+  border: solid 1px black;
+  border-bottom: solid 5px black;
+  bottom: 16px;
+  color: black;
+  padding: 5px;
+  position: absolute;
+  opacity: 0;
+  right: -3px;
+  visibility: hidden;
+  width: 125px;
+}
+/* line 340, sass/blocks/production/builder/options/_option.scss */
+.option .notice_onlyPatch span:before {
+  position: absolute;
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  bottom: -12px;
+  right: 4px;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  border-top: 7px solid black;
+  border-bottom: none;
+}
+/* line 359, sass/blocks/production/builder/options/_option.scss */
+.option .notice_onlyPatch span {
+  -moz-transition: opacity 0.3s ease-out, visibility 0.3s step-end;
+  -o-transition: opacity 0.3s ease-out, visibility 0.3s step-end;
+  -webkit-transition: opacity 0.3s ease-out, visibility 0.3s step-end;
+  transition: opacity 0.3s ease-out, visibility 0.3s step-end;
+}
+/* line 364, sass/blocks/production/builder/options/_option.scss */
+.option .notice_onlyPatch:hover span {
+  -moz-transition: opacity 0.3s ease-out, visibility 0.3s step-start;
+  -o-transition: opacity 0.3s ease-out, visibility 0.3s step-start;
+  -webkit-transition: opacity 0.3s ease-out, visibility 0.3s step-start;
+  transition: opacity 0.3s ease-out, visibility 0.3s step-start;
+  opacity: 1;
+  visibility: visible;
+}
+/* line 373, sass/blocks/production/builder/options/_option.scss */
 .option[data-oos-option="true"] {
   cursor: default;
 }
-/* line 321, sass/blocks/production/builder/options/_option.scss */
+/* line 376, sass/blocks/production/builder/options/_option.scss */
 .option[data-oos-option="true"]:before {
   background-color: black;
   color: white;
@@ -2020,7 +2178,7 @@ li.length .rulers .ui-state-active {
   bottom: 0;
   width: 100%;
 }
-/* line 334, sass/blocks/production/builder/options/_option.scss */
+/* line 389, sass/blocks/production/builder/options/_option.scss */
 .option[data-oos-option="true"]:after {
   background: url("images/misc/outofstock.png") no-repeat scroll center center/100% auto rgba(0, 0, 0, 0.224);
   content: "";
@@ -2031,7 +2189,7 @@ li.length .rulers .ui-state-active {
   top: 0;
   left: 0;
 }
-/* line 347, sass/blocks/production/builder/options/_option.scss */
+/* line 402, sass/blocks/production/builder/options/_option.scss */
 .option[data-oos-option="true"]:hover .select:before, .option[data-oos-option="true"]:hover .select:after, .option[data-oos-option="true"]:hover .select button:before, .option[data-oos-option="true"]:hover .select button:after {
   background-color: transparent;
 }
@@ -2118,7 +2276,7 @@ li.length .rulers .ui-state-active {
 /* line 109, sass/blocks/production/builder/_options.scss */
 .options ~ .scrollIndicator {
   width: 25px;
-  height: 50px;
+  height: 28px;
   position: absolute;
   left: 0;
   bottom: 66px;
@@ -2131,26 +2289,31 @@ li.length .rulers .ui-state-active {
 }
 /* line 120, sass/blocks/production/builder/_options.scss */
 .options ~ .scrollIndicator .seeMore.up {
-  background-color: red;
+  background: url("images/builder/indicator.png") no-repeat scroll center center/60% auto transparent;
   top: 0;
+  -moz-transform: scaleY(-1);
+  -ms-transform: scaleY(-1);
+  -webkit-transform: scaleY(-1);
+  transform: scaleY(-1);
 }
-/* line 125, sass/blocks/production/builder/_options.scss */
+/* line 126, sass/blocks/production/builder/_options.scss */
 .options ~ .scrollIndicator .seeMore.down {
-  background-color: blue;
+  background: url("images/builder/indicator.png") no-repeat scroll center center/60% auto transparent;
   bottom: 0;
 }
 
-/* line 134, sass/blocks/production/builder/_options.scss */
+/* line 135, sass/blocks/production/builder/_options.scss */
 li.other .options {
   padding: 2em;
   max-width: 600px;
   margin: 0 auto;
+  min-width: 350px;
 }
-/* line 139, sass/blocks/production/builder/_options.scss */
+/* line 141, sass/blocks/production/builder/_options.scss */
 li.other .options span.extraCost {
   color: #aaa;
 }
-/* line 143, sass/blocks/production/builder/_options.scss */
+/* line 145, sass/blocks/production/builder/_options.scss */
 li.other .options .other {
   cursor: default;
   display: block;
@@ -2159,12 +2322,12 @@ li.other .options .other {
   padding-bottom: 15px;
   height: 120px;
 }
-/* line 151, sass/blocks/production/builder/_options.scss */
+/* line 153, sass/blocks/production/builder/_options.scss */
 li.other .options .other.other h3 {
   margin: 0;
   margin-bottom: 1em;
 }
-/* line 155, sass/blocks/production/builder/_options.scss */
+/* line 157, sass/blocks/production/builder/_options.scss */
 li.other .options .other.other h3 p {
   font-size: 10px;
   font-weight: 300;
@@ -2175,11 +2338,11 @@ li.other .options .other.other h3 p {
   text-transform: none;
   max-width: 200px;
 }
-/* line 167, sass/blocks/production/builder/_options.scss */
+/* line 169, sass/blocks/production/builder/_options.scss */
 li.other .options .other:not(:last-child) {
   border-bottom: 1px solid #bbb;
 }
-/* line 171, sass/blocks/production/builder/_options.scss */
+/* line 173, sass/blocks/production/builder/_options.scss */
 li.other .options .other.techflex {
   height: 175px;
   width: 100%;
@@ -2188,42 +2351,42 @@ li.other .options .other.techflex {
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
-/* line 177, sass/blocks/production/builder/_options.scss */
+/* line 179, sass/blocks/production/builder/_options.scss */
 li.other .options .other.techflex h3 {
   text-align: left;
   margin-bottom: 0;
 }
-/* line 181, sass/blocks/production/builder/_options.scss */
+/* line 183, sass/blocks/production/builder/_options.scss */
 li.other .options .other.techflex h3 span.extraCost {
   display: inline-block;
   margin-left: 5px;
 }
-/* line 186, sass/blocks/production/builder/_options.scss */
+/* line 188, sass/blocks/production/builder/_options.scss */
 li.other .options .other.techflex h3 p {
   text-align: left;
   max-width: 100%;
 }
-/* line 193, sass/blocks/production/builder/_options.scss */
+/* line 195, sass/blocks/production/builder/_options.scss */
 li.other .options .other.heatshrink, li.other .options .other.reverse_plugs {
   width: 50%;
 }
-/* line 196, sass/blocks/production/builder/_options.scss */
+/* line 198, sass/blocks/production/builder/_options.scss */
 li.other .options .other.heatshrink .option, li.other .options .other.reverse_plugs .option {
   cursor: default;
   margin: 0 auto;
   width: 60%;
 }
-/* line 201, sass/blocks/production/builder/_options.scss */
+/* line 203, sass/blocks/production/builder/_options.scss */
 li.other .options .other.heatshrink .option input, li.other .options .other.reverse_plugs .option input {
   display: none;
 }
-/* line 205, sass/blocks/production/builder/_options.scss */
+/* line 207, sass/blocks/production/builder/_options.scss */
 li.other .options .other.heatshrink .option input:checked ~ label, li.other .options .other.reverse_plugs .option input:checked ~ label {
   background-position: center bottom;
 }
-/* line 209, sass/blocks/production/builder/_options.scss */
+/* line 211, sass/blocks/production/builder/_options.scss */
 li.other .options .other.heatshrink .option label, li.other .options .other.reverse_plugs .option label {
-  background-image: url("images/check.png");
+  background-image: url("images/builder/check.png");
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center top;
@@ -2233,27 +2396,30 @@ li.other .options .other.heatshrink .option label, li.other .options .other.reve
   margin: 0 auto;
   width: 20px;
 }
-/* line 223, sass/blocks/production/builder/_options.scss */
+/* line 225, sass/blocks/production/builder/_options.scss */
 li.other .options .other.heatshrink {
   position: relative;
 }
-/* line 225, sass/blocks/production/builder/_options.scss */
+/* line 227, sass/blocks/production/builder/_options.scss */
 li.other .options .other.heatshrink button.explain {
   width: 15px;
   height: 15px;
   background-color: #ccc;
-  border: solid 1px black;
+  border: solid 1px #bbb;
   border-radius: 50%;
   font-size: 10px;
   font-weight: 300;
   padding-left: 2px;
+  position: relative;
+  right: -5px;
+  top: -3px;
 }
-/* line 235, sass/blocks/production/builder/_options.scss */
+/* line 240, sass/blocks/production/builder/_options.scss */
 li.other .options .other.heatshrink span.extraCost {
   float: left;
   margin-top: 4px;
 }
-/* line 240, sass/blocks/production/builder/_options.scss */
+/* line 245, sass/blocks/production/builder/_options.scss */
 li.other .options .other.heatshrink:before {
   content: "";
   position: absolute;
@@ -2264,11 +2430,29 @@ li.other .options .other.heatshrink:before {
   width: 1px;
   display: block;
 }
-/* line 252, sass/blocks/production/builder/_options.scss */
+@media only screen and (max-width: 950px) {
+  /* line 256, sass/blocks/production/builder/_options.scss */
+  li.other .options .other.heatshrink .option {
+    width: 90%;
+  }
+}
+@media only screen and (min-width: 951px) and (max-width: 1110px) {
+  /* line 256, sass/blocks/production/builder/_options.scss */
+  li.other .options .other.heatshrink .option {
+    width: 80%;
+  }
+}
+@media only screen and (min-width: 1111px) and (max-width: 1230px) {
+  /* line 256, sass/blocks/production/builder/_options.scss */
+  li.other .options .other.heatshrink .option {
+    width: 70%;
+  }
+}
+/* line 271, sass/blocks/production/builder/_options.scss */
 li.other .options .other.quantity {
   width: 100%;
 }
-/* line 255, sass/blocks/production/builder/_options.scss */
+/* line 274, sass/blocks/production/builder/_options.scss */
 li.other .options .other.quantity input {
   width: 50px;
   padding: 0.5em;
@@ -2278,50 +2462,54 @@ li.other .options .other.quantity input {
   display: block;
   margin: 0.5em auto 0;
 }
-/* line 268, sass/blocks/production/builder/_options.scss */
+/* line 287, sass/blocks/production/builder/_options.scss */
 li.other .option {
   border: none;
 }
-/* line 272, sass/blocks/production/builder/_options.scss */
+/* line 291, sass/blocks/production/builder/_options.scss */
 li.other .option.techflex {
   height: 100px;
   min-width: auto;
   width: 75px;
 }
-/* line 277, sass/blocks/production/builder/_options.scss */
+/* line 296, sass/blocks/production/builder/_options.scss */
 li.other .option.techflex .reset {
   display: none;
 }
-/* line 281, sass/blocks/production/builder/_options.scss */
+/* line 300, sass/blocks/production/builder/_options.scss */
+li.other .option.techflex .techflexColor {
+  color: black;
+}
+/* line 304, sass/blocks/production/builder/_options.scss */
 li.other .option.techflex input {
   display: none;
 }
-/* line 285, sass/blocks/production/builder/_options.scss */
+/* line 308, sass/blocks/production/builder/_options.scss */
 li.other .option.techflex input[value="white"] + label:before {
-  background-image: url("images//display/techflex/white.png");
-  background-color: red;
+  background-image: url("images/misc/other/techflex/white.png");
+  background-color: black;
 }
-/* line 290, sass/blocks/production/builder/_options.scss */
+/* line 313, sass/blocks/production/builder/_options.scss */
 li.other .option.techflex input[value="black"] + label:before {
-  background-image: url("images//display/techflex/black.png");
-  background-color: red;
+  background-image: url("images/misc/other/techflex/black.png");
+  background-color: white;
 }
-/* line 295, sass/blocks/production/builder/_options.scss */
+/* line 318, sass/blocks/production/builder/_options.scss */
 li.other .option.techflex input[value="gray"] + label:before {
-  background-image: url("images//display/techflex/gray.png");
-  background-color: red;
+  background-image: url("images/misc/other/techflex/gray.png");
+  background-color: white;
 }
-/* line 300, sass/blocks/production/builder/_options.scss */
+/* line 323, sass/blocks/production/builder/_options.scss */
 li.other .option.techflex input + label:after {
   content: "Pick me!";
 }
-/* line 304, sass/blocks/production/builder/_options.scss */
+/* line 327, sass/blocks/production/builder/_options.scss */
 li.other .option.techflex input:checked + label:after {
   content: "Picked!";
   background-color: white;
   color: black;
 }
-/* line 310, sass/blocks/production/builder/_options.scss */
+/* line 333, sass/blocks/production/builder/_options.scss */
 li.other .option.techflex label {
   background-color: black;
   border: solid 1px #ccc;
@@ -2331,7 +2519,7 @@ li.other .option.techflex label {
   position: relative;
   width: 75px;
 }
-/* line 319, sass/blocks/production/builder/_options.scss */
+/* line 342, sass/blocks/production/builder/_options.scss */
 li.other .option.techflex label:after, li.other .option.techflex label:before {
   cursor: pointer;
   position: absolute;
@@ -2340,13 +2528,13 @@ li.other .option.techflex label:after, li.other .option.techflex label:before {
   display: block;
   left: 0;
 }
-/* line 328, sass/blocks/production/builder/_options.scss */
+/* line 351, sass/blocks/production/builder/_options.scss */
 li.other .option.techflex label:after {
   height: 25px;
   line-height: 25px;
   bottom: 0;
 }
-/* line 334, sass/blocks/production/builder/_options.scss */
+/* line 357, sass/blocks/production/builder/_options.scss */
 li.other .option.techflex label:before {
   height: 75px;
   top: 0;
@@ -2360,25 +2548,25 @@ li.other .option.techflex label:before {
   -o-transition: all 0.3s ease-out;
   -webkit-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
-  position: relative;
-  z-index: 2;
-  margin-left: 0;
   height: 80%;
+  margin-left: 0;
   padding-right: 65px;
+  position: relative;
   width: 50%;
+  z-index: 2;
 }
-/* line 24, sass/blocks/production/_builder.scss */
+/* line 15, sass/blocks/production/_builder.scss */
 .builders .options .outer {
   width: 95%;
 }
 
-/* line 29, sass/blocks/production/_builder.scss */
+/* line 20, sass/blocks/production/_builder.scss */
 .slimScrollDiv {
   padding-bottom: 66px;
   height: 90% !important;
 }
 
-/* line 34, sass/blocks/production/_builder.scss */
+/* line 25, sass/blocks/production/_builder.scss */
 .cableTypes {
   display: -webkit-flex;
   display: flex;
@@ -2389,7 +2577,7 @@ li.other .option.techflex label:before {
   text-align: center;
   display: none;
 }
-/* line 41, sass/blocks/production/_builder.scss */
+/* line 32, sass/blocks/production/_builder.scss */
 .cableTypes .tab {
   -webkit-flex-grow: 1;
   flex-grow: 1;
@@ -2404,16 +2592,16 @@ li.other .option.techflex label:before {
   font-size: 12px;
   letter-spacing: 1px;
 }
-/* line 54, sass/blocks/production/_builder.scss */
+/* line 45, sass/blocks/production/_builder.scss */
 .cableTypes .tab:not(:first-child) {
   border-left: none;
 }
-/* line 58, sass/blocks/production/_builder.scss */
+/* line 49, sass/blocks/production/_builder.scss */
 .cableTypes .tab.selected {
   background-color: #050505;
 }
 
-/* line 64, sass/blocks/production/_builder.scss */
+/* line 55, sass/blocks/production/_builder.scss */
 .builder {
   background: #fdfdfd;
   border: solid 1px #ccc;
@@ -2422,39 +2610,48 @@ li.other .option.techflex label:before {
   z-index: 10;
   box-shadow: 0 0 10px 1px #ccc;
 }
-/* line 72, sass/blocks/production/_builder.scss */
+/* line 63, sass/blocks/production/_builder.scss */
 .builder, .builder > li {
   height: 100%;
 }
-/* line 76, sass/blocks/production/_builder.scss */
+/* line 67, sass/blocks/production/_builder.scss */
 .builder.selected {
   display: block;
 }
-/* line 80, sass/blocks/production/_builder.scss */
+/* line 71, sass/blocks/production/_builder.scss */
 .builder > li {
   display: none;
   overflow: hidden;
 }
-/* line 84, sass/blocks/production/_builder.scss */
+/* line 75, sass/blocks/production/_builder.scss */
 .builder > li.current {
   display: block;
 }
-/* line 89, sass/blocks/production/_builder.scss */
+@media only screen and (max-width: 1050px) {
+  /* line 80, sass/blocks/production/_builder.scss */
+  .builder > li.other .options .other.outer {
+    width: 100%;
+  }
+  /* line 83, sass/blocks/production/_builder.scss */
+  .builder > li.other .options .other.outer:before {
+    background-color: transparent;
+  }
+}
+/* line 90, sass/blocks/production/_builder.scss */
 .builder button.expand {
-  width: 30px;
-  height: 30px;
-  background-color: white;
+  width: 44px;
+  height: 62px;
+  background: url("images/builder/expand.png") no-repeat scroll center center/100% auto transparent;
   position: absolute;
-  left: -31px;
+  left: -38px;
   top: 50%;
-  border: solid 1px #ccc;
-  border-right: 0;
+  border: 0;
 }
 /* line 99, sass/blocks/production/_builder.scss */
 .builder button.expand:after {
   position: absolute;
-  left: 9px;
-  top: 8px;
+  left: 24px;
+  top: 24px;
   display: block;
   content: "";
   width: 0;
@@ -2470,14 +2667,15 @@ li.other .option.techflex label:before {
 }
 /* line 114, sass/blocks/production/_builder.scss */
 #body.expanded .builder button.expand:after {
-  left: 10px;
+  left: 26px;
+  background-image: url("images/builder/collapse.png");
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 
-/* line 121, sass/blocks/production/_builder.scss */
+/* line 122, sass/blocks/production/_builder.scss */
 .step {
   position: absolute;
   bottom: 0;
@@ -2487,7 +2685,7 @@ li.other .option.techflex label:before {
   background-color: #262626;
   z-index: 100;
 }
-/* line 130, sass/blocks/production/_builder.scss */
+/* line 131, sass/blocks/production/_builder.scss */
 .step button {
   background: none repeat scroll 0 0 transparent;
   border: 1px solid white;
@@ -2500,56 +2698,77 @@ li.other .option.techflex label:before {
   position: relative;
   text-transform: uppercase;
 }
-/* line 142, sass/blocks/production/_builder.scss */
-.step button:before, .step button:after {
+/* line 143, sass/blocks/production/_builder.scss */
+.step button:before {
+  background-repeat: no-repeat;
+  background-size: 100% auto;
   content: "";
   position: absolute;
   display: block;
-  height: 0;
-  width: 0;
+  height: 12px;
+  width: 7px;
   top: 11px;
 }
-/* line 154, sass/blocks/production/_builder.scss */
+/* line 157, sass/blocks/production/_builder.scss */
 .step button.previous {
   float: left;
 }
-/* line 157, sass/blocks/production/_builder.scss */
+/* line 160, sass/blocks/production/_builder.scss */
 .step button.previous:before {
-  left: 5px;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-right: 7px solid white;
-  border-left: none;
+  background-image: url("images/builder/step/arrow.png");
+  left: 9px;
+  -moz-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
-/* line 165, sass/blocks/production/_builder.scss */
-.step button.previous:after {
-  left: 10px;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-right: 2px solid #444;
-  border-left: none;
-}
-/* line 174, sass/blocks/production/_builder.scss */
+/* line 167, sass/blocks/production/_builder.scss */
 .step button.next {
   float: right;
 }
-/* line 177, sass/blocks/production/_builder.scss */
+/* line 170, sass/blocks/production/_builder.scss */
 .step button.next:before {
-  right: 5px;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 7px solid white;
-  border-right: none;
-}
-/* line 185, sass/blocks/production/_builder.scss */
-.step button.next:after {
-  right: 10px;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 2px solid #444;
-  border-right: none;
+  background-image: url("images/builder/step/arrow.png");
+  right: 9px;
 }
 
+/**
+ * Media Queries
+ */
+@media only screen and (min-width: 650px) and (max-width: 761px) {
+  /* line 182, sass/blocks/production/_builder.scss */
+  .slimScrollDiv {
+    padding-bottom: 48px;
+  }
+
+  /* line 185, sass/blocks/production/_builder.scss */
+  .step {
+    padding: 0.5em;
+  }
+  /* line 188, sass/blocks/production/_builder.scss */
+  .step button {
+    padding: 1em 1.5em;
+  }
+}
+@media only screen and (max-width: 649px) {
+  /* line 194, sass/blocks/production/_builder.scss */
+  .slimScrollDiv {
+    padding-bottom: 22px;
+  }
+
+  /* line 197, sass/blocks/production/_builder.scss */
+  .step {
+    padding: 0.25em;
+  }
+  /* line 200, sass/blocks/production/_builder.scss */
+  .step button {
+    padding: 0.1em;
+  }
+  /* line 202, sass/blocks/production/_builder.scss */
+  .step button:before {
+    background: none;
+  }
+}
 /* line 5, sass/blocks/_production.scss */
 #production {
   background-image: url("images/background.jpg");
@@ -3089,10 +3308,11 @@ html, body, #content, #body, #confirmation {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-/* line 75, sass/screen.scss */
+/* line 76, sass/screen.scss */
 .modal .info {
   background-color: white;
   opacity: 0;
+  overflow: hidden;
   width: 1000px;
   height: 600px;
   max-width: 80%;
@@ -3107,37 +3327,53 @@ html, body, #content, #body, #confirmation {
   -webkit-transform: translateX(20%);
   transform: translateX(20%);
 }
-/* line 86, sass/screen.scss */
+/* line 87, sass/screen.scss */
+.modal .info button.close {
+  top: 15px;
+  left: 15px;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  border: 0;
+  background: url("images/misc/x.black.png") no-repeat scroll center center/100% 100% transparent;
+}
+/* line 98, sass/screen.scss */
 .modal .tourproof {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-justify-content: center;
+  justify-content: center;
+  height: 100%;
   width: 800px;
   text-align: center;
   margin: 0 auto;
 }
-/* line 91, sass/screen.scss */
+/* line 107, sass/screen.scss */
 .modal .tourproof p {
   letter-spacing: 1px;
-  margin: 1em auto;
   font-size: 12px;
   line-height: 20px;
   width: 520px;
 }
-/* line 98, sass/screen.scss */
+/* line 113, sass/screen.scss */
 .modal .tourproof p:first-child {
   margin-top: 2em;
 }
-/* line 103, sass/screen.scss */
+/* line 118, sass/screen.scss */
 .modal .tourproof img {
-  position: absolute;
-  bottom: 0;
-  max-height: 60%;
+  max-height: 50%;
+  -webkit-align-self: flex-end;
+  align-self: flex-end;
 }
 
-/* line 111, sass/screen.scss */
+/* line 125, sass/screen.scss */
 body.modal-open .modal {
   visibility: visible;
   opacity: 1;
 }
-/* line 115, sass/screen.scss */
+/* line 129, sass/screen.scss */
 body.modal-open .modal .info {
   opacity: 1;
   -moz-transform: translateX(0);
@@ -3146,7 +3382,7 @@ body.modal-open .modal .info {
   transform: translateX(0);
 }
 
-/* line 122, sass/screen.scss */
+/* line 136, sass/screen.scss */
 .slimScrollBar[style*="display: none"] ~ .slimScrollRail, .slimScrollBar[style*="display: none"] ~ .scrollIndicator {
   display: none !important;
 }

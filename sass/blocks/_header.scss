@@ -1,6 +1,6 @@
 header {
     $font-color: #7c7c7c;
-    $font-accent: #666;
+    $font-accent: #3c3c3c;
 
     background-color: white;
     border-bottom: solid 2px gray;
@@ -13,8 +13,8 @@ header {
     .outer {
         width: 100%;
         height: 30px;
-        max-width: 500px;
-        margin: 10px auto;
+        max-width: 800px;
+        margin: 0 auto;
         line-height: 30px;
 
         a.logo {
@@ -31,8 +31,8 @@ header {
         ul {
             @include clearfix;
             clear: none;
-            margin: 0 auto;
-            width: 430px;
+            margin: 10px auto;
+            width: 90%;
 
             li {
                 float: left;
@@ -57,6 +57,18 @@ header {
 
                 a:hover, a:focus, a:active {
                     color: $font-accent;
+                }
+
+                .cart {
+                    background: url('/v/s/images/header/cart.png') no-repeat scroll center center / 100% auto transparent;
+                    height: 20px;
+                    width: 20px;
+                    display: block;
+                    margin-top: 5px;
+
+                    &:hover {
+                        background-image: url('/v/s/images/header/cart-hover.png');
+                    }
                 }
             }
         }

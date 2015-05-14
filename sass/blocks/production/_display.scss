@@ -40,7 +40,7 @@
                 left: 0;
                 height: 100%;
                 background-size: 30%;
-                background: url("/v/s/images/loading.gif") no-repeat scroll center center / 30% auto rgba(50,50,50,0.5);
+                background: url("/v/s/images/loading.gif") no-repeat scroll center center / 30% auto rgba(255,255,255,0.75);
                 z-index: 999;
 
             }
@@ -106,13 +106,26 @@
 #body {
     &.patch {
         .display {
+            // triangles 8-11-sqrt(185) and 9-12-15
+            // triangles made from pixel distances from dot to dot in patch image
+            // angle of rotation roughly a little more than 36
+            .inputPlug img, .outputPlug img {
+                @include transform(rotate(-38deg));
+            }
+        }
 
-            .inputPlug, .outputPlug {
-                img {
-                    // triangles 8-11-sqrt(185) and 9-12-15
-                    // triangles made from pixel distances from dot to dot in patch image
-                    // angle of rotation roughly a little more than 36
-                    @include transform(rotate(-36deg));
+        &.reverse_plugs {
+            .display {
+                .inputPlug img {
+                    @include transform(rotate(-38deg) scaleX(-1));
+                }
+            }
+
+            #inputPlugSelector {
+                right: 100%;
+
+                .dot {
+                    left: -20px;
                 }
             }
         }

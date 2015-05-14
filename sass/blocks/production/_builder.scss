@@ -5,21 +5,12 @@
 .builders {
     @include align-self(center);
     @include transition(all 0.3s ease-out);
-    position: relative;
-    z-index: 2;
+    height: 80%;
     margin-left: 0;
-
-    // @include bp(max-width, $bp-small) {
-    //     height: 50%;
-    //     margin: 0 auto;
-    //     width: 100%;
-    // }
-
-    // @include bp(min-width, $bp-small + 1) {
-        height: 80%;
-        padding-right: 65px;
-        width: 50%;
-    // }
+    padding-right: 65px;
+    position: relative;
+    width: 50%;
+    z-index: 2;
 
     .options .outer {
         width: 95%;
@@ -84,22 +75,31 @@
         &.current {
             display: block;
         }
+
+        @include bp(max-width, 1050px) {
+            &.other .options .other.outer {
+                width: 100%;
+
+                &:before {
+                    background-color: transparent;
+                }
+            }
+        }
     }
 
     button.expand {
-        width: 30px;
-        height: 30px;
-        background-color: white;
+        width: 44px;
+        height: 62px;
+        background: url($media-folder + 'builder/expand.png') no-repeat scroll center center / 100% auto transparent;
         position: absolute;
-        left: -31px;
+        left: -38px;
         top: 50%;
-        border: solid 1px #ccc;
-        border-right: 0;
+        border: 0;
 
         &:after {
             position: absolute;
-            left: 9px;
-            top: 8px;
+            left: 24px;
+            top: 24px;
             display: block;
             content: "";
             width: 0;
@@ -112,7 +112,8 @@
         }
 
         #body.expanded &:after {
-            left: 10px;
+            left: 26px;
+            background-image: url($media-folder + 'builder/collapse.png');
             @include transform(rotate(180deg));
         }
     }
@@ -139,12 +140,14 @@
         position: relative;
         text-transform: uppercase;
 
-        &:before, &:after {
+        &:before {
+            background-repeat: no-repeat;
+            background-size: 100% auto;
             content: "";
             position: absolute;
             display: block;
-            height: 0;
-            width: 0;
+            height: 12px;
+            width: 7px;
             top: 11px;
         }
 
@@ -155,19 +158,9 @@
             float: left;
 
             &:before {
-                left: 5px;
-                border-top: $step-width solid transparent;
-                border-bottom: $step-width solid transparent;
-                border-right: $step-height solid white;
-                border-left: none;
-            }
-
-            &:after {
-                left: 10px;
-                border-top: $step-width solid transparent;
-                border-bottom: $step-width solid transparent;
-                border-right: 2px solid #444;
-                border-left: none;
+                background-image: url($media-folder + 'builder/step/arrow.png');
+                left: 9px;
+                @include transform(scaleX(-1));
             }
         }
 
@@ -175,20 +168,38 @@
             float: right;
 
             &:before {
-                right: 5px;
-                border-top: $step-width solid transparent;
-                border-bottom: $step-width solid transparent;
-                border-left: $step-height solid white;
-                border-right: none;
+                background-image: url($media-folder + 'builder/step/arrow.png');
+                right: 9px;
             }
+        }
+    }
+}
 
-            &:after {
-                right: 10px;
-                border-top: $step-width solid transparent;
-                border-bottom: $step-width solid transparent;
-                border-left: 2px solid #444;
-                border-right: none;
-            }
+/**
+ * Media Queries
+ */
+@include bpw(650px, 761px) {
+    .slimScrollDiv {
+        padding-bottom: 48px;
+    }
+    .step {
+        padding: 0.5em;
+
+        button {
+            padding: 1em 1.5em;
+        }
+    }
+}
+@include bp(max-width, 649px) {
+    .slimScrollDiv {
+        padding-bottom: 22px;
+    }
+    .step {
+        padding: 0.25em;
+
+        button {
+            padding: 0.1em;
+            &:before {background: none;}
         }
     }
 }
