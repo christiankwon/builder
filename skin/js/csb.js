@@ -1424,6 +1424,7 @@
                 if( !$container.find('.build').length ) {
                     var $block = create();
                     $('.storage .builds').append($block);
+                    $('.tracker .dot.cable').click();
                 }
                 $container.find('.build').first().find('input[name="storage_build"]').prop('checked', true);
                 load();
