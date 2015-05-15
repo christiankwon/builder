@@ -1,0 +1,241 @@
+$dot-offset: -7px;
+$dot-diameter: 50px;
+$dot-background: 70%;
+
+#body {
+    &.regular {
+        #cableSelector {
+            top: 20px;
+        }
+        #outputPlugSelector, #inputPlugSelector {
+            right: -5%;
+            top: 65px;
+        }
+        #lengthSelector {
+            top: 40%;
+            right: -5%;
+        }
+    }
+
+    &.patch {
+        #cableSelector {
+            top: 10px;
+        }
+        #outputPlugSelector, #inputPlugSelector {
+            right: 10%;
+            top: 25%;
+        }
+
+        #lengthSelector {
+            top: 40%;
+            right: 7.5%;
+        }
+    }
+}
+
+.pointer {
+    .dot {
+        @include transition(all 0.25s ease-in-out);
+        background-color: #bcbcbc;
+        border: solid 1px #b5b5b5;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        overflow: hidden;
+        padding: 0;
+        position: relative;
+        text-align: center;
+        width: 24px;
+        z-index: 50;
+
+        &.current, &:hover {
+            width: $dot-diameter;
+            height: $dot-diameter;
+            line-height: $dot-diameter;
+
+            @include transition(all 0.25s ease);
+        }
+        &:before {
+            background-size: $dot-background auto;
+            background-color: #bcbcbc;
+            background-repeat: no-repeat;
+            background-position: center center;
+            display: block;
+            content: "";
+            height: $dot-diameter;
+            opacity: 0;
+            position: absolute;
+            text-align: center;
+            top: 1px;
+            width: $dot-diameter;
+            @include transition(all 0.25s ease);
+        }
+        &.current:before, &:hover:before {
+            opacity: 1;
+        }
+    }
+
+    .line {
+        background-color: #bcbcbc;
+    }
+}
+
+#cableSelector {
+    top: 20px;
+    left: 50%;
+    margin-left: -5px;
+
+    .line {
+        height: 40px;
+        width: 1px;
+        left: 5px;
+        bottom: 0;
+    }
+    .dot {
+        top: -50px;
+        left: $dot-offset;
+
+        &.current:before {
+            background-image: url($media-folder + 'misc/tracker/cable.png');
+        }
+
+        &:before {
+            background-image: url($media-folder + 'misc/tracker/cable-complete.png');
+        }
+
+        &.current, &:hover {
+            left: $dot-offset + -13px;
+            top: -75px;
+        }
+    }
+}
+
+#lengthSelector {
+    width: 10%;
+
+    .line {
+        height: 1px;
+        width: 100%;
+        top: 5px;
+        left: 0;
+    }
+    .dot {
+        top: $dot-offset;
+        left: 100%;
+
+        &.current:before {
+            background-image: url($media-folder + 'misc/tracker/length.png');
+        }
+
+        &:before {
+            background-image: url($media-folder + 'misc/tracker/length-complete.png');
+        }
+
+        &.current, &:hover {
+            top: $dot-offset + -13px;
+        }
+    }
+}
+
+#outputPlugSelector, #inputPlugSelector {
+    width: 25%;
+
+    .line {
+        height: 1px;
+        width: 100%;
+        top: 5px;
+        left: 0;
+    }
+
+    .dot {
+        left: 100%;
+        top: $dot-offset;
+    }
+}
+
+#inputPlugSelector {
+    .dot {
+        @include transform(scaleX(-1));
+
+        &.current:before {
+            background-image: url($media-folder + 'misc/tracker/inputPlug.png');
+        }
+        &:before {
+            background-image: url($media-folder + 'misc/tracker/inputPlug-complete.png');
+        }
+
+        &.current, &:hover {
+            top: $dot-offset + -13px;
+        }
+    }
+    
+}
+
+#outputPlugSelector {
+    .dot {
+        &.current:before {
+            background-image: url($media-folder + 'misc/tracker/outputPlug.png');
+        }
+        &:before {
+            background-image: url($media-folder + 'misc/tracker/outputPlug-complete.png');
+        }
+        &.current, &:hover {
+            top: $dot-offset + -13px;
+        }
+    }
+}
+
+#otherSelector {
+    top: -1em;
+    left: -1em;
+    z-index: 100;
+
+    .dot {
+        background-image: url($media-folder + 'misc/tracker/other-complete.png');
+        background-position: center 6px;
+        background-repeat: no-repeat;
+        background-size: 80% auto;
+        width: $dot-diameter;
+        height: $dot-diameter;
+
+        &.current {
+            background-image: url($media-folder + 'misc/tracker/other.png');
+        }
+
+        &:before {
+            background-color: transparent;
+        }
+    }
+}
+
+#techflexOverlay {
+    background-size: 100%;
+    border: solid 1px black;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    top: 10%;
+    width: 15%;
+    z-index: 15;
+    
+    $colors: 'black' 'gray' 'white';
+    @each $color in $colors {
+        &.#{$color} {
+            display: block;
+            background-image: url($media-folder + 'display/techflex/#{$color}.png');
+        }
+    }
+
+}
+#body.regular #techflexOverlay {
+    right: 11%;
+    padding-bottom: 15%;
+}
+
+#body.patch #techflexOverlay {
+    left: 20%;
+    padding-bottom: 15%;
+    right: auto;
+}
