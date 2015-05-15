@@ -503,7 +503,18 @@
                     $('<label/>').text('Qty'),
                     $('<input/>').attr('type', 'text').on('keyup', updateQuantity),
                     $('<button/>').text('Remove').click(function() {
-                        
+                        var idx = $(this).parents('.line-item').attr('data-storage-index');
+
+                        $(this).parents('.line-item').remove();
+
+                        storeThis.remove(idx);
+
+                        if( !$('#confirmation .items .line-item').length ) {
+                            scrollToSection('production', 500);
+                            return;
+                        }
+
+                        calculateTotalCost();
                     })
                 ),
                 $('<div/>').addClass('price').append(
@@ -592,7 +603,7 @@
                     id: 'cable_' + data.storage
                 });
 
-            $block.find('.qty label')
+            $block.find('.qty label') 
                 .attr('for', 'cable_' + data.storage);
 
             // price
@@ -1400,10 +1411,10 @@
             reNumberStorage();
         }
 
-        function remove() {
+        function remove(idx) {
             functionLog('storeThis/remove');
             var $container = $('.storage .builds'),
-                $removeMe  = $container.find('input[name="storage_build"]:checked').parent(),
+                $removeMe  = (!idx ? $container.find('input[name="storage_build"]:checked').parent() : $container.find('.build').filter(function(){return $(this).data().storage == idx;})),
                 storage = $removeMe.data('storage');
 
             $removeMe.remove();
@@ -1422,7 +1433,7 @@
                 $('#storage_new').prop('disabled', false);
             }
 
-            updateBuildCounter();
+            if( !idx ) updateBuildCounter();
         }
 
         function empty() {
