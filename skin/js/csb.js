@@ -1425,6 +1425,32 @@
             updateBuildCounter();
         }
 
+        function empty() {
+            functionLog('storeThis/empty');
+
+            $('.storage .build').remove();
+
+            // remove builds from local storage
+            for( var i = 0; i < localStorage.length; i++ ) {
+                var key = localStorage.key(i);
+                if( key.indexOf('build_') > -1 ) {
+                    localStorage.removeItem(key);
+                }
+            }
+
+            var $block = create();
+
+            $block.find('input[name="storage_build"]').prop('checked', true);
+            $('.storage .builds').append($block);
+
+            if( $('#storage_new').prop('disabled') ) {
+                $('#storage_new').prop('disabled', false);
+            }
+
+            load();
+            updateBuildCounter();
+        }
+
         function reNumberStorage() {
             functionLog('storeThis/reNumberStorage');
             function styleStorage() {
@@ -1674,6 +1700,10 @@
 
         $('#storage_cart').on('click', function() {
             goToConfirm();
+        });
+
+        $('#storage_empty').on('click', function() {
+            empty();
         });
 
         
@@ -3323,6 +3353,9 @@
             });
         }
 
+        $zopim(function() {
+            $zopim.livechat.window.hide();
+        });
     },
 
     prep = function() {

@@ -17,6 +17,18 @@ div.storage {
     @include justify-content(center);
     background-color: #444;
     padding: 10px;
+    position: relative;
+
+    &:before {
+        content: "Basket";
+        font-size: 10px;
+        font-weight: 700;
+        left: 0;
+        letter-spacing: 1px;
+        position: absolute;
+        text-transform: uppercase;
+        top: -10px;
+    }
 
     .builds {
         @include display-flex(flex);
@@ -180,6 +192,17 @@ div.storage {
             .information p.error {
                 color: #c00;
             }
+        }
+
+        button.remove {
+            background: url($media-folder + 'backpack/trash.png') no-repeat center center / 100% auto transparent;
+            border: none;
+            bottom: 3px;
+            height: 15px;
+            left: 3px;
+            position: absolute;
+            width: 12px;
+            z-index: 5;
         }
     }
 
