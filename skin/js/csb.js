@@ -652,6 +652,19 @@
             return check;
         }
 
+        function isEmpty(data) {
+            var empty = false;
+
+            if( !data.cable.code &&
+                !data.inputPlug.manufacturer &&
+                !data.inputPlug.model &&
+                !data.outputPlug.manufacturer &&
+                !data.outputPlug.model
+            ) empty = true;
+
+            return empty;
+        }
+
         var bool = true;
 
         $('#confirmation .details ul').empty();
@@ -661,6 +674,11 @@
         $('.storage .open').removeClass('open');
 
         $('.storage .build').each(function() {
+            if( isEmpty($(this).data()) ) {
+                storeThis.remove($(this).data().storage);
+                return true;
+            }
+
             if( !checkData($(this).data()) ) {
                 bool = false;
 
@@ -1434,7 +1452,8 @@
                 $('#storage_new').prop('disabled', false);
             }
 
-            if( !idx ) updateBuildCounter();
+            // disable renumbering if confirmation step
+            if( !$('#content').hasClass('confirmation') ) updateBuildCounter();
         }
 
         function empty() {
