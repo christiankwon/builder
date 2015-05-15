@@ -6,33 +6,10 @@
 
 @import "blocks";
 
-#screen-width {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 10000;
-    color: white;
-    &:before{ content: 'width: '; }
-    &:after{ content: 'px'; }
-    display: none;
-}
-
-#screen-height {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    z-index: 10000;
-    color: white;
-    &:before{ content: 'height: '; }
-    &:after{ content: 'px'; }
-    display: none;
-}
-
 .loader {
     background: url("/v/s/images/customshop/builder/misc/page-loader.gif") no-repeat scroll 50% 50% rgb(0, 0, 0);
     position: fixed;
     left: 0;
-    // display: none;
     right: 0;
     top: 0;
     bottom: 0;
