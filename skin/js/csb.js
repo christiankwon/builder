@@ -66,9 +66,6 @@
     windowResize = function() {
         functionLog('windowResize');
 
-        $('#screen-width').text(window.innerWidth);
-        $('#screen-height').text(window.innerHeight);
-
         if( $('#content').hasClass('production') ) {
             scrollToSection('production');
         } else if( $('#content').hasClass('confirmation') ) {
@@ -1596,7 +1593,7 @@
                 $select = $('<input/>').addClass('select'),
                 $identifier = $('<div/>').addClass('identifier'),
                 $information = $('<div/>').addClass('information'),
-                $remove = $('<button/>').addClass('remove').hide();
+                $remove = $('<button/>').addClass('remove');
 
             $select.attr({
                 type: 'radio',
@@ -1617,9 +1614,11 @@
                 }
             });
 
-            $remove.on('click', function() {
+            $remove.on('click', function(e) {
+                e.stopPropagation();
+
                 var $container = $('.storage .builds'),
-                    $removeMe  = $(this),
+                    $removeMe  = $(this).parent(),
                     storage = $removeMe.data('storage');
 
                 $removeMe.remove();
@@ -1630,7 +1629,7 @@
                         var $block = create();
                         $('.storage .builds').append($block);
                     }
-                    $container.find('.build').find('input[name="storage_build"]').prop('checked', true);
+                    $container.find('.build').find('input[name="storage_build"]').first().prop('checked', true);
                     load();
                 }
 
@@ -1669,16 +1668,15 @@
             load();
         }
 
-        $('#storage_save').on('click', function() {
-        });
-
         $('#storage_new').on('click', function() {
             generate();
         });
 
-        $('#storage_remove').on('click', function() {
-            remove();
+        $('#storage_cart').on('click', function() {
+            goToConfirm();
         });
+
+        
 
         storeThis.generate = generate;
         storeThis.load = load;
