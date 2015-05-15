@@ -3181,42 +3181,6 @@ li.other .option.techflex label:before {
 }
 
 /* line 9, ../scss/screen.scss */
-#screen-width {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 10000;
-  color: white;
-  display: none;
-}
-/* line 15, ../scss/screen.scss */
-#screen-width:before {
-  content: 'width: ';
-}
-/* line 16, ../scss/screen.scss */
-#screen-width:after {
-  content: 'px';
-}
-
-/* line 20, ../scss/screen.scss */
-#screen-height {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  z-index: 10000;
-  color: white;
-  display: none;
-}
-/* line 26, ../scss/screen.scss */
-#screen-height:before {
-  content: 'height: ';
-}
-/* line 27, ../scss/screen.scss */
-#screen-height:after {
-  content: 'px';
-}
-
-/* line 31, ../scss/screen.scss */
 .loader {
   background: url("/v/s/images/customshop/builder/misc/page-loader.gif") no-repeat scroll 50% 50% black;
   position: fixed;
@@ -3226,17 +3190,17 @@ li.other .option.techflex label:before {
   bottom: 0;
   z-index: 9999;
 }
-/* line 41, ../scss/screen.scss */
+/* line 18, ../scss/screen.scss */
 .loader div {
   color: white;
 }
 
-/* line 46, ../scss/screen.scss */
+/* line 23, ../scss/screen.scss */
 html, body, #content, #body, #confirmation {
   height: 100%;
 }
 
-/* line 50, ../scss/screen.scss */
+/* line 27, ../scss/screen.scss */
 .modal {
   width: 100%;
   height: 100%;
@@ -3256,7 +3220,7 @@ html, body, #content, #body, #confirmation {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
-/* line 63, ../scss/screen.scss */
+/* line 40, ../scss/screen.scss */
 .modal .info {
   background-color: white;
   opacity: 0;
@@ -3275,7 +3239,7 @@ html, body, #content, #body, #confirmation {
   -webkit-transform: translateX(20%);
   transform: translateX(20%);
 }
-/* line 74, ../scss/screen.scss */
+/* line 51, ../scss/screen.scss */
 .modal .info button.close {
   top: 15px;
   left: 15px;
@@ -3285,7 +3249,7 @@ html, body, #content, #body, #confirmation {
   border: 0;
   background: url("../images/misc/x.black.png") no-repeat scroll center center/100% 100% transparent;
 }
-/* line 85, ../scss/screen.scss */
+/* line 62, ../scss/screen.scss */
 .modal .tourproof {
   display: -webkit-flex;
   display: flex;
@@ -3298,30 +3262,30 @@ html, body, #content, #body, #confirmation {
   text-align: center;
   margin: 0 auto;
 }
-/* line 94, ../scss/screen.scss */
+/* line 71, ../scss/screen.scss */
 .modal .tourproof p {
   letter-spacing: 1px;
   font-size: 12px;
   line-height: 20px;
   width: 520px;
 }
-/* line 100, ../scss/screen.scss */
+/* line 77, ../scss/screen.scss */
 .modal .tourproof p:first-child {
   margin-top: 2em;
 }
-/* line 105, ../scss/screen.scss */
+/* line 82, ../scss/screen.scss */
 .modal .tourproof img {
   max-height: 50%;
   -webkit-align-self: flex-end;
   align-self: flex-end;
 }
 
-/* line 112, ../scss/screen.scss */
+/* line 89, ../scss/screen.scss */
 body.modal-open .modal {
   visibility: visible;
   opacity: 1;
 }
-/* line 116, ../scss/screen.scss */
+/* line 93, ../scss/screen.scss */
 body.modal-open .modal .info {
   opacity: 1;
   -moz-transform: translateX(0);
@@ -3330,7 +3294,7 @@ body.modal-open .modal .info {
   transform: translateX(0);
 }
 
-/* line 123, ../scss/screen.scss */
+/* line 100, ../scss/screen.scss */
 .slimScrollBar[style*="display: none"] ~ .slimScrollRail, .slimScrollBar[style*="display: none"] ~ .scrollIndicator {
   display: none !important;
 }
