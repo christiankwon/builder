@@ -1,10 +1,14 @@
 (function ($) {
     "use strict";
-    // var XML_URL = 's/builder/skin/js/options.xml',
-        // IMAGES_DIR = 's/builder/skin/images/',
-    var XML_URL = 'skin/js/options.xml',
-        IMAGES_DIR = 'skin/images/',
-        INITIALIZED = false,
+    var XML_URL = 's/builder/skin/js/options.xml',
+        IMAGES_DIR = 's/builder/skin/images/';
+    
+    if( location.href.indexOf('/v/t/builder/') > -1 ) {
+        XML_URL = 'skin/js/options.xml';
+        IMAGES_DIR = 'skin/images/';
+    }
+
+    var INITIALIZED = false,
         OPTIONS_XML, CABLE_TYPES, CABLES, PLUGS, OTHER, CURRENT_CABLE = null,
         DEFAULT_CABLE_LENGTH = 10,
         DEFAULT_CABLE_LENGTH_TYPE = 'regular',
@@ -219,8 +223,8 @@
             }
 
             $('.display .inputPlug').css('left', inputPlugOffSet);
-            $('.display .outputPlug').css('right', outputPlugOffSet);
-            $('.display .outputPlug .boot').css('right', bootRightOffSet + (-2 * getCurrentPlugWidthRatio()));
+            $('.display .outputPlug').css('right', outputPlugOffSet + (-2 * getCurrentPlugWidthRatio()));
+            $('.display .outputPlug .boot').css('right', bootRightOffSet + (1 * getCurrentPlugWidthRatio()));
             $('.display .outputPlug .boot').css('top', bootTopOffSet);
 
             $('#body .display .outer').removeClass('loading');
@@ -422,6 +426,7 @@
             src = this.src;
             this.src = src.substring(0, src.lastIndexOf('/')  + 1) + 'black.png';
         });
+        $builder.find('.options').removeClass('active');
         $builder.find('.option.specs').removeClass('specs');
 
         $length.find('input[name="switch"]').removeClass().addClass('regular');
@@ -1439,9 +1444,11 @@
                     return $(this).css('order') == largest;
                 }).addClass('last');
             }
+
             var largest = 0,
                 $builds = $('.storage .build');
 
+            // find largest storage value
             $builds.each(function() {
                 if( $(this).data().storage > largest ) largest = $(this).data().storage;
             });
@@ -1453,11 +1460,29 @@
             }
 
             $builds.each(function(i) {
-                var j = i + 1;
+                var j = i + 1,
+                    prev = $(this).data().storage,
+                    storage = localStorage['build_' + prev];
+
                 $(this).data().storage = j;
                 $(this).css('order', j);
                 $(this).find('p.id').text(j);
             });
+
+            // remove builds from local storage
+            for( var i = 0; i < localStorage.length; i++ ) {
+                var key = localStorage.key(i);
+                if( key.indexOf('build_') > -1 ) {
+                    localStorage.removeItem(key);
+                }
+            }
+
+            // re-add the builds to localStorage with corrected numbers
+            $builds.each(function() {
+                data = $(this).data();
+                localStorage.setItem('build_' + data.storage, JSON.stringify(data));
+            });
+
             styleStorage();
         }
 
@@ -1570,7 +1595,8 @@
             var $block = $('<div/>').addClass('build'),
                 $select = $('<input/>').addClass('select'),
                 $identifier = $('<div/>').addClass('identifier'),
-                $information = $('<div/>').addClass('information');
+                $information = $('<div/>').addClass('information'),
+                $remove = $('<button/>').addClass('remove').hide();
 
             $select.attr({
                 type: 'radio',
@@ -1591,6 +1617,30 @@
                 }
             });
 
+            $remove.on('click', function() {
+                var $container = $('.storage .builds'),
+                    $removeMe  = $(this),
+                    storage = $removeMe.data('storage');
+
+                $removeMe.remove();
+                localStorage.removeItem('build_' + storage);
+
+                if( storage == CURRENT_CABLE.storage ) {
+                    if( !$container.find('.build').length ) {
+                        var $block = create();
+                        $('.storage .builds').append($block);
+                    }
+                    $container.find('.build').find('input[name="storage_build"]').prop('checked', true);
+                    load();
+                }
+
+                if( $('#storage_new').prop('disabled') ) {
+                    $('#storage_new').prop('disabled', false);
+                }
+
+                updateBuildCounter();
+            });
+
             $information.append(
                 $('<p/>').addClass('type').append($('<span/>').text('Cable Type: '),$('<em/>')),
                 $('<p/>').addClass('cable').append($('<span/>').text('Cable: '),$('<em/>')),
@@ -1600,7 +1650,7 @@
                 $('<p/>').addClass('other').append($('<span/>').text('Other Options: '),$('<em/>'))
             );
 
-            return $block.append($select, $identifier, $information).on('click', function() {
+            return $block.append($select, $identifier, $information, $remove).on('click', function() {
                 $(this).find('input[name="storage_build"]').prop('checked',true);
             });
         }
@@ -2559,8 +2609,8 @@
                 var $img = $(this).parents('.image').children('img'),
                     $option = $(this).parents('.option'),
                     src = $img.attr('src'),
-                    prev_color = $option.data('color'),
-                    new_color = $(this).data('value'),
+                    prev_color = src.substring(src.lastIndexOf('-') + 1, src.lastIndexOf('.')),
+                    new_color = $(this).data('value').toLowerCase(),
                     which = $option.data('type');
 
                 $option.data('color', new_color);
