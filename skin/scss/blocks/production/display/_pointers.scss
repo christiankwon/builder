@@ -4,29 +4,29 @@ $dot-background: 70%;
 
 #body {
     &.regular {
-        #cableSelector {
-            top: 20px;
+        #lengthSelector {
+            top: -5px;
         }
         #outputPlugSelector, #inputPlugSelector {
             right: -5%;
             top: 65px;
         }
-        #lengthSelector {
+        #cableSelector {
             top: 40%;
             right: -5%;
         }
     }
 
     &.patch {
-        #cableSelector {
-            top: 10px;
+        #lengthSelector {
+            top: 0;
         }
         #outputPlugSelector, #inputPlugSelector {
             right: 10%;
             top: 25%;
         }
 
-        #lengthSelector {
+        #cableSelector {
             top: 40%;
             right: 7.5%;
         }
@@ -83,36 +83,6 @@ $dot-background: 70%;
 }
 
 #cableSelector {
-    top: 20px;
-    left: 50%;
-    margin-left: -5px;
-
-    .line {
-        height: 40px;
-        width: 1px;
-        left: 5px;
-        bottom: 0;
-    }
-    .dot {
-        top: -50px;
-        left: $dot-offset;
-
-        &.current:before {
-            background-image: url($media-folder + 'misc/tracker/cable.png');
-        }
-
-        &:before {
-            background-image: url($media-folder + 'misc/tracker/cable-complete.png');
-        }
-
-        &.current, &:hover {
-            left: $dot-offset + -13px;
-            top: -75px;
-        }
-    }
-}
-
-#lengthSelector {
     width: 10%;
 
     .line {
@@ -126,6 +96,61 @@ $dot-background: 70%;
         left: 100%;
 
         &.current:before {
+            background-image: url($media-folder + 'misc/tracker/cable.png');
+        }
+
+        &:before {
+            background-image: url($media-folder + 'misc/tracker/cable-complete.png');
+        }
+
+        &.current, &:hover {
+            top: $dot-offset + -13px;
+        }
+    }
+}
+
+#lengthSelector {
+    left: 50%;
+    margin-left: -5px;
+
+    .line {
+        bottom: 0;
+        height: 10px;
+        left: 5px;
+        width: 1px;
+
+        .bracket {
+            background-color: #bcbcbc;
+            height: 1px;
+            left: -150px;
+            position: relative;
+            top: 10px;
+            width: 300px;
+
+
+            &:before, &:after {
+                position: absolute;
+                height: 10px;
+                width: 1px;
+                display: block;
+                content: "";
+                background-color: #bcbcbc;
+            }
+
+            &:before {
+                left: 0;
+            }
+
+            &:after {
+                right: 0;
+            }
+        }
+    }
+    .dot {
+        top: -33px;
+        left: $dot-offset;
+
+        &.current:before {
             background-image: url($media-folder + 'misc/tracker/length.png');
         }
 
@@ -134,7 +159,8 @@ $dot-background: 70%;
         }
 
         &.current, &:hover {
-            top: $dot-offset + -13px;
+            left: $dot-offset + -13px;
+            top: -60px;
         }
     }
 }

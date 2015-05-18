@@ -10,22 +10,11 @@
         }
         .builder li.other .other.quantity {
             width: 50%;
+            @include bp(max-width, 1050px) {
+                width: 100%;
+            }
             border-bottom: 1px solid #bbb;
         }
-    }
-
-    &.patch {
-        // &.reverse_plugs {
-        //     .display .inputPlug {
-        //         @include transform(rotate(90deg) scaleX(1));
-
-        //         .plug {
-        //             position: relative;
-        //             left: -72px;
-        //             top: 71px;
-        //         }
-        //     }
-        // }
     }
 
     &.expanded .builders {

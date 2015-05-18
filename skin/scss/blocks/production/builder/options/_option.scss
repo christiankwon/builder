@@ -123,59 +123,70 @@
             @include justify-content(flex-end);
 
             div {
-                width: 10px;
-                margin: 3px;
-                height: 10px;
+                width: 15px;
+                margin-left: 3px;
+                height: 15px;
                 cursor: pointer;
                 border-radius: 50%;
+                position: relative;
+
+                &:after {
+                    position: absolute;
+                    left: 2.5px;
+                    top: 2.5px;
+                    height: 10px;
+                    width: 10px;
+                    content: "";
+                    border-radius: 50%;
+                }
             }
 
-            .red {
+            .red:after {
                 background-color: #e90d2f;
             }
 
-            .orange {
+            .orange:after {
                 background-color: #ff864f;
             }
 
-            .yellow {
+            .yellow:after {
                 background-color: #fcf86c;
                 border: solid 1px #ccc;
-                width: 11px;
-                height: 11px;
+                width: 10px;
+                height: 10px;
             }
 
-            .green {
+            .green:after {
                 background-color: #25c265;
             }
 
-            .violet {
+            .violet:after {
                 background-color: #6154ba;
             }
 
-            .black {
+            .black:after {
                 background-color: #000;
             }
 
-            .gray {
+            .gray:after {
                 background-color: #999da3;
             }
 
-            .white {
+            .white:after {
                 background-color: #fff;
                 border: solid 1px #aeaeae;
                 width: 11px;
                 height: 11px;
             }
 
-            .gold {
+            .gold:after {
                 background-color: #fff282;
                 border: solid 1px #bbb;
                 width: 11px;
                 height: 11px;
             }
 
-            .nickel {
+            .nickel:after {
                 background-color: #dce4f5;
             }
         }

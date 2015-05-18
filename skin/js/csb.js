@@ -174,6 +174,7 @@
             setCableSize();
             setPlugSize();
             setBootSize();
+            setLengthBracketSize();
 
             var cableHeight = getCableHeight(),
                 plugOffSet = getPlugOffSet(),
@@ -210,7 +211,7 @@
 
             $('.display .inputPlug').css('left', inputPlugOffSet);
             $('.display .outputPlug').css('right', outputPlugOffSet + (-2 * getCurrentPlugWidthRatio()));
-            $('.display .outputPlug .boot').css('right', bootRightOffSet + (1 * getCurrentPlugWidthRatio()));
+            $('.display .outputPlug .boot').css('right', bootRightOffSet + ((CURRENT_CABLE.length.type === 'regular' ? 1 : -2) * getCurrentPlugWidthRatio()));
             $('.display .outputPlug .boot').css('top', bootTopOffSet);
 
             $('#body .display .outer').removeClass('loading');
@@ -266,6 +267,13 @@
             $inner.height(height);
             $inner.width(width);
             $outer.css('margin-bottom', bottomMargin);
+        }
+
+        function setLengthBracketSize() {
+            var $horizontal = $('#lengthSelector .bracket'),
+                width = $('.display .cable > img').outerWidth() * 0.75;
+
+            $horizontal.css('width', width).css('left', width / -2);
         }
 
         function setPlugSize() {
@@ -3381,7 +3389,7 @@
      * Calls init() to begin building each component
      */
     start = function() {
-        displayImages('start');
+        displayImages();
 
         if( window.location.hostname.indexOf('www') === -1) {
             window.location.hostname = 'www.sinasoid.com';
