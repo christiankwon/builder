@@ -113,6 +113,10 @@
 
         #body.expanded & {
             background-image: url($media-folder + 'builder/collapse.png');
+
+            &:after{
+                @include transform(scaleX(-1));
+            }
         }
     }
 }
