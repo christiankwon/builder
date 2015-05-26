@@ -83,28 +83,28 @@
         }
     }
 
-    &.top ~ .scrollIndicator {
+    &.top  .scrollIndicator {
         .seeMore.up {
             display: none;
         }
     }
 
-    &.bottom ~ .scrollIndicator {
+    &.bottom .scrollIndicator {
         .seeMore.down {
             display: none;
         }
     }
 
-    & ~ .scrollIndicator {
+    & .scrollIndicator {
         width: 25px;
-        height: 28px;
+        height: 100%;
         position: absolute;
-        left: 0;
-        bottom: 66px;
+        right: 0;
+        bottom: 0;
 
         .seeMore {
             width: 100%;
-            height: 50%;
+            height: (25px *(21/30));
             position: absolute;
             &.up {
                 background: url($media-folder + 'builder/indicator.png') no-repeat scroll center center / 60% auto transparent;

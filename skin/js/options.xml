@@ -178,12 +178,13 @@
                <id>1649</id>
                <name>red</name>
                <short_name>red</short_name>
+               <default/>
             </color>
             <color>
                <id>1647</id>
-               <default/>
                <name>black</name>
                <short_name>blk</short_name>
+               <out_of_stock/>
             </color>
          </colors>
          <lengths>
@@ -396,7 +397,6 @@
             <manufacturer>Switchcraft</manufacturer>
             <model>228 Pancake</model>
             <price>7</price>
-            <out_of_stock/>
             <color>
                <input_option_id>373</input_option_id>
                <output_option_id>381</output_option_id>

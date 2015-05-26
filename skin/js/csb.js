@@ -1,15 +1,19 @@
 (function ($) {
     "use strict";
     var XML_URL = 's/builder/skin/js/options.xml',
+        JSON_URL = '/s/builder/skin/js/options.json',
         IMAGES_DIR = 's/builder/skin/images/';
     
     if( location.href.indexOf('/v/t/builder/') > -1 ) {
         XML_URL = 'skin/js/options.xml';
+        JSON_URL = 'skin/js/options.json';
         IMAGES_DIR = 'skin/images/';
     }
 
     var INITIALIZED = false,
-        OPTIONS_XML, CABLE_TYPES, CABLES, PLUGS, OTHER, CURRENT_CABLE = null,
+        OPTIONS_XML, CABLE_TYPES, CABLES, PLUGS, OTHER,
+        OPTIONS_JSON, J_CABLE_TYPES, J_CABLES, J_PLUGS, J_OTHER,
+        CURRENT_CABLE = null,
         DEFAULT_CABLE_LENGTH = 10,
         DEFAULT_CABLE_LENGTH_TYPE = 'regular',
         DEFAULT_CABLETYPE_TYPE = '',
@@ -2032,6 +2036,651 @@
         update.dispatch = dispatch;
     },
 
+    build = {
+        id: null,
+        name: null,
+        initial: false,
+        structure: null,
+        prefix: null,
+
+        initialize: function(type) {
+            this.id = type.id;
+            this.name = type.name;
+            this.type = type.type;
+            this.prefix = type.prefix;
+            this.initial = type.default;
+
+            build.builders();
+            build.handles();
+        },
+
+        handles: function() {
+            var builders = $('ul.builder'),
+
+            changeChoice = function() {
+                console.log(this);
+            },
+
+            changeOption = function() {
+                console.log(this);
+            };
+
+            builders.find('.option .choices').on('click', 'div', changeChoice);
+            builders.find('.option .image').on('click', 'img', changeOption);
+            builders.find('.option .inner').on('click', '.name, .price, .select', changeOption);
+        },
+
+        builders: function() {
+            var structure = $(getSkeleton.builders());
+
+            structure.attr('id', this.type);
+
+            if( this.initial ) {
+                structure.addClass('selected');
+
+                DEFAULT_CABLETYPE_PREFIX = this.prefix;
+                DEFAULT_CABLETYPE_TYPE = this.type;
+
+                CURRENT_CABLE = new Cable();
+                CURRENT_CABLE.storage = 1;
+            }
+
+            this.structure = structure;
+            $('#builders').append(structure);
+
+            build.cables();
+            build.plugs();
+        },
+
+        cables: function() {
+            var i, n,
+                structure, info, inner, code, model, manufacturer, price, id, lengths, specs, colors,
+                attributes, data, default_color,
+
+                component = 'cable',
+
+                prefix = this.prefix,
+                premium = $('div.outer.premium', this.structure),
+                standard = $('div.outer.standard', this.structure),
+
+                getLengthData = function(obj) {
+                    var lengthObj = {};
+
+                    lengthObj.category_id = obj.option_category_id;
+
+                    if( obj.is_consistent ) {
+                        var start, end,
+                            i;
+
+                        if( obj.patch && obj.regular ) {
+                            lengthObj = {
+                                patch: [],
+                                regular: []
+                            };
+
+                            var patch = obj.patch,
+                                regular = obj.regular;
+
+                            // define patch lengths
+                            start = patch.start_id;
+                            end = patch.end_id;
+                            if( end - start === 47 ) {
+                                for( i = 0; i < 48; i++ ) {
+                                    lengthObj.patch[i + 1] = start + i;
+                                }
+                            }
+
+                            // define regular lengths
+                            start = regular.start_id;
+                            end = regular.end_id;
+                            if( end - start === 17 ) {
+                                for( i = 0; i < 18; i++ ) {
+                                    lengthObj.regular[i + 3] = start + i;
+                                }
+                            }
+
+                        } else { /* cable is not instrument cable */ }
+                    } else { /* individual values are manually given */ }
+
+                    return lengthObj;
+                },
+
+                getSpecData = function(obj) {
+                    return {
+                        "capacitance": obj.capacitance,
+                        "flexibility": obj.flexibility,
+                        "shield": obj.shield,
+                        "diameter": obj.diameter
+                    };
+                },
+
+                getColorData = function(obj) {
+                    var colorObj = {}, color;
+
+                    if( obj.option_category_id ) {
+                        colorObj.category_id = obj.option_category_id;
+                    }
+
+                    for( var i = 0, n = obj.color.length; i < n; i++ ) {
+                        color = obj.color[i];
+
+                        if( color.default ) {
+                            default_color = '.' + color.name;
+                        }
+
+                        colorObj[color.name] = {
+                            'id': (color.id ? color.id : ''),
+                            'short': color.short_name
+                        };
+                    }
+
+                    return colorObj;
+                },
+
+                getBuilderImageUrl = function() {
+                    return IMAGES_DIR + 'builder/cable/' +
+                        this.type + '/' +
+                        formatTextForImageUrl(manufacturer) + '/' + 
+                        formatTextForImageUrl(model) +
+                        default_color + '.jpg';
+                },
+
+                setSpecs = function() {
+                    var info = this.find('.info'),
+                        image = this.find('.image'),
+                        list = document.createElement('ul'),
+                        title = document.createElement('li'),
+                        item, o, color, choices;
+
+                    title.className = 'title';
+                    title.innerHTML = 'Details';
+                    list.appendChild(title);
+
+                    for( o in specs ) {
+                        if( specs.hasOwnProperty(o) ) {
+                            item = document.createElement('li');
+                            item.innerHTML = o + '<em>' + specs[o] + '</em>';
+                            list.appendChild(item);
+                        }
+                    }
+
+                    info.append(list);
+
+                    if( colors.category_id ) {
+                        choices = document.createElement('div');
+                        choices.className = 'choices';
+
+                        for( o in colors ) {
+                            if( colors.hasOwnProperty(o) ) {
+                                if( o === 'category_id' ) continue;
+
+                                color = document.createElement('div');
+                                color.className = o;
+                                color.setAttribute('data-choice-value', o);
+                                choices.appendChild(color);
+                            }
+                        }
+
+                        image.append(choices);
+                    }
+                };
+
+
+            for( i = 0, n = J_CABLES.length; i < n; i++ ) {
+                // set reference to cable object
+                info = J_CABLES[i];
+
+                // variable initializations
+                code = '';
+                price = '';
+                model = '';
+                manufacturer = '';
+                attributes = {};
+                data = {};
+                default_color = '';
+
+                // variable definition
+                code = info.code;
+                price = info.price;
+                model = info.model;
+                manufacturer = info.manufacturer;
+                
+                // compound definition
+                id = prefix + code;
+
+                // get individual block skeleton
+                structure = $(getSkeleton.block(component, prefix));
+
+                /**
+                 * Define attributes
+                 */
+                    // identifiers
+                attributes.data_option_id = id.toLowerCase();
+                attributes.data_option_type = component;
+
+                    // cable only avaible for patch
+                if( info.is_only_patch ) {
+                    attributes.data_option_only_patch = 'true';
+                }
+
+
+                /**
+                 * Define data
+                 */
+                    // lengths
+                lengths = getLengthData(info.lengths);
+                data.lengths = lengths;
+
+                    // specs
+                specs = getSpecData(info.specs);
+                data.specs = specs;
+
+                    // colors
+                colors = getColorData(info.colors);
+                data.colors = colors;
+
+                    // general
+                data.component = component;
+                data.model = model;
+                data.manufacturer = manufacturer;
+                data.price = price;
+
+
+                setSpecs.call(structure);
+
+                /**
+                 * Fill visible data fields
+                 */
+                inner = structure.find('.inner');
+                inner.find('.name span').text(manufacturer + ' ' + model);
+                inner.find('.price span').text(price);
+
+                // v1 find options
+                structure.find('input.selector').attr('id', id);
+
+                structure.find('.image img').attr('src', getBuilderImageUrl.call(this));
+
+                // Set element Flexbox Order style
+                if( info.order ) {
+                    structure.css('order', info.order);
+                }
+
+                // Append attributes and data to element
+                structure.attr(attributes).data(data);
+
+                // Append element to document
+                if( info.is_premium ) {
+                    premium.append(structure);
+                } else {
+                    standard.append(structure);
+                }
+            }
+        },
+
+        plugs: function() {
+            var i, j, m, n,
+                structure, info, inner,
+                angle, colors, manufacturer, model, price, id,
+                attributes, data, default_color, default_boot, colors, boots,
+                input_category_id, output_category_id, side, obj,
+
+                component = 'plug',
+                sides = ['input', 'output'],
+
+                prefix = this.prefix,
+                right, straight,
+                json_plugs = J_PLUGS[this.type],
+                json_boots = J_PLUGS.boots,
+                type_plugs = json_plugs.plug,
+
+                getColorData = function(obj) {
+                    var colorObj = {}, color;
+
+                    for( var i = 0, n = obj.color.length; i < n; i++ ) {
+                        color = obj.color[i];
+
+                        if( color.default ) {
+                            default_color = '-' + color.suffix;
+                        }
+
+                        colorObj[color.suffix] = {
+                            'body': (color.body ? color.body : ''),
+                            'connector': (color.connector ? color.connector : ''),
+                            'input_option_id': (color.input_option_id ? color.input_option_id : ''),
+                            'ouput_option_id': (color.output_option_id ? color.output_option_id : ''),
+                        };
+                    }
+
+                    return colorObj;
+                },
+
+                getBootData = function(obj) {
+                    return obj;
+                },
+
+                createOptionOverlay = function(m) {
+                    clog('-------------------------------------------------------');
+                    clog(this);
+                    clog(m);
+                    clog(boots);
+                    clog(colors);
+                },
+
+                getBuilderImageUrl = function() {
+                    return IMAGES_DIR + 'builder/plug/' +
+                        this.type + '/' +
+                        formatTextForImageUrl(manufacturer) + '/' + 
+                        formatTextForImageUrl(model) +
+                        default_color + '.jpg';
+                },
+
+                setInfo = function() {
+                    var specs = document.createElement('img');
+
+                    specs.src = IMAGES_DIR + 'builder/plug/' +
+                        this.type + '/' +
+                        formatTextForImageUrl(manufacturer) + '/overlay/' +
+                        formatTextForImageUrl(model) + '.png';
+                };
+
+
+            for( i = 0, m = sides.length; i < m; i++ ) {
+                input_category_id = json_plugs.input_option_category_id;
+                output_category_id = json_plugs.output_option_category_id;
+                side = sides[i];
+
+                right = $('.' + side + ' div.outer.right', this.structure);
+                straight = $('.' + side + ' div.outer.straight', this.structure);
+
+                for( j = 0, n = type_plugs.length; j < n; j++ ) {
+                    // set reference to plug object
+                    info = type_plugs[j];
+
+                    angle = '';
+                    manufacturer = '';
+                    model = '';
+                    price = '';
+                    id = '';
+                    colors = null;
+                    attributes = {};
+                    data = {};
+
+                    boots = {};
+                    colors = {};
+                    default_color = '';
+                    default_boot = '';
+
+                    structure = $(getSkeleton.block(component, prefix));
+
+                    angle = info.angle;
+                    manufacturer = info.manufacturer;
+                    model = info.model;
+                    price = info.price;
+
+                    id = (prefix + manufacturer + '_' + model).toLowerCase().replace(/ /g, '-');
+
+                    attributes.data_option_id = id;
+                    attributes.data_option_side = side;
+                    attributes.data_option_type = component;
+
+                    if( info.has_boots ) {
+                        boots = getBootData(json_boots[model.split('-')[0].toLowerCase()]);
+                        data.boots = boots;
+                    }
+
+                        // colors
+                    if( info.colors ) {
+                        colors = getColorData(info.colors);
+                        data.colors = colors;
+                    }
+
+                    if( boots || colors ) {
+                        createOptionOverlay.call(this, model);
+                    }
+
+                        // general
+                    data.component = component;
+                    data.model = model;
+                    data.manufacturer = manufacturer;
+                    data.price = price;
+
+                    setInfo.call(this);
+
+                    /**
+                     * Fill visible data fields
+                     */
+                    inner = structure.find('.inner');
+                    inner.find('.name span').text(manufacturer + ' ' + model);
+                    inner.find('.price span').text(price);
+
+                    // v1 find options
+                    structure.find('input.selector').attr('id', id);
+
+                    structure.find('.image img').attr('src', getBuilderImageUrl.call(this));
+
+                    // Set element Flexbox Order style
+                    if( info.order ) {
+                        structure.css('order', info.order);
+                    }
+
+                    // Append attributes and data to element
+                    structure.attr(attributes).data(data);
+
+                    // Append element to document
+                    if( angle === 'straight' ) {
+                        straight.append(structure);
+                    } else if ( angle === 'right' ) {
+                        right.append(structure);
+                    }
+                }
+            }
+        }
+    },
+
+    getSkeleton = {
+        builders: function() {
+            var container = document.createElement('ul'),
+                cable, length, inputPlug, outputPlug, other,
+
+                getFiltersBlock = function() {
+                    var block = document.createElement('div');
+                    block.className = 'filters';
+
+                    return block;
+                },
+
+                getStepBlock = function(left, right) {
+                    var block = document.createElement('div'),
+                        button;
+                    block.className = 'step';
+
+                    $(block).on('click', 'button', changeStep);
+
+                    if( left ) {
+                        button = document.createElement('button');
+                        button.className = 'previous';
+                        button.innerHTML = left;
+                        block.appendChild(button);
+                    }
+
+                    if( right ) {
+                        button = document.createElement('button');
+                        button.className = 'next';
+                        button.innerHTML = right;
+                        block.appendChild(button);
+                    }
+
+                    return block;
+                },
+
+                getOptionsBlock = function() {
+                    var block = document.createElement('div');
+                    block.className = 'options';
+
+                    return block;
+                },
+
+                getCableBlock = function() {
+                    var block = document.createElement('li'),
+                        filters = getFiltersBlock(),
+                        options = getOptionsBlock(),
+                        step = getStepBlock('', 'Length');
+
+                    block.className = 'cable current';
+
+                    $(options).append(
+                        $('<div/>').addClass('outer premium'),
+                        $('<div/>').addClass('outer standard')
+                    );
+
+                    block.appendChild(filters);
+                    block.appendChild(options);
+                    block.appendChild(step);
+
+                    return block;
+                },
+
+                getLengthBlock = function() {
+                    var block = document.createElement('li'),
+                        filters = getFiltersBlock(),
+                        options = getOptionsBlock(),
+                        step = getStepBlock('Cable Type', 'Input Plug');
+
+                    block.className = 'length';
+
+                    block.appendChild(filters);
+                    block.appendChild(options);
+                    block.appendChild(step);
+
+                    return block;
+                },
+
+                getPlugBlock = function(side) {
+                    var block = document.createElement('li'),
+                        filters = getFiltersBlock(),
+                        options = getOptionsBlock(),
+                        step = (side === 'input' ?
+                            getStepBlock('Length', 'Output Plug') :
+                            getStepBlock('Input Plug', 'Other Options'));
+
+                    block.className = side;
+
+                    $(options).append(
+                        $('<div/>').addClass('outer straight'),
+                        $('<div/>').addClass('outer right')
+                    );
+
+                    block.appendChild(filters);
+                    block.appendChild(options);
+                    block.appendChild(step);
+
+                    return block;
+                },
+
+                getOtherBlock = function() {
+                    var block = document.createElement('li'),
+                        filters = getFiltersBlock(),
+                        options = getOptionsBlock(),
+                        step = getStepBlock('Output Plug', 'Confirm');
+
+                    block.className = 'other';
+
+                    block.appendChild(filters);
+                    block.appendChild(options);
+                    block.appendChild(step);
+
+                    return block;
+                };
+
+            container.className = 'builder';
+
+            cable = getCableBlock();
+            length = getLengthBlock();
+            inputPlug = getPlugBlock('input');
+            outputPlug = getPlugBlock('output');
+            other = getOtherBlock();
+
+            container.appendChild(cable);
+            container.appendChild(length);
+            container.appendChild(inputPlug);
+            container.appendChild(outputPlug);
+            container.appendChild(other);
+
+            return container;
+        },
+
+        block: function(type, prefix) {
+            var box, selector,
+                getTop = function() {
+                    var container = document.createElement('div'),
+                        info = document.createElement('div'),
+                        image = document.createElement('img');
+
+                    container.className = 'image';
+                    info.className = 'info';
+
+                    container.appendChild(image);
+                    container.appendChild(info);
+
+                    return container;
+                },
+                getBottom = function() {
+                    // b_ prefix for 'bottom'
+                    var container, b_name, b_price, b_specs, b_select, b_span, b_button;
+
+                    container = document.createElement('div');
+                    container.className = 'inner';
+
+                    b_span = document.createElement('span');
+
+                    b_name = document.createElement('div');
+                    b_name.className = 'name';
+                    b_name.appendChild(b_span.cloneNode(true));
+                    
+                    b_price = document.createElement('div');
+                    b_price.className = 'price';
+                    b_price.appendChild(b_span.cloneNode(true));
+                    
+                    b_specs = document.createElement('div');
+                    b_specs.className = 'specs';
+                    b_span.innerHTML = 'Specs & Info';
+                    b_specs.appendChild(b_span.cloneNode(true));
+                    
+                    b_button = document.createElement('button');
+                    b_select = document.createElement('div');
+                    b_select.className = 'select';
+                        b_button.className = 'pickme';
+                        b_button.innerHTML = 'Pick Me!';
+                        b_select.appendChild(b_button.cloneNode(true));
+
+                        b_button.className = 'picked';
+                        b_button.innerHTML = 'Picked!';
+                        b_select.appendChild(b_button.cloneNode(true));
+                    
+                    container.appendChild(b_name);
+                    container.appendChild(b_price);
+                    container.appendChild(b_specs);
+                    container.appendChild(b_select);
+
+                    return container;
+                };
+
+            box = document.createElement('div');
+            box.className = 'option';
+
+            selector = document.createElement('input');
+            selector.type = 'radio';
+            selector.className = 'selector';
+            selector.name = (prefix ? prefix : '') + type;
+
+            box.appendChild(selector);
+            box.appendChild(getTop());
+            box.appendChild(getBottom());
+
+            return box;
+        }
+    },
+
     /**
      * Takes data defined in the global variables and uses JS to build each option in each component
      */
@@ -3211,10 +3860,17 @@
             $builders_container.append($skeleton);
         };
 
+        // if( CABLE_TYPES && CABLES && PLUGS && OTHER ) {
+        //     // CABLE_TYPES.find('type').each(initBuilders);
+        //     // init.filters = initFilters;
+        // } else {
+        //     alert("ERROR CS02: One or more of the categories did not load properly.");
+        // }
 
-        if( CABLE_TYPES && CABLES && PLUGS && OTHER ) {
-            CABLE_TYPES.find('type').each(initBuilders);
-            init.filters = initFilters;
+        if( J_CABLE_TYPES && J_CABLES && J_PLUGS && J_OTHER ) {
+            for( var i = 0, l = J_CABLE_TYPES.length; i < l; i++ ) {
+                build.initialize(J_CABLE_TYPES[i]);
+            }
         } else {
             alert("ERROR CS02: One or more of the categories did not load properly.");
         }
@@ -3291,7 +3947,7 @@
             $(e.target).removeClass('top bottom').addClass('options');
         }).addClass('top');
 
-        if( !$('ul.builder li .options').siblings('.scrollIndicator').length ) {
+        if( !$('ul.builder li .options').children('.scrollIndicator').length ) {
             var scrollIndicator = $('<div/>').addClass('scrollIndicator');
             scrollIndicator.append(
                 $('<div/>').addClass('seeMore').addClass('up'),
@@ -3299,7 +3955,7 @@
             );
 
             $('ul.builder li .options').each(function() {
-                $(this).parent().append(scrollIndicator.clone(true));
+                $(this).append(scrollIndicator.clone(true));
             });
         }
 
@@ -3369,7 +4025,7 @@
             windowResize();
         }, 250);
 
-        $(window).on('resize orientationchange' ,function() {
+        $(window).on('resize orientationchange', function() {
             $('#body .display .outer').addClass('loading');
             goWindowResize();
         }).resize();
@@ -3400,7 +4056,7 @@
         $(document).ajaxStop(function() {
             if( !INITIALIZED ) {
                 INITIALIZED = !INITIALIZED;
-                prep();
+                // prep();
             }
         });
 
@@ -3413,6 +4069,24 @@
                 PLUGS       = $data.children('plugs');
                 OTHER       = $data.children('other');
 
+                // init();
+            })
+            .fail(function( jqXHR, textStatus, errorThrown ) {
+                alert("ERROR CS01: Initialization XML file not found.");
+                console.error(jqXHR);
+                console.error(textStatus);
+                console.error(errorThrown);
+            });
+
+        $.get( JSON_URL )
+            .done(function(response) {
+                OPTIONS_JSON = response.data;
+                J_CABLE_TYPES = OPTIONS_JSON.cableTypes.type;
+                J_CABLES      = OPTIONS_JSON.cables.cable;
+                J_PLUGS       = OPTIONS_JSON.plugs;
+                J_OTHER       = OPTIONS_JSON.other;
+
+                $('.loader').hide();
                 init();
             })
             .fail(function( jqXHR, textStatus, errorThrown ) {
