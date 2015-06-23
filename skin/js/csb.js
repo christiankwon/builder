@@ -1,12 +1,12 @@
 (function ($) {
     "use strict";
 
-    if( window.location.hostname.indexOf('www') === -1) {
-        window.location.hostname = 'www.sinasoid.com';
-    }
+    // if( window.location.hostname.indexOf('www') === -1) {
+    //     window.location.hostname = 'www.sinasoid.com';
+    // }
 
-    var JSON_URL = 's/builder/skin/js/options.json',
-        IMAGES_DIR = 's/builder/skin/images/';
+    var JSON_URL = 'skin/js/options.json',
+        IMAGES_DIR = 'skin/images/';
 
     var INITIALIZED = false,
         OPTIONS_JSON, J_CABLE_TYPES, J_CABLES, J_PLUGS, J_OTHER,
@@ -24,10 +24,6 @@
         BLANK_REGULAR_CABLE_URL = IMAGES_DIR + 'display/cable_regular_outline.png',
         BLANK_IMAGE_URL = IMAGES_DIR + 'blank.png',
         TOUCH = Modernizr.touch,
-        SKELETONS = {
-            storage: {},
-            builder: {}
-        },
         Cable = function() {
             this.storage = null;
             this.price = 0;
@@ -1462,10 +1458,9 @@
 
                     d.find('.selector').prop('checked', true);
                 }
-
-                $('[data-length-type="' + data.length.type + '"].choice img').trigger('click');
+                
                 $('[data-length-type="' + data.length.type + '"].ruler').slider('value', data.length.amount);
-                $('[data-length-type="' + data.length.type + '"].input').val(data.length.amount);
+                $('[data-length-type="' + data.length.type + '"].choice img').trigger('click');
 
                 $('[data-option-type="quantity"] input').val(data.quantity);
                 if( data.other.reverse_plugs ) {
@@ -3300,7 +3295,7 @@
      * Calls init() to begin building each component
      */
     $(document).ready(function() {
-        $.get( JSON_URL )
+        $.getJSON( JSON_URL )
             .done(function(response) {
                 OPTIONS_JSON = response.data;
                 J_CABLE_TYPES = OPTIONS_JSON.cableTypes.type;
