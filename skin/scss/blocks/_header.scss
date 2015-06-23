@@ -1,4 +1,5 @@
 header {
+    display: none;
     $font-color: #7c7c7c;
     $font-accent: #3c3c3c;
 
@@ -8,6 +9,7 @@ header {
     position: absolute;
     top: 0;
     width: 100%;
+    overflow: hidden;
     z-index: 15;
 
     .outer {

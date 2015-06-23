@@ -1,0 +1,337 @@
+@import "options/option";
+// #body .builder li .options .outer .option {
+// 
+// }
+
+#body {
+    &.regular {
+        .builder li.other .other.reverse_plugs {
+            display: none;
+        }
+        .builder li.other .other.quantity {
+            width: 50%;
+            @include bp(max-width, 1050px) {
+                width: 100%;
+            }
+            border-bottom: 1px solid #bbb;
+        }
+    }
+
+    &.expanded .builders {
+        width: 80%;
+    }
+}
+
+input.active {
+    display: none;
+
+    &:checked ~ .outer {
+        .image:before {
+            background-color: rgba(0,0,0,0.225);
+        }
+
+        .selector:checked ~ .image:before {
+            background-color: rgba(0,0,0,0);
+        }
+    }
+}
+
+.options {
+    height: 90%;
+    overflow-y: scroll;
+    position: relative;
+    z-index: 2;
+
+    .outer {
+        @include display-flex(flex);
+        @include flex-direction(row);
+        @include flex-wrap(wrap);
+        margin: auto;
+
+        h3 {
+            width: 100%;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 2px;
+            font-size: 18px;
+            margin: 1.5em 1.5em 0.5em;
+            text-align: center;
+
+            span {
+                display: block;
+                margin-top: 1em;
+                font-size: 11px;
+                font-weight: 300;
+                color: #535353;
+                text-transform: lowercase;
+            }
+        }
+    }
+
+    &.top .scrollIndicator {
+        .seeMore.up {
+            display: none;
+        }
+    }
+
+    &.bottom .scrollIndicator {
+        .seeMore.down {
+            display: none;
+        }
+    }
+
+    & .scrollIndicator {
+        width: 25px;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        .seeMore {
+            width: 100%;
+            height: (25px *(21/30));
+            position: absolute;
+            &.up {
+                background: url($media-folder + 'builder/indicator.png') no-repeat scroll center center / 60% auto transparent;
+                top: 0;
+                @include transform(scaleY(-1));
+            }
+
+            &.down {
+                background: url($media-folder + 'builder/indicator.png') no-repeat scroll center center / 60% auto transparent;
+                bottom: 0;
+            }
+        }
+    }
+}
+
+li.other {
+    .options {
+        padding: 2em;
+        max-width: 600px;
+        margin: 0 auto;
+        min-width: 350px;
+
+        span.extraCost {
+            color: #aaa;
+        }
+
+        .other {
+            cursor: default;
+            display: block;
+            float: left;
+            margin: 15px auto 0;
+            padding-bottom: 15px;
+            height: 120px;
+
+            &.other h3 {
+                margin: 0;
+                margin-bottom: 1em;
+
+                p {
+                    font-size: 10px;
+                    font-weight: 300;
+                    letter-spacing: 1px;
+                    margin-top: 1em;
+                    margin-left: auto;
+                    margin-right: auto;
+                    text-transform: none;
+                    max-width: 200px;
+                }
+            }
+
+            &:not(:last-child) {
+                border-bottom: 1px solid #bbb;
+            }
+
+            &.techflex {
+                height: 175px;
+                width: 100%;
+                @include display-flex(flex);
+                @include justify-content(flex-start);
+
+                h3 {
+                    text-align: left;
+                    margin-bottom: 0;
+
+                    span.extraCost {
+                        display: inline-block;
+                        margin-left: 5px;
+                    }
+
+                    p {
+                        text-align: left;
+                        max-width: 100%;
+                    }
+                }
+            }
+
+            &.heatshrink, &.reverse_plugs {
+                width: 50%;
+
+                .option {
+                    cursor: default;
+                    margin: 0 auto;
+                    width: 60%;
+
+                    input {
+                        display: none;
+                    }
+
+                    input:checked ~ label {
+                        background-position: center bottom;
+                    }
+
+                    label {
+                        background-image: url($media-folder + 'builder/check.png');
+                        background-size: 100%;
+                        background-repeat: no-repeat;
+                        background-position: center top;
+                        cursor: pointer;
+                        display: block;
+                        height: 20px;
+                        margin: 0 auto;
+                        width: 20px;
+                    }
+                }
+            }
+
+            &.heatshrink {
+                position: relative;
+                button.explain {
+                    width: 15px;
+                    height: 15px;
+                    background-color: #ccc;
+                    border: solid 1px #bbb;
+                    border-radius: 50%;
+                    font-size: 10px;
+                    font-weight: 300;
+                    padding-left: 2px;
+                    position: relative;
+                    right: -5px;
+                    top: -3px;
+                }
+                span.extraCost {
+                    float: left;
+                    margin-top: 4px;
+                }
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    background-color: #bbb;
+                    right: 0;
+                    top: 5%;
+                    height: 80%;
+                    width: 1px;
+                    display: block;
+                }
+
+                .option {
+                    @include bp(max-width, 950px) {
+                        width: 90%;
+                    }
+
+                    @include bpw(951px, 1110px) {
+                        width: 80%;
+                    }
+
+                    @include bpw(1111px, 1230px) {
+                        width: 70%;
+                    }
+                }
+            }
+
+            &.quantity {
+                width: 100%;
+
+                input {
+                    width: 50px;
+                    padding: 0.5em;
+                    text-align: center;
+                    border: solid 1px #333;
+                    background-color: white;
+                    display: block;
+                    margin: 0.5em auto 0;
+                }
+            }
+        }
+    }
+
+    .option {
+        border: none;
+    }
+
+    .option.techflex {
+        height: 100px;
+        min-width: auto;
+        width: 75px;
+
+        .reset {
+            display: none;
+        }
+
+        .techflexColor {
+            color: black;
+        }
+
+        input {
+            display: none;
+        }
+
+        input[value="white"] + label:before {
+            background-image: url($media-folder + 'misc/other/techflex/white.png');
+            background-color: black;
+        }
+
+        input[value="black"] + label:before {
+            background-image: url($media-folder + 'misc/other/techflex/black.png');
+            background-color: white;
+        }
+
+        input[value="gray"] + label:before {
+            background-image: url($media-folder + 'misc/other/techflex/gray.png');
+            background-color: white;
+        }
+
+        input + label:after {
+            content: "Pick me!";
+        }
+
+        input:checked + label:after {
+            content: "Picked!";
+            background-color: white;
+            color: black;
+        }
+
+        label {
+            background-color: black;
+            border: solid 1px #ccc;
+            color: white;
+            display: block;
+            height: 100px;
+            position: relative;
+            width: 75px;
+
+            &:after, &:before {
+                cursor: pointer;
+                position: absolute;
+                content: "";
+                width: 73px;
+                display: block;
+                left: 0;
+            }
+
+            &:after {
+                height: 25px;
+                line-height: 25px;
+                bottom: 0;
+            }
+
+            &:before {
+                height: 75px;
+                top: 0;
+            }
+        }
+    }
+}

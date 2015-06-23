@@ -4,29 +4,29 @@ $dot-background: 70%;
 
 #body {
     &.regular {
-        #lengthSelector {
+        .pointer[data-pointer-component="length"] {
             top: -5px;
         }
-        #outputPlugSelector, #inputPlugSelector {
+        .pointer[data-pointer-component="output"], .pointer[data-pointer-component="input"] {
             right: -5%;
             top: 65px;
         }
-        #cableSelector {
+        .pointer[data-pointer-component="cable"] {
             top: 40%;
             right: -5%;
         }
     }
 
     &.patch {
-        #lengthSelector {
+        .pointer[data-pointer-component="length"] {
             top: 0;
         }
-        #outputPlugSelector, #inputPlugSelector {
+        .pointer[data-pointer-component="output"], .pointer[data-pointer-component="input"] {
             right: 10%;
             top: 25%;
         }
 
-        #cableSelector {
+        .pointer[data-pointer-component="cable"] {
             top: 40%;
             right: 7.5%;
         }
@@ -34,13 +34,27 @@ $dot-background: 70%;
 }
 
 .pointer {
+    &.current .dot, .dot:hover {
+        width: $dot-diameter;
+        height: $dot-diameter;
+        line-height: $dot-diameter;
+
+        @include transition(all 0.25s ease);
+
+        &:before {
+            opacity: 1;
+        }
+    }
+
     .dot {
         @include transition(all 0.25s ease-in-out);
-        background-color: #bcbcbc;
-        border: solid 1px #b5b5b5;
+        background-color: #6c6c6c;
+        // border: solid 1px #b5b5b5;
         border-radius: 50%;
+        color: #939393;
         cursor: pointer;
         font-size: 12px;
+        font-weight: 800;
         height: 24px;
         line-height: 24px;
         overflow: hidden;
@@ -50,16 +64,9 @@ $dot-background: 70%;
         width: 24px;
         z-index: 50;
 
-        &.current, &:hover {
-            width: $dot-diameter;
-            height: $dot-diameter;
-            line-height: $dot-diameter;
-
-            @include transition(all 0.25s ease);
-        }
         &:before {
             background-size: $dot-background auto;
-            background-color: #bcbcbc;
+            background-color: #6c6c6c;
             background-repeat: no-repeat;
             background-position: center center;
             display: block;
@@ -72,9 +79,6 @@ $dot-background: 70%;
             width: $dot-diameter;
             @include transition(all 0.25s ease);
         }
-        &.current:before, &:hover:before {
-            opacity: 1;
-        }
     }
 
     .line {
@@ -82,36 +86,53 @@ $dot-background: 70%;
     }
 }
 
-#cableSelector {
+.pointer[data-pointer-component="cable"] {
+    top: 40%;
     width: 10%;
+
+    #body[data-current-length-type="regular"] & {
+        right: -5%;
+    }
+
+    #body[data-current-length-type="patch"] & {
+        right: 10%;
+    }
 
     .line {
         height: 1px;
-        width: 100%;
-        top: 5px;
         left: 0;
+        top: 5px;
+        width: 100%;
     }
-    .dot {
-        top: $dot-offset;
-        left: 100%;
 
-        &.current:before {
-            background-image: url($media-folder + 'misc/tracker/cable.png');
-        }
+    .dot {
+        left: 100%;
+        top: $dot-offset;
 
         &:before {
             background-image: url($media-folder + 'misc/tracker/cable-complete.png');
         }
 
-        &.current, &:hover {
+        &:hover {
             top: $dot-offset + -13px;
+        }
+    }
+
+    &.current {
+        .dot {
+            top: $dot-offset + -13px;
+
+            &:before {
+                background-image: url($media-folder + 'misc/tracker/cable-selected.png');
+            }
         }
     }
 }
 
-#lengthSelector {
+.pointer[data-pointer-component="length"] {
     left: 50%;
     margin-left: -5px;
+    top: -2%;
 
     .line {
         bottom: 0;
@@ -146,27 +167,44 @@ $dot-background: 70%;
             }
         }
     }
+
     .dot {
         top: -33px;
         left: $dot-offset;
-
-        &.current:before {
-            background-image: url($media-folder + 'misc/tracker/length.png');
-        }
 
         &:before {
             background-image: url($media-folder + 'misc/tracker/length-complete.png');
         }
 
-        &.current, &:hover {
+        &:hover {
             left: $dot-offset + -13px;
             top: -60px;
         }
     }
+
+    &.current {
+        .dot {
+            left: $dot-offset + -13px;
+            top: -60px;
+            
+            &:before {
+                background-image: url($media-folder + 'misc/tracker/length-selected.png');
+            }
+        }
+    }
 }
 
-#outputPlugSelector, #inputPlugSelector {
+.pointer[data-pointer-component="output"], .pointer[data-pointer-component="input"] {
     width: 25%;
+    top: 65px;
+
+    #body[data-current-length-type="regular"] & {
+        right: -5%;
+    }
+
+    #body[data-current-length-type="patch"] & {
+        right: 10%;
+    }
 
     .line {
         height: 1px;
@@ -181,39 +219,53 @@ $dot-background: 70%;
     }
 }
 
-#inputPlugSelector {
+.pointer[data-pointer-component="input"] {
     .dot {
         @include transform(scaleX(-1));
 
-        &.current:before {
-            background-image: url($media-folder + 'misc/tracker/inputPlug.png');
-        }
         &:before {
-            background-image: url($media-folder + 'misc/tracker/inputPlug-complete.png');
+            background-image: url($media-folder + 'misc/tracker/input-complete.png');
         }
 
-        &.current, &:hover {
+        &:hover {
             top: $dot-offset + -13px;
         }
     }
-    
+
+    &.current {
+        .dot {
+            top: $dot-offset + -13px;
+            
+            &:before {
+                background-image: url($media-folder + 'misc/tracker/input-selected.png');
+            }
+        }
+    }
 }
 
-#outputPlugSelector {
+.pointer[data-pointer-component="output"] {
     .dot {
-        &.current:before {
-            background-image: url($media-folder + 'misc/tracker/outputPlug.png');
-        }
         &:before {
-            background-image: url($media-folder + 'misc/tracker/outputPlug-complete.png');
+            background-image: url($media-folder + 'misc/tracker/output-complete.png');
         }
-        &.current, &:hover {
+
+        &:hover {
             top: $dot-offset + -13px;
+        }
+    }
+
+    &.current {
+        .dot {
+            top: $dot-offset + -13px;
+            
+            &:before {
+                background-image: url($media-folder + 'misc/tracker/output-selected.png');
+            }
         }
     }
 }
 
-#otherSelector {
+.pointer[data-pointer-component="other"] {
     top: -1em;
     left: -1em;
     z-index: 100;
@@ -226,42 +278,44 @@ $dot-background: 70%;
         width: $dot-diameter;
         height: $dot-diameter;
 
-        &.current {
-            background-image: url($media-folder + 'misc/tracker/other.png');
-        }
-
         &:before {
             background-color: transparent;
         }
     }
+
+    &.current {
+        .dot {
+            background-image: url($media-folder + 'misc/tracker/other-selected.png');
+        }
+    }
 }
 
-#techflexOverlay {
+.pointer.techflex {
     background-size: 100%;
     border: solid 1px black;
     border-radius: 50%;
     cursor: pointer;
     display: none;
     top: 10%;
+    padding-bottom: 15%;
     width: 15%;
     z-index: 15;
     
     $colors: 'black' 'gray' 'white';
     @each $color in $colors {
-        &.#{$color} {
+        &[data-techflex-color="#{$color}"] {
             display: block;
             background-image: url($media-folder + 'display/techflex/#{$color}.png');
         }
     }
 
-}
-#body.regular #techflexOverlay {
-    right: 11%;
-    padding-bottom: 15%;
-}
+    #body[data-current-length-type="regular"] & {
+        right: 11%;
+        left: auto;
+    }
 
-#body.patch #techflexOverlay {
-    left: 20%;
-    padding-bottom: 15%;
-    right: auto;
+    #body[data-current-length-type="patch"] & {
+        left: 20%;
+        right: auto;
+    }
 }

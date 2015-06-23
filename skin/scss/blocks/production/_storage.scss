@@ -1,21 +1,18 @@
-.storage-container {
-    @include display-flex(flex);
-    @include align-items(center);
-    @include flex-direction(column);
-    @include justify-content(center);
-    left: 10px;
-    top: 0;
+#storage {
     bottom: 0;
+    height: 90px;
+    left: 0;
+    // min-width: 350px; // viewport ~777px
+    min-width: 265px; // viewport ~630px
     position: absolute;
+    width: 42%;
     z-index: 100;
 }
 
-div.storage {
+.storage {
     @include display-flex(flex);
-    @include align-items(center);
-    @include flex-direction(column);
-    @include justify-content(center);
-    background-color: #444;
+    height: 100%;
+    background-color: $storage-bg;
     padding: 10px;
     position: relative;
 
@@ -31,241 +28,304 @@ div.storage {
     }
 
     .builds {
-        @include display-flex(flex);
-        @include flex-direction(column);
         position: relative;
+        width: 90%;
+        height: 100%;
+    }
 
-        .counter {
-            bottom: -10px;
-            color: #aaa;
-            font-size: 10px;
-            position: absolute;
-            right: 0;
-            z-index: 5;
+    .counter {
+        display: none;
+        bottom: -10px;
+        color: #aaa;
+        font-size: 10px;
+        position: absolute;
+        right: 0;
+        z-index: 5;
 
-            strong {
-                font-weight: 400;
-            }
+        strong {
+            font-weight: 400;
         }
     }
 
-    $block-size: 80px;
-
     .build {
-        position: relative;
         cursor: pointer;
-        border-bottom: solid 5px #999;
-        order: 99;
-
-        input[name="storage_build"]:checked + .identifier {
-            background-color: #ccc;
-        }
-
-        input[type="radio"] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            z-index: 10;
-            visibility: hidden;
-        }
-
-        &.complete .identifier p.id {
-            &:before {
-                background: url($media-folder + 'backpack/complete.png') no-repeat scroll center center / 100% auto transparent;
-                content: "";
-                display: block;
-                height: 17px;
-                position: absolute;
-                right: 14px;
-                top: 12px;
-                width: 14px;
-            }
-        }
-
-        &.current .identifier {
-            p {
-                color: black;
-            }
-        }
+        float: left;
+        height: 30px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        position: relative;
+        width: 30px;
 
         .identifier {
             @include display-flex(flex);
-            @include align-items(center);
-            @include flex-direction(column);
             @include justify-content(center);
-            position: relative;
-            width: $block-size;
-            height: $block-size;
-            z-index: 2;
+            @include align-items(center);
+            height: 100%;
+            .id {
+                font-size: 13px;
+                font-weight: 800;
+            }
 
-            p {
-                font-weight:  700;
-                color: #d0d0d0;
+            .type {
+                display: none;
+            }
 
-                &.id {
-                    font-size: 16px;
+            .price {
+                display: none;
+            }
+        }
+
+        .information {
+            display: none;
+        }
+
+        .set {
+            display: none;
+        }
+
+        &:hover {
+            .remove {
+                opacity: 1;
+            }
+        }
+
+        .remove {
+            background-color: #dfdfdf;
+            border: 1px solid #868686;
+            border-radius: 50%;
+            height: 16px;
+            left: -5px;
+            position: absolute;
+            top: -5px;
+            width: 16px;
+            z-index: 15;
+            opacity: 0;
+
+            @include transition(opacity 0.15s ease-out);
+
+            &:before, &:after {
+                background-color: $black;
+                content: "";
+                height: 60%;
+                position: absolute;
+                top: 3px;
+                width: 2px;
+            }
+
+            &:before {
+                @include transform(rotate(45deg));
+                left: 6px;
+            }
+
+            &:after {
+                @include transform(rotate(-45deg));
+                right: 6px;
+            }
+        }
+
+        &[data-storage-status="inactive"] {
+            background-color: #0b0b0b;
+            color: #686868;
+
+            .remove {
+                visibility: hidden;
+            }
+        }
+
+        &[data-storage-status="active"] {
+            background-color: #959595;
+            color: $white;
+        }
+
+        &[data-storage-status="complete"] {
+            
+        }
+
+        &[data-storage-status="error"] {
+            &:before {
+                background: $red url($media-folder + 'backpack/warning.png') no-repeat scroll center center / 80% auto;
+                content: "";
+                display: block;
+                height: 100%;
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 100%;
+            }
+        }
+
+        &[data-storage-status="current"] {
+            cursor: default;
+            height: 100%;
+            width: auto;
+
+            .remove {
+                opacity: 1;
+            }
+
+            .identifier {
+                @include flex-direction(column);
+                background-color: #606060;
+                float: left;
+                position: relative;
+                text-align: center;
+                text-transform: uppercase;
+                width: 70px;
+                z-index: 2;
+
+                p {
+                    color: $white;
+                    display: block;
+                    font-weight: 800;
+                }
+
+                .id {
+                    font-size: 11px;
                     font-weight:  800;
+                    letter-spacing: 1px;
+
+                    &:before {
+                        content: "Cable ";
+                    }
                 }
 
-                &.type {
-                    text-transform: uppercase;
-                    font-size: 10px;
-                    margin: 7px;
+                .type {
+                    font-size: 9px;
+                    font-weight: 300;
+                    margin: 2px 0 5px;
                 }
 
-                &.price {
-                    color: #cf2700;
+                .price {
+                    color: $teal;
                     font-size: 12px;
+
                     &:before {
                         content: '$';
                     }
                 }
             }
-        }
 
-        &.first .information {
-            border-top: 0;
-            top: 0;
-        }
+            .information {
+                @include transition(width 0.3s ease-in-out);
+                background-color: $teal;
+                cursor: default;
+                display: block;
+                float: left;
+                height: 100%;
+                text-align: center;
+                width: 215px;
+                z-index: 2;
 
-        &.last, &.last .information {
-            border-bottom: 0;
-            bottom: 0;
-        }
-
-        .information {
-            @include transition(width 0.3s ease-in-out);
-            background-color: #ccc;
-            position: absolute;
-            left: 0;
-            top: -5px;
-            bottom: -5px;
-            width: 0;
-            overflow: hidden;
-            cursor: default;
-            border-color: #999;
-            border-width: 5px 0;
-            border-style: solid;
-
-            p {
-                font-size: 10px;
-                margin: 3px 0;
-                span {
-                    text-transform: lowercase;
-                    width: 80px;
-                    text-align: right;
-                    display: inline-block;
-                    margin-right: 2px;
+                .other {
+                    display: none;
                 }
-                em {
-                    text-transform: uppercase;
+
+                .qty {
+                    &:before {
+                        content: "QTY: ";
+                    }
+                }
+
+                p {
+                    color: $white;
+                    font-size: 8px;
+                    height: 8px;
+                    font-style: normal;
                     font-weight: bold;
                     letter-spacing: 1px;
-                    font-style: normal;
+                    margin: 3px 0;
+                    text-transform: uppercase;
                 }
             }
-        }
 
-        .information p {
-            width: 380px;
-            padding-left: $block-size;
-        }
-        &:hover {
-            .identifier p:not(.price), .information {
-                color: black;
+            // @include bp(max-width, 1348px) {
+            @include bp(max-width, 1152px) {
+                margin-right: 15px;
+
+                &:hover .information {
+                    width: 215px;
+
+                    p {
+                        margin-left: 0;
+                    }
+                }
+
+                .information {
+                    width: 15px;
+                    overflow: hidden;
+                    position: absolute;
+                    left: 70px;
+
+                    p {
+                        margin-left: 15px;
+                    }
+                }
             }
-        }
-
-        &:hover .information, &.open .information {
-            padding-left: $block-size;
-            width: 380px;
-
-            p {
-                padding-left: 0;
-            }
-        }
-
-        &.alert {
-            .identifier {
-                background-color: rgba(255,0,0,0.3) !important;
-            }
-            .information p.error {
-                color: #c00;
-            }
-        }
-
-        button.remove {
-            background: url($media-folder + 'backpack/trash.png') no-repeat center center / 100% auto transparent;
-            border: none;
-            bottom: 3px;
-            height: 15px;
-            left: 3px;
-            position: absolute;
-            width: 12px;
-            z-index: 5;
         }
     }
 
+    input[type="radio"] {
+        display: none;
+    }
+
     .buttons {
-        @include display-flex(flex);
-        @include flex-direction(column);
-        width: 100%;
-        margin-top: 20px;
+        width: 90px;
 
         button {
             @include transition(opacity 0.1s ease);
             border: none;
-            height: 30px;
-            letter-spacing: 1px;
             font-size: 9px;
             font-weight: bolder;
+            // height: 30%;
+            height: 21px;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+            // margin-bottom: (10% / 3);
             opacity: 1;
+            position: relative;
             text-transform: uppercase;
             width: 100%;
-            position: relative;
-        }
-        button:hover {
-            opacity: 0.85;
-        }
-        button:active {
-            opacity: 1;
-        }
-        button[disabled]:after {
-            background-color: black;
-            color: white;
-            content: "max";
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            line-height: 30px;
 
-        }
-        button:nth-child(1) {
-            background-color: white;
-            color: black;
+            &:hover {
+                opacity: 0.85;
+            }
+
             &:active {
-                color: white;
+                opacity: 1;
+            }
+
+            &[disabled]:after {
                 background-color: black;
+                color: white;
+                content: "max";
+                height: 100%;
+                left: 0;
+                line-height: 30px;
+                position: absolute;
+                top: 0;
+                width: 100%;
             }
-        }
-        button:nth-child(2) {
-            background-color: #838383;
-            color: white;
-            &:active {
-                color: #838383;
-                border: solid 1px #838383;
-                background-color: white;
-            }
-        }
-        button:nth-child(3) {
-            background-color: #fe531f;
-            color: white;
-            &:active {
-                color: #fe531f;
-                border: solid 1px #fe531f;
-                background-color: white;
+
+            $buttons: (
+                // (background, foreground)
+                ($white, #737373),
+                (#a6a6a6, $white),
+                ($teal, $white),
+            );
+            @for $i from 1 to length($buttons) + 1 {
+                $j: nth($buttons, $i);
+                &:nth-child(#{$i}) {
+                    $c1: nth($j, 1);
+                    $c2: nth($j, 2);
+
+                    background-color: $c1;
+                    color: $c2;
+
+                    &:active {
+                        background-color: $c2;
+                        color: $c1;
+                    }
+                }
             }
         }
     }

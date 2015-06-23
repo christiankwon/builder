@@ -1,7 +1,5 @@
 #introduction {
-    display: none;
-
-    body.introduction & {
+    body[data-display-introduction="show"] & {
         @include display-flex(flex);
         @include align-items(center);
         @include justify-content(center);
@@ -10,7 +8,7 @@
         content: "";
         height: 100%;
         opacity: 1;
-        position: absolute;
+        // position: absolute;
         width: 100%;
         z-index: 900;
 

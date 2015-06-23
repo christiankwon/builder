@@ -3,23 +3,21 @@
 @import "blocks/production";
 @import "blocks/confirmation";
 
-#body {
-    overflow: hidden;
-
-    .display {
-        float: left;
-    }
-
-    .builders {
-        float: right;
-    }
-}
-
 #content {
     overflow: hidden;
     position: relative;
 
-    > div {
+    section {
         position: relative;
     }
+}
+
+#body {
+    @include display-flex(flex);
+}
+
+body[data-orientation="horizontal"] {
+}
+
+body[data-orientation="vertical"] {
 }

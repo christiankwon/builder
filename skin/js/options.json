@@ -6,7 +6,7 @@
           "id": "CSB1",
           "name": "Instrument/Patch",
           "type": "instrument",
-          "prefix": "ins_",
+          "prefix": "ins",
           "default": true
         }
       ]
@@ -28,8 +28,7 @@
           "colors": {
             "color": [
               {
-                "name": "black",
-                "short_name": "blk"
+                "name": "black"
               }
             ]
           },
@@ -63,29 +62,24 @@
             "color": [
               {
                 "id": 1649,
-                "name": "red",
-                "short_name": "red"
+                "name": "red"
               },
               {
                 "id": 1650,
                 "name": "orange",
-                "short_name": "org",
                 "out_of_stock": true
               },
               {
                 "id": 1651,
-                "name": "yellow",
-                "short_name": "ylw"
+                "name": "yellow"
               },
               {
                 "id": 1652,
-                "name": "green",
-                "short_name": "grn"
+                "name": "green"
               },
               {
                 "id": 1647,
                 "name": "black",
-                "short_name": "blk",
                 "default": true
               }
             ]
@@ -118,8 +112,7 @@
           "colors": {
             "color": [
               {
-                "name": "black",
-                "short_name": "blk"
+                "name": "black"
               }
             ]
           },
@@ -153,13 +146,11 @@
               {
                 "id": 1649,
                 "name": "red",
-                "short_name": "red",
                 "default": true
               },
               {
                 "id": 1647,
                 "name": "black",
-                "short_name": "blk",
                 "out_of_stock": true
               }
             ]
@@ -191,8 +182,7 @@
           "colors": {
             "color": [
               {
-                "name": "black",
-                "short_name": "blk"
+                "name": "black"
               }
             ]
           },
@@ -223,8 +213,7 @@
           "colors": {
             "color": [
               {
-                "name": "black",
-                "short_name": "blk"
+                "name": "black"
               }
             ]
           },
@@ -257,8 +246,7 @@
           "colors": {
             "color": [
               {
-                "name": "red",
-                "short_name": "red"
+                "name": "red"
               }
             ]
           },
@@ -290,12 +278,10 @@
           "colors": {
             "color": [
               {
-                "name": "blue",
-                "short_name": "blu"
+                "name": "blue"
               },
               {
-                "name": "black",
-                "short_name": "blk"
+                "name": "black"
               }
             ]
           },
@@ -329,13 +315,11 @@
             "color": [
               {
                 "id": 1678,
-                "name": "white",
-                "short_name": "wht"
+                "name": "white"
               },
               {
                 "id": 1647,
                 "name": "black",
-                "short_name": "blk",
                 "default": true
               }
             ]
@@ -379,6 +363,18 @@
             "color": {
               "input_option_id": 374,
               "output_option_id": 382,
+              "body": "nickel",
+              "connector": "nickel"
+            },
+            "angle": "straight"
+          },
+          {
+            "manufacturer": "Switchcraft",
+            "model": "380",
+            "price": "7",
+            "color": {
+              "input_option_id": 1794,
+              "output_option_id": 1795,
               "body": "nickel",
               "connector": "nickel"
             },
@@ -546,6 +542,7 @@
             "colors": {
               "color": [
                 {
+                  "out_of_stock": true,
                   "suffix": "GGG",
                   "body": "gold",
                   "connector": "gold",
@@ -561,6 +558,7 @@
                   "output_option_id": 1608
                 },
                 {
+                  "out_of_stock": true,
                   "suffix": "BGG",
                   "body": "black",
                   "connector": "gold",
@@ -604,6 +602,7 @@
               "color": "gray"
             },
             {
+              "default": true,
               "input_option_id": 1491,
               "output_option_id": 1791,
               "color": "black"
@@ -655,7 +654,7 @@
           "feet_20": 1646
         }
       },
-      "heatshrink": {
+      "tourproof": {
         "option_id": 1599,
         "option_category_id": 143
       },

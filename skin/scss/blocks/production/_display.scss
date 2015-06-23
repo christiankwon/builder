@@ -1,25 +1,16 @@
 @import 'display/pointers';
-.display {
+
+#display {
     @include display-flex(flex);
     @include align-items(center);
     @include justify-content(center);
     @include transition(width 0.3s ease-out, opacity 0.3s ease-in);
-
+    height: 100%;
     position: relative;
-    z-index: 1;
-    padding-left: 125px;
     opacity: 1;
-
-    @include bp(max-width, $bp-small) {
-        height: 50%;
-        margin: 0 auto;
-        width: 100%;
-    }
-
-    @include bp(min-width, $bp-small + 1 ) {
-        width: 50%;
-        height: 100%;
-    }
+    padding-bottom: 90px;
+    width: 42%;
+    z-index: 1;
 
     .outer {
         @include display-flex(flex);
@@ -42,21 +33,18 @@
                 background-size: 30%;
                 background: url("/v/s/images/loading.gif") no-repeat scroll center center / 30% auto rgba(255,255,255,0.75);
                 z-index: 999;
-
             }
         }
+    }
 
-        .inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
+    .inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
 
-            div {
-                position: relative;
-
-                &:not(.cable) {
-                    position: absolute;
-                }
+        div {
+            &:not(.cable) {
+                position: absolute;
             }
         }
     }
@@ -75,7 +63,8 @@
             z-index: 5;
         }
     }
-    .inputPlug, .outputPlug {
+
+    .input, .output {
         position: relative;
         z-index: 10;
 
@@ -90,38 +79,31 @@
         }
     }
 
-    .inputPlug {
+    .input {
         // Mirror
         @include transform(scaleX(-1));
-        .boot {
-        }
-    }
-
-    .outputPlug {
-        .boot {
-        }
     }
 }
 
 #body {
-    &.patch {
-        .display {
+    &[data-current-length-type="patch"] {
+        #display {
             // triangles 8-11-sqrt(185) and 9-12-15
             // triangles made from pixel distances from dot to dot in patch image
             // angle of rotation roughly a little more than 36
-            .inputPlug img, .outputPlug img {
+            .input img, .output img {
                 @include transform(rotate(-38deg));
             }
         }
 
         &.reverse_plugs {
-            .display {
-                .inputPlug img {
+            #display {
+                .input img {
                     @include transform(rotate(-38deg) scaleX(-1));
                 }
             }
 
-            #inputPlugSelector {
+            .pointer[data-pointer-component="input"] {
                 right: 100%;
 
                 .dot {
@@ -133,19 +115,5 @@
                 }
             }
         }
-    }
-
-    &.delay {
-        .inputPlug, .outputPlug {
-            img {
-                @include transition(all 2s 2s ease);
-            }
-        }
-    }
-
-    &.expanded .display {
-        @include transition(width 0.3s ease-out, opacity 0.15s ease-out);
-        width: 0%;
-        opacity: 0;
     }
 }

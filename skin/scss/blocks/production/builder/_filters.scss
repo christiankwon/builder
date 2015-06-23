@@ -1,5 +1,37 @@
-ul.builder li {
-    & > .filters:before {
+.builder li {
+    // define filters
+    $components: (
+        ('cable', 'Cable Type'),
+        ('length' 'Cable Length'),
+        ('input' 'Input Plug'),
+        ('output' 'Output Plug'),
+        ('other' 'Other Options'),
+    );
+
+    @for $i from 1 to length($components) + 1 {
+        $component: nth($components, $i);
+        $name: nth($component, 1);
+        $desc: quote($i + '. '+ nth($component, 2));
+
+        &.#{$name} .filters:before {
+            content: $desc;
+        }
+    }
+}
+
+.filters {
+    @include display-flex(flex);
+    @include flex-direction(row);
+    @include flex-wrap(nowrap);
+    @include align-items(center);
+    background-color: $teal;
+    font-size: 11px;
+    height: 70px;
+    letter-spacing: 1px;
+    position: relative;
+    text-transform: uppercase;
+    
+    &:before {
         align-self: center;
         color: #fff;
         cursor: default;
@@ -12,104 +44,58 @@ ul.builder li {
         width: 150px;
     }
 
-    &.cable > .filters:before {
-        content: "1. Cable Type";
+    // hide radio/checkbox inputs
+    input[name="active"] {
+        display: none;
     }
-    &.length > .filters:before {
-        content: "2. Cable Length";
-    }
-    &.inputPlug > .filters:before {
-        content: "3. Input Plug";
-    }
-    &.outputPlug > .filters:before {
-        content: "4. Output Plug";
-    }
-    &.other > .filters:before {
-        content: "5. Other Options";
-    }
-}
 
-.filters {
-    $primary: #af9757;
-    $secondary: #fff;
-    $tertiary: #867443;
-    $accent: #000;
+    .filter-clear {
+        background-color: darken($teal, 20%);
+        bottom: -15px;
+        border: none;
+        color: $white;
+        cursor: pointer;
+        display: none;
+        font-size: 9px;
+        height: 15px;
+        letter-spacing: 1px;
+        line-height: 15px;
+        padding-left: 15px;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        text-transform: uppercase;
+        width: 115px;
+        z-index: 35;
 
-    @include display-flex(flex);
-    @include flex-direction(row);
-    @include flex-wrap(nowrap);
-    @include align-items(center);
-    background-color: $primary;
-    border-bottom: solid 5px $tertiary;
-    font-size: 11px;
-    letter-spacing: 1px;
-    position: relative;
-    text-transform: uppercase;
-    max-height: 10%;
-    height: 100%;
+        &:before {
+            background: url($media-folder + "misc/x.white.png") no-repeat scroll center center / 100% 100% transparent;
+            content: "";
+            display: block;
+            height: 8px;
+            left: 9px;
+            position: absolute;
+            top: 3.5px;
+            width: 8px;
+        }
 
-    .filterContainer {
+        &[data-filter-active="true"] {
+            display: block;
+        }
+    }
+
+    .filter-container {
         @include align-self(center);
-        min-width: 85px;
-        max-width: 150px;
-        width: 23%;
-        margin-right: 1%;
-        position: relative;
         height: 50%;
+        margin-right: 1%;
         max-height: 40px;
-
-        &.filter-open {
-            h2:before, h2:after {
-                display: none !important;
-            }
-        }
-
-        &.filter-on {
-            .filter-open h2:after, .filter-open h2:before {
-                display: none;
-            }
-            h2:after {
-                @include align-items(center);
-                background-color: white;
-                content: "";
-                @include display-flex(flex);
-                left: 0;
-                height: 100%;
-                @include justify-content(center);
-                position: absolute;
-                top: 0;
-                width: 100%;
-                background-repeat: no-repeat;
-                background-position: 10% center;
-            }
-
-            $list: 'high' 'med' 'low' 'switchcraft' 'neutrik' 'gandh';
-            @each $item in $list {
-                &.filter-on-#{$item} h2:after {
-                    content: "#{$item}";
-
-                    @if $item == 'gandh' {
-                        content: "G&H";
-                    }
-                }
-            }
-
-            $color: 'red' 'orange' 'yellow' 'green' 'blue' 'black' 'white' 'multiple';
-            @each $item in $color {
-                &.filter-on-#{$item} h2:after {
-                    content: "#{$item}";
-                    background-image: url($media-folder + 'misc/filters/#{$item}.png');
-                }
-            }
-
-            h2:before {
-                top: -11px;
-                opacity: 1;
-            }
-        }
+        max-width: 150px;
+        min-width: 85px;
+        position: relative;
+        width: 23%;
 
         &:after {
-            border-color: $primary transparent;
+            border-color: darken($teal, 10%) transparent;
             border-style: solid solid none;
             border-width: 7px 4px medium;
             content: "";
@@ -117,7 +103,7 @@ ul.builder li {
             height: 0;
             position: absolute;
             right: 1em;
-            top: 40%;
+            top: 12.5px;
             width: 0;
             z-index: 3;
 
@@ -126,38 +112,34 @@ ul.builder li {
         }
 
         &.manufacturer {
-            width: 30%;
             max-width: 185px;
-
-            @include bp(min-width, 1199px) {
-                h2 {
-                    max-width: 185px;
-                }
-            }
-
-            @include bp(max-width, 1198px) {
-                h2 {
-                    max-width: 136px;
-                }
-            }
+            width: 30%;
 
             .filter {
                 max-width: 185px;
             }
         }
 
-        &.filter-open {
+        &[data-filter-open="open"] {
+            input[name="active"] + h2:after {
+                display: none;
+            }
             &:after {
                 @include transform(rotate(-180deg));
             }
 
-            h2, .filter-option {
-                background-color: $accent;
+            .filter-option {
+                color: lighten($white, 10%);
+                background-color: darken($teal, 10%);
             }
 
             .filter {
                 @include transition(z-index 0s step-end);
                 z-index: 40;
+            }
+
+            input:checked + label {
+                color: $teal;
             }
 
             div.filter-option {
@@ -173,56 +155,14 @@ ul.builder li {
             }
         }
 
-        h2 {
-            @include transition(all 0.1s ease-in);
-            @include display-flex(flex);
-            @include align-items(center);
-            @include justify-content(center);
-            background-color: $secondary;
-            border-bottom: solid 3px #ccc;
-            color: $primary;
-            cursor: pointer;
-            height: 100%;
-            letter-spacing: 1px;
-            font-weight: bold;
-            position: relative;
-            max-width: 150px;
-            z-index: 2;
-
-            &:before {
-                position: absolute;
-                display: block;
-                text-transform: uppercase;
-                top: 0;
-                left: 0;
-                opacity: 0;
-                color: white;
-                @include transition(all 0.2s ease-out);
-            }
-
-            &.brightness:before {
-                content: "Brightness";
-            }
-
-            &.flexibility:before {
-                content: "Flexibility";
-            }
-
-            &.color:before {
-                content: "Color";
-            }
-
-            &.manufacturer:before {
-                content: "Manufacturer";
+        $categories: 'capacitance' 'flexibility' 'color' 'manufacturer';
+        @each $category in $categories {
+            &[data-filter-open="closed"][data-filter-type="#{$category}"] input[name="active"]:checked + h2:before {
+                content: "Filter by: #{$category}";
             }
         }
 
-        .filter-open h2:before {
-            top: 11px;
-            opacity: 1;
-        }
-
-        &.color {
+        &[data-filter-type="color"] {
             .filter-option {
                 label {
                     &:before, &:after {
@@ -237,16 +177,18 @@ ul.builder li {
                     &:after {
                         right: 2em;
                         border-radius: 50%;
+                        border: 1px solid transparent;
                     }
                 }
                 $list: 'red' 'orange' 'yellow' 'green' 'black' 'white' 'green' 'blue';
                 @each $color in $list {
                     input[value="#{$color}"] + label:after {
                         background-color: #{$color};
+
+                        @if $color == 'black' {
+                            border-color: #fff;
+                        }
                     }
-                }
-                input[value="black"] + label:after {
-                    border: white solid 1px;
                 }
                 @for $i from 1 through 7 {
                     &:nth-child(#{$i}) {
@@ -256,7 +198,7 @@ ul.builder li {
             }
         }
 
-        &.brightness, &.flexibility {
+        &.capacitance, &.flexibility {
             .filter-option {
                 @for $i from 1 through 3 {
                     &:nth-child(#{$i}) {
@@ -265,19 +207,84 @@ ul.builder li {
                 }
             }
         }
+    }
 
-        @include bp(max-width, 1400px) {
-            &:after {
-                display: none;
+    h2 {
+        @include transition(all 0.1s ease-in);
+        @include display-flex(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        background-color: $white;
+        border-bottom: solid 3px darken($teal, 20%);
+        color: $teal;
+        cursor: pointer;
+        height: 100%;
+        letter-spacing: 1px;
+        font-weight: bold;
+        position: relative;
+        max-width: 150px;
+        z-index: 2;
+
+        &:before {
+            content: "Filter by:";
+            color: $white;
+            display: block;
+            left: 0;
+            position: absolute;
+            text-transform: uppercase;
+            top: -11px;
+            @include transition(all 0.2s ease-out);
+        }
+    }
+    
+    input[name="active"] {
+        [data-filter-open="open"] h2:after, [data-filter-open="open"] h2:before {
+            display: none;
+        }
+
+        &:checked + h2:after {
+            @include align-items(center);
+            @include display-flex(flex);
+            @include justify-content(center);
+            background-color: $white;
+            background-position: 10% center;
+            background-repeat: no-repeat;
+            content: "";
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+        $list: 'high' 'med' 'low' 'switchcraft' 'neutrik' 'g#{"&"}h';
+        @each $item in $list {
+            &[value="#{$item}"]:checked + h2:after {
+                content: "#{$item}";
             }
+        }
+
+
+        $colors: 'red' 'orange' 'yellow' 'green' 'blue' 'black' 'white' 'multiple';
+        @each $colors in $colors {
+            &[value="#{$colors}"]:checked + h2:after {
+                background-image: url($media-folder + 'misc/filters/#{$colors}.png');
+                content: "#{$colors}";
+            }
+        }
+
+        h2:before {
+            opacity: 1;
+            top: -11px;
         }
     }
 
     .filter {
         @include transition(all 0.2s ease-in, z-index 0.2s step-end);
+        border: solid 0px transparent;
+        max-width: 150px;
         position: absolute;
         width: 100%;
-        max-width: 150px;
         z-index: 1;
 
         .filter-option {
@@ -285,29 +292,25 @@ ul.builder li {
             @include align-items(center);
             @include justify-content(center);
             @include transform(translateY(-40%));
-            background-color: $secondary;
-            color: $primary;
-            width: 150px;
+            background-color: $teal;
+            color: $white;
+            font-weight: bold;
             height: 35px;
             letter-spacing: 1px;
-            font-weight: bold;
-            position: relative;
             margin: 0;
             opacity: 0;
+            position: relative;
             visibility: hidden;
             width: 100%;
 
-            input:checked + label {
-                background-color: white;
-                border: solid 5px #838383;
-                opacity: 1;
-                &:before {
-                    background-image: url('http://placehold.it/25');
-                }
-            }
-
             input {
                 display: none;
+            }
+
+            input:checked + label {
+                background-color: white;
+                border: 5px solid darken($teal, 30%);
+                opacity: 1;
             }
 
             label {
@@ -316,43 +319,14 @@ ul.builder li {
                 @include justify-content(center);
                 cursor: pointer;
                 height: 100%;
+                opacity: 0.65;
                 text-align: center;
                 width: 100%;
-                opacity: 0.65;
 
                 &:hover {
                     opacity: 0.9;
                 }
             }
-        }
-    }
-
-
-    button {
-        display: none;
-        position: absolute;
-        left: 10px;
-        bottom: 10px;
-        background: none;
-        border: none;
-        text-transform: uppercase;
-    }
-
-    // hide animated arrow on smaller screens
-    @include bp(max-width, 1250px) {
-        .filterContainer h2:after {
-            display: none;
-        }
-
-        .filterContainer.color .filter-option label:after {
-            right: 1em;
-        }
-    }
-
-    // hide filters when the screen is too small
-    @include bp(max-width, 979px) {
-        button, div {
-            display: none;
         }
     }
 
@@ -389,65 +363,5 @@ ul.builder li {
             border-width: 3px;
             width: 100%;
         }
-    }
-
-    .clearFilter {
-        background-color: $tertiary;
-        bottom: -15px;
-        color: $secondary;
-        cursor: pointer;
-        display: none;
-        font-size: 9px;
-        height: 15px;
-        letter-spacing: 1px;
-        line-height: 15px;
-        padding-left: 15px;
-        position: absolute;
-        right: 0;
-        text-align: center;
-        width: 115px;
-        z-index: 200;
-
-        &:before {
-            background: url($media-folder + "misc/x.white.png") no-repeat scroll center center / 100% 100% transparent;
-            content: "";
-            display: block;
-            height: 8px;
-            left: 9px;
-            position: absolute;
-            top: 3.5px;
-            width: 8px;
-        }
-    }
-
-    .filter-on ~ .clearFilter {
-        display: block;
-    }
-}
-
-.options.empty {
-    &:before, &:after {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 360px;
-        text-align: center;
-        width: 100%;
-    }
-    &:before {
-        content: "Sorry!";
-        font-size: 30px;
-        font-weight: 800;
-        letter-spacing: 2px;
-        margin-top: 3em;
-    }
-
-    &:after {
-        content: "None of these options match your criteria. Try broadening some options and try again.";
-        font-size: 16px;
-        font-weight: 300;
-        letter-spacing: 1px;
-        line-height: 25px;
-        margin-top: 1em;
     }
 }
