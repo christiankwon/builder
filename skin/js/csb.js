@@ -1460,6 +1460,7 @@
                 }
                 
                 $('[data-length-type="' + data.length.type + '"].ruler').slider('value', data.length.amount);
+                $('[data-length-type="' + data.length.type + '"].input input').val(data.length.amount);
                 $('[data-length-type="' + data.length.type + '"].choice img').trigger('click');
 
                 $('[data-option-type="quantity"] input').val(data.quantity);
@@ -1551,7 +1552,6 @@
 
                 if(t) visual(t);
                 backpack();
-
                 progress();
                 $('.build[data-storage-status="current"] button.set', '#storage').trigger('click');
             },
@@ -3027,7 +3027,7 @@
 
             builders.find('li.length .choice').on('click', 'img', changeLength.type);
             builders.find('li.length .input').on('keyup', 'input', changeLength.input);
-            builders.find('li.length').on('slidechange', '.ruler', function(e, ui) {
+            builders.find('li.length').on('slide', '.ruler', function(e, ui) {
                 var length, unit, type;
 
                 unit = $(e.target).attr('data-length-unit'),
