@@ -2665,7 +2665,7 @@
                         input.prop('checked', !checked);
 
                         data.type = 'techflex';
-                        data.value = value
+                        data.value = value;
 
                         $('.pointer.techflex', '#display').attr('data-techflex-color', value);
 
