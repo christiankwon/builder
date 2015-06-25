@@ -45,6 +45,7 @@
         $dot-height: 59px * 0.5;
 
         .dot {
+            @include flex(0 0 $dot-width);
             cursor: pointer;
             height: $dot-height;
             margin: 1em;
