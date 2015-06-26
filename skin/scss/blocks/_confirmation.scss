@@ -105,6 +105,18 @@
                 background-color: #b48d3b;
                 color: white;
                 margin-bottom: 1em;
+
+                &:before {
+                    display: block;
+                    height: 100%;
+                    left: 0;
+                    line-height: 30px;
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                    z-index: 100;
+                }
+
             }
 
             &.return {
@@ -241,27 +253,16 @@
     &.pending .checkout:before { 
         background-color: #ffaa00;
         content: "Wait for it...";
-        display: block;
-        height: 100%;
-        left: 0;
-        line-height: 30px;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        z-index: 100;
     }
 
     &.complete .checkout:before {
         background-color: #2ea300;
         content: "Success! Redirecting...";
-        display: block;
-        height: 100%;
-        left: 0;
-        line-height: 30px;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        z-index: 100;
+    }
+
+    &.error .checkout:before {
+        background-color: $red;
+        content: "Something broke...";
     }
 
     .totals {
