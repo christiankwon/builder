@@ -517,7 +517,6 @@
                   "output_option_id": 1618
                 },
                 {
-                  "default": true,
                   "suffix": "NGG",
                   "body": "nickel",
                   "connector": "gold",
@@ -525,6 +524,7 @@
                   "output_option_id": 1616
                 },
                 {
+                  "default": true,
                   "suffix": "BGG",
                   "body": "black",
                   "connector": "gold",
@@ -542,7 +542,6 @@
             "colors": {
               "color": [
                 {
-                  "out_of_stock": true,
                   "suffix": "GGG",
                   "body": "gold",
                   "connector": "gold",
@@ -550,7 +549,6 @@
                   "output_option_id": 1610
                 },
                 {
-                  "default": true,
                   "suffix": "NGG",
                   "body": "nickel",
                   "connector": "gold",
@@ -558,7 +556,7 @@
                   "output_option_id": 1608
                 },
                 {
-                  "out_of_stock": true,
+                  "default": true,
                   "suffix": "BGG",
                   "body": "black",
                   "connector": "gold",
