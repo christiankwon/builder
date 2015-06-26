@@ -2691,7 +2691,6 @@
 
                         data.type = 'techflex';
                         data.value = '';
-                        data.test = true;
 
                         $('.pointer.techflex', '#display').attr('data-techflex-color', '');
 
