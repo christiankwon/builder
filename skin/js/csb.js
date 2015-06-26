@@ -906,6 +906,38 @@
         cc.price = totalCost.toFixed(2);
     },
 
+    checkRestrictions = function() {
+        var bool = true,
+            cc = CURRENT_CABLE.cable.code.toUpperCase(),
+            ci = CURRENT_CABLE.input.model.toUpperCase(),
+            co = CURRENT_CABLE.output.model.toUpperCase();
+
+        if( cc ) {
+            if( cc === 'CSB_EVIA_MLDY' ) {
+                // no techflex allowed
+                bool = false;
+
+            } else if ( cc === 'CSB_GTHM_GAC-1_UP') {
+                // no techflex allowed except for np2x big boot
+                if( !ci && !co ) {}
+                else if( ci.indexOf('NP2X') === -1 || co.indexOf('NP2X') === -1 ) {
+                    bool = false;
+                }
+
+            } else {
+                var arr = ["CSB_VDMM_CLSC-XKE", "CSB_CNRE_L-4E6S", "CSB_CNRE_GS-6"];
+
+                if( arr.indexOf(cc) > -1 ) {
+                    if( ci.indexOf('NYS224') > -1 || co.indexOf('NYS224') > -1 ) {
+                        bool = false;
+                    }
+                }
+            }
+        }
+
+        return bool;
+    },
+
     storage = {
         reNumber: function() {
             var i, j, max, val,
@@ -1418,6 +1450,8 @@
 
             builder = function() {
                 var data = CURRENT_CABLE, a, b, c, d;
+
+                $('.selector, .active').prop('checked', false);
 
                 if( data.cable.code.length ) {
                     $('.cable .active', '#builders').prop('checked', true)
@@ -2650,6 +2684,19 @@
                     }
 
                     update.dispatch(data);
+
+                    if( !checkRestrictions() ) {
+                        $('[data-option-type="techflex"] .choice input').prop('checked', false);
+                        var data = {};
+
+                        data.type = 'techflex';
+                        data.value = '';
+                        data.test = true;
+
+                        $('.pointer.techflex', '#display').attr('data-techflex-color', '');
+
+                        changeOtherOption.update(data);
+                    }
                 },
 
                 changeOtherOption = {
@@ -2661,6 +2708,12 @@
                         input = $(e.target).siblings('input');
                         checked = input.prop('checked');
                         value = !checked ? input.val() : '';
+
+                        var bool = checkRestrictions();
+                        if( !bool ) {
+                            checked = true;
+                            value = '';
+                        }
 
                         input.prop('checked', !checked);
 
@@ -2774,10 +2827,6 @@
                     val = !val || val === 'false' ? 'true' : 'false';
 
                     e.target.setAttribute('data-measurement-toggle', val);
-                },
-
-                clickSpecs = function(e) {
-                    return false;
                 },
 
                 changeLength = {
@@ -2997,7 +3046,7 @@
 
                     if( component === 'length' || component === 'other' ) {
                         CURRENT_CABLE[component].visited = true;
-                        // TODO - How do I push an update to color the dots?
+                        $('[data-pointer-component="' + component + '"]').addClass('done');
                     }
 
                     $('[data-pointer-component]').removeClass('current').filter(function(){
