@@ -126,6 +126,7 @@
         &[data-storage-status="inactive"] {
             background-color: #0b0b0b;
             color: #686868;
+            cursor: default;
 
             .remove {
                 visibility: hidden;
