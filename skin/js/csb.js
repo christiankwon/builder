@@ -3073,6 +3073,9 @@
                     if( component === 'length' || component === 'other' ) {
                         CURRENT_CABLE[component].visited = true;
                         $('[data-pointer-component="' + component + '"]').addClass('done');
+
+                        // force update to storage
+                        $('.build[data-storage-status="current"] button.set', '#storage').trigger('click');
                     }
 
                     $('[data-pointer-component]').removeClass('current').filter(function(){
