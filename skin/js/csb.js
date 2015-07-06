@@ -1,12 +1,18 @@
 (function ($) {
     "use strict";
 
-    // if( window.location.hostname.indexOf('www') === -1) {
-    //     window.location.hostname = 'www.sinasoid.com';
-    // }
+    var LOCAL = false,
+        JSON_URL = 's/builder/skin/js/options.json',
+        IMAGES_DIR = 's/builder/skin/images/';
 
-    var JSON_URL = 'skin/js/options.json',
+    if( LOCAL ) {
+        JSON_URL = 'skin/js/options.json';
         IMAGES_DIR = 'skin/images/';
+    } else {
+        if( window.location.hostname.indexOf('www') === -1) {
+            window.location.hostname = 'www.sinasoid.com';
+        }
+    }
 
     var INITIALIZED = false,
         OPTIONS_JSON, J_CABLE_TYPES, J_CABLES, J_PLUGS, J_OTHER,
