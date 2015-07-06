@@ -3353,6 +3353,10 @@
     ready = function() {
         if( !window.loaded  || !window.xmlReady ) return;
 
+        if( window.isMobile ) {
+            $('.zopim').hide();
+        }
+
         setTimeout(function() {
             $('.loader').fadeOut('fast');
         }, 500);
