@@ -1835,8 +1835,16 @@
                     data.choice = default_color;
                 }
 
+                // Set element Flexbox Order style
+                if( info.order ) {
+                    structure.css('order', info.order);
+                } else {
+                    structure.css('order', '98');
+                }
+
                 if( info.out_of_stock ) {
                     structure.attr('data-oos', 'true');
+                    structure.css('order', '99');
                 }
 
                     // general
@@ -1857,11 +1865,6 @@
                 structure.find('.name span').text(manufacturer).next().text(model);
                 structure.find('img.component').attr('src', getBuilderImageUrl.call(this));
                 structure.find('.price').text(price);
-
-                // Set element Flexbox Order style
-                if( info.order ) {
-                    structure.css('order', info.order);
-                }
 
                 // Append attributes and data to element
                 structure.attr(attributes).data(data);
@@ -2192,8 +2195,16 @@
                         data.choice = (default_color ? default_color : default_boot);
                     }
 
+                    // Set element Flexbox Order style
+                    if( info.order ) {
+                        structure.css('order', info.order);
+                    } else {
+                        structure.css('order', '98');
+                    }
+
                     if( info.out_of_stock ) {
                         structure.attr('data-oos', 'true');
+                        structure.css('order', '99');
                     }
 
                         // general
@@ -2211,11 +2222,6 @@
                     structure.find('.name').text(manufacturer + ' ' + model);
                     structure.find('img.component').attr('src', getBuilderImageUrl.call(this, 'component'));
                     structure.find('.price').text(price);
-
-                    // Set element Flexbox Order style
-                    if( info.order ) {
-                        structure.css('order', info.order);
-                    }
 
                     // Append attributes and data to element
                     structure.attr(attributes).data(data);
