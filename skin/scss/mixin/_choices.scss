@@ -1,4 +1,4 @@
-@mixin choices {
+@mixin choices {   
     [data-choice-value="black"] {
         border: 1px solid #555;
         height: 11px;
@@ -42,7 +42,7 @@
             $color: nth($choice, 1);
             $value: nth($choice, 2);
 
-            [data-choice-value="#{$color}"]:after {
+            [data-choice-value="#{$color}"] {
                 background-color: $value;
             }
         }
@@ -64,7 +64,7 @@
             $color: nth($choice, 1);
             $value: nth($choice, 2);
 
-            [data-choice-value="#{$color}"]:after {
+            [data-choice-value="#{$color}"] {
                 background-color: $value;
             }
         }
@@ -84,7 +84,7 @@
             $color: nth($choice, 1);
             $value: nth($choice, 2);
 
-            [data-choice-value="#{$color}"]:after {
+            [data-choice-value="#{$color}"] {
                 background-color: $value;
             }
         }
@@ -102,7 +102,7 @@
             $color: nth($choice, 1);
             $value: nth($choice, 2);
 
-            [data-choice-value="#{$color}"]:after {
+            [data-choice-value="#{$color}"] {
                 background-color: $value;
             }
         }
