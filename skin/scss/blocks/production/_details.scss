@@ -198,25 +198,63 @@
             }
         }
 
-        $colors: (
-            'red' #e90d2f,
-            'orange' #ff864f,
-            'yellow' #fcf86c,
-            'green' #25c265,
-            'violet' #6154ba,
-            'black' #000,
-            'gray' #999da3,
-            'white' #fff,
-            'gold' #fff282,
-            'nickel' #dce4f5,
-        );
+        &[data-choice-model="np2c"] {
+            $choices: (
+                "red": #e90d2f,
+                "orange": #ff864f,
+                "yellow": #fcf86c,
+                "green": #25c265,
+                "violet": #6154ba,
+                "gray": #999da3,
+                "black": $black,
+            );
 
-        @for $i from 1 to length($colors) + 1 {
-            $c1: nth( nth($colors, $i), 1);
-            $c2: nth( nth($colors, $i), 2);
 
-            [data-choice-value="#{$c1}"] {
-                background-color: #{$c2};
+            @each $choice in $choices {
+                $color: nth($choice, 1);
+                $value: nth($choice, 2);
+
+                [data-choice-value="#{$color}"] {
+                    background-color: $value;
+                }
+            }
+        }
+
+        &[data-choice-model="np2x"], &[data-choice-model="np2rx"] {
+            $choices: (
+                "red": #a24743,
+                "orange": #fbac44,
+                "green": #4b7968,
+                "blue": #3848a4,
+                "vintage-cream": #edecd4,
+                "black": $black,
+            );
+
+            @each $choice in $choices {
+                $color: nth($choice, 1);
+                $value: nth($choice, 2);
+
+                [data-choice-value="#{$color}"] {
+                    background-color: $value;
+                }
+            }
+        }
+
+        &[data-choice-model="rf2p"], &[data-choice-model="bf2p"] {
+            $choices: (
+                "white": $white,
+                "gold": #fff282,
+                "nickel": #dce4f5,
+            );
+
+
+            @each $choice in $choices {
+                $color: nth($choice, 1);
+                $value: nth($choice, 2);
+
+                [data-choice-value="#{$color}"] {
+                    background-color: $value;
+                }
             }
         }
     }
