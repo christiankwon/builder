@@ -266,6 +266,7 @@
         {
           "code": "CSB_EVIA_MLDY",
           "model": "Melody",
+          "out_of_stock": true,
           "manufacturer": "Evidence Audio",
           "price": "5",
           "is_premium": true,
@@ -384,6 +385,7 @@
             "manufacturer": "Neutrik",
             "model": "NP2X-B",
             "price": "9",
+            "has_boots": true,
             "color": {
               "input_option_id": 375,
               "output_option_id": 383,
@@ -396,6 +398,7 @@
             "manufacturer": "Neutrik",
             "model": "NP2RX-B",
             "price": "11",
+            "has_boots": true,
             "color": {
               "input_option_id": 376,
               "output_option_id": 384,
@@ -408,6 +411,7 @@
             "manufacturer": "Neutrik",
             "model": "NP2X-Silent",
             "price": "16",
+            "has_boots": true,
             "color": {
               "input_option_id": 377,
               "output_option_id": 385,
@@ -420,6 +424,7 @@
             "manufacturer": "Neutrik",
             "model": "NP2RX-Silent",
             "price": "20",
+            "has_boots": true,
             "color": {
               "input_option_id": 378,
               "output_option_id": 386,
@@ -494,6 +499,7 @@
           {
             "manufacturer": "Neutrik",
             "model": "NP2RX",
+            "has_boots": true,
             "price": "11",
             "color": {
               "input_option_id": 732,
@@ -604,6 +610,80 @@
               "input_option_id": 1491,
               "output_option_id": 1791,
               "color": "black"
+            }
+          ]
+        },
+        "np2x": {
+          "input_option_category_id": 153,
+          "output_option_category_id": 154,
+          "boot": [
+            {
+              "default": true,
+              "input_option_id": 1796,
+              "output_option_id": 1807,
+              "color": "black"
+            },
+            {
+              "input_option_id": 1797,
+              "output_option_id": 1802,
+              "color": "red"
+            },
+            {
+              "input_option_id": 1798,
+              "output_option_id": 1803,
+              "color": "orange"
+            },
+            {
+              "input_option_id": 1799,
+              "output_option_id": 1804,
+              "color": "green"
+            },
+            {
+              "input_option_id": 1801,
+              "output_option_id": 1805,
+              "color": "blue"
+            },
+            {
+              "input_option_id": 1802,
+              "output_option_id": 1806,
+              "color": "vintage cream"
+            }
+          ]
+        },
+        "np2rx": {
+          "input_option_category_id": 153,
+          "output_option_category_id": 154,
+          "boot": [
+            {
+              "default": true,
+              "input_option_id": 1796,
+              "output_option_id": 1807,
+              "color": "black"
+            },
+            {
+              "input_option_id": 1797,
+              "output_option_id": 1802,
+              "color": "red"
+            },
+            {
+              "input_option_id": 1798,
+              "output_option_id": 1803,
+              "color": "orange"
+            },
+            {
+              "input_option_id": 1799,
+              "output_option_id": 1804,
+              "color": "green"
+            },
+            {
+              "input_option_id": 1801,
+              "output_option_id": 1805,
+              "color": "blue"
+            },
+            {
+              "input_option_id": 1802,
+              "output_option_id": 1806,
+              "color": "vintage cream"
             }
           ]
         }

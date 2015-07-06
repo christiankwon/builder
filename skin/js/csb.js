@@ -1469,7 +1469,7 @@
                     $('.input .active', '#builders').prop('checked', true)
                     a = data.input;
                     b = data.input.color;
-                    c = data.input.boot;
+                    c = data.input.boot.toLowerCase().replace(/ /g, '-');
                     d = $('[data-option-side="input"][data-option-id="' + data.cableType.prefix + (a.manufacturer + '_' + a.model).toLowerCase() + '"]')
 
                     if( b.length || c.length ) {
@@ -1483,7 +1483,7 @@
                     $('.output .active', '#builders').prop('checked', true)
                     a = data.output;
                     b = data.output.color;
-                    c = data.output.boot;
+                    c = data.output.boot.toLowerCase().replace(/ /g, '-');
                     d = $('[data-option-side="output"][data-option-id="' + data.cableType.prefix + (a.manufacturer + '_' + a.model).toLowerCase() + '"]')
 
                     if( b.length || c.length ) {
@@ -2436,6 +2436,8 @@
                     
                     for( o in boots ) {
                         current = boots[o];
+
+                        o = o.replace(/ /g, '-');
                         
                         div = $('<div/>')
                                 .attr('data-choice-value', o)
