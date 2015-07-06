@@ -2403,7 +2403,6 @@
                 model = model.split('-')[0];
             }
 
-            container.className = "choices";
             container.attr({
                 'data-choice-model': model,
                 'data-choice-component': component
