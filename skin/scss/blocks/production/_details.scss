@@ -278,11 +278,30 @@
     .select {
         background-color: $black;
         color: $white;
+        position: relative;
         border: 0;
         margin-top: 20px;
         font-size: 10px;
         height: 25px;
         width: 90px;
+
+        &[data-option-selected="true"]:before {
+            @include display-flex(flex);
+            @include align-items(center);
+            @include justify-content(center);
+            background-color: $red;
+            content: "Picked!";
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+
+        }
+
+        &[data-option-selected="false"] {
+
+        }
     }
 
     &[data-option-component="cable"] {

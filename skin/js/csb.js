@@ -1117,6 +1117,9 @@
             }
         },
 
+        /**
+         * if the user has a build with a lower version than current, remove it
+         */
         legacy: function() {
             var i, n, k, d, arr = [];
             for( i = 0, n = localStorage.length; i < n; i++ ) {
@@ -2639,9 +2642,6 @@
                         image.src = src.substring(0, src.indexOf(old_val)) + new_val + src.substring(src.lastIndexOf('.'));
                     }
                     
-
-                    
-
                     if( selected || $('#details').attr('data-option-id') === option.attr('data-option-id') ) {
                         toggleSpecs(e);
                     }
@@ -2664,6 +2664,7 @@
                  * Switch between option choices (plugs/cables)
                  */
                 changeOption = function(e) {
+                    // If user clicks "Pick" button in details panel, click representative option to reset function
                     if( $(e.delegateTarget).attr('id') === 'details' ) {
                         var side = '';
                         if( e.delegateTarget.getAttribute('data-option-component') === 'plug' ) {
@@ -2673,16 +2674,20 @@
                         return false;
                     }
 
+                    // if the option is out of stock, break
                     if( $(e.delegateTarget).attr('data-oos') === 'true' ) {
                         return false;
                     }
 
+                    // declare local variables
                     var option = $(e.delegateTarget),
                         active = option.parents('li').find('input.active'),
                         input = option.children('input.selector'),
                         value = !input.prop('checked'),
                         data = option.clone(true).data();
 
+                    // if option restricts cable length type to patch, click patch image to trigger changes
+                    // TODO - move this to restrictions
                     if( option.attr('data-option-only-patch') ) {
                         $('#body').attr('data-only-patch', true);
                         $('.choice[data-length-type="patch"] img').trigger('click');
@@ -2692,6 +2697,8 @@
 
                     input.prop('checked', value);
                     active.prop('checked', value);
+
+                    $('.select', '#details').attr('data-option-selected', value);
 
                     toggleSpecs(e);
 
