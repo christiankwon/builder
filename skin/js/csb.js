@@ -2383,10 +2383,17 @@
             var o, choices, choice, current, value, div,
                 container = structure.find('div.choices');
 
-            model = model.toLowerCase().split('-')[0];
+            model = model.toLowerCase();
+
+            if( component === 'plug' ) {
+                model = model.split('-')[0];
+            }
 
             container.className = "choices";
-            container.attr('data-choice-model', model);
+            container.attr({
+                'data-choice-model': model,
+                'data-choice-component': component
+            });
 
             if( component === 'cable' ) {
                 container.attr('data-choice-component', 'color');

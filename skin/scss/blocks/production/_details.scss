@@ -196,67 +196,17 @@
             &:active {
                 opacity: 0.9;
             }
-        }
 
-        &[data-choice-model="np2c"] {
-            $choices: (
-                "red": #e90d2f,
-                "orange": #ff864f,
-                "yellow": #fcf86c,
-                "green": #25c265,
-                "violet": #6154ba,
-                "gray": #999da3,
-                "black": $black,
-            );
-
-
-            @each $choice in $choices {
-                $color: nth($choice, 1);
-                $value: nth($choice, 2);
-
-                [data-choice-value="#{$color}"] {
-                    background-color: $value;
-                }
+            &[data-choice-value="black"] {
+                border: 2px solid #848484;
+                left: auto;
+                top: auto;
+                height: $size;
+                width: $size;
             }
         }
 
-        &[data-choice-model="np2x"], &[data-choice-model="np2rx"] {
-            $choices: (
-                "red": #a24743,
-                "orange": #fbac44,
-                "green": #4b7968,
-                "blue": #3848a4,
-                "vintage-cream": #edecd4,
-                "black": $black,
-            );
-
-            @each $choice in $choices {
-                $color: nth($choice, 1);
-                $value: nth($choice, 2);
-
-                [data-choice-value="#{$color}"] {
-                    background-color: $value;
-                }
-            }
-        }
-
-        &[data-choice-model="rf2p"], &[data-choice-model="bf2p"] {
-            $choices: (
-                "white": $white,
-                "gold": #fff282,
-                "nickel": #dce4f5,
-            );
-
-
-            @each $choice in $choices {
-                $color: nth($choice, 1);
-                $value: nth($choice, 2);
-
-                [data-choice-value="#{$color}"] {
-                    background-color: $value;
-                }
-            }
-        }
+        @include choices;
     }
 
     .specs {
