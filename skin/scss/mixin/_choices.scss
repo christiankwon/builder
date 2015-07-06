@@ -1,4 +1,4 @@
-@mixin choices {   
+@mixin choices {
     [data-choice-value="black"] {
         border: 1px solid #555;
         height: 11px;
@@ -9,23 +9,21 @@
 
     // GAC-1 Ultra Pro
     &[data-choice-model="gac-1 ultra pro"] {
-        [data-choice-value="red"] {
-            background-color: #ff2b3d;
-        }
+        $choices: (
+            "red": #ff2b3d,
+            "black": $black,
+        );
 
-        [data-choice-value="black"] {
-            background-color: $black;
-        }
+        @include build($choices);
     }
 
     &[data-choice-model="classic xke"] {
-        [data-choice-value="white"] {
-            background-color: $white;
-        }
+        $choices: (
+            "white": $white,
+            "black": $black,
+        );
 
-        [data-choice-value="black"] {
-            background-color: $black;
-        }
+        @include build($choices);
     }
 
     &[data-choice-model="gs-6"] {
@@ -37,15 +35,7 @@
             "black": $black,
         );
 
-
-        @each $choice in $choices {
-            $color: nth($choice, 1);
-            $value: nth($choice, 2);
-
-            [data-choice-value="#{$color}"] {
-                background-color: $value;
-            }
-        }
+        @include build($choices);
     }
 
     &[data-choice-model="np2c"] {
@@ -59,15 +49,7 @@
             "black": $black,
         );
 
-
-        @each $choice in $choices {
-            $color: nth($choice, 1);
-            $value: nth($choice, 2);
-
-            [data-choice-value="#{$color}"] {
-                background-color: $value;
-            }
-        }
+        @include build($choices);
     }
 
     &[data-choice-model="np2x"], &[data-choice-model="np2rx"] {
@@ -80,14 +62,7 @@
             "black": $black,
         );
 
-        @each $choice in $choices {
-            $color: nth($choice, 1);
-            $value: nth($choice, 2);
-
-            [data-choice-value="#{$color}"] {
-                background-color: $value;
-            }
-        }
+        @include build($choices);
     }
 
     &[data-choice-model="rf2p"], &[data-choice-model="bf2p"] {
@@ -97,14 +72,17 @@
             "nickel": #dce4f5,
         );
 
+        @include build($choices);
+    }
+}
 
-        @each $choice in $choices {
-            $color: nth($choice, 1);
-            $value: nth($choice, 2);
+@mixin build($choices) {
+    @each $choice in $choices {
+        $color: nth($choice, 1);
+        $value: nth($choice, 2);
 
-            [data-choice-value="#{$color}"] {
-                background-color: $value;
-            }
+        [data-choice-value="#{$color}"] {
+            background-color: $value;
         }
     }
 }
