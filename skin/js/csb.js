@@ -1,11 +1,10 @@
 (function ($) {
     "use strict";
 
-    var LOCAL = false,
-        JSON_URL = 's/builder/skin/js/options.json',
+    var JSON_URL = 's/builder/skin/js/options.json',
         IMAGES_DIR = 's/builder/skin/images/';
 
-    if( LOCAL ) {
+    if( window.location.protocol === 'file:' ) {
         JSON_URL = 'skin/js/options.json';
         IMAGES_DIR = 'skin/images/';
     } else {
