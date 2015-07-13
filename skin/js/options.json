@@ -848,12 +848,12 @@
         }
       },
       "tourproof": {
-        "option_id": 1599,
-        "option_category_id": 143
+        "option_category_id": 143,
+        "option_id": 1599
       },
       "reverse_plugs": {
-        "option_id": 1785,
-        "option_category_id": 150
+        "option_category_id": 150,
+        "option_id": 1785
       }
     }
   }
