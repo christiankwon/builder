@@ -2919,15 +2919,23 @@
                     }, 100)
                 },
 
+                /**
+                 * Toggle different filter options
+                 */
                 changeFilters = function(e) {
                     e.preventDefault();
                     var self, filters, filterContainer, isChecked, component, options, active, checked, numChecked, hasChecked,
                         visibleOptions = function() {
-                            var status = ['visible', 'block'];
+                            var visibles = ['visible', 'block'];
 
-                            for( var i = 0; i < status.length; i++ ) {
-                                if( $(this).attr('data-filter-status') === status[i] ) return true;
-                            }
+                            if( visibles.indexOf( $(this).attr('data-filter-status') ) > -1 ) return true;
+                            
+                            return false;
+                        },
+                        filteredVisibleOptions = function() {
+                            var visibles = ['visible', 'block', 'filtered'];
+
+                            if( visibles.indexOf( $(this).attr('data-filter-status') ) > -1 ) return true;
 
                             return false;
                         },
@@ -2946,9 +2954,9 @@
                                     return true;
                                 }
 
-                                var colors = $(this).data().colors;
+                                var colors = $(this).data().colors, c;
 
-                                for( var c in colors ) {
+                                for( c in colors ) {
                                     if( colors.hasOwnProperty(c) ) {
                                         if( c === 'category_id' ) continue;
 
@@ -3000,6 +3008,8 @@
                         var type = checked.eq(i).attr('data-filter-type'),
                             val = checked.eq(i).val();
 
+                        clog('VAL: ' + val);
+
                         if( type === 'capacitance' ) {
                             options
                                 .filter(visibleOptions)
@@ -3014,7 +3024,7 @@
 
                         } else if( type === 'color' ) {
                             options
-                                .filter(visibleOptions)
+                                .filter(filteredVisibleOptions)
                                 .each(filter.color);
 
                         } else if( type === 'manufacturer' ) {
@@ -3032,7 +3042,7 @@
                             $(this).attr('data-filter-empty', 'false');
                     });
 
-                    if( options.filter(visibleOptions).length )
+                    if( !options.filter(visibleOptions).length )
                         component.find('div.options').attr('data-filter-empty', 'true');
                     else
                         component.find('div.options').attr('data-filter-empty', 'false');
@@ -3048,6 +3058,9 @@
                     target.attr('data-filter-active', false);
                 },
 
+                /**
+                 * Open/Close filter containers
+                 */
                 toggleFilter = function(e) {
                     var open = $(e.delegateTarget).attr('data-filter-open') === 'closed' ? 'open' : 'closed';
 
