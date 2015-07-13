@@ -297,6 +297,7 @@ $dot-background: 70%;
     display: none;
     top: 10%;
     padding-bottom: 15%;
+    position: relative;
     width: 15%;
     z-index: 15;
     
@@ -316,5 +317,23 @@ $dot-background: 70%;
     #body[data-current-length-type="patch"] & {
         left: 20%;
         right: auto;
+    }
+
+    [data-restriction-techflex="false"] & {
+        border: 0;
+        cursor: default;
+        display: block;
+
+        &:after {
+            background: $yellow url("../images/backpack/warning.png") no-repeat scroll center center / 80% auto;
+            border-radius: 50%;
+            content: "";
+            cursor: pointer;
+            height: 50%;
+            right: -50%;
+            top: -10%;
+            position: absolute;
+            width: 50%;
+        }
     }
 }

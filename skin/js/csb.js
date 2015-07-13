@@ -881,6 +881,7 @@
     },
 
     checkRestrictions = function() {
+        return true;
         var bool = true,
             cc = CURRENT_CABLE.cable.code.toUpperCase(),
             ci = CURRENT_CABLE.input.model.toUpperCase(),
@@ -898,6 +899,9 @@
                     bool = false;
                 }
 
+                // Due to restrictions with colored boots, GAC-1 UP is not allowed
+                bool = false;
+
             } else {
                 var arr = ["CSB_VDMM_CLSC-XKE", "CSB_CNRE_L-4E6S", "CSB_CNRE_GS-6"];
 
@@ -908,6 +912,8 @@
                 }
             }
         }
+
+        $('#body').attr('data-restriction-techflex', bool);
 
         return bool;
     },
@@ -1116,6 +1122,8 @@
             this.construct();
             this.populate();
             this.handles.declarations();
+
+            checkRestrictions();
             
             var first = $('.build:first', '#storage');
 

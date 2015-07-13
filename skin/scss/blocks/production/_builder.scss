@@ -128,9 +128,36 @@
                     @include flex-flow(row wrap);
                     @include justify-content(center);
 
+                    [data-restriction-techflex="false"] & {
+                        &:after {
+                            @include display-flex(flex);
+                            @include align-items(center);
+                            @include justify-content(center);
+                            background-color: rgba(238, 148, 81, 0.95);
+                            background-image: url("../images/backpack/warning.png");
+                            background-repeat: no-repeat;
+                            background-position: 30px center;
+                            border: 2px solid $black;
+                            bottom: 2.5%;
+                            content: "The current combination of components does not support techflex.";
+                            cursor: default;
+                            font-size: 12px;
+                            font-weight: 700;
+                            height: 70%;
+                            left: 0;
+                            letter-spacing: 1px;
+                            line-height: 20px;
+                            padding: 0 100px;
+                            position: absolute;
+                            text-transform: uppercase;
+                            text-align: center;
+                            width: 100%;
+                        }
+                    }
 
                     h3 {
                         text-align: center;
+
                         span {
                             display: inline-block;
                             margin-left: 5px;
