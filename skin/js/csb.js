@@ -22,13 +22,14 @@
         DEFAULT_CABLE_UNIT = 'ft',
         DEFAULT_CABLETYPE_TYPE = '',
         DEFAULT_CABLETYPE_PREFIX = '',
-        DEFAULT_PLUG_HEIGHT = 300,
+        // DEFAULT_PLUG_HEIGHT = 300,
         DEFAULT_PLUG_WIDTH = 180,
         BLANK_PLUG_URL = IMAGES_DIR + 'display/plug_outline.png',
         BLANK_PATCH_CABLE_URL = IMAGES_DIR + 'display/cable_patch_outline.png',
         BLANK_REGULAR_CABLE_URL = IMAGES_DIR + 'display/cable_regular_outline.png',
         BLANK_IMAGE_URL = IMAGES_DIR + 'blank.png',
         TOUCH = Modernizr.touch,
+        CURRENT_VERSION = 2.2,
         Cable = function() {
             this.storage = null;
             this.price = 0;
@@ -51,12 +52,14 @@
                 visited: false
             };
             this.input = {
+                code: '',
                 manufacturer: '',
                 model: '',
                 color: '',
                 boot: ''
             };
             this.output = {
+                code: '',
                 manufacturer: '',
                 model: '',
                 color: '',
@@ -68,26 +71,26 @@
                 techflex: '',
                 visited: false
             };
-            this.version = 2.1;
+            this.version = CURRENT_VERSION;
         },
         Basket = function() {
-            this.data = null,
+            this.data = null;
             this.getId = function() {
                 return this.data.storage;
-            },
+            };
 
             this.save = function() {
                 localStorage.setItem('build_' + this.getId(), JSON.stringify(this.data));
-            },
+            };
 
-            this.set = function(e) {
+            this.set = function() {
                 // Update current cable object
                 this.data = CURRENT_CABLE;
 
                 this.save();
-            },
+            };
 
-            this.remove = function(e) {
+            this.remove = function() {
                 var id = this.getId(),
                     block = $('.build[data-storage-id="' + id + '"]', '#storage');
                 CURRENT_CABLE = new Cable();
@@ -103,7 +106,7 @@
                 if( !$('.build[data-storage-status="current"]', '#storage').length ) {
                     $('[data-storage-button="create"]', '#storage').trigger('click');
                 }
-            },
+            };
 
             this.load = function(e) {
                 if( e.delegateTarget.getAttribute('data-storage-status') === 'inactive' ) return;
@@ -121,7 +124,7 @@
 
                 update.dispatch(this.data, true);
                 update.builder();
-            }
+            };
         },
 
     debounce = function(func, wait, immediate) {
@@ -383,8 +386,7 @@
     reset = function() {
         var $builder = $('ul.builder.selected'),
             $length = $builder.find('.length'),
-            $display = $('#display'),
-            src;
+            $display = $('#display');
 
         $('#body').attr('data-current-length-type', 'regular');
 
@@ -478,8 +480,7 @@
                 cable_name = data.cable.name + ' ' + data.length.amount + ' '  + getUnits(data.length.type),
                 cable_input = '',
                 cable_output = '',
-                cable_other = '',
-                temp_color;
+                cable_other = '';
 
             if( data.cable.color ) {
                 cable_name += ' | ' + data.cable.color.charAt(0).toUpperCase() + data.cable.color.slice(1);
@@ -487,13 +488,13 @@
 
             // input plug
             var ip = data.input;
-            cable_input = ip.manufacturer + ' ' + ip.model;
+            cable_input = ip.name;
             if( ip.boot ) cable_input += ' | ' + ip.boot.charAt(0).toUpperCase() + ip.boot.slice(1);
             if( ip.color ) cable_input += ' | ' + ip.color;
 
             // output plug
             var op = data.output;
-            cable_output = op.manufacturer + ' ' + op.model;
+            cable_output = op.name;
             if( op.boot ) cable_output += ' | ' + op.boot.charAt(0).toUpperCase() + op.boot.slice(1);
             if( op.color ) cable_output += ' | ' + op.color;
 
@@ -543,30 +544,31 @@
                     $(this).attr('data-storage-status', 'error');
                     $(this).find('p.' + type).attr('data-storage-error-p', 'true');
                 },
-                check = true;
+                check = true,
+                self = this;
 
             if( !data.cableType.prefix || !data.cableType.type ) {
-                mark.call(this, 'type');
+                mark.call(self, 'type');
                 check = false;
             }
 
             if( !data.cable.code ) {
-                mark.call(this, 'cable');
+                mark.call(self, 'cable');
                 check = false;
             }
 
             if( !data.length.type || !data.length.amount ) {
-                mark.call(this, 'length');
+                mark.call(self, 'length');
                 check = false;
             }
 
             if( !data.input.manufacturer || !data.input.model ) {
-                mark.call(this, 'input');
+                mark.call(self, 'input');
                 check = false;
             }
 
             if( !data.output.manufacturer || !data.output.model ) {
-                mark.call(this, 'output');
+                mark.call(self, 'output');
                 check = false;
             }
 
@@ -625,8 +627,7 @@
                 var _cable = $(el).data();
 
                 var prefix = _cable.cableType.prefix,
-                    cable_code = _cable.cable.code,
-                    boots, techflexLength;
+                    cable_code = _cable.cable.code;
 
                 var Post = {
                     'ProductCode': cable_code,
@@ -639,57 +640,38 @@
 
                 Post['QTY.' + cable_code] = _cable.quantity;
 
-                var cable, color, input, output, input_boot, output_boot, tourproof, techflex, reverse,
-                    i, j, k, l, m, n,
-                    opt, cat, ref, plug;
+                var cable, color,
+                    i, l, keys,
+                    opt, cat, ref;
 
-                for( i = 0, l = J_CABLES.length; i < l; i++ ) {
-                    if( J_CABLES[i].code === cable_code ) {
-                        cable = J_CABLES[i];
-                        break;
-                    }
-                }
+                cable = J_CABLES[cable_code];
 
                 opt = $('[data-option-id="' + prefix + cable_code.toLowerCase() + '"]').data().lengths[_cable.length.type][_cable.length.amount];
                 cat = cable.lengths.option_category_id;
                 Post[getOptionName('select', cable_code, cat)] = opt;
 
                 if( _cable.cable.color ) {
-                    ref = cable.colors.color;
-                    for( i = 0, l < ref.length; i < l; i++ ) {
-                        if( _cable.cable.color === ref[i].name ) {
-                            color = ref[i];
-                            break;
-                        }
-                    }
+                    color = cable.colors[_cable.cable.color];
 
                     opt = color.id;
                     cat = cable.colors.option_category_id;
                     Post[getOptionName('select', cable_code, cat)] = opt;
                 }
 
-                ref = J_PLUGS[_cable.cableType.type];
-                cat = ref.input_option_category_id;
+                // input plug
+                ref = J_PLUGS[_cable.cableType.type][_cable.input.code];
+                cat = J_PLUGS[_cable.cableType.type].input_option_category_id;
                 opt = null;
-                for( i = 0, l = ref.plug.length; i < l; i++ ) {
-                    plug = ref.plug[i];
-                    if( _cable.input.manufacturer.toLowerCase() === plug.manufacturer.toLowerCase() &&
-                        _cable.input.model.toLowerCase() === plug.model.toLowerCase()) {
-                        if( !_cable.input.color ) {
-                            opt = plug.color.input_option_id;
-                        } else {
-                            for( j = 0, m = plug.colors.color.length; j < m; j++ ) {
-                                if( _cable.input.color.toLowerCase() === plug.colors.color[j].body.toLowerCase() ) {
-                                    opt = plug.colors.color[j].input_option_id;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if( opt ) break;
+                keys = Object.keys(ref.colors);
+
+                if( keys.length === 1 ) {
+                    opt = ref.colors[keys[0]].input_option_id;
+                } else if( keys.length > 1 ) {
+                    opt = ref.colors[_cable.input.color].input_option_id;
                 }
                 Post[getOptionName('select', cable_code, cat)] = opt;
 
+                // input boot
                 if( _cable.input.boot.length ) {
                     ref = J_PLUGS.boots[_cable.input.model.split('-')[0].toLowerCase()];
                     cat = ref.input_option_category_id;
@@ -702,28 +684,20 @@
                     Post[getOptionName('select', cable_code, cat)] = opt;
                 }
 
-                ref = J_PLUGS[_cable.cableType.type];
-                cat = ref.output_option_category_id;
+                // output plug
+                ref = J_PLUGS[_cable.cableType.type][_cable.output.code];
+                cat = J_PLUGS[_cable.cableType.type].output_option_category_id;
                 opt = null;
-                for( i = 0, l = ref.plug.length; i < l; i++ ) {
-                    plug = ref.plug[i];
-                    if( _cable.output.manufacturer.toLowerCase() === plug.manufacturer.toLowerCase() &&
-                        _cable.output.model.toLowerCase() === plug.model.toLowerCase()) {
-                        if( !_cable.output.color ) {
-                            opt = plug.color.output_option_id;
-                        } else {
-                            for( j = 0, m = plug.colors.color.length; j < m; j++ ) {
-                                if( _cable.output.color.toLowerCase() === plug.colors.color[j].body.toLowerCase() ) {
-                                    opt = plug.colors.color[j].output_option_id;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if( opt ) break;
+                keys = Object.keys(ref.colors);
+
+                if( keys.length === 1 ) {
+                    opt = ref.colors[keys[0]].output_option_id;
+                } else if( keys.length > 1 ) {
+                    opt = ref.colors[_cable.output.color].output_option_id;
                 }
                 Post[getOptionName('select', cable_code, cat)] = opt;
 
+                // output boot
                 if( _cable.output.boot.length ) {
                     ref = J_PLUGS.boots[_cable.output.model.split('-')[0].toLowerCase()];
                     cat = ref.output_option_category_id;
@@ -736,25 +710,20 @@
                     Post[getOptionName('select', cable_code, cat)] = opt;
                 }
 
-                opt = null;
-                cat = null;
                 if( _cable.other.tourproof ) {
                     opt = J_OTHER.tourproof.option_id;
                     cat = J_OTHER.tourproof.option_category_id;
                     Post[getOptionName('select', cable_code, cat)] = opt;
                 }
 
-                opt = null;
-                cat = null;
                 if( _cable.other.reverse_plugs ) {
                     opt = J_OTHER.reverse_plugs.option_id;
                     cat = J_OTHER.reverse_plugs.option_category_id;
                     Post[getOptionName('select', cable_code, cat)] = opt;
                 }
 
-                opt = null;
-                cat = null;
                 if( _cable.other.techflex ) {
+                    // techflex color
                     ref = J_OTHER.techflex.color;
                     cat = ref.option_category_id;
                     for( i = 0, l = ref.option.length; i < l; i++ ) {
@@ -765,6 +734,7 @@
                     }
                     Post[getOptionName('select', cable_code, cat)] = opt;
 
+                    // techflex length
                     ref = J_OTHER.techflex.length;
                     cat = ref.option_category_id;
                     l = _cable.length.type === 'regular' ? _cable.length.amount : 
@@ -794,7 +764,6 @@
                         }
                     }
                 }).fail(function(jqXHR, textStatus, errorThrown) {
-                    // alert("ERROR CS05: Something went wrong while adding this to the cart. I bet the intern monkey broke something again...");
                     $('#confirmation').addClass('error');
                     console.log(jqXHR);
                     console.log(textStatus);
@@ -830,7 +799,7 @@
                 }));
     },
 
-    updateQuantity = function(e) {
+    updateQuantity = function() {
         var val = $(this).val().replace(/\D/g, '');
 
         if( !val.length ) val = 1;
@@ -841,7 +810,7 @@
 
         } else if( $(this).parents('#confirmation').length ) {
             var number = $(this).parents('.line-item').attr('data-storage-index'),
-                this_build = $('.build[data-storage-id="' + +number + '"]');
+                this_build = $('.build[data-storage-id="' + (+number) + '"]');
 
             this_build.data().quantity = val;
 
@@ -945,7 +914,7 @@
 
     storage = {
         reNumber: function() {
-            var i, j, max, val,
+            var i, max, val,
                 arr = this.builds,
                 l = arr.length;
 
@@ -988,7 +957,7 @@
                 });
             },
 
-            create: function(e) {
+            create: function() {
                 reset();
                 var next = $('.build[data-storage-status="inactive"]:first'),
                     data = new Cable();
@@ -1003,7 +972,7 @@
                 $('.builder.selected .cable', '#builders').addClass('current').siblings().removeClass('current');
             },
 
-            empty: function(e) {
+            empty: function() {
                 var i, l, arr = [], key, first;
 
                 for( i = 0, l = localStorage.length; i < l; i++ ) {
@@ -1032,15 +1001,14 @@
                 update.dispatch(CURRENT_CABLE, true);
             },
 
-            cart: function(e) {
+            cart: function() {
                 $('[data-step-value="confirm"]').trigger('click');
             }
         },
 
         construct: function() {
             var _block = function(i) {
-                    var data, frame, build,
-                        left, right;
+                    var data, frame, build;
 
                     build = new Basket();
                     data = new Cable();
@@ -1126,7 +1094,7 @@
                 k = localStorage.key(i);
                 if( k.indexOf('build_') > -1 ) {
                     d = JSON.parse(localStorage.getItem(k));
-                    if( !d.version || d.version !== 2.1 ) {
+                    if( !d.version || d.version !== CURRENT_VERSION ) {
                         arr.push(k);
                     }
                 }
@@ -1366,14 +1334,16 @@
                 $info.find('.cable').text(cable.name + (cable.color ? ' | ' + cable.color : ''));
                 $info.find('.length').text(length.amount + '' + getUnits());
                 $info.find('.input').text(
-                    input.manufacturer + ' ' + input.model +
-                    (input.color ? ' | ' + input.color :
-                        input.boot ? ' | ' + input.boot : '')
+                    (input.name ? input.name +
+                        (input.color ? ' | ' + input.color :
+                            input.boot ? ' | ' + input.boot : '') :
+                        '')
                 );
                 $info.find('.output').text(
-                    output.manufacturer + ' ' + output.model +
-                    (output.color ? ' | ' + output.color :
-                        output.boot ? ' | ' + output.boot : '')
+                    (output.name ? output.name +
+                        (output.color ? ' | ' + output.color :
+                            output.boot ? ' | ' + output.boot : '') :
+                        '')
                 );
                 $info.find('.other').text(
                     (other.tourproof ? 'Tourproof;' : '') + ' ' + 
@@ -1384,8 +1354,9 @@
                 /**
                  * hide other options row if empty; else show
                  */
-                !$info.find('.other').text().trim().length ?
-                    $info.find('.other').hide() :
+                if( !$info.find('.other').text().trim().length )
+                    $info.find('.other').hide();
+                else
                     $info.find('.other').show();
 
                 /**
@@ -1462,7 +1433,7 @@
                 $('.selector, .active').prop('checked', false);
 
                 if( data.cable.code.length ) {
-                    $('.cable .active', '#builders').prop('checked', true)
+                    $('.cable .active', '#builders').prop('checked', true);
                     a = $('[data-option-id="' + data.cableType.prefix + data.cable.code.toLowerCase() + '"]');
                     b = data.cable.color;
 
@@ -1474,11 +1445,11 @@
                 }
 
                 if( data.input.manufacturer && data.input.model ) {
-                    $('.input .active', '#builders').prop('checked', true)
+                    $('.input .active', '#builders').prop('checked', true);
                     a = data.input;
                     b = data.input.color;
                     c = data.input.boot.toLowerCase().replace(/ /g, '-');
-                    d = $('[data-option-side="input"][data-option-id="' + data.cableType.prefix + (a.manufacturer + '_' + a.model).toLowerCase() + '"]')
+                    d = $('[data-option-side="input"][data-option-id="' + data.cableType.prefix + (a.manufacturer + '_' + a.model).toLowerCase() + '"]');
 
                     if( b.length || c.length ) {
                         d.find('[data-choice-value="' + ( b || c ) + '"]').trigger('click');
@@ -1488,11 +1459,11 @@
                 }
 
                 if( data.output.manufacturer && data.output.model ) {
-                    $('.output .active', '#builders').prop('checked', true)
+                    $('.output .active', '#builders').prop('checked', true);
                     a = data.output;
                     b = data.output.color;
                     c = data.output.boot.toLowerCase().replace(/ /g, '-');
-                    d = $('[data-option-side="output"][data-option-id="' + data.cableType.prefix + (a.manufacturer + '_' + a.model).toLowerCase() + '"]')
+                    d = $('[data-option-side="output"][data-option-id="' + data.cableType.prefix + (a.manufacturer + '_' + a.model).toLowerCase() + '"]');
 
                     if( b.length || c.length ) {
                         d.find('[data-choice-value="' + ( b || c ) + '"]').trigger('click');
@@ -1546,24 +1517,23 @@
                     c.color = data.choice || '';
                     c.manufacturer = data.manufacturer;
                     c.model = data.model;
-                    c.name = data.manufacturer + ' ' + data.model;
+                    c.name = data.name;
                     
                 } else if( data.component === 'plug' ) {
                     t = data.optionSide;
                     c = CURRENT_CABLE[t];
 
+                    c.code = data.code;
                     c.manufacturer = data.manufacturer;
                     c.model = data.model;
+                    c.name = data.name;
 
                     if( data.boots ) {
                         c.boot = data.choice;
                         c.color = '';
-                    } else if ( data.colors ) {
-                        c.boot = '';
-                        c.color = data.choice;
                     } else {
                         c.boot = '';
-                        c.color = '';
+                        c.color = data.choice || '';
                     }
 
                 } else if( data.component === 'length' ) {
@@ -1599,7 +1569,10 @@
             },
 
             dispatch = function(data, all) {
-                all ? updateAllVisual(data) : configuration(data);
+                if( all ) 
+                    updateAllVisual(data);
+                else
+                    configuration(data);
             };
 
         update.dispatch = dispatch;
@@ -1715,25 +1688,31 @@
                 },
 
                 getColorData = function(obj) {
-                    var colorObj = {}, color;
+                    var colorObj = {}, color, i;
 
                     if( obj.option_category_id ) {
                         colorObj.category_id = obj.option_category_id;
                     }
 
-                    for( var i = 0, n = obj.color.length; i < n; i++ ) {
-                        color = obj.color[i];
+                    for( i in obj ) {
+                        if( obj.hasOwnProperty(i) ) {
+                            color = obj[i];
 
-                        if( color.default ) {
-                            default_color = color.name;
-                        }
+                            if( !color ) {
 
-                        colorObj[color.name] = {
-                            'id': (color.id ? color.id : '')
-                        };
+                            } else {
+                                if( color.default ) {
+                                    default_color = i;
+                                }
 
-                        if( color.out_of_stock ) {
-                            colorObj[color.name].oos = true;
+                                colorObj[i] = {
+                                    'id': color.id ? color.id : null
+                                };
+
+                                if( color.out_of_stock ) {
+                                    colorObj[i].oos = true;
+                                }
+                            }
                         }
                     }
 
@@ -1750,10 +1729,9 @@
 
                 setSpecs = function() {
                     var info = this.find('.info'),
-                        image = this.find('.image'),
                         list = document.createElement('ul'),
                         title = document.createElement('li'),
-                        item, o, color, choices;
+                        item, o;
 
                     title.className = 'title';
                     title.innerHTML = 'Details';
@@ -1770,10 +1748,11 @@
                     info.append(list);
                 },
 
-                i, n,
-                structure, info, details,
-                code, model, manufacturer, price, id, lengths, specs, colors, choice,
+                i,
+                structure, info,
+                code, model, manufacturer, price, id, lengths, specs, colors,
                 attributes, data, default_color, oos,
+                name_model, name_manu,
 
                 component = 'cable',
 
@@ -1781,102 +1760,109 @@
                 premium = $('div.outer.premium', this.structure),
                 standard = $('div.outer.standard', this.structure);
 
-            for( i = 0, n = J_CABLES.length; i < n; i++ ) {
-                // set reference to cable object
-                info = J_CABLES[i];
+            for( i in J_CABLES ) {
+                if( J_CABLES.hasOwnProperty(i) ) {
+                    info = J_CABLES[i];
 
-                // variable initializations
-                code = '';
-                price = '';
-                model = '';
-                manufacturer = '';
-                attributes = {};
-                data = {};
-                default_color = '';
-                oos = false;
+                    // variable initializations
+                    code = '';
+                    price = '';
+                    model = '';
+                    name_model = '';
+                    name_manu  = '';
+                    manufacturer = '';
+                    attributes = {};
+                    data = {};
+                    default_color = '';
+                    oos = false;
 
-                // variable definition
-                code = info.code;
-                price = info.price;
-                model = info.model;
-                manufacturer = info.manufacturer;
-                
-                // compound definition
-                id = prefix + code;
+                    // variable definition
+                    code = i;
+                    price = info.price;
+                    model = info.model;
+                    manufacturer = info.manufacturer;
+                    name_model = info.name.model;
+                    name_manu  = info.name.manufacturer;
+                    
+                    price = price && typeof price === 'number' ? price.toFixed(2) : price;
 
-                // get individual block skeleton
-                structure = this.skeletons.block();
+                    // compound definition
+                    id = prefix + code;
 
-                /**
-                 * Define attributes
-                 */
-                    // identifiers
-                attributes['data-option-id'] = id.toLowerCase();
-                attributes['data-option-type'] = component;
+                    // get individual block skeleton
+                    structure = this.skeletons.block();
 
-                    // cable only avaible for patch
-                if( info.is_only_patch ) {
-                    attributes['data-option-only-patch'] = 'true';
-                }
+                    /**
+                     * Define attributes
+                     */
+                        // identifiers
+                    attributes['data-option-id'] = id.toLowerCase();
+                    attributes['data-option-type'] = component;
 
-                /**
-                 * Define data
-                 */
-                    // lengths
-                lengths = getLengthData(info.lengths);
-                data.lengths = lengths;
+                        // cable only avaible for patch
+                    if( info.is_only_patch ) {
+                        attributes['data-option-only-patch'] = 'true';
+                    }
 
-                    // specs
-                specs = getSpecData(info.specs);
-                data.specs = specs;
+                    /**
+                     * Define data
+                     */
+                        // lengths
+                    lengths = getLengthData(info.lengths);
+                    data.lengths = lengths;
 
-                    // colors
-                colors = getColorData(info.colors);
-                data.colors = colors;
+                        // specs
+                    specs = getSpecData(info.specs);
+                    data.specs = specs;
 
-                if( default_color ) {
-                    data.choice = default_color;
-                }
+                        // colors
+                    colors = getColorData(info.colors);
+                    data.colors = colors;
 
-                // Set element Flexbox Order style
-                if( info.order ) {
-                    structure.css('order', info.order);
-                } else {
-                    structure.css('order', '98');
-                }
+                    if( default_color ) {
+                        data.choice = default_color;
+                    }
 
-                if( info.out_of_stock ) {
-                    structure.attr('data-oos', 'true');
-                    structure.css('order', '99');
-                }
+                    // Set element Flexbox Order style
+                    if( info.order ) {
+                        structure.css('order', info.order);
+                    } else {
+                        structure.css('order', '98');
+                    }
 
-                    // general
-                data.code = code;
-                data.component = component;
-                data.model = model;
-                data.manufacturer = manufacturer;
-                data.price = price;
+                    if( info.status === 'unavailable' ) {
+                        structure.attr('data-oos', 'true');
+                        structure.css('order', '99');
+                    }
 
+                        // general
+                    data.code = code;
+                    data.component = component;
+                    data.model = model;
+                    data.manufacturer = manufacturer;
+                    data.price = price;
+                    data.name = name_manu + ' ' + name_model;
 
-                setSpecs.call(structure);
-                build.createChoicesOverlay(component, model, structure, colors);
+                    setSpecs.call(structure);
+                    build.createChoicesOverlay(component, model, structure, colors);
 
-                /**
-                 * Fill visible data fields
-                 */
-                structure.find('input.selector').attr('name', prefix + component);
-                structure.find('.name span').text(manufacturer).next().text(model);
-                structure.find('img.component').attr('src', getBuilderImageUrl.call(this));
-                structure.find('.price').text(price);
+                    /**
+                     * Fill visible data fields
+                     */
+                    structure.find('input.selector').attr('name', prefix + component);
+                    structure.find('.name span').text(name_manu).next().text(name_model);
+                    structure.find('img.component').attr('src', getBuilderImageUrl.call(this));
+                    structure.find('.price').text(price);
 
-                // Append attributes and data to element
-                structure.attr(attributes).data(data);
+                    // Append attributes and data to element
+                    structure.attr(attributes).data(data);
 
-                // Append element to document
-                if( info.is_premium ) {
-                    premium.append(structure);
-                } else {
-                    standard.append(structure);
+                    // Append element to document
+                    if( info.is_premium ) {
+                        premium.append(structure);
+                    } else {
+                        standard.append(structure);
+                    }
                 }
             }
         },
@@ -1933,8 +1919,7 @@
 
                 _ruler = function() {
                     var reference = rulers,
-                        block, type, self,
-                        ruler;
+                        block, type, self;
 
                     for( type in types ) {
                         if( types.hasOwnProperty(type) ) {
@@ -1950,7 +1935,7 @@
                                 min: self.min,
                                 max: self.max,
                                 range: 'max'
-                            })
+                            });
 
                             reference.appendChild(block);
                         }
@@ -2004,8 +1989,8 @@
                     return block;
                 },
 
-                selector, choices, rulers, inputs, types,
-                prefix = this.prefix;
+                selector, choices, rulers, inputs, types;
+                // prefix = this.prefix
 
 
             selector = document.createElement('input');
@@ -2050,25 +2035,27 @@
 
         plugs: function() {
             var getColorData = function(obj) {
-                    var choices = {}, color, value;
+                    var choices = {}, color, value, i,
+                        l = 0;
 
-                    for( var i = 0, n = obj.color.length; i < n; i++ ) {
-                        color = obj.color[i];
-                        value = color.body.toLowerCase();
+                    for( i in obj ) {
+                        if( obj.hasOwnProperty(i) ) {
+                            l++;
+                            color = obj[i];
+                            value = i;
 
-                        if( color.default ) {
-                            default_color = value;
-                        }
+                            if( color.default ) {
+                                default_color = value;
+                            }
 
-                        choices[value] = {
-                            'body': color.body,
-                            'connector': color.connector,
-                            'input_option_id': color.input_option_id,
-                            'output_option_id': color.output_option_id
-                        };
+                            if( color.out_of_stock ) {
+                                choices[value].oos = true;
+                            }
 
-                        if( color.out_of_stock ) {
-                            choices[value].oos = true;
+                            choices[value] = {
+                                'input_option_id': color.input_option_id,
+                                'output_option_id': color.output_option_id
+                            };
                         }
                     }
 
@@ -2129,12 +2116,13 @@
                         formatTextForImageUrl(model) + '.png';
                 },
 
-                i, j, m, n,
-                structure, info, details,
-                angle, colors, manufacturer, model, price, id,
+                i, j, m,
+                structure, info,
+                angle, manufacturer, model, price, id,
                 attributes, data,
-                colors, color, default_color, boots, boot, default_boot,
+                colors, default_color, boots, default_boot, code,
                 input_category_id, output_category_id, side,
+                name, name_model, name_manu,
 
                 component = 'plug',
                 sides = ['input', 'output'],
@@ -2142,9 +2130,7 @@
                 prefix = this.prefix,
                 right, straight,
                 json_plugs = J_PLUGS[this.type],
-                json_boots = J_PLUGS.boots,
-                type_plugs = json_plugs.plug;
-
+                json_boots = J_PLUGS.boots;
 
             for( i = 0, m = sides.length; i < m; i++ ) {
                 input_category_id = json_plugs.input_option_category_id;
@@ -2154,86 +2140,100 @@
                 right = $('.' + side + ' div.outer.right', this.structure);
                 straight = $('.' + side + ' div.outer.straight', this.structure);
 
-                for( j = 0, n = type_plugs.length; j < n; j++ ) {
-                    // set reference to plug object
-                    info = type_plugs[j];
+                for( j in json_plugs ) {
+                    if( json_plugs.hasOwnProperty(j) ) {
+                        if( j === 'input_option_category_id' || j === 'output_option_category_id' ) continue;
 
-                    angle = '';
-                    manufacturer = '';
-                    model = '';
-                    price = '';
-                    id = '';
-                    colors = null;
-                    boots = null;
-                    attributes = {};
-                    data = {};
+                        info = json_plugs[j];
 
-                    default_color = '';
-                    default_boot = '';
+                        code = '';
+                        angle = '';
+                        manufacturer = '';
+                        model = '';
+                        price = '';
+                        id = '';
+                        colors = null;
+                        boots = null;
+                        attributes = {};
+                        data = {};
+                        name = '';
+                        name_model = '';
+                        name_manu  = '';
 
-                    structure = this.skeletons.block();
+                        default_color = '';
+                        default_boot = '';
 
-                    angle = info.angle;
-                    manufacturer = info.manufacturer;
-                    model = info.model;
-                    price = info.price;
+                        structure = this.skeletons.block();
 
-                    id = (prefix + manufacturer + '_' + model).toLowerCase().replace(/ /g, '-');
+                        code = j;
+                        angle = info.angle;
+                        manufacturer = info.manufacturer;
+                        model = info.model;
+                        price = info.price;
+                        name_model = info.name.model;
+                        name_manu  = info.name.manufacturer;
+                        name = name_manu + ' ' + name_model;
 
-                    attributes['data-option-id'] = id;
-                    attributes['data-option-side'] = side;
-                    attributes['data-option-type'] = component;
+                        id = (prefix + manufacturer + '_' + model).toLowerCase().replace(/ /g, '-');
 
-                    if( info.has_boots ) {
-                        boots = getBootData(json_boots[model.split('-')[0].toLowerCase()]);
-                        data.boots = boots;
-                        structure.find('img.choice').attr('src', getBuilderImageUrl.call(this, 'choice', default_boot));
-                    } else if( info.colors ) {
-                        colors = getColorData(info.colors);
-                        data.colors = colors;
-                    }
+                        attributes['data-option-id'] = id;
+                        attributes['data-option-side'] = side;
+                        attributes['data-option-type'] = component;
 
-                    if( default_color || default_boot ) {
-                        build.createChoicesOverlay(component, model, structure, colors, boots);
-                        data.choice = (default_color ? default_color : default_boot);
-                    }
+                        if( info.has_boots ) {
+                            boots = getBootData(json_boots[model.split('-')[0].toLowerCase()]);
+                            data.boots = boots;
+                            structure.find('img.choice').attr('src', getBuilderImageUrl.call(this, 'choice', default_boot));
+                        } else if( info.colors ) {
+                            colors = getColorData(info.colors);
+                            data.colors = colors;
+                        }
 
-                    // Set element Flexbox Order style
-                    if( info.order ) {
-                        structure.css('order', info.order);
-                    } else {
-                        structure.css('order', '98');
-                    }
+                        if( default_color || default_boot ) {
+                            build.createChoicesOverlay(component, model, structure, colors, boots);
+                            data.choice = (default_color ? default_color : default_boot);
+                        }
 
-                    if( info.out_of_stock ) {
-                        structure.attr('data-oos', 'true');
-                        structure.css('order', '99');
-                    }
+                        // Set element Flexbox Order style
+                        if( info.order ) {
+                            structure.css('order', info.order);
+                        } else {
+                            structure.css('order', '98');
+                        }
 
-                        // general
-                    data.component = component;
-                    data.model = model;
-                    data.manufacturer = manufacturer;
-                    data.price = price;
+                        // If option is out of stock, push to the end of the list
+                        if( info.out_of_stock ) {
+                            structure.attr('data-oos', 'true');
+                            structure.css('order', '99');
+                        }
 
-                    setInfo.call(structure, this.type);
+                            // general
+                        data.component = component;
+                        data.model = model;
+                        data.manufacturer = manufacturer;
+                        data.name = name;
+                        data.price = price;
+                        data.code = code;
 
-                    /**
-                     * Fill visible data fields
-                     */
-                    structure.find('input.selector').attr('name', prefix + side)
-                    structure.find('.name').text(manufacturer + ' ' + model);
-                    structure.find('img.component').attr('src', getBuilderImageUrl.call(this, 'component'));
-                    structure.find('.price').text(price);
+                        setInfo.call(structure, this.type);
 
-                    // Append attributes and data to element
-                    structure.attr(attributes).data(data);
+                        /**
+                         * Fill visible data fields
+                         */
+                        structure.find('input.selector').attr('name', prefix + side);
+                        structure.find('.name span').text(name_manu).next().text(name_model);
+                        structure.find('img.component').attr('src', getBuilderImageUrl.call(this, 'component'));
+                        structure.find('.price').text(price);
 
-                    // Append element to document
-                    if( angle === 'straight' ) {
-                        straight.append(structure);
-                    } else if ( angle === 'right' ) {
-                        right.append(structure);
+                        // Append attributes and data to element
+                        structure.attr(attributes).data(data);
+
+                        // Append element to document
+                        if( angle === 'straight' ) {
+                            straight.append(structure);
+                        } else if ( angle === 'right' ) {
+                            right.append(structure);
+                        }
                     }
                 }
             }
@@ -2243,13 +2243,12 @@
             var _techflex = function() {
                     var data = J_OTHER.techflex,
                         colors = data.color,
-                        lengths = data.length,
-                        block = document.createElement('div'),
                         title = document.createElement('h3'),
                         description = document.createElement('p'),
                         cost = document.createElement('span'),
                         option = document.createElement('div'),
-                        i, l, choice, input, span, label;
+                        i, l, choice, input, span, label,
+                        color, id;
 
                     cost.innerHTML = '+0.25/ft';
                     cost.className = 'cost';
@@ -2261,8 +2260,8 @@
                     option.appendChild(title);
 
                     for( i = 0, l = colors.option.length; i < l; i++ ) {
-                        var color = colors.option[i].desc,
-                            id = colors.option[i].id;
+                        color = colors.option[i].desc;
+                        id = colors.option[i].id;
 
                         choice = document.createElement('div');
                         choice.className = 'choice';
@@ -2292,8 +2291,7 @@
                     return option;
                 },
                 _tourproof = function() {
-                    var block = document.createElement('div'),
-                        title = document.createElement('h3'),
+                    var title = document.createElement('h3'),
                         description = document.createElement('p'),
                         cost = document.createElement('span'),
                         option = document.createElement('div'),
@@ -2333,8 +2331,7 @@
                     return option;
                 },
                 _reversed_plugs = function() {
-                    var block = document.createElement('div'),
-                        title = document.createElement('h3'),
+                    var title = document.createElement('h3'),
                         description = document.createElement('p'),
                         option = document.createElement('div'),
                         choice = document.createElement('div'),
@@ -2346,7 +2343,7 @@
                     title.appendChild(description);
                     option.appendChild(title);
 
-                    input.id = prefix + 'reverse_plugs'
+                    input.id = prefix + 'reverse_plugs';
                     input.type = 'checkbox';
 
                     label.setAttribute('for', prefix + 'reverse_plugs');
@@ -2362,10 +2359,8 @@
                     return option;
                 },
                 _quantity = function() {
-                    var block = document.createElement('div'),
-                        title = document.createElement('h3'),
+                    var title = document.createElement('h3'),
                         options = document.createElement('div'),
-                        option = document.createElement('div'),
                         input = document.createElement('input');
 
                     title.innerHTML = 'Quantity';
@@ -2382,7 +2377,6 @@
                 },
 
                 container = this.structure.find('li.other .options'),
-                component = 'other',
                 prefix = this.prefix;
 
             container.append(
@@ -2394,7 +2388,7 @@
         },
 
         createChoicesOverlay: function(component, model, structure, colors, boots) {
-            var o, choices, choice, current, value, div,
+            var o, current, div,
                 container = structure.find('div.choices');
 
             model = model.toLowerCase();
@@ -2436,8 +2430,32 @@
                         if( colors.hasOwnProperty(o) ) {
                             current = colors[o];
                         
+                            div = $('<div/>').attr('data-choice-value', o).data({
+                                input_option_id: current.input_option_id,
+                                output_option_id: current.output_option_id
+                            });
+
+                            if( current.oos ) {
+                                div.attr('data-oos', 'true');
+                            }
+
+                            container.append(div);
+                        }
+                    }
+                }
+
+                if( boots && Object.keys(boots).length ) {
+                    container.attr('data-choice-component', 'boot');
+                    
+                    for( o in boots ) {
+                        if( boots.hasOwnProperty(o) ) {
+                            current = boots[o];
+
+                            o = o.replace(/ /g, '-');
+                            
                             div = $('<div/>')
-                                    .attr('data-choice-value', current.body).data({
+                                    .attr('data-choice-value', o)
+                                    .data({
                                         input_option_id: current.input_option_id,
                                         output_option_id: current.output_option_id
                                     });
@@ -2448,29 +2466,6 @@
 
                             container.append(div.get(0));
                         }
-                    }
-                }
-
-                if( boots && Object.keys(boots).length ) {
-                    container.attr('data-choice-component', 'boot');
-                    
-                    for( o in boots ) {
-                        current = boots[o];
-
-                        o = o.replace(/ /g, '-');
-                        
-                        div = $('<div/>')
-                                .attr('data-choice-value', o)
-                                .data({
-                                    input_option_id: current.input_option_id,
-                                    output_option_id: current.output_option_id
-                                });
-
-                        if( current.oos ) {
-                            div.attr('data-oos', 'true');
-                        }
-
-                        container.append(div.get(0));
                     }
                 }
             }
@@ -2508,7 +2503,7 @@
 
                                     for( c in colors ) {
                                         if( colors.hasOwnProperty(c) ) {
-                                            if( c === 'category_id' ) continue;
+                                            if( c === 'category_id' || c === 'option_category_id') continue;
 
                                             bool = true;
                                             for( o = 0, p = list.length; o < p; o++ ) {
@@ -2553,7 +2548,7 @@
                 },
 
                 _build = function(type, list) {
-                    var outer, inner, active,
+                    var outer, inner,
                         i, n = list.length,
                         block = function(value) {
                             var container, input, label;
@@ -2703,9 +2698,11 @@
 
                     if( !value ) {
                         for( var i in data ) {
-                            if( i === 'component' || i === 'optionSide' ) continue;
+                            if( data.hasOwnProperty(i) ) {
+                                if( i === 'component' || i === 'optionSide' ) continue;
 
-                            data[i] = '';
+                                data[i] = '';
+                            }
                         }
                     }
 
@@ -2713,14 +2710,14 @@
 
                     if( !checkRestrictions() ) {
                         $('[data-option-type="techflex"] .choice input').prop('checked', false);
-                        var data = {};
+                        var techflex = {};
 
-                        data.type = 'techflex';
-                        data.value = '';
+                        techflex.type = 'techflex';
+                        techflex.value = '';
 
                         $('.pointer.techflex', '#display').attr('data-techflex-color', '');
 
-                        changeOtherOption.update(data);
+                        changeOtherOption.update(techflex);
                     }
                 },
 
@@ -2802,7 +2799,7 @@
                     var option = $(e.delegateTarget),
                         data = option.data(),
                         details = $('#details'),
-                        image, name, price, specs, choice, choices, manu, model,
+                        image, price, specs, choice, choices, manu, model,
                         spec;
 
                     image = option.find('img.component').attr('src');
@@ -2826,10 +2823,14 @@
                     details.find('input[type="checkbox"]').prop('checked', true);
                     details.find('img.component').attr('src', image);
                     details.find('img.choice').attr('src', (choice ? choice : BLANK_IMAGE_URL));
-                    details.find('.choices').replaceWith(choices)
-                    choices.children().length ? details.find('.choices').show() : details.find('.choices').hide();
+                    details.find('.choices').replaceWith(choices);
                     details.find('.name span').text(manu).next().text(model);
                     details.find('.price').text(price);
+
+                    if( choices.children.length ) 
+                        details.find('.choices').show();
+                    else
+                        details.find('.choices').hide();
 
                     if( specs ) {
                         var html = '';
@@ -2912,7 +2913,7 @@
                 changeFilters = function(e) {
                     e.preventDefault();
                     var self, filters, filterContainer, isChecked, component, options, active, checked, numChecked, hasChecked,
-                        visibleOptions = function(i, v) {
+                        visibleOptions = function() {
                             var status = ['visible', 'block'];
 
                             for( var i = 0; i < status.length; i++ ) {
@@ -2954,7 +2955,7 @@
                             manufacturer: function() {
                                 return $(this).data().manufacturer.toLowerCase() !== val;
                             }
-                        },
+                        };
 
                     self = $(e.target).prev('input'); // also $(this).prev('input')
                     filters = self.parents('.filters');
@@ -3016,13 +3017,15 @@
                     }
 
                     component.find('.outer').each(function() {
-                        !$(this).find('.option').filter(visibleOptions).length ?
-                            $(this).attr('data-filter-empty', 'true') :
+                        if( !$(this).find('.option').filter(visibleOptions).length )
+                            $(this).attr('data-filter-empty', 'true');
+                        else
                             $(this).attr('data-filter-empty', 'false');
                     });
 
-                    !options.filter(visibleOptions).length ?
-                        component.find('div.options').attr('data-filter-empty', 'true') :
+                    if( options.filter(visibleOptions).length )
+                        component.find('div.options').attr('data-filter-empty', 'true');
+                    else
                         component.find('div.options').attr('data-filter-empty', 'false');
                 },
 
@@ -3092,7 +3095,7 @@
 
             details.on('click', '.choices div', changeChoice);
             details.on('click', '.select', changeOption);
-            details.on('click', '.wrap', toggleMeasurements)
+            details.on('click', '.wrap', toggleMeasurements);
 
             options.on('click', changeOption);
             options.on('click', '.choices div', changeChoice);
@@ -3107,7 +3110,7 @@
             builders.find('li.length').on('slide', '.ruler', function(e, ui) {
                 var length, unit, type;
 
-                unit = $(e.target).attr('data-length-unit'),
+                unit = $(e.target).attr('data-length-unit');
                 type = $(e.target).attr('data-length-type');
                 length = ui.value;
 
@@ -3270,7 +3273,7 @@
             return container;
         },
 
-        block: function(type, prefix, side) {
+        block: function() {
             var container = $('.option.skeleton', '#skeletons').clone(true);
             container.removeClass('skeleton');
 
@@ -3380,7 +3383,7 @@
             .done(function(response) {
                 OPTIONS_JSON = response.data;
                 J_CABLE_TYPES = OPTIONS_JSON.cableTypes.type;
-                J_CABLES      = OPTIONS_JSON.cables.cable;
+                J_CABLES      = OPTIONS_JSON.cables;
                 J_PLUGS       = OPTIONS_JSON.plugs;
                 J_OTHER       = OPTIONS_JSON.other;
 

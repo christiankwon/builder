@@ -12,569 +12,683 @@
       ]
     },
     "cables": {
-      "cable": [
-        {
-          "code": "CSB_BLDN_9778",
-          "model": "9778",
+      "CSB_BLDN_9778": {
+        "manufacturer": "belden",
+        "model": "9778",
+        "name": {
           "manufacturer": "Belden",
-          "out_of_stock": true,
-          "price": "1.50",
-          "specs": {
-            "capacitance": "44",
-            "flexibility": "med",
-            "shield": "spiral",
-            "diameter": "0.23"
+          "model": "9778"
+        },
+        "price": 1.5,
+        "status": "unavailable",
+        "order": 20,
+        "specs": {
+          "capacitance": "44",
+          "flexibility": "med",
+          "shield": "spiral",
+          "diameter": "0.23"
+        },
+        "lengths": {
+          "option_category_id": 73,
+          "is_consistent": true,
+          "patch": {
+            "start_id": 1222,
+            "end_id": 1269
           },
-          "colors": {
-            "color": [
-              {
-                "name": "black"
-              }
-            ]
-          },
-          "lengths": {
-            "is_consistent": true,
-            "option_category_id": 73,
-            "patch": {
-              "start_id": 1222,
-              "end_id": 1269
-            },
-            "regular": {
-              "start_id": 1270,
-              "end_id": 1287
-            }
+          "regular": {
+            "start_id": 1270,
+            "end_id": 1287
           }
         },
-        {
-          "code": "CSB_CNRE_GS-6",
-          "model": "GS-6",
-          "manufacturer": "Canare",
-          "order": "3",
-          "price": "1.50",
-          "specs": {
-            "capacitance": "49",
-            "flexibility": "high",
-            "shield": "braided",
-            "diameter": "0.227"
-          },
-          "colors": {
-            "option_category_id": 149,
-            "color": [
-              {
-                "id": 1649,
-                "name": "red"
-              },
-              {
-                "id": 1650,
-                "name": "orange",
-                "out_of_stock": true
-              },
-              {
-                "id": 1651,
-                "name": "yellow"
-              },
-              {
-                "id": 1652,
-                "name": "green"
-              },
-              {
-                "id": 1647,
-                "name": "black",
-                "default": true
-              }
-            ]
-          },
-          "lengths": {
-            "is_consistent": true,
-            "option_category_id": 75,
-            "patch": {
-              "start_id": 1354,
-              "end_id": 1401
-            },
-            "regular": {
-              "start_id": 1402,
-              "end_id": 1419
-            }
-          }
-        },
-        {
-          "code": "CSB_CNRE_L-4E6S",
-          "order": "1",
-          "model": "L-4E6S",
-          "manufacturer": "Canare",
-          "price": "3",
-          "specs": {
-            "capacitance": "49",
-            "flexibility": "high",
-            "shield": "braided",
-            "diameter": "0.231"
-          },
-          "colors": {
-            "color": [
-              {
-                "name": "black"
-              }
-            ]
-          },
-          "lengths": {
-            "is_consistent": true,
-            "option_category_id": 76,
-            "patch": {
-              "start_id": 1420,
-              "end_id": 1467
-            },
-            "regular": {
-              "start_id": 1468,
-              "end_id": 1485
-            }
-          }
-        },
-        {
-          "code": "CSB_GTHM_GAC-1_UP",
-          "model": "GAC-1 Ultra Pro",
-          "manufacturer": "Gotham",
-          "price": "1.50",
-          "specs": {
-            "capacitance": "21",
-            "flexibility": "high",
-            "shield": "spiral",
-            "diameter": "0.241"
-          },
-          "colors": {
-            "option_category_id": 149,
-            "color": [
-              {
-                "id": 1649,
-                "name": "red",
-                "default": true
-              },
-              {
-                "id": 1647,
-                "name": "black",
-                "out_of_stock": true
-              }
-            ]
-          },
-          "lengths": {
-            "is_consistent": true,
-            "option_category_id": 74,
-            "patch": {
-              "start_id": 1288,
-              "end_id": 1335
-            },
-            "regular": {
-              "start_id": 1336,
-              "end_id": 1353
-            }
-          }
-        },
-        {
-          "code": "CSB_GTHM_GAC-1",
-          "model": "GAC-1",
-          "manufacturer": "Gotham",
-          "price": "1",
-          "specs": {
-            "capacitance": "44",
-            "flexibility": "high",
-            "shield": "spiral",
-            "diameter": "0.211"
-          },
-          "colors": {
-            "color": [
-              {
-                "name": "black"
-              }
-            ]
-          },
-          "lengths": {
-            "is_consistent": true,
-            "option_category_id": 79,
-            "patch": {
-              "start_id": 1653,
-              "end_id": 1700
-            },
-            "regular": {
-              "start_id": 1701,
-              "end_id": 1718
-            }
-          }
-        },
-        {
-          "code": "CSB_GTHM_GAC-2",
-          "model": "GAC-2",
-          "manufacturer": "Gotham",
-          "price": "1.50",
-          "specs": {
-            "capacitance": "57",
-            "flexibility": "high",
-            "shield": "spiral",
-            "diameter": "0.216"
-          },
-          "colors": {
-            "color": [
-              {
-                "name": "black"
-              }
-            ]
-          },
-          "lengths": {
-            "is_consistent": true,
-            "option_category_id": 80,
-            "patch": {
-              "start_id": 1719,
-              "end_id": 1766
-            },
-            "regular": {
-              "start_id": 1767,
-              "end_id": 1784
-            }
-          }
-        },
-        {
-          "code": "CSB_EVIA_MNRL",
-          "model": "Monorail",
-          "manufacturer": "Evidence Audio",
-          "price": "3",
-          "is_premium": true,
-          "is_only_patch": true,
-          "specs": {
-            "capacitance": "23",
-            "flexibility": "low",
-            "shield": "spiral",
-            "diameter": "0.162"
-          },
-          "colors": {
-            "color": [
-              {
-                "name": "red"
-              }
-            ]
-          },
-          "lengths": {
-            "is_consistent": true,
-            "option_category_id": 72,
-            "patch": {
-              "start_id": 1156,
-              "end_id": 1203
-            },
-            "regular": {
-              "start_id": 1204,
-              "end_id": 1221
-            }
-          }
-        },
-        {
-          "code": "CSB_EVIA_MLDY",
-          "model": "Melody",
-          "out_of_stock": true,
-          "manufacturer": "Evidence Audio",
-          "price": "5",
-          "is_premium": true,
-          "specs": {
-            "capacitance": "28",
-            "flexibility": "low",
-            "shield": "spiral",
-            "diameter": "0.254"
-          },
-          "colors": {
-            "color": [
-              {
-                "name": "blue"
-              },
-              {
-                "name": "black"
-              }
-            ]
-          },
-          "lengths": {
-            "is_consistent": true,
-            "option_category_id": 71,
-            "patch": {
-              "start_id": 1090,
-              "end_id": 1137
-            },
-            "regular": {
-              "start_id": 1138,
-              "end_id": 1155
-            }
-          }
-        },
-        {
-          "code": "CSB_VDMM_CLSC-XKE",
-          "model": "Classic XKE",
-          "manufacturer": "Van Damme",
-          "price": "2",
-          "is_premium": true,
-          "specs": {
-            "capacitance": "25",
-            "flexibility": "high",
-            "shield": "spiral",
-            "diameter": "0.235"
-          },
-          "colors": {
-            "option_category_id": 149,
-            "color": [
-              {
-                "id": 1678,
-                "name": "white"
-              },
-              {
-                "id": 1647,
-                "name": "black",
-                "default": true
-              }
-            ]
-          },
-          "lengths": {
-            "is_consistent": true,
-            "option_category_id": 78,
-            "patch": {
-              "start_id": 1492,
-              "end_id": 1539
-            },
-            "regular": {
-              "start_id": 1540,
-              "end_id": 1557
-            }
+        "colors": {
+          "black": {
+            "id": null
           }
         }
-      ]
+      },
+
+      "CSB_CNRE_GS-6": {
+        "manufacturer": "canare",
+        "model": "gs-6",
+        "name": {
+          "manufacturer": "Canare",
+          "model": "GS-6"
+        },
+        "price": 1.5,
+        "status": "available",
+        "order": 30,
+        "specs": {
+          "capacitance": "49",
+          "flexibility": "high",
+          "shield": "braided",
+          "diameter": "0.227"
+        },
+        "lengths": {
+          "option_category_id": 75,
+          "is_consistent": true,
+          "patch": {
+            "start_id": 1354,
+            "end_id": 1401
+          },
+          "regular": {
+            "start_id": 1402,
+            "end_id": 1419
+          }
+        },
+        "colors": {
+          "black": {
+            "id": 1647,
+            "default": true
+          },
+          "red": {
+            "id": 1649
+          },
+          "orange": {
+            "id": 1650,
+            "out_of_stock": true
+          },
+          "yellow": {
+            "id": 1651
+          },
+          "green": {
+            "id": 1652
+          },
+          "option_category_id": 149
+        }
+      },
+
+      "CSB_CNRE_L-4E6S": {
+        "manufacturer": "canare",
+        "model": "l-4e6s",
+        "name": {
+          "manufacturer": "Canare",
+          "model": "L-4E6S"
+        },
+        "price": 3,
+        "status": "available",
+        "order": 31,
+        "specs": {
+          "capacitance": "49",
+          "flexibility": "high",
+          "shield": "braided",
+          "diameter": "0.231"
+        },
+        "lengths": {
+          "option_category_id": 76,
+          "is_consistent": true,
+          "patch": {
+            "start_id": 1420,
+            "end_id": 1467
+          },
+          "regular": {
+            "start_id": 1468,
+            "end_id": 1485
+          }
+        },
+        "colors": {
+          "black": {
+            "id": null
+          }
+        }
+      },
+
+      "CSB_GTHM_GAC-1_UP": {
+        "manufacturer": "gotham",
+        "model": "gac-1-ultra-pro",
+        "name": {
+          "manufacturer": "Gotham",
+          "model": "GAC-1 Ultra Pro"
+        },
+        "price": 1.5,
+        "status": "available",
+        "order": 42,
+        "specs": {
+          "capacitance": "21",
+          "flexibility": "high",
+          "shield": "spiral",
+          "diameter": "0.241"
+        },
+        "lengths": {
+          "option_category_id": 74,
+          "is_consistent": true,
+          "patch": {
+            "start_id": 1288,
+            "end_id": 1335
+          },
+          "regular": {
+            "start_id": 1336,
+            "end_id": 1353
+          }
+        },
+        "colors": {
+          "black": {
+            "id": 1647,
+            "oos": true,
+            "default": true
+          },
+          "red": {
+            "id": 1649
+          },
+          "option_category_id": "149"
+        }
+      },
+
+      "CSB_GTHM_GAC-1": {
+        "manufacturer": "gotham",
+        "model": "gac-1",
+        "name": {
+          "manufacturer": "Gotham",
+          "model": "GAC-1"
+        },
+        "price": 1,
+        "status": "available",
+        "order": 40,
+        "specs": {
+          "capacitance": "44",
+          "flexibility": "high",
+          "shield": "spiral",
+          "diameter": "0.211"
+        },
+        "lengths": {
+          "option_category_id": 79,
+          "is_consistent": true,
+          "patch": {
+            "start_id": 1653,
+            "end_id": 1700
+          },
+          "regular": {
+            "start_id": 1701,
+            "end_id": 1718
+          }
+        },
+        "colors": {
+          "black": {
+            "id": null
+          }
+        }
+      },
+
+      "CSB_GTHM_GAC-2": {
+        "manufacturer": "gotham",
+        "model": "gac-2",
+        "name": {
+          "manufacturer": "Gotham",
+          "model": "GAC-2"
+        },
+        "price": 1.5,
+        "status": "available",
+        "order": 41,
+        "specs": {
+          "capacitance": "57",
+          "flexibility": "high",
+          "shield": "spiral",
+          "diameter": "0.216"
+        },
+        "lengths": {
+          "option_category_id": 80,
+          "is_consistent": true,
+          "patch": {
+            "start_id": 1719,
+            "end_id": 1766
+          },
+          "regular": {
+            "start_id": 1767,
+            "end_id": 1784
+          }
+        },
+        "colors": {
+          "black": {
+            "id": null
+          }
+        }
+      },
+
+      "CSB_EVIA_MNRL": {
+        "manufacturer": "evidence-audio",
+        "model": "monorail",
+        "name": {
+          "manufacturer": "Evidence Audio",
+          "model": "Monorail"
+        },
+        "price": 3,
+        "status": "available",
+        "order": 1,
+        "is_premium": true,
+        "specs": {
+          "capacitance": "23",
+          "flexibility": "low",
+          "shield": "spiral",
+          "diameter": "0.162"
+        },
+        "lengths": {
+          "option_category_id": 72,
+          "is_consistent": true,
+          "patch": {
+            "start_id": 1156,
+            "end_id": 1203
+          },
+          "regular": {
+            "start_id": 1204,
+            "end_id": 1221
+          }
+        },
+        "colors": {
+          "red": {
+            "id": null
+          }
+        },
+        "is_only_patch": true
+      },
+
+      "CSB_EVIA_MLDY": {
+        "manufacturer": "evidence-audio",
+        "model": "melody",
+        "name": {
+          "manufacturer": "Evidence Audio",
+          "model": "Melody"
+        },
+        "price": 5,
+        "status": "unavailable",
+        "is_premium": true,
+        "specs": {
+          "capacitance": "28",
+          "flexibility": "low",
+          "shield": "spiral",
+          "diameter": "0.254"
+        },
+        "lengths": {
+          "option_category_id": 71,
+          "is_consistent": true,
+          "patch": {
+            "start_id": 1090,
+            "end_id": 1137
+          },
+          "regular": {
+            "start_id": 1138,
+            "end_id": 1155
+          }
+        },
+        "colors": {
+          "black": {
+            "id": null
+          },
+          "blue": {
+            "id": null
+          }
+        }
+      },
+
+      "CSB_VDMM_CLSC-XKE": {
+        "manufacturer": "van-damme",
+        "model": "classic-xke",
+        "name": {
+          "manufacturer": "Van Damme",
+          "model": "Classic XKE"
+        },
+        "price": 2,
+        "status": "available",
+        "is_premium": true,
+        "specs": {
+          "capacitance": "25",
+          "flexibility": "high",
+          "shield": "spiral",
+          "diameter": "0.235"
+        },
+        "lengths": {
+          "option_category_id": 78,
+          "is_consistent": true,
+          "patch": {
+            "start_id": 1492,
+            "end_id": 1539
+          },
+          "regular": {
+            "start_id": 1540,
+            "end_id": 1557
+          }
+        },
+        "colors": {
+          "black": {
+            "id": 1647,
+            "default": true
+          },
+          "white": {
+            "id": 1678
+          },
+          "option_category_id": "149"
+        }
+      }
     },
     "plugs": {
       "instrument": {
         "input_option_category_id": 64,
         "output_option_category_id": 65,
-        "plug": [
-          {
+        "SWITCHCRAFT_228": {
+          "name": {
             "manufacturer": "Switchcraft",
-            "model": "228 Pancake",
-            "price": "7",
-            "color": {
+            "model": "228 Pancake"
+          },
+          "manufacturer": "switchcraft",
+          "model": "228",
+          "price": 7,
+          "status": "available",
+          "angle": "right",
+          "connector": "nickel",
+          "series": null,
+          "colors": {
+            "nickel": {
               "input_option_id": 373,
-              "output_option_id": 381,
-              "body": "nickel",
-              "connector": "nickel"
-            },
-            "angle": "right"
-          },
-          {
-            "manufacturer": "Switchcraft",
-            "model": "280",
-            "price": "4",
-            "color": {
-              "input_option_id": 374,
-              "output_option_id": 382,
-              "body": "nickel",
-              "connector": "nickel"
-            },
-            "angle": "straight"
-          },
-          {
-            "manufacturer": "Switchcraft",
-            "model": "380",
-            "price": "7",
-            "color": {
-              "input_option_id": 1794,
-              "output_option_id": 1795,
-              "body": "nickel",
-              "connector": "nickel"
-            },
-            "angle": "straight"
-          },
-          {
-            "manufacturer": "Neutrik",
-            "model": "NP2X-B",
-            "price": "9",
-            "has_boots": true,
-            "color": {
-              "input_option_id": 375,
-              "output_option_id": 383,
-              "body": "black",
-              "connector": "gold"
-            },
-            "angle": "straight"
-          },
-          {
-            "manufacturer": "Neutrik",
-            "model": "NP2RX-B",
-            "price": "11",
-            "has_boots": true,
-            "color": {
-              "input_option_id": 376,
-              "output_option_id": 384,
-              "body": "black",
-              "connector": "gold"
-            },
-            "angle": "right"
-          },
-          {
-            "manufacturer": "Neutrik",
-            "model": "NP2X-Silent",
-            "price": "16",
-            "has_boots": true,
-            "color": {
-              "input_option_id": 377,
-              "output_option_id": 385,
-              "body": "red",
-              "connector": "gold"
-            },
-            "angle": "straight"
-          },
-          {
-            "manufacturer": "Neutrik",
-            "model": "NP2RX-Silent",
-            "price": "20",
-            "has_boots": true,
-            "color": {
-              "input_option_id": 378,
-              "output_option_id": 386,
-              "body": "red/black",
-              "connector": "gold"
-            },
-            "angle": "right"
-          },
-          {
-            "manufacturer": "Neutrik",
-            "model": "NYS224G",
-            "price": "4",
-            "color": {
-              "input_option_id": 379,
-              "output_option_id": 387,
-              "body": "nickel",
-              "connector": "gold"
-            },
-            "angle": "straight"
-          },
-          {
-            "manufacturer": "Neutrik",
-            "model": "NYS224BG",
-            "price": "4",
-            "color": {
-              "input_option_id": 380,
-              "output_option_id": 388,
-              "body": "black",
-              "connector": "gold"
-            },
-            "angle": "straight"
-          },
-          {
-            "manufacturer": "Neutrik",
-            "model": "NP2C",
-            "price": "7",
-            "has_boots": true,
-            "color": {
-              "input_option_id": 725,
-              "output_option_id": 726,
-              "body": "nickel",
-              "connector": "nickel"
-            },
-            "angle": "straight"
-          },
-          {
-            "manufacturer": "Neutrik",
-            "model": "NP2C-BAG",
-            "price": "7",
-            "has_boots": true,
-            "color": {
-              "input_option_id": 728,
-              "output_option_id": 727,
-              "body": "black",
-              "connector": "nickel"
-            },
-            "angle": "straight"
-          },
-          {
-            "manufacturer": "Neutrik",
-            "model": "NP2C-B",
-            "price": "9",
-            "has_boots": true,
-            "color": {
-              "input_option_id": 729,
-              "output_option_id": 730,
-              "body": "black",
-              "connector": "gold"
-            },
-            "angle": "straight"
-          },
-          {
-            "manufacturer": "Neutrik",
-            "model": "NP2RX",
-            "has_boots": true,
-            "price": "11",
-            "color": {
-              "input_option_id": 732,
-              "output_option_id": 731,
-              "body": "nickel",
-              "connector": "nickel"
-            },
-            "angle": "right"
-          },
-          {
-            "manufacturer": "G&H",
-            "model": "BF2P",
-            "price": "7",
-            "colors": {
-              "color": [
-                {
-                  "suffix": "GGG",
-                  "body": "gold",
-                  "connector": "gold",
-                  "input_option_id": 1603,
-                  "output_option_id": 1618
-                },
-                {
-                  "suffix": "NGG",
-                  "body": "nickel",
-                  "connector": "gold",
-                  "input_option_id": 1601,
-                  "output_option_id": 1616
-                },
-                {
-                  "default": true,
-                  "suffix": "BGG",
-                  "body": "black",
-                  "connector": "gold",
-                  "input_option_id": 1602,
-                  "output_option_id": 1617
-                }
-              ]
-            },
-            "angle": "straight"
-          },
-          {
-            "manufacturer": "G&H",
-            "model": "RF2P",
-            "price": "8",
-            "colors": {
-              "color": [
-                {
-                  "suffix": "GGG",
-                  "body": "gold",
-                  "connector": "gold",
-                  "input_option_id": 1607,
-                  "output_option_id": 1610
-                },
-                {
-                  "suffix": "NGG",
-                  "body": "nickel",
-                  "connector": "gold",
-                  "input_option_id": 1605,
-                  "output_option_id": 1608
-                },
-                {
-                  "default": true,
-                  "suffix": "BGG",
-                  "body": "black",
-                  "connector": "gold",
-                  "input_option_id": 1606,
-                  "output_option_id": 1609
-                }
-              ]
-            },
-            "angle": "right"
+              "output_option_id": 381
+            }
           }
-        ]
+        },
+
+        "SWITCHCRAFT_280": {
+          "name": {
+            "manufacturer": "Switchcraft",
+            "model": "280"
+          },
+          "manufacturer": "switchcraft",
+          "model": "280",
+          "price": 4,
+          "status": "available",
+          "angle": "straight",
+          "connector": "nickel",
+          "series": null,
+          "colors": {
+            "nickel": {
+              "input_option_id": 374,
+              "output_option_id": 382
+            }
+          }
+        },
+
+        "SWITCHCRAFT_380": {
+          "name": {
+            "manufacturer": "Switchcraft",
+            "model": "380"
+          },
+          "manufacturer": "switchcraft",
+          "model": "380",
+          "price": 4,
+          "status": "available",
+          "angle": "straight",
+          "connector": "nickel",
+          "series": null,
+          "colors": {
+            "nickel": {
+              "input_option_id": 1794,
+              "output_option_id": 1795
+            }
+          }
+        },
+
+        "NEUTRIK_NP2X-B": {
+          "name": {
+            "manufacturer": "Neutrik",
+            "model": "NP2X-B"
+          },
+          "manufacturer": "neutrik",
+          "model": "np2x-b",
+          "price": 9,
+          "status": "available",
+          "angle": "straight",
+          "connector": "gold",
+          "series": "x",
+          "colors": {
+            "black": {
+              "input_option_id": 375,
+              "output_option_id": 383
+            }
+          },
+          "has_boots": true
+        },
+
+        "NEUTRIK_NP2RX": {
+          "name": {
+            "manufacturer": "Neutrik",
+            "model": "NP2RX"
+          },
+          "manufacturer": "neutrik",
+          "model": "np2rx",
+          "price": 11,
+          "status": "available",
+          "angle": "right",
+          "connector": "nickel",
+          "series": "x",
+          "colors": {
+            "nickel": {
+              "input_option_id": 732,
+              "output_option_id": 731
+            }
+          },
+          "has_boots": true
+        },
+
+        "NEUTRIK_NP2RX-B": {
+          "name": {
+            "manufacturer": "Neutrik",
+            "model": "NP2RX-B"
+          },
+          "manufacturer": "neutrik",
+          "model": "np2rx-b",
+          "price": 11,
+          "status": "available",
+          "angle": "right",
+          "connector": "gold",
+          "series": "x",
+          "colors": {
+            "black": {
+              "input_option_id": 376,
+              "output_option_id": 384
+            }
+          },
+          "has_boots": true
+        },
+
+        "NEUTRIK_NP2X-SILENT": {
+          "name": {
+            "manufacturer": "Neutrik",
+            "model": "NP2X-Silent"
+          },
+          "manufacturer": "neutrik",
+          "model": "np2x-silent",
+          "price": 16,
+          "status": "available",
+          "angle": "straight",
+          "connector": "gold",
+          "series": "x",
+          "colors": {
+            "red": {
+              "input_option_id": 377,
+              "output_option_id": 385
+            }
+          },
+          "has_boots": true
+        },
+
+        "NEUTRIK_NP2RX-SILENT": {
+          "name": {
+            "manufacturer": "Neutrik",
+            "model": "NP2RX-Silent"
+          },
+          "manufacturer": "neutrik",
+          "model": "np2rx-silent",
+          "price": 20,
+          "status": "available",
+          "angle": "right",
+          "connector": "gold",
+          "series": "x",
+          "colors": {
+            "red": {
+              "input_option_id": 378,
+              "output_option_id": 386
+            }
+          },
+          "has_boots": true
+        },
+
+        "NEUTRIK_NYS 224G": {
+          "name": {
+            "manufacturer": "Neutrik",
+            "model": "NYS 224G"
+          },
+          "manufacturer": "neutrik",
+          "model": "nys-224g",
+          "price": 4,
+          "status": "available",
+          "angle": "straight",
+          "connector": "gold",
+          "series": "rean",
+          "colors": {
+            "nickel": {
+              "input_option_id": 379,
+              "output_option_id": 387
+            }
+          }
+        },
+
+        "NEUTRIK_NYS 224BG": {
+          "name": {
+            "manufacturer": "Neutrik",
+            "model": "NYS 224BG"
+          },
+          "manufacturer": "neutrik",
+          "model": "nys-224bg",
+          "price": 4,
+          "status": "available",
+          "angle": "straight",
+          "connector": "gold",
+          "series": "rean",
+          "colors": {
+            "black": {
+              "input_option_id": 380,
+              "output_option_id": 388
+            }
+          }
+        },
+
+        "NEUTRIK_NP2C": {
+          "name": {
+            "manufacturer": "Neutrik",
+            "model": "NP2C"
+          },
+          "manufacturer": "neutrik",
+          "model": "np2c",
+          "price": 7,
+          "status": "available",
+          "angle": "straight",
+          "connector": "nickel",
+          "series": "c",
+          "colors": {
+            "nickel": {
+              "input_option_id": 725,
+              "output_option_id": 726
+            }
+          },
+          "has_boots": true
+        },
+
+        "NEUTRIK_NP2C-B": {
+          "name": {
+            "manufacturer": "Neutrik",
+            "model": "NP2C-B"
+          },
+          "manufacturer": "neutrik",
+          "model": "np2c-b",
+          "price": 9,
+          "status": "available",
+          "angle": "straight",
+          "connector": "gold",
+          "series": "c",
+          "colors": {
+            "black": {
+              "input_option_id": 729,
+              "output_option_id": 730
+            }
+          },
+          "has_boots": true
+        },
+
+        "NEUTRIK_NP2C-BAG": {
+          "name": {
+            "manufacturer": "Neutrik",
+            "model": "NP2C-BAG"
+          },
+          "manufacturer": "neutrik",
+          "model": "np2c-bag",
+          "price": 7,
+          "status": "available",
+          "angle": "straight",
+          "connector": "nickel",
+          "series": "c",
+          "colors": {
+            "black": {
+              "input_option_id": 728,
+              "output_option_id": 727
+            }
+          },
+          "has_boots": true
+        },
+
+        "G&H_BF2P": {
+          "name": {
+            "manufacturer": "G&H",
+            "model": "BF2P"
+          },
+          "manufacturer": "g&h",
+          "model": "bf2p",
+          "price": 7,
+          "status": "available",
+          "angle": "straight",
+          "connector": "gold",
+          "series": "straight",
+          "colors": {
+            "gold": {
+              "default": true,
+              "input_option_id": 1603,
+              "output_option_id": 1618
+            },
+            "nickel": {
+              "input_option_id": 1601,
+              "output_option_id": 1616
+            },
+            "black": {
+              "input_option_id": 1602,
+              "output_option_id": 1617
+            }
+          }
+        },
+
+        "G&H_RF2P": {
+          "name": {
+            "manufacturer": "G&H",
+            "model": "RF2P"
+          },
+          "manufacturer": "g&h",
+          "model": "rf2p",
+          "price": 7,
+          "status": "available",
+          "angle": "right",
+          "connector": "gold",
+          "series": "straight",
+          "colors": {
+            "gold": {
+              "default": true,
+              "input_option_id": 1607,
+              "output_option_id": 1610
+            },
+            "nickel": {
+              "input_option_id": 1605,
+              "output_option_id": 1608
+            },
+            "black": {
+              "input_option_id": 1606,
+              "output_option_id": 1609
+            }
+          }
+        }
       },
+
       "boots": {
         "np2c": {
           "input_option_category_id": 77,
