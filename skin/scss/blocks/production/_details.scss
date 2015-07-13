@@ -324,13 +324,13 @@
         }
     }
 
-    &[data-oos="true"] {
+    &[data-status="unavailable"] {
         .select {
             display: none;
         }
     }
 
-    .choices [data-oos="true"] {
+    .choices [data-status="unavailable"] {
         &:after {
             background: transparent url($media-folder + 'misc/x.red.png') no-repeat scroll center center / 100% auto;
             content: "";

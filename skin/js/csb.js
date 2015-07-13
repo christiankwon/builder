@@ -1717,9 +1717,7 @@
                                     'id': color.id ? color.id : null
                                 };
 
-                                if( color.out_of_stock ) {
-                                    colorObj[i].oos = true;
-                                }
+                                colorObj[i].status = color.status || null;
                             }
                         }
                     }
@@ -1759,7 +1757,7 @@
                 i,
                 structure, info,
                 code, model, manufacturer, price, id, lengths, specs, colors,
-                attributes, data, default_color, oos,
+                attributes, data, default_color,
                 name_model, name_manu,
 
                 component = 'cable',
@@ -1782,7 +1780,6 @@
                     attributes = {};
                     data = {};
                     default_color = '';
-                    oos = false;
 
                     // variable definition
                     code = i;
@@ -1839,7 +1836,7 @@
                     }
 
                     if( info.status === 'unavailable' ) {
-                        structure.attr('data-oos', 'true');
+                        structure.attr('data-status', 'unavailable');
                         structure.css('order', '99');
                     }
 
@@ -2056,14 +2053,14 @@
                                 default_color = value;
                             }
 
-                            if( color.out_of_stock ) {
-                                choices[value].oos = true;
-                            }
-
                             choices[value] = {
                                 'input_option_id': color.input_option_id,
                                 'output_option_id': color.output_option_id
                             };
+
+                            if( color.status === 'unavailable' ) {
+                                choices[value].status = 'unavailable';
+                            }
                         }
                     }
 
@@ -2087,8 +2084,8 @@
                             'output_option_id': choice.output_option_id
                         };
 
-                        if( choice.out_of_stock ) {
-                            choices[value].oos = true;
+                        if( choice.status === 'unavailable' ) {
+                            choices[value].status = 'unavailable';
                         }
                     }
 
@@ -2210,8 +2207,8 @@
                         }
 
                         // If option is out of stock, push to the end of the list
-                        if( info.out_of_stock ) {
-                            structure.attr('data-oos', 'true');
+                        if( info.status === 'unavailable' ) {
+                            structure.attr('data-status', 'unavailable');
                             structure.css('order', '99');
                         }
 
@@ -2397,7 +2394,7 @@
         },
 
         createChoicesOverlay: function(component, model, structure, colors, boots) {
-            var o, current, div,
+            var o, current, div, color,
                 container = structure.find('div.choices');
 
             model = model.toLowerCase();
@@ -2413,21 +2410,23 @@
 
             if( component === 'cable' ) {
                 container.attr('data-choice-component', 'color');
+
                 for( o in colors ) {
                     if( colors.hasOwnProperty(o) ) {
                         if( o === 'category_id' ) continue;
 
-                        if( !colors[o].id ) continue;
+                        color = colors[o];
+                        if( !color.id ) continue;
                         
                         div = $('<div/>')
                                 .attr('data-choice-value', o)
-                                .data('id', colors[o].id);
+                                .data('id', color.id);
 
-                        if( colors[o].oos ) {
-                            div.attr('data-oos', 'true');
+                        if( color.status === 'unavailable' ) {
+                            div.attr('data-status', 'unavailable');
                         }
 
-                        container.append(div.get(0));
+                        container.append(div);
                     }
                 }
 
@@ -2444,8 +2443,8 @@
                                 output_option_id: current.output_option_id
                             });
 
-                            if( current.oos ) {
-                                div.attr('data-oos', 'true');
+                            if( current.status === 'unavailable' ) {
+                                div.attr('data-status', 'unavailable');
                             }
 
                             container.append(div);
@@ -2463,17 +2462,17 @@
                             o = o.replace(/ /g, '-');
                             
                             div = $('<div/>')
-                                    .attr('data-choice-value', o)
-                                    .data({
-                                        input_option_id: current.input_option_id,
-                                        output_option_id: current.output_option_id
-                                    });
+                                .attr('data-choice-value', o)
+                                .data({
+                                    input_option_id: current.input_option_id,
+                                    output_option_id: current.output_option_id
+                                });
 
-                            if( current.oos ) {
-                                div.attr('data-oos', 'true');
+                            if( current.status === 'unavailable' ) {
+                                div.attr('data-status', 'unavailable');
                             }
 
-                            container.append(div.get(0));
+                            container.append(div);
                         }
                     }
                 }
@@ -2619,7 +2618,11 @@
                  */
                 changeChoice = function(e) {
                     if( $(e.delegateTarget).attr('id') === 'details' ) {
-                        $('.option[data-option-id="' + $(e.delegateTarget).attr('data-option-id') + '"] [data-choice-value="' + $(e.target).attr('data-choice-value') + '"]', '#builders').click();
+                        var side = '';
+                        if( e.delegateTarget.getAttribute('data-option-component') === 'plug' ) {
+                            side = '[data-option-side="' + $('li.current', '#builders').attr('data-builder-component') + '"]';
+                        }
+                        $('.option' + side + '[data-option-id="' + $(e.delegateTarget).attr('data-option-id') + '"] [data-choice-value="' + $(e.target).attr('data-choice-value') + '"]', '#builders').click();
                         return false;
                     }
 
@@ -2649,8 +2652,9 @@
                         toggleSpecs(e);
                     }
 
-                    option.attr('data-choice-oos', self.attr('data-oos') === 'true' ? 'true' : 'false');
-                    if( self.attr('data-oos') === 'true' ) {
+                    var availability = self.attr('data-status') === 'unavailable' ? 'unavailable' : 'availabile';
+                    option.attr('data-choice-status', availability);
+                    if( self.attr('data-status') === 'unavailable' ) {
                         return false;
                     }
 
@@ -2678,7 +2682,7 @@
                     }
 
                     // if the option is out of stock, break
-                    if( $(e.delegateTarget).attr('data-oos') === 'true' ) {
+                    if( $(e.delegateTarget).attr('data-status') === 'unavailable' ) {
                         return false;
                     }
 
@@ -2809,7 +2813,7 @@
                         data = option.data(),
                         details = $('#details'),
                         image, price, specs, choice, choices, manu, model,
-                        spec;
+                        spec, availability;
 
                     image = option.find('img.component').attr('src');
                     choice = option.find('img.choice').attr('src');
@@ -2819,8 +2823,11 @@
                     price = data.price;
                     specs = data.specs;
 
-                    details.attr('data-oos', !!option.attr('data-oos'));
-                    details.attr('data-choice-oos', option.attr('data-choice-oos') === 'true' ? 'true' : 'false');
+                    availability = option.attr('data-status') === 'unavailable' ? 'unavailable' : 'availabile';
+                    details.attr('data-status', availability);
+
+                    availability = option.attr('data-choice-status') === 'unavailable' ? 'unavailable' : 'availabile';
+                    details.attr('data-choice-status', availability);
 
                     details.attr({
                         'data-option-id': option.attr('data-option-id'),
@@ -2929,7 +2936,7 @@
                             var visibles = ['visible', 'block'];
 
                             if( visibles.indexOf( $(this).attr('data-filter-status') ) > -1 ) return true;
-                            
+
                             return false;
                         },
                         filteredVisibleOptions = function() {

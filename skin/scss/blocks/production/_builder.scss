@@ -600,7 +600,7 @@
         }
     }
 
-    .option[data-oos="true"], .option[data-choice-oos="true"] {
+    .option[data-status="unavailable"], .option[data-choice-status="unavailable"] {
         &:before {
             background-color: #222;
             bottom: -1px;
