@@ -2268,6 +2268,7 @@
                     option.appendChild(title);
 
                     for( i = 0, l = colors.option.length; i < l; i++ ) {
+                        if( colors.option[i].status === 'unavailable' ) continue;
                         color = colors.option[i].desc;
                         id = colors.option[i].id;
 
