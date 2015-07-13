@@ -490,13 +490,13 @@
             var ip = data.input;
             cable_input = ip.name;
             if( ip.boot ) cable_input += ' | ' + ip.boot.charAt(0).toUpperCase() + ip.boot.slice(1);
-            if( ip.color ) cable_input += ' | ' + ip.color;
+            if( ip.color ) cable_input += ' | ' + ip.color.charAt(0).toUpperCase() + ip.color.slice(1);
 
             // output plug
             var op = data.output;
             cable_output = op.name;
             if( op.boot ) cable_output += ' | ' + op.boot.charAt(0).toUpperCase() + op.boot.slice(1);
-            if( op.color ) cable_output += ' | ' + op.color;
+            if( op.color ) cable_output += ' | ' + op.color.charAt(0).toUpperCase() + op.color.slice(1);
 
             // other
             var o = data.other;
