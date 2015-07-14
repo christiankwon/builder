@@ -56,14 +56,16 @@
                 manufacturer: '',
                 model: '',
                 color: '',
-                boot: ''
+                boot: '',
+                series: ''
             };
             this.output = {
                 code: '',
                 manufacturer: '',
                 model: '',
                 color: '',
-                boot: ''
+                boot: '',
+                series: ''
             };
             this.other = {
                 reverse_plugs: false,
@@ -102,7 +104,7 @@
                 this.data = CURRENT_CABLE;
 
                 $('.build', '#storage').not('[data-storage-status="inactive"]').first().trigger('click');
-                
+
                 if( !$('.build[data-storage-status="current"]', '#storage').length ) {
                     $('[data-storage-button="create"]', '#storage').trigger('click');
                 }
@@ -152,8 +154,8 @@
             } else {
                 $('body').attr('data-orientation', 'vertical');
             }
-            
-            update.dispatch(CURRENT_CABLE, true);            
+
+            update.dispatch(CURRENT_CABLE, true);
 
             scrollToSection(section);
         }, 150)
@@ -362,7 +364,7 @@
          * @return {int} Resized image ratio multiplied by default widths
          */
         function getPlugOffSet() {
-            
+
             var plugWidthRatio = getCurrentPlugWidthRatio(),
                 cableWidth = getCableWidth();
 
@@ -444,7 +446,7 @@
 
     goToConfirm = function() {
         function getUnits(type) {
-            if( type === 'regular' ) return 'ft'; 
+            if( type === 'regular' ) return 'ft';
             if( type === 'patch' ) return 'in';
         }
 
@@ -515,7 +517,7 @@
             if( !cable_other.length ) {
                 cable_other = "No extra options selected.";
             }
-            
+
             var list = [cable_name, cable_input, cable_output, cable_other];
 
             $block.find('.cable .type').text(cable_type + data.storage);
@@ -530,7 +532,7 @@
                     id: 'cable_' + data.storage
                 });
 
-            $block.find('.qty label') 
+            $block.find('.qty label')
                 .attr('for', 'cable_' + data.storage);
 
             // price
@@ -594,7 +596,7 @@
 
 
         $('#confirmation .line-item').on('click', '.qty button', handles.confirmation.remove);
-        
+
         if( bool ) {
             calculateTotalCost();
             scrollToSection('confirmation', 500);
@@ -673,14 +675,9 @@
 
                 // input boot
                 if( _cable.input.boot.length ) {
-                    ref = J_PLUGS.boots[_cable.input.model.split('-')[0].toLowerCase()];
+                    ref = J_PLUGS.boots[_cable.input.manufacturer][_cable.input.series];
                     cat = ref.input_option_category_id;
-                    for( i = 0, l = ref.boot.length; i < l; i++ ) {
-                        if( ref.boot[i].color === _cable.input.boot.toLowerCase() ) {
-                            opt = ref.boot[i].input_option_id;
-                            break;
-                        }
-                    }
+                    opt = ref.boot[_cable.input.boot].input_option_id;
                     Post[getOptionName('select', cable_code, cat)] = opt;
                 }
 
@@ -699,14 +696,9 @@
 
                 // output boot
                 if( _cable.output.boot.length ) {
-                    ref = J_PLUGS.boots[_cable.output.model.split('-')[0].toLowerCase()];
+                    ref = J_PLUGS.boots[_cable.output.manufacturer][_cable.output.series];
                     cat = ref.output_option_category_id;
-                    for( i = 0, l = ref.boot.length; i < l; i++ ) {
-                        if( ref.boot[i].color === _cable.output.boot.toLowerCase() ) {
-                            opt = ref.boot[i].output_option_id;
-                            break;
-                        }
-                    }
+                    opt = ref.boot[_cable.output.boot].output_option_id;
                     Post[getOptionName('select', cable_code, cat)] = opt;
                 }
 
@@ -737,7 +729,7 @@
                     // techflex length
                     ref = J_OTHER.techflex.length;
                     cat = ref.option_category_id;
-                    l = _cable.length.type === 'regular' ? _cable.length.amount : 
+                    l = _cable.length.type === 'regular' ? _cable.length.amount :
                             Math.floor( ( _cable.length.amount - 1 ) / 12 ) + 1;
                     opt = ref['feet_' + l];
                     Post[getOptionName('select', cable_code, cat)] = opt;
@@ -791,7 +783,7 @@
                 $('body').removeClass('modal-open');
             })
             .find('.info').click(function(e) {
-                if( e.target !== $('.modal button.close').get(0)) 
+                if( e.target !== $('.modal button.close').get(0))
                     e.stopPropagation();
             }).html(data).prepend(
                 $('<button/>').addClass('close').on('click', function() {
@@ -995,7 +987,7 @@
                 $('.build', '#storage').attr('data-storage-status', 'inactive');
 
                 reset();
-                
+
                 first = $('.build:first', '#storage');
                 first.attr('data-storage-status', 'current');
                 first.find('.information p').text('');
@@ -1124,7 +1116,7 @@
             this.handles.declarations();
 
             checkRestrictions();
-            
+
             var first = $('.build:first', '#storage');
 
             first
@@ -1306,7 +1298,7 @@
 
                 if( changes.other ) {
                 }
-                    
+
                 $display.imagesLoaded().done( function() {
                     displayImages.resizeImage();
                     $('#body #display .outer').removeClass('loading');
@@ -1318,7 +1310,7 @@
 
             backpack = function() {
                 function getUnits() {
-                    if( length.type === 'regular' ) return 'ft'; 
+                    if( length.type === 'regular' ) return 'ft';
                     if( length.type === 'patch' ) return 'in';
                 }
 
@@ -1354,7 +1346,7 @@
                         '')
                 );
                 $info.find('.other').text(
-                    (other.tourproof ? 'Tourproof;' : '') + ' ' + 
+                    (other.tourproof ? 'Tourproof;' : '') + ' ' +
                     (other.techflex.length ? 'Techflex;' : '') + ' ' +
                     (other.reverse_plugs ? 'Reversed;' : '')
                 );
@@ -1384,7 +1376,7 @@
             },
 
             progress = function() {
-                // update the icons on the right               
+                // update the icons on the right
                 var complete = true,
                     $storage = $('.storage .build').filter(function() {
                         return $(this).data('storage') == CURRENT_CABLE.storage;
@@ -1479,7 +1471,7 @@
 
                     d.find('.selector').prop('checked', true);
                 }
-                
+
                 $('[data-length-type="' + data.length.type + '"].ruler').slider('value', data.length.amount);
                 $('[data-length-type="' + data.length.type + '"].input input').val(data.length.amount);
                 $('[data-length-type="' + data.length.type + '"].choice img').trigger('click');
@@ -1526,7 +1518,7 @@
                     c.manufacturer = data.manufacturer;
                     c.model = data.model;
                     c.name = data.name;
-                    
+
                 } else if( data.component === 'plug' ) {
                     t = data.optionSide;
                     c = CURRENT_CABLE[t];
@@ -1535,6 +1527,7 @@
                     c.manufacturer = data.manufacturer;
                     c.model = data.model;
                     c.name = data.name;
+                    c.series = data.series;
 
                     if( data.boots ) {
                         c.boot = data.choice;
@@ -1577,7 +1570,7 @@
             },
 
             dispatch = function(data, all) {
-                if( all ) 
+                if( all )
                     updateAllVisual(data);
                 else
                     configuration(data);
@@ -1728,7 +1721,7 @@
                 getBuilderImageUrl = function() {
                     return IMAGES_DIR + 'builder/cable/' +
                         this.type + '/' +
-                        formatTextForImageUrl(manufacturer) + '/' + 
+                        formatTextForImageUrl(manufacturer) + '/' +
                         formatTextForImageUrl(model) +
                         (default_color ? '.' + default_color : '') + '.jpg';
                 },
@@ -1788,7 +1781,7 @@
                     manufacturer = info.manufacturer;
                     name_model = info.name.model;
                     name_manu  = info.name.manufacturer;
-                    
+
                     price = price && typeof price === 'number' ? price.toFixed(2) : price;
 
                     // compound definition
@@ -1934,7 +1927,7 @@
                             block.className = 'ruler';
                             block.setAttribute('data-length-type', type);
                             block.setAttribute('data-length-unit', self.unit);
- 
+
                             $(block).slider({
                                 value: self.init,
                                 min: self.min,
@@ -2069,23 +2062,25 @@
 
                 getBootData = function(obj) {
                     var choices = {}, choice, value,
-                        type = 'boot';
+                        type = 'boot', c;
 
-                    for( var i = 0, n = obj[type].length; i < n; i++ ) {
-                        choice = obj[type][i];
-                        value = choice.color.toLowerCase();
+                    for( c in obj ) {
+                        if( obj.hasOwnProperty(c) ) {
+                            choice = obj[c];
+                            value = c;
 
-                        if( choice.default ) {
-                            default_boot = value;
-                        }
+                            if( choice.default ) {
+                                default_boot = value;
+                            }
 
-                        choices[value] = {
-                            'input_option_id': choice.input_option_id,
-                            'output_option_id': choice.output_option_id
-                        };
+                            choices[value] = {
+                                'input_option_id': choice.input_option_id,
+                                'output_option_id': choice.output_option_id
+                            };
 
-                        if( choice.status === 'unavailable' ) {
-                            choices[value].status = 'unavailable';
+                            if( choice.status && choice.status === 'unavailable' ) {
+                                choices[value].status = 'unavailable';
+                            }
                         }
                     }
 
@@ -2097,14 +2092,14 @@
                     if( c === 'component' ) {
                         url = IMAGES_DIR + 'builder/plug/' +
                             this.type + '/' +
-                            formatTextForImageUrl(manufacturer) + '/' + 
+                            formatTextForImageUrl(manufacturer) + '/' +
                             formatTextForImageUrl(model) +
                             (default_color ? '.' + default_color : '') + '.jpg';
 
                     } else if( c === 'choice' && color) {
                         url = IMAGES_DIR + 'builder/plug/' +
                             this.type + '/' +
-                            formatTextForImageUrl(manufacturer) + '/' + 
+                            formatTextForImageUrl(manufacturer) + '/' +
                             formatTextForImageUrl(model.split('-')[0]) + '/' +
                             color + '.png';
                     }
@@ -2123,7 +2118,7 @@
 
                 i, j, m,
                 structure, info,
-                angle, manufacturer, model, price, id,
+                angle, manufacturer, model, price, id, series,
                 attributes, data,
                 colors, default_color, boots, default_boot, code,
                 input_category_id, output_category_id, side,
@@ -2155,6 +2150,7 @@
                         angle = '';
                         manufacturer = '';
                         model = '';
+                        series = '';
                         price = '';
                         id = '';
                         colors = null;
@@ -2174,6 +2170,7 @@
                         angle = info.angle;
                         manufacturer = info.manufacturer;
                         model = info.model;
+                        series = info.series;
                         price = info.price;
                         name_model = info.name.model;
                         name_manu  = info.name.manufacturer;
@@ -2186,7 +2183,7 @@
                         attributes['data-option-type'] = component;
 
                         if( info.has_boots ) {
-                            boots = getBootData(json_boots[model.split('-')[0].toLowerCase()]);
+                            boots = getBootData(json_boots[manufacturer][series].boot);
                             data.boots = boots;
                             structure.find('img.choice').attr('src', getBuilderImageUrl.call(this, 'choice', default_boot));
                         } else if( info.colors ) {
@@ -2219,6 +2216,7 @@
                         data.name = name;
                         data.price = price;
                         data.code = code;
+                        data.series = series;
 
                         setInfo.call(structure, this.type);
 
@@ -2311,7 +2309,7 @@
                     });
 
                     description.innerHTML = 'Extra-precision reinforcement<br />to minimize failure.';
-                    
+
                     title.innerHTML = 'Tour Proof';
                     title.appendChild(button);
                     title.appendChild(description);
@@ -2417,7 +2415,7 @@
 
                         color = colors[o];
                         if( !color.id ) continue;
-                        
+
                         div = $('<div/>')
                                 .attr('data-choice-value', o)
                                 .data('id', color.id);
@@ -2437,7 +2435,7 @@
                     for( o in colors ) {
                         if( colors.hasOwnProperty(o) ) {
                             current = colors[o];
-                        
+
                             div = $('<div/>').attr('data-choice-value', o).data({
                                 input_option_id: current.input_option_id,
                                 output_option_id: current.output_option_id
@@ -2454,13 +2452,13 @@
 
                 if( boots && Object.keys(boots).length ) {
                     container.attr('data-choice-component', 'boot');
-                    
+
                     for( o in boots ) {
                         if( boots.hasOwnProperty(o) ) {
                             current = boots[o];
 
                             o = o.replace(/ /g, '-');
-                            
+
                             div = $('<div/>')
                                 .attr('data-choice-value', o)
                                 .data({
@@ -2552,7 +2550,7 @@
                         }
                         reset = $(document.createElement('button')).addClass('filter-clear').text('Clear Filters');
                         container.append(reset);
-                    }  
+                    }
                 },
 
                 _build = function(type, list) {
@@ -2647,7 +2645,7 @@
                         old_val = src.substring(y + 1, x);
                         image.src = src.substring(0, src.indexOf(old_val)) + new_val + src.substring(src.lastIndexOf('.'));
                     }
-                    
+
                     if( selected || $('#details').attr('data-option-id') === option.attr('data-option-id') ) {
                         toggleSpecs(e);
                     }
@@ -2776,7 +2774,7 @@
 
                         data.type = 'reverse_plugs';
                         data.value = !input.prop('checked');
-                        
+
                         changeOtherOption.update(data);
                     },
                     quantity: debounce(function(e) {
@@ -2843,7 +2841,7 @@
                     details.find('.name span').text(manu).next().text(model);
                     details.find('.price').text(price);
 
-                    if( choices.children.length ) 
+                    if( choices.children.length )
                         details.find('.choices').show();
                     else
                         details.find('.choices').hide();
@@ -2950,7 +2948,7 @@
                             capacitance: function() {
                                 var spec = +$(this).data().specs.capacitance;
                                 spec = spec < 27 ? 'low' : spec > 36 ? 'high' : 'med';
-                                
+
                                 return spec !== val;
                             },
                             flexibility: function() {
@@ -2991,7 +2989,7 @@
                     active = self.parents('.filter-container').find('input[name="active"]');
 
                     self.prop('checked', !isChecked);
-                    
+
                     hasChecked = filterContainer.find('input:checked').length;
                     active.prop('checked', !!hasChecked);
 
@@ -3144,7 +3142,7 @@
                 length = ui.value;
 
                 $('.input[data-length-type="' + type + '"] input').val(length);
-                
+
                 changeLength.slider(length, type, unit);
             });
 
@@ -3359,7 +3357,7 @@
 
                 $(e.target).attr('data-scroll-pos', pos);
             }
-        });     
+        });
     },
 
     initialSetup = function() {
@@ -3402,7 +3400,7 @@
     });
 
     /**
-     * Starting function of the cable builder 
+     * Starting function of the cable builder
      * AJAX calls the XML file that defines the different options in the builder
      * Stores the data of each component into its respective global variable
      * Calls init() to begin building each component

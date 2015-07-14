@@ -690,119 +690,73 @@
       },
 
       "boots": {
-        "np2c": {
-          "input_option_category_id": 77,
-          "output_option_category_id": 151,
-          "boot": [
-            {
-              "input_option_id": 1489,
-              "output_option_id": 1789,
-              "color": "red"
-            },
-            {
-              "input_option_id": 1486,
-              "output_option_id": 1786,
-              "color": "orange"
-            },
-            {
-              "input_option_id": 1487,
-              "output_option_id": 1787,
-              "color": "green"
-            },
-            {
-              "input_option_id": 1490,
-              "output_option_id": 1790,
-              "color": "violet"
-            },
-            {
-              "input_option_id": 1488,
-              "output_option_id": 1788,
-              "color": "gray"
-            },
-            {
-              "default": true,
-              "input_option_id": 1491,
-              "output_option_id": 1791,
-              "color": "black"
+        "neutrik": {
+          "c": {
+            "input_option_category_id": 77,
+            "output_option_category_id": 151,
+            "boot": {
+              "red": {
+                "input_option_id": 1489,
+                "output_option_id": 1789
+              },
+              "orange": {
+                "input_option_id": 1486,
+                "output_option_id": 1786
+              },
+              "green": {
+                "input_option_id": 1487,
+                "output_option_id": 1787
+              },
+              "violet": {
+                "input_option_id": 1490,
+                "output_option_id": 1790
+              },
+              "gray": {
+                "input_option_id": 1488,
+                "output_option_id": 1788
+              },
+              "black": {
+                "default": true,
+                "input_option_id": 1491,
+                "output_option_id": 1791
+              }
             }
-          ]
-        },
-        "np2x": {
-          "input_option_category_id": 153,
-          "output_option_category_id": 154,
-          "boot": [
-            {
-              "default": true,
-              "input_option_id": 1796,
-              "output_option_id": 1807,
-              "color": "black"
-            },
-            {
-              "input_option_id": 1797,
-              "output_option_id": 1802,
-              "color": "red"
-            },
-            {
-              "input_option_id": 1798,
-              "output_option_id": 1803,
-              "color": "orange"
-            },
-            {
-              "input_option_id": 1799,
-              "output_option_id": 1804,
-              "color": "green"
-            },
-            {
-              "input_option_id": 1801,
-              "output_option_id": 1805,
-              "color": "blue"
-            },
-            {
-              "input_option_id": 1802,
-              "output_option_id": 1806,
-              "color": "vintage cream"
+          },
+          "x": {
+            "input_option_category_id": 152,
+            "output_option_category_id": 153,
+            "boot": {
+              "black": {
+                "default": true,
+                "input_option_id": 1796,
+                "output_option_id": 1807
+              },
+              "red": {
+                "input_option_id": 1797,
+                "output_option_id": 1802
+              },
+              "orange": {
+                "input_option_id": 1798,
+                "output_option_id": 1803
+              },
+              "green": {
+                "input_option_id": 1799,
+                "output_option_id": 1804
+              },
+              "blue": {
+                "input_option_id": 1801,
+                "output_option_id": 1805
+              },
+              "vintage cream": {
+                "input_option_id": 1802,
+                "output_option_id": 1806
+              }
             }
-          ]
-        },
-        "np2rx": {
-          "input_option_category_id": 153,
-          "output_option_category_id": 154,
-          "boot": [
-            {
-              "default": true,
-              "input_option_id": 1796,
-              "output_option_id": 1807,
-              "color": "black"
-            },
-            {
-              "input_option_id": 1797,
-              "output_option_id": 1802,
-              "color": "red"
-            },
-            {
-              "input_option_id": 1798,
-              "output_option_id": 1803,
-              "color": "orange"
-            },
-            {
-              "input_option_id": 1799,
-              "output_option_id": 1804,
-              "color": "green"
-            },
-            {
-              "input_option_id": 1801,
-              "output_option_id": 1805,
-              "color": "blue"
-            },
-            {
-              "input_option_id": 1802,
-              "output_option_id": 1806,
-              "color": "vintage cream"
-            }
-          ]
+          }
         }
       }
     },
+
     "other": {
       "techflex": {
         "color": {
