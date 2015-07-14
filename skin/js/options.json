@@ -527,7 +527,7 @@
           "has_boots": true
         },
 
-        "NEUTRIK_NYS 224G": {
+        "NEUTRIK_NYS_224G": {
           "name": {
             "manufacturer": "Neutrik",
             "model": "NYS 224G"
@@ -547,7 +547,7 @@
           }
         },
 
-        "NEUTRIK_NYS 224BG": {
+        "NEUTRIK_NYS_224BG": {
           "name": {
             "manufacturer": "Neutrik",
             "model": "NYS 224BG"
