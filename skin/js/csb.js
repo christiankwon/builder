@@ -1241,6 +1241,10 @@
                     $('.pointer.techflex', '#display').attr('data-techflex-color', data.other.techflex);
                 }
 
+                if( data.cable.code === 'CSB_EVIA_MNRL') {
+                    $('#body').attr('data-only-patch', 'true')
+                }
+
                 backpack();
                 pushVisual(visual_changes);
                 progress();
@@ -2866,7 +2870,7 @@
                     details.find('.name span').text(manu).next().text(model);
                     details.find('.price').text(price);
 
-                    if( choices.children.length )
+                    if( choices.children().length )
                         details.find('.choices').show();
                     else
                         details.find('.choices').hide();
