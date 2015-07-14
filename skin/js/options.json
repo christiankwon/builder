@@ -759,23 +759,18 @@
 
     "other": {
       "techflex": {
-        "color": {
-          "option_category_id": 146,
-          "option": [
-            {
-              "id": 1622,
-              "desc": "white"
-            },
-            {
-              "id": 1623,
-              "desc": "gray"
-            },
-            {
-              "id": 1621,
-              "desc": "black",
-              "status": "unavailable"
-            }
-          ]
+        "option_category_id": 146,
+        "colors": {
+          "white": {
+            "id": 1622
+          },
+          "gray": {
+            "id": 1623
+          },
+          "black": {
+            "id": 1621,
+            "status": "unavailable"
+          }
         },
         "length": {
           "option_category_id": 148,

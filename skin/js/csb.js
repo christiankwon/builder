@@ -716,14 +716,9 @@
 
                 if( _cable.other.techflex ) {
                     // techflex color
-                    ref = J_OTHER.techflex.color;
+                    ref = J_OTHER.techflex;
                     cat = ref.option_category_id;
-                    for( i = 0, l = ref.option.length; i < l; i++ ) {
-                        if( ref.option[i].desc === _cable.other.techflex ) {
-                            opt = ref.option[i].id;
-                            break;
-                        }
-                    }
+                    opt = ref.colors[_cable.other.techflex].id;
                     Post[getOptionName('select', cable_code, cat)] = opt;
 
                     // techflex length
@@ -1216,6 +1211,10 @@
                 };
 
                 CURRENT_CABLE = data;
+
+                if( data.other.techflex.length ) {
+                    $('.pointer.techflex', '#display').attr('data-techflex-color', data.other.techflex);
+                }
 
                 backpack();
                 pushVisual(visual_changes);
@@ -2244,7 +2243,7 @@
 
         other: function() {
             var _techflex = function() {
-                    var data = J_OTHER.techflex,
+                    var data = J_OTHER.techflex.colors,
                         colors = data.color,
                         title = document.createElement('h3'),
                         description = document.createElement('p'),
@@ -2262,31 +2261,34 @@
                     title.appendChild(description);
                     option.appendChild(title);
 
-                    for( i = 0, l = colors.option.length; i < l; i++ ) {
-                        if( colors.option[i].status === 'unavailable' ) continue;
-                        color = colors.option[i].desc;
-                        id = colors.option[i].id;
+                    for( i in data ) {
+                        if( data.hasOwnProperty(i) ) {
+                            color = i;
+                            id = data[i].id;
 
-                        choice = document.createElement('div');
-                        choice.className = 'choice';
+                            if( data[i].status === 'unavailable' ) continue;
 
-                        input = document.createElement('input');
-                        input.id = prefix + 'techflex_' + color;
-                        input.value = color;
-                        input.type = 'radio';
-                        input.name = prefix + 'techflex';
+                            choice = document.createElement('div');
+                            choice.className = 'choice';
 
-                        label = document.createElement('label');
-                        label.setAttribute('for', prefix + 'techflex_' + color);
+                            input = document.createElement('input');
+                            input.id = prefix + 'techflex_' + color;
+                            input.value = color;
+                            input.type = 'radio';
+                            input.name = prefix + 'techflex';
 
-                        span = document.createElement('span');
-                        span.innerHTML = color;
+                            label = document.createElement('label');
+                            label.setAttribute('for', prefix + 'techflex_' + color);
 
-                        choice.appendChild(input);
-                        choice.appendChild(span);
-                        choice.appendChild(label);
+                            span = document.createElement('span');
+                            span.innerHTML = color;
 
-                        option.appendChild(choice);
+                            choice.appendChild(input);
+                            choice.appendChild(span);
+                            choice.appendChild(label);
+
+                            option.appendChild(choice);
+                        }
                     }
 
                     option.className = 'option';
