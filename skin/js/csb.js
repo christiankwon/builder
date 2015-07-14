@@ -1580,18 +1580,16 @@
     },
 
     build = {
-        id: null,
         name: null,
         initial: false,
         structure: null,
         prefix: null,
 
         initialize: function(type) {
-            this.id = type.id;
-            this.name = type.name;
-            this.type = type.type;
-            this.prefix = type.prefix + '_';
-            this.initial = type.default;
+            this.type = type;
+            this.name = J_CABLE_TYPES[type].name;
+            this.prefix = J_CABLE_TYPES[type].prefix + '_';
+            this.initial = J_CABLE_TYPES[type].default || false;
 
             // this needs a more appropriate location
             $('input[type="checkbox"]', '#details').prop('checked', false);
@@ -3411,13 +3409,15 @@
         $.getJSON( JSON_URL )
             .done(function(response) {
                 OPTIONS_JSON = response.data;
-                J_CABLE_TYPES = OPTIONS_JSON.cableTypes.type;
+                J_CABLE_TYPES = OPTIONS_JSON.cableTypes;
                 J_CABLES      = OPTIONS_JSON.cables;
                 J_PLUGS       = OPTIONS_JSON.plugs;
                 J_OTHER       = OPTIONS_JSON.other;
 
-                for( var i = 0, n = J_CABLE_TYPES.length; i < n; i++ ) {
-                    build.initialize(J_CABLE_TYPES[i]);
+                for( var type in J_CABLE_TYPES ) {
+                    if( J_CABLE_TYPES.hasOwnProperty(type) ) {
+                        build.initialize(type)
+                    }
                 }
             })
             .fail(function( jqXHR, textStatus, errorThrown ) {

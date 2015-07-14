@@ -1,15 +1,11 @@
 {
   "data": {
     "cableTypes": {
-      "type": [
-        {
-          "id": "CSB1",
-          "name": "Instrument/Patch",
-          "type": "instrument",
-          "prefix": "ins",
-          "default": true
-        }
-      ]
+      "instrument": {
+        "name": "Instrument/Patch",
+        "prefix": "ins",
+        "default": true
+      }
     },
     "cables": {
       "CSB_BLDN_9778": {
