@@ -1,3 +1,4 @@
 .sass-cache/
 skin/css/
 Thumbs.db
+*.min.*
