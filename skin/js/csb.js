@@ -14,7 +14,7 @@
     }
 
     var INITIALIZED = false,
-        OPTIONS_JSON, J_CABLE_TYPES, J_CABLES, J_PLUGS, J_OTHER,
+        OPTIONS_JSON, J_CABLE_TYPES, J_CABLES, J_PLUGS, J_OTHER, J_RESTRICTIONS,
         CURRENT_CABLE = null,
         TOTAL_STORAGE = 5,
         DEFAULT_CABLE_LENGTH = 10,
@@ -868,37 +868,62 @@
     },
 
     checkRestrictions = function() {
-        return true;
         var bool = true,
             cc = CURRENT_CABLE.cable.code.toUpperCase(),
-            ci = CURRENT_CABLE.input.model.toUpperCase(),
-            co = CURRENT_CABLE.output.model.toUpperCase();
+            ci = CURRENT_CABLE.input,
+            co = CURRENT_CABLE.output,
+            ref = J_RESTRICTIONS,
+            disallow, allow, i;
 
-        if( cc ) {
-            if( cc === 'CSB_EVIA_MLDY' ) {
-                // no techflex allowed
-                bool = false;
+        // If no selected cable or no plug selected, no checks required
+        if( !cc || (!ci || !co) ) return bool;
 
-            } else if ( cc === 'CSB_GTHM_GAC-1_UP') {
-                // no techflex allowed except for np2x big boot
-                if( !ci && !co ) {}
-                else if( ci.indexOf('NP2X') === -1 || co.indexOf('NP2X') === -1 ) {
-                    bool = false;
+        // there are no restrictions for this cable code
+        if( !ref[cc] ) return bool;
+
+        disallow = ref[cc].disallow;
+        allow    = ref[cc].allow;
+
+        var checks = [], ref;
+        if( ci ) checks.push(ci);
+        if( co ) checks.push(co);
+
+        var bools = [];
+
+        if( disallow ) {
+            if( disallow === 'all' ) {
+                for( i = 0; i < checks.length; i++ ) {
+                    bools[i] = false;
                 }
+            } else if( typeof disallow === 'object' ) {
+                for( i = 0; i < checks.length; i++ ) {
+                    bools[i] = true;
+                    ref = disallow[checks[i].manufacturer];
 
-                // Due to restrictions with colored boots, GAC-1 UP is not allowed
-                bool = false;
-
-            } else {
-                var arr = ["CSB_VDMM_CLSC-XKE", "CSB_CNRE_L-4E6S", "CSB_CNRE_GS-6"];
-
-                if( arr.indexOf(cc) > -1 ) {
-                    if( ci.indexOf('NYS224') > -1 || co.indexOf('NYS224') > -1 ) {
-                        bool = false;
+                    if( ref && ref.series[checks[i].series] ) {
+                        bools[i] = false;
                     }
                 }
             }
         }
+
+        if( allow ) {
+            if( allow === 'all' ) {
+                for( i = 0; i < checks.length; i++ ) {
+                    bools[i] = true;
+                }
+            } else if( typeof allow === 'object' ) {
+                for( i = 0; i < checks.length; i++ ) {
+                    ref = allow[checks[i].manufacturer];
+
+                    if( ref && ref.series[checks[i].series] ) {
+                        bools[i] = true;
+                    }
+                }
+            }
+        }
+
+        if( bools.indexOf(false) > -1 ) bool = false;
 
         $('#body').attr('data-restriction-techflex', bool);
 
@@ -3013,8 +3038,6 @@
                         var type = checked.eq(i).attr('data-filter-type'),
                             val = checked.eq(i).val();
 
-                        clog('VAL: ' + val);
-
                         if( type === 'capacitance' ) {
                             options
                                 .filter(visibleOptions)
@@ -3408,11 +3431,12 @@
     $(document).ready(function() {
         $.getJSON( JSON_URL )
             .done(function(response) {
-                OPTIONS_JSON = response.data;
-                J_CABLE_TYPES = OPTIONS_JSON.cableTypes;
-                J_CABLES      = OPTIONS_JSON.cables;
-                J_PLUGS       = OPTIONS_JSON.plugs;
-                J_OTHER       = OPTIONS_JSON.other;
+                OPTIONS_JSON   = response.data;
+                J_CABLE_TYPES  = OPTIONS_JSON.cableTypes;
+                J_CABLES       = OPTIONS_JSON.cables;
+                J_PLUGS        = OPTIONS_JSON.plugs;
+                J_OTHER        = OPTIONS_JSON.other;
+                J_RESTRICTIONS = OPTIONS_JSON.restrictions;
 
                 for( var type in J_CABLE_TYPES ) {
                     if( J_CABLE_TYPES.hasOwnProperty(type) ) {
