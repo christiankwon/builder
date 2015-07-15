@@ -185,7 +185,7 @@ $dot-background: 70%;
         .dot {
             left: $dot-offset + -13px;
             top: -60px;
-            
+
             &:before {
                 background-image: url($media-folder + 'misc/tracker/length-selected.png');
             }
@@ -234,7 +234,7 @@ $dot-background: 70%;
     &.current {
         .dot {
             top: $dot-offset + -13px;
-            
+
             &:before {
                 background-image: url($media-folder + 'misc/tracker/input-selected.png');
             }
@@ -256,7 +256,7 @@ $dot-background: 70%;
     &.current {
         .dot {
             top: $dot-offset + -13px;
-            
+
             &:before {
                 background-image: url($media-folder + 'misc/tracker/output-selected.png');
             }
@@ -300,7 +300,7 @@ $dot-background: 70%;
     position: relative;
     width: 15%;
     z-index: 15;
-    
+
     $colors: 'black' 'gray' 'white';
     @each $color in $colors {
         &[data-techflex-color="#{$color}"] {
@@ -315,7 +315,7 @@ $dot-background: 70%;
     }
 
     #body[data-current-length-type="patch"] & {
-        left: 20%;
+        left: 0%;
         right: auto;
     }
 

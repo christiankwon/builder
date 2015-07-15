@@ -139,9 +139,9 @@
     }
 
     $plugs: (
-        'neutrik' 'np2c' 'np2c-b' 'np2c-bag' 'np2rx' 'np2rx-b' 'np2rx-silent' 'np2x-b' 'np2x-silent' 'nys224bg' 'nys224g',
+        'neutrik' 'np2c' 'np2c-b' 'np2c-bag' 'np2rx' 'np2rx-b' 'np2rx-silent' 'np2x-b' 'np2x-silent' 'nys-224bg' 'nys-224g',
         'g#{"&"}h' 'bf2p' 'rf2p',
-        'switchcraft' '228-pancake' '280' '380',
+        'switchcraft' '228' '280' '380',
     );
     @each $plug in $plugs {
         $manufacturer: nth($plug, 1);

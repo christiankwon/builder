@@ -30,7 +30,7 @@
     letter-spacing: 1px;
     position: relative;
     text-transform: uppercase;
-    
+
     &:before {
         align-self: center;
         color: #fff;
@@ -236,7 +236,7 @@
             @include transition(all 0.2s ease-out);
         }
     }
-    
+
     input[name="active"] {
         [data-filter-open="open"] h2:after, [data-filter-open="open"] h2:before {
             display: none;

@@ -24,7 +24,7 @@
         @include align-items(center);
         @include justify-content(center);
     }
-    
+
     .info {
         @include transition(top 0.25s ease-in-out);
         background-color: rgba(0,0,0,0.75);

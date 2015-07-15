@@ -8,11 +8,6 @@
     width: 43%;
     z-index: 2;
     @include transition(all 0.3s ease-out);
-
-    .options .outer {
-        margin: 15px auto 0;
-        width: 100%;
-    }
 }
 
 .cableTypes {
@@ -129,29 +124,45 @@
                     @include justify-content(center);
 
                     [data-restriction-techflex="false"] & {
+                        &:before {
+                            display: none;
+                            background-color: $yellow;
+                            background-image: url("../images/backpack/warning.png");
+                            background-repeat: no-repeat;
+                            background-position: center center;
+                            background-size: 90% auto;
+                            border-radius: 50%;
+                            width: 40px;
+                            height: 40px;
+                            content: "";
+                            left: 35px;
+                            bottom: 48px;
+                            position: absolute;
+                            z-index: 3;
+                        }
+
                         &:after {
                             @include display-flex(flex);
                             @include align-items(center);
                             @include justify-content(center);
-                            background-color: rgba(238, 148, 81, 0.95);
-                            background-image: url("../images/backpack/warning.png");
-                            background-repeat: no-repeat;
-                            background-position: 30px center;
-                            border: 2px solid $black;
+                            background-color: rgba(0, 0, 0, 0.95);
+                            border: 1px solid #ccc;
                             bottom: 2.5%;
-                            content: "The current combination of components does not support techflex.";
+                            color: #ccc;
+                            content: "The current combination of components is not compatible with techflex";
                             cursor: default;
-                            font-size: 12px;
+                            font-size: 13px;
                             font-weight: 700;
                             height: 70%;
                             left: 0;
                             letter-spacing: 1px;
                             line-height: 20px;
-                            padding: 0 100px;
+                            padding: 0 85px;
                             position: absolute;
                             text-transform: uppercase;
                             text-align: center;
                             width: 100%;
+                            z-index: 2;
                         }
                     }
 
@@ -389,6 +400,9 @@
         .outer {
             @include display-flex(flex);
             @include flex-flow(row wrap);
+            position: relative;
+            margin: 20px auto;
+            width: 100%;
 
             $list: premium standard straight right;
             @each $item in $list {
@@ -400,12 +414,24 @@
             &:before {
                 display: block;
                 margin-left: 10px;
+                font-size: 13px;
                 text-transform: uppercase;
+                letter-spacing: 1px;
+                width: 100%;
+            }
+
+            &:after {
+                content: "";
+                height: 1px;
+                left: 10px;
+                max-width: 100px;
+                position: absolute;
+                top: 15px;
                 width: 100%;
             }
         }
     }
-    
+
     .outer .option {
         $block-size: 150px;
         border: solid 1px #e9e9e9;
@@ -639,7 +665,7 @@
         padding: 1em;
         background-color: $tracker-bg;
         z-index: 100;
-        
+
         button {
             border: 0;
             background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
@@ -715,7 +741,7 @@
         margin-top: 1em;
     }
 }
-#body[data-only-patch="true"] .choice.regular {
+#body[data-only-patch="true"] .choice[data-length-type="regular"] {
     display: none;
 }
 
