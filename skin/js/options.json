@@ -81,7 +81,7 @@
           },
           "orange": {
             "id": 1650,
-            "out_of_stock": true
+            "status": "unavailable"
           },
           "yellow": {
             "id": 1651
@@ -159,11 +159,11 @@
         "colors": {
           "black": {
             "id": 1647,
-            "oos": true,
-            "default": true
+            "status": "unavailable"
           },
           "red": {
-            "id": 1649
+            "id": 1649,
+            "default": true
           },
           "option_category_id": "149"
         }
