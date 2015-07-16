@@ -4,10 +4,7 @@
     var JSON_URL = 's/builder/skin/js/options.json',
         IMAGES_DIR = 's/builder/skin/images/';
 
-    if( window.location.protocol === 'file:' ) {
-        JSON_URL = 'skin/js/options.json';
-        IMAGES_DIR = 'skin/images/';
-    } else {
+    if( !window.location.protocol === 'file:' ) {
         if( window.location.hostname.indexOf('www') === -1) {
             window.location.hostname = 'www.sinasoid.com';
         }
@@ -869,6 +866,7 @@
 
     checkRestrictions = function() {
         var bool = true,
+            skip = false,
             cc = CURRENT_CABLE.cable.code.toUpperCase(),
             ci = CURRENT_CABLE.input,
             co = CURRENT_CABLE.output,
@@ -876,54 +874,56 @@
             disallow, allow, i;
 
         // If no selected cable or no plug selected, no checks required
-        if( !cc || (!ci || !co) ) return bool;
+        if( !cc || (!ci || !co) ) skip = true;
 
         // there are no restrictions for this cable code
-        if( !ref[cc] ) return bool;
+        if( !ref[cc] ) skip = true;
 
-        disallow = ref[cc].disallow;
-        allow    = ref[cc].allow;
+        if( !skip ) {
+            disallow = ref[cc].disallow;
+            allow    = ref[cc].allow;
 
-        var checks = [], ref;
-        if( ci ) checks.push(ci);
-        if( co ) checks.push(co);
+            var checks = [], ref;
+            if( ci ) checks.push(ci);
+            if( co ) checks.push(co);
 
-        var bools = [];
+            var bools = [];
 
-        if( disallow ) {
-            if( disallow === 'all' ) {
-                for( i = 0; i < checks.length; i++ ) {
-                    bools[i] = false;
-                }
-            } else if( typeof disallow === 'object' ) {
-                for( i = 0; i < checks.length; i++ ) {
-                    bools[i] = true;
-                    ref = disallow[checks[i].manufacturer];
-
-                    if( ref && ref.series[checks[i].series] ) {
+            if( disallow ) {
+                if( disallow === 'all' ) {
+                    for( i = 0; i < checks.length; i++ ) {
                         bools[i] = false;
                     }
-                }
-            }
-        }
-
-        if( allow ) {
-            if( allow === 'all' ) {
-                for( i = 0; i < checks.length; i++ ) {
-                    bools[i] = true;
-                }
-            } else if( typeof allow === 'object' ) {
-                for( i = 0; i < checks.length; i++ ) {
-                    ref = allow[checks[i].manufacturer];
-
-                    if( ref && ref.series[checks[i].series] ) {
+                } else if( typeof disallow === 'object' ) {
+                    for( i = 0; i < checks.length; i++ ) {
                         bools[i] = true;
+                        ref = disallow[checks[i].manufacturer];
+
+                        if( ref && ref.series[checks[i].series] ) {
+                            bools[i] = false;
+                        }
                     }
                 }
             }
-        }
 
-        if( bools.indexOf(false) > -1 ) bool = false;
+            if( allow ) {
+                if( allow === 'all' ) {
+                    for( i = 0; i < checks.length; i++ ) {
+                        bools[i] = true;
+                    }
+                } else if( typeof allow === 'object' ) {
+                    for( i = 0; i < checks.length; i++ ) {
+                        ref = allow[checks[i].manufacturer];
+
+                        if( ref && ref.series[checks[i].series] ) {
+                            bools[i] = true;
+                        }
+                    }
+                }
+            }
+
+            if( bools.indexOf(false) > -1 ) bool = false;
+        }
 
         $('#body').attr('data-restriction-techflex', bool);
 
