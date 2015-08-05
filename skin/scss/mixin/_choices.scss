@@ -65,14 +65,58 @@
         @include build($choices);
     }
 
-    &[data-choice-model="rf2p"], &[data-choice-model="bf2p"] {
+    &[data-choice-model="bf2pm"] {
         $choices: (
-            "black": $black,
-            "gold": #fff282,
-            "nickel": #dce4f5,
+            "bnn": $black,
+            "nnn": #dce4f5,
         );
 
         @include build($choices);
+    }
+
+    &[data-choice-model="bf2p"] {
+        $choices: (
+            "bgg": $black,
+            "ggg": #fff282,
+            "ngg": #dce4f5,
+        );
+
+        @include build($choices);
+    }
+
+    &[data-choice-model="rf2p"] {
+        div:after {
+            content: "";
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            border-radius: 0 100% 100% 0;
+
+            top: 0;
+            right: 0;
+        }
+
+        [data-choice-primary="gold"] {
+            background-color: #fff282;
+        }
+
+        [data-choice-primary="nickel"] {
+            background-color: #dce4f5;
+        }
+
+        [data-choice-secondary="gold"]:after {
+            background-color: #fff282;
+        }
+
+        [data-choice-secondary="nickel"]:after {
+            background-color: #dce4f5;
+
+        }
+
+        [data-choice-secondary="black"]:after {
+            background-color: $black;
+
+        }
     }
 }
 

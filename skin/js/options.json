@@ -322,7 +322,7 @@
           "model": "Classic XKE"
         },
         "price": 2,
-        "status": "available",
+        "status": "unavailable",
         "is_premium": true,
         "specs": {
           "capacitance": "25",
@@ -345,10 +345,12 @@
         "colors": {
           "black": {
             "id": 1647,
-            "default": true
+            "status": "unavailable"
           },
           "white": {
-            "id": 1678
+            "id": 1678,
+            "default": true,
+            "status": "unavailable"
           },
           "option_category_id": "149"
         }
@@ -639,18 +641,43 @@
           "connector": "gold",
           "series": "straight",
           "colors": {
-            "gold": {
+            "ggg": {
               "default": true,
               "input_option_id": 1603,
               "output_option_id": 1618
             },
-            "nickel": {
+            "ngg": {
               "input_option_id": 1601,
               "output_option_id": 1616
             },
-            "black": {
+            "bgg": {
               "input_option_id": 1602,
               "output_option_id": 1617
+            }
+          }
+        },
+
+        "G&H_BF2PM": {
+          "name": {
+            "manufacturer": "G&H",
+            "model": "BF2PM"
+          },
+          "manufacturer": "g&h",
+          "model": "bf2pm",
+          "price": 7,
+          "status": "available",
+          "angle": "straight",
+          "connector": "nickel",
+          "series": "straight",
+          "colors": {
+            "nnn": {
+              "default": true,
+              "input_option_id": 1812,
+              "output_option_id": 1813
+            },
+            "bnn": {
+              "input_option_id": 1814,
+              "output_option_id": 1815
             }
           }
         },
@@ -662,24 +689,42 @@
           },
           "manufacturer": "g&h",
           "model": "rf2p",
-          "price": 7,
+          "price": 8,
           "status": "available",
           "angle": "right",
           "connector": "gold",
           "series": "straight",
           "colors": {
-            "gold": {
+            "ggg": {
               "default": true,
               "input_option_id": 1607,
-              "output_option_id": 1610
+              "output_option_id": 1610,
+              "primary": "gold",
+              "secondary": "gold"
             },
-            "nickel": {
+            "ngg": {
               "input_option_id": 1605,
-              "output_option_id": 1608
+              "output_option_id": 1608,
+              "primary": "gold",
+              "secondary": "nickel"
             },
-            "black": {
+            "bgg": {
               "input_option_id": 1606,
-              "output_option_id": 1609
+              "output_option_id": 1609,
+              "primary": "gold",
+              "secondary": "black"
+            },
+            "nnn": {
+              "input_option_id": 1808,
+              "output_option_id": 1811,
+              "primary": "nickel",
+              "secondary": "nickel"
+            },
+            "bnn": {
+              "input_option_id": 1809,
+              "output_option_id": 1810,
+              "primary": "nickel",
+              "secondary": "black"
             }
           }
         }

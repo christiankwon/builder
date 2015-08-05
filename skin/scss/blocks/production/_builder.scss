@@ -596,19 +596,10 @@
                 cursor: pointer;
                 height: 10px;
                 margin: 0 3px;
+                overflow: hidden;
                 pointer-events: auto;
                 position: relative;
                 width: 10px;
-
-                &:after {
-                    border-radius: 50%;
-                    content: "";
-                    height: 10px;
-                    left: 0;
-                    top: 0;
-                    position: absolute;
-                    width: 10px;
-                }
             }
 
             @include choices;

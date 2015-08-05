@@ -2077,6 +2077,11 @@
                                 'output_option_id': color.output_option_id
                             };
 
+                            if( color.primary && color.secondary ) {
+                                choices[value].primary = color.primary;
+                                choices[value].secondary = color.secondary;
+                            }
+
                             if( color.status === 'unavailable' ) {
                                 choices[value].status = 'unavailable';
                             }
@@ -2469,6 +2474,14 @@
                                 input_option_id: current.input_option_id,
                                 output_option_id: current.output_option_id
                             });
+
+                            // assume current must have primary and secondary because of AND statement to assign these values
+                            if( current.primary ) {
+                                div.attr({
+                                    'data-choice-primary': current.primary,
+                                    'data-choice-secondary': current.secondary
+                                });
+                            }
 
                             if( current.status === 'unavailable' ) {
                                 div.attr('data-status', 'unavailable');

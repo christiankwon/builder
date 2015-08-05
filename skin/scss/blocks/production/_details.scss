@@ -140,7 +140,7 @@
 
     $plugs: (
         'neutrik' 'np2c' 'np2c-b' 'np2c-bag' 'np2rx' 'np2rx-b' 'np2rx-silent' 'np2x-b' 'np2x-silent' 'nys-224bg' 'nys-224g',
-        'g#{"&"}h' 'bf2p' 'rf2p',
+        'g#{"&"}h' 'bf2p' 'rf2p' 'bf2pm',
         'switchcraft' '228' '280' '380',
     );
     @each $plug in $plugs {
@@ -203,6 +203,10 @@
                 top: auto;
                 height: $size;
                 width: $size;
+            }
+
+            &[data-choice-primary][data-choice-secondary]:after {
+                border-radius: 0;
             }
         }
 
