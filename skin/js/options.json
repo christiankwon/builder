@@ -16,7 +16,6 @@
           "model": "9778"
         },
         "price": 1.5,
-        "status": "unavailable",
         "order": 20,
         "specs": {
           "capacitance": "44",
@@ -80,14 +79,15 @@
             "id": 1649
           },
           "orange": {
-            "id": 1650,
-            "status": "unavailable"
+            "id": 1650
           },
           "yellow": {
-            "id": 1651
+            "id": 1651,
+            "status": "unavailable"
           },
           "green": {
-            "id": 1652
+            "id": 1652,
+            "status": "unavailable"
           },
           "option_category_id": 149
         }
@@ -158,8 +158,7 @@
         },
         "colors": {
           "black": {
-            "id": 1647,
-            "status": "unavailable"
+            "id": 1647
           },
           "red": {
             "id": 1649,
@@ -785,11 +784,11 @@
                 "output_option_id": 1804
               },
               "blue": {
-                "input_option_id": 1801,
+                "input_option_id": 1800,
                 "output_option_id": 1805
               },
               "vintage cream": {
-                "input_option_id": 1802,
+                "input_option_id": 1801,
                 "output_option_id": 1806
               }
             }
@@ -808,8 +807,7 @@
             "id": 1623
           },
           "black": {
-            "id": 1621,
-            "status": "unavailable"
+            "id": 1621
           }
         },
         "length": {
