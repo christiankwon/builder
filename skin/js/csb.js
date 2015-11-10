@@ -670,11 +670,16 @@
                 }
                 Post[getOptionName('select', cable_code, cat)] = opt;
 
+                var boot;
+
                 // input boot
                 if( _cable.input.boot.length ) {
+                    boot = _cable.input.boot.replace(/-/g, ' ');
+
                     ref = J_PLUGS.boots[_cable.input.manufacturer][_cable.input.series];
                     cat = ref.input_option_category_id;
-                    opt = ref.boot[_cable.input.boot].input_option_id;
+                    opt = ref.boot[boot].input_option_id;
+
                     Post[getOptionName('select', cable_code, cat)] = opt;
                 }
 
@@ -693,9 +698,12 @@
 
                 // output boot
                 if( _cable.output.boot.length ) {
+                    boot = _cable.output.boot.replace(/-/g, ' ');
+
                     ref = J_PLUGS.boots[_cable.output.manufacturer][_cable.output.series];
                     cat = ref.output_option_category_id;
-                    opt = ref.boot[_cable.output.boot].output_option_id;
+                    opt = ref.boot[boot].output_option_id;
+
                     Post[getOptionName('select', cable_code, cat)] = opt;
                 }
 
