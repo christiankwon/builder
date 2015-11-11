@@ -891,9 +891,9 @@
             disallow = ref[cc].disallow;
             allow    = ref[cc].allow;
 
-            var checks = [], ref;
-            if( ci ) checks.push(ci);
-            if( co ) checks.push(co);
+            var checks = [], check;
+            if( ci.manufacturer && ci.model ) checks.push(ci);
+            if( co.manufacturer && co.model ) checks.push(co);
 
             var bools = [];
 
@@ -902,6 +902,7 @@
                     for( i = 0; i < checks.length; i++ ) {
                         bools[i] = false;
                     }
+
                 } else if( typeof disallow === 'object' ) {
                     for( i = 0; i < checks.length; i++ ) {
                         bools[i] = true;
@@ -919,12 +920,30 @@
                     for( i = 0; i < checks.length; i++ ) {
                         bools[i] = true;
                     }
+
                 } else if( typeof allow === 'object' ) {
                     for( i = 0; i < checks.length; i++ ) {
-                        ref = allow[checks[i].manufacturer];
+                        check = checks[i];
 
-                        if( ref && ref.series[checks[i].series] ) {
-                            bools[i] = true;
+                        ref = allow[check.manufacturer];
+
+                        if( ref ) {
+                            if( ref.series instanceof Array ) {
+                                // todo
+
+                            } else if( typeof ref.series === 'object' &&
+                                ref.series[check.series] ) {
+                                ref = ref.series[check.series];
+
+                                if( ref instanceof Array ) {
+                                    for( var j = 0; j < ref.length; j++ ) {
+                                        if( ref[j] === check.boot ) {
+                                            bools[i] = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -2021,6 +2040,18 @@
                     return block;
                 },
 
+                _next = function() {
+                    var block = document.createElement('div'),
+                        button = document.createElement('button');
+
+                    button.innerHTML = 'Confirm Length';
+
+                    block.className = 'length-confirm';
+                    block.appendChild(button);
+
+                    return block;
+                },
+
                 selector, choices, rulers, inputs, types;
                 // prefix = this.prefix
 
@@ -2058,7 +2089,8 @@
                     selector,
                     _choice(),
                     _ruler(),
-                    _input()
+                    _input(),
+                    _next()
                 );
             }
 
@@ -2706,6 +2738,7 @@
                         return false;
                     }
 
+
                     option.data().choice = new_val;
 
                     if( selected ) {
@@ -3192,6 +3225,9 @@
                 $('.input[data-length-type="' + type + '"] input').val(length);
 
                 changeLength.slider(length, type, unit);
+            });
+            builders.find('.length-confirm button').on('click', function() {
+                $('.length .next').trigger('click');
             });
 
             if( TOUCH ) {
