@@ -8,6 +8,42 @@
       }
     },
     "cables": {
+      "CSB_SINA_SLATE": {
+        "manufacturer": "sinasoid",
+        "model": "slate",
+        "name": {
+          "manufacturer": "Sinasoid Signature",
+          "model": "Slate"
+        },
+        "price": 4,
+        "status": "available",
+        "is_premium": true,
+        "order": 1,
+        "specs": {
+          "capacitance": "25",
+          "flexibility": "med",
+          "shield": "spiral",
+          "diameter": "0.273"
+        },
+        "lengths": {
+          "option_category_id": 155,
+          "is_consistent": true,
+          "patch": {
+            "start_id": 1816,
+            "end_id": 1863
+          },
+          "regular": {
+            "start_id": 1864,
+            "end_id": 1881
+          }
+        },
+        "colors": {
+          "gray": {
+            "id": null
+          }
+        }
+      },
+
       "CSB_BLDN_9778": {
         "manufacturer": "belden",
         "model": "9778",
@@ -323,7 +359,7 @@
         },
         "price": 2,
         "status": "unavailable",
-        "is_premium": true,
+        "is_premium": false,
         "specs": {
           "capacitance": "25",
           "flexibility": "high",

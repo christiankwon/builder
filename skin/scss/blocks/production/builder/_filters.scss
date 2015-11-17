@@ -180,7 +180,7 @@
                         border: 1px solid transparent;
                     }
                 }
-                $list: 'red' 'orange' 'yellow' 'green' 'black' 'white' 'green' 'blue';
+                $list: 'red' 'orange' 'yellow' 'green' 'black' 'white' 'green' 'blue' 'gray';
                 @each $color in $list {
                     input[value="#{$color}"] + label:after {
                         background-color: #{$color};
