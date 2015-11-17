@@ -4,8 +4,8 @@
     var JSON_URL = 's/builder/skin/js/options.json',
         IMAGES_DIR = 's/builder/skin/images/';
 
-    if( !window.location.protocol === 'file:' ) {
-        if( window.location.hostname.indexOf('www') === -1) {
+    if( window.location.protocol !== 'file:' ) {
+        if( window.location.hostname.indexOf('www') === -1 ) {
             window.location.hostname = 'www.sinasoid.com';
         }
     }
@@ -2743,6 +2743,18 @@
 
                     if( selected ) {
                         update.dispatch(option.data());
+                    }
+
+                    if( !checkRestrictions() ) {
+                        $('[data-option-type="techflex"] .choice input').prop('checked', false);
+                        var techflex = {};
+
+                        techflex.type = 'techflex';
+                        techflex.value = '';
+
+                        $('.pointer.techflex', '#display').attr('data-techflex-color', '');
+
+                        changeOtherOption.update(techflex);
                     }
 
                     return false;

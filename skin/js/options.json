@@ -16,6 +16,7 @@
           "model": "9778"
         },
         "price": 1.5,
+        "status": "available",
         "order": 20,
         "specs": {
           "capacitance": "44",
