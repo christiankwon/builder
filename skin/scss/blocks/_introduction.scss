@@ -1,4 +1,6 @@
-#introduction {
+.introduction-wrap {
+    display: none;
+
     body[data-display-introduction="show"] & {
         @include display-flex(flex);
         @include align-items(center);

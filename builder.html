@@ -12,109 +12,220 @@
   <title>Cable Builder | Sinasoid</title>
 
   <!-- General stylesheets -->
-  <link rel="stylesheet" type="text/css" href="s/builder/skin/css/fonts.css" />
+  <link rel="stylesheet" type="text/css" href="skin/css/fonts.css" />
 
   <!-- Page specific stylesheets -->
-  <link href="s/builder/skin/css/styles.min.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href="s/builder/skin/css/screen.css?v2.2" media="screen" rel="stylesheet" type="text/css" />
-  <link href="s/builder/skin/css/jquery-ui.min.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="skin/css/styles.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="skin/css/screen.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="skin/css/jquery-ui.min.css" media="screen" rel="stylesheet" type="text/css" />
 
   <!-- General scripts -->
-  <script src="s/builder/skin/js/vendor/modernizr-latest.js"></script>
-
-  <!--Start of Zopim Live Chat Script-->
-  <!--End of Zopim Live Chat Script-->
+  <script src="skin/js/vendor/modernizr-latest.js"></script>
+  <script src="skin/js/mobile.js"></script>
 </head>
 
 <body>
   <!--[if lt IE 9]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
   <div class="loader"></div>
+
   <div class="modal">
     <div class="info"></div>
   </div>
-  <div id="content">
-    <section id="introduction">
+
+  <div id="content" class="content-wrap">
+    <section id="introduction" class="introduction-wrap">
       <div class="outer">
-        <div class="inner">
-          <h1>Welcome to the cable builder!</h1>
-          <p>Build a cable to the exact specs you want&#8212;cable type, length, plugs, and even options like Techflex and extra protection.</p>
-          <p>Our cables are built with touring musicians in mind. With our Custom Shop cables, you can rest assured that your cables will perform at 100% when it really matters.</p>
-          <p>Anyways, let's get started!</p>
-          <h2>First, let's pick a cable type.</h2>
-          <button>To Step 1!</button>
-        </div>
+        <button>Start</button>
       </div>
     </section>
 
-    <section id="production">
-      <div id="header">
+    <section id="production" class="production-wrap">
+      <div id="header" class="header-wrap">
         <a href="/v/customshop.html"></a>
       </div>
-      <div id="body">
-        <div id="storage" class="storage-container">
-          <div class="storage">
-            <div class="builds">
+
+      <div id="body" class="body-wrap">
+        <div id="display" class="display-wrap">
+          <div class="images">
+            <div class="cable">
+              <img class="cable-image" />
             </div>
-            <div class="buttons">
-              <button data-storage-button="create">New Cable</button>
-              <button data-storage-button="empty">Delete All</button>
-              <button data-storage-button="cart">Add to Cart</button>
+
+            <div class="input">
+              <img class="input-plug-image" />
+              <img class="input-boot-image" />
+            </div>
+
+            <div class="output">
+              <img class="output-plug-image" />
+              <img class="output-boot-image" />
             </div>
           </div>
         </div>
 
-        <div id="display">
-          <div class="outer">
-            <div class="inner">
-              <div class="pointer" data-pointer-component="other">
-                <div class="dot"></div>
+        <div id="tracker" class="tracker-wrap">
+          <div class="dot" data-pointer-component="length"></div>
+          <div class="dot" data-pointer-component="cable"></div>
+          <div class="dot" data-pointer-component="input"></div>
+          <div class="dot" data-pointer-component="output"></div>
+          <div class="dot" data-pointer-component="other"></div>
+        </div>
+
+        <div id="builders" class="builders-wrap">
+          <div id="instrument" class="builder">
+            <article class="length">
+              <div class="header">
+                <h1>1. Select<strong>Length</strong></h1>
               </div>
-              <div class="cable">
-                <img/>
-                <div class="pointer techflex" data-pointer-component="other"></div>
-                <div class="pointer" data-pointer-component="cable">
-                  <div class="dot">1</div>
-                  <div class="line"></div>
-                </div>
-                <div class="pointer" data-pointer-component="length">
-                  <div class="dot">2</div>
-                  <div class="line">
-                    <div class="bracket"></div>
+
+              <div class="notice">
+                <img src="skin/images/misc/length/measurement.png" alt="We measure cable length from where the plugs meet the cable.">
+              </div>
+
+              <input class="selector" type="hidden" data-length-type="patch" />
+
+              <div class="choices">
+                <div class="choice" data-length-type="patch" data-length-unit="in">
+                  <div class="name">
+                    <span>Patch</span>
+                  </div>
+
+                  <div class="desc">
+                    <span>3-48 in</span>
+                  </div>
+
+                  <div class="image">
+                    <img class="active" src="skin/images/misc/length/instrument/silhouette/patch-red.png" alt="Patch Cable">
+                    <img class="inactive" src="skin/images/misc/length/instrument/silhouette/patch-gray.png" alt="Patch Cable">
                   </div>
                 </div>
-                <div class="input">
-                  <div class="pointer" data-pointer-component="input">
-                    <div class="dot">3</div>
-                    <div class="line"></div>
+
+                <div class="choice" data-length-type="regular" data-length-unit="ft">
+                  <div class="name">
+                    <span>Regular</span>
                   </div>
-                  <img class="plug" />
-                  <img class="boot" />
-                </div>
-                <div class="output">
-                  <div class="pointer" data-pointer-component="output">
-                    <div class="dot">4</div>
-                    <div class="line"></div>
+
+                  <div class="desc">
+                    <span>4-20 ft</span>
                   </div>
-                  <img class="plug" />
-                  <img class="boot" />
+
+                  <div class="image">
+                    <img class="active" src="skin/images/misc/length/instrument/silhouette/regular-red.png" alt="Regular Instrument Cable">
+                    <img class="inactive" src="skin/images/misc/length/instrument/silhouette/regular-gray.png" alt="Regular Instrument Cable">
+                  </div>
                 </div>
               </div>
-            </div>
+
+              <div class="rulers">
+                <div class="ruler" data-length-type="patch" data-length-unit="in" data-length-min="3" data-length-max="48"></div>
+
+                <div class="ruler" data-length-type="regular" data-length-unit="ft" data-length-min="4" data-length-max="20"></div>
+              </div>
+
+              <div class="selects">
+                <div class="select" data-length-type="patch" data-length-unit="in" data-length-min="3" data-length-max="48">
+                  <span>in</span>
+                </div>
+
+                <div class="select" data-length-type="regular" data-length-unit="ft" data-length-min="4" data-length-max="20">
+                  <span>ft</span>
+                </div>
+              </div>
+
+              <div class="inputs">
+                <div class="input" data-length-type="patch" data-length-unit="in" data-length-min="3" data-length-max="48">
+                  <span>Length</span>
+                  <input type="text" maxlength="2">
+                  <label>in</label>
+                </div>
+
+                <div class="input" data-length-type="regular" data-length-unit="ft" data-length-min="4" data-length-max="20">
+                  <span>Length</span>
+                  <input type="text" maxlength="2">
+                  <label>ft</label>
+                </div>
+              </div>
+
+              <button class="builder-next">Next</button>
+            </article>
+
+
+
+            <article class="cable">
+              <div class="header">
+                <h1>2. Select<strong>Cable</strong></h1>
+              </div>
+
+              <div class="details-container">
+                <div class="empty"></div>
+
+                <div class="details-content">
+                  <input type="checkbox">
+
+                  <div class="images">
+                    <img class="component" src="" alt="">
+                  </div>
+
+                  <div class="toggles">
+                    <button class="more-info">More Info</button>
+                    <button class="more-colors">Color Options</button>
+                  </div>
+
+                  <div class="information">
+                    <button class="less-info"></button>
+
+                    <div class="name">
+                      <p><span></span><br/><strong></strong></p>
+                    </div>
+                    <div class="price"></div>
+                    <div class="specs"></div>
+                    <div class="choices"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="options-container">
+                <div class="options-wrap">
+                  <input type="checkbox" class="active" name="active" />
+                  <div class="options premium">
+                    <h2>Premium Cables</h2>
+                  </div>
+                  <div class="options standard">
+                    <h2>Standard Cables</h2>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+
+
+            <article class="input">
+              <div class="header">
+                <h1>3. Select<strong>Input Plug</strong></h1>
+              </div>
+
+
+            </article>
+
+            <article class="output">
+              <div class="header">
+                <h1>4. Select<strong>Output Plug</strong></h1>
+              </div>
+
+
+            </article>
+
+            <article class="other">
+              <div class="header">
+                <h1></h1>
+              </div>
+
+
+            </article>
           </div>
         </div>
 
-        <div id="builders">
-          <div id="tracker">
-            <div class="dot" data-pointer-component="cable"></div>
-            <div class="dot" data-pointer-component="length"></div>
-            <div class="dot" data-pointer-component="input"></div>
-            <div class="dot" data-pointer-component="output"></div>
-            <div class="dot" data-pointer-component="other"></div>
-          </div>
-          <ul class="cableTypes"></ul>
-        </div>
-
-        <div id="details">
+        <div id="details" class="details-wrap">
           <input type="checkbox" />
           <div class="empty">
             <p>Hover over a component and press
@@ -148,7 +259,7 @@
         <div class="cart">
           <div class="outer">
             <div class="inner">
-              <img src="s/builder/skin/images/cs.png" />
+              <img src="skin/images/cs.png" />
               <h1>We're ready to build.</h1>
               <h2>Every cable bought through the Cable Builder<br/>is hand built to order. Your cable order will<br/>be ready within <strong>3 business days.</strong></h2>
               <ul class="items"></ul>
@@ -202,9 +313,9 @@
   </div>
 
   <!-- General scripts -->
-  <script src="s/builder/skin/js/vendor/jquery-1.11.3.js"></script>
-  <script src="s/builder/skin/js/vendor/jquery-ui.min.js"></script>
-  <script src="s/builder/skin/js/vendor/jquery.ui.touch-punch.min.js"></script>
+  <script src="skin/js/vendor/jquery-1.11.3.js"></script>
+  <script src="skin/js/vendor/jquery-ui.min.js"></script>
+  <script src="skin/js/vendor/jquery.ui.touch-punch.min.js"></script>
 
   <!-- Page specific scripts -->
   <script type="text/javascript">
@@ -212,12 +323,11 @@
   </script>
   <script src="/a/j/soft_add.js"></script>
 
-  <script type="text/javascript" src="s/builder/skin/js/vendor/imagesloaded.pkgd.js"></script>
-  <script type="text/javascript" src="s/builder/skin/js/vendor/jquery.slimscroll.js"></script>
-  <script type="text/javascript" src="s/builder/skin/js/csb.js?v2.2"></script>
+  <script type="text/javascript" src="skin/js/vendor/imagesloaded.pkgd.js"></script>
+  <script type="text/javascript" src="skin/js/csb.js"></script>
 
 
-  <script type="text/javascript">
+  <script>
     window.$zopim || (function(d, s) {
       var z = $zopim = function(c) {
           z._.push(c)

@@ -44,6 +44,42 @@
         }
       },
 
+      "CSB_SINA_SLATE_COIL": {
+        "manufacturer": "sinasoid",
+        "model": "slate-coil",
+        "name": {
+          "manufacturer": "Sinasoid Signature",
+          "model": "Slate Coil"
+        },
+        "price": 50,
+        "status": "available",
+        "is_premium": true,
+        "order": 2,
+        "specs": {
+          "capacitance": "25",
+          "flexibility": "med",
+          "shield": "spiral",
+          "diameter": "0.273"
+        },
+        "lengths": {
+          "option_category_id": 155,
+          "is_consistent": true,
+          "patch": {
+            "start_id": 1816,
+            "end_id": 1863
+          },
+          "regular": {
+            "start_id": 1864,
+            "end_id": 1881
+          }
+        },
+        "colors": {
+          "gray": {
+            "id": null
+          }
+        }
+      },
+
       "CSB_BLDN_9778": {
         "manufacturer": "belden",
         "model": "9778",
@@ -284,7 +320,7 @@
         },
         "price": 3,
         "status": "available",
-        "order": 1,
+        "order": 11,
         "is_premium": true,
         "specs": {
           "capacitance": "23",
@@ -320,6 +356,7 @@
           "model": "Melody"
         },
         "price": 5,
+        "order": 10,
         "status": "unavailable",
         "is_premium": true,
         "specs": {
@@ -404,7 +441,7 @@
           "manufacturer": "switchcraft",
           "model": "228",
           "price": 7,
-          "status": "available",
+          "status": "unavailable",
           "angle": "right",
           "connector": "nickel",
           "series": null,
@@ -881,8 +918,21 @@
       }
     },
     "restrictions": {
+      "CSB_SINA_SLATE": {
+        "disallow": "all"
+      },
       "CSB_EVIA_MLDY": {
         "disallow": "all"
+      },
+      "CSB_BLDN_9778": {
+        "disallow": "all",
+        "allow": {
+          "neutrik": {
+            "series": {
+              "x": ["black"]
+            }
+          }
+        }
       },
       "CSB_GTHM_GAC-1_UP": {
         "disallow": "all",

@@ -3,7 +3,7 @@
 @import "blocks/production";
 @import "blocks/confirmation";
 
-#content {
+.content-wrap {
     overflow: hidden;
     position: relative;
 
@@ -12,7 +12,7 @@
     }
 }
 
-#body {
+.body-wrap {
     @include display-flex(flex);
 }
 

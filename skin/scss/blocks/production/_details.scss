@@ -284,10 +284,10 @@
         color: $white;
         position: relative;
         border: 0;
-        margin-top: 20px;
-        font-size: 10px;
-        height: 25px;
-        width: 90px;
+        height: 35px;
+        width: 140px;
+        margin: 20px auto 0;
+        font-size: 14px;
 
         &[data-option-selected="true"]:before {
             @include display-flex(flex);

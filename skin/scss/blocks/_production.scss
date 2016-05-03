@@ -6,11 +6,12 @@
 #header {
     z-index: 990;
     left: 1%;
-    top: 1%;
+    top: 1.5%;
     position: absolute;
     width: 50px;
     height: 50px;
 }
+
 #header a {
     background: transparent url($media-folder + "cs.png") no-repeat scroll center center / 100% auto;
     opacity: 0.8;
