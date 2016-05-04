@@ -139,7 +139,7 @@
     }
 
     $plugs: (
-        'neutrik' 'np2c' 'np2c-b' 'np2c-bag' 'np2rx' 'np2rx-b' 'np2rx-silent' 'np2x-b' 'np2x-silent' 'nys-224bg' 'nys-224g',
+        'neutrik' 'np2c' 'np2c-b' 'np2c-bag' 'np2rx' 'np2rx-b' 'np2rx-silent' 'np2x-b' 'np2x-wt' 'np2x-silent' 'nys-224bg' 'nys-224g' 'nj3fp6c-bag' 'nj3fp6c',
         'g#{"&"}h' 'bf2p' 'rf2p' 'bf2pm',
         'switchcraft' '228' '280' '380',
     );
@@ -150,7 +150,7 @@
             $val: nth($plug, $i);
             &[data-option-id="ins_#{$manufacturer}_#{$val}"] {
                 .images .wrap:before {
-                    background-image: url($media-folder + 'builder/plug/instrument/#{$manufacturer}/overlay/#{$val}.png');
+                    background-image: url($media-folder + 'builder/plug/#{$manufacturer}/overlay/#{$val}.png');
                 }
             }
         }
@@ -158,11 +158,11 @@
 
     img {
         width: 100%;
-    }
 
-    img.choice {
-        position: absolute;
-        top: 0;
+        &.choice {
+            position: absolute;
+            top: 0;
+        }
     }
 
     .outer {
@@ -280,14 +280,15 @@
     }
 
     .select {
+        display: none;
         background-color: $black;
         color: $white;
         position: relative;
         border: 0;
-        height: 35px;
-        width: 140px;
-        margin: 20px auto 0;
-        font-size: 14px;
+        margin-top: 20px;
+        font-size: 10px;
+        height: 25px;
+        width: 90px;
 
         &[data-option-selected="true"]:before {
             @include display-flex(flex);
@@ -335,7 +336,7 @@
     }
 
     .choices [data-status="unavailable"] {
-        &:after {
+        &:before {
             background: transparent url($media-folder + 'misc/x.red.png') no-repeat scroll center center / 100% auto;
             content: "";
             height: 80%;
@@ -343,6 +344,7 @@
             position: absolute;
             top: 10%;
             width: 80%;
+            z-index: 10;
         }
     }
 }

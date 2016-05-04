@@ -1,0 +1,76 @@
+.display-wrap {
+    background-image: image-url('background.jpg');
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+
+    @include flexbox((
+        flex-grow: 1,
+        flex-basis: 1
+    ));
+
+    .images {
+        position: absolute;
+
+        .input,
+        .output {
+            position: absolute;
+        }
+
+        .input {
+            @include transform(scaleX(-1));
+        }
+
+        .cable {
+            height: 100%;
+            width: 100%;
+        }
+
+        .input-boot-image,
+        .output-boot-image {
+            height: auto;
+            position: absolute;
+            right: 7%;
+            top: 2px;
+            width: (100% * (50/180));
+        }
+
+        img {
+            height: 100%;
+            width: 100%;
+        }
+
+        [data-cable-type="patch"] & {
+            .cable img {
+                height: auto;
+            }
+
+            .input {
+                // @include transform(scaleX(-1) rotate(-31.6075deg))
+                @include transform(scaleX(-1) rotate(-37.5685deg))
+            }
+
+            .output {
+                @include transform(rotate(-38.5685deg))
+            }
+        }
+    }
+
+    .overview {
+        left: 10%;
+        position: absolute;
+        right: 10%;
+        text-align: center;
+
+        span {
+            cursor: default;
+            font-size: 14px;
+            font-weight: lighter;
+            text-transform: uppercase;
+        }
+
+        strong {
+            text-transform: none;
+        }
+    }
+}

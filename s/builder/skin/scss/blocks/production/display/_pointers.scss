@@ -3,7 +3,7 @@ $dot-diameter: 50px;
 $dot-background: 70%;
 
 #body {
-    &.regular {
+    &.instrument {
         .pointer[data-pointer-component="length"] {
             top: -5px;
         }
@@ -89,7 +89,7 @@ $dot-background: 70%;
     top: 40%;
     width: 10%;
 
-    #body[data-current-length-type="regular"] & {
+    #body[data-current-length-type="instrument"] & {
         right: -5%;
     }
 
@@ -197,7 +197,7 @@ $dot-background: 70%;
     width: 25%;
     top: 65px;
 
-    #body[data-current-length-type="regular"] & {
+    #body[data-current-length-type="instrument"] & {
         right: -5%;
     }
 
@@ -301,15 +301,14 @@ $dot-background: 70%;
     width: 15%;
     z-index: 15;
 
-    $colors: 'black' 'gray' 'white';
-    @each $color in $colors {
+    @each $color in $techflex-colors {
         &[data-techflex-color="#{$color}"] {
             display: block;
             background-image: url($media-folder + 'display/techflex/#{$color}.png');
         }
     }
 
-    #body[data-current-length-type="regular"] & {
+    #body[data-current-length-type="instrument"] & {
         right: 11%;
         left: auto;
     }

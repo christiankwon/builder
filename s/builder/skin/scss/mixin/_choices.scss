@@ -60,6 +60,7 @@
             "blue": #3848a4,
             "vintage-cream": #edecd4,
             "black": $black,
+            // "white": $white,
         );
 
         @include build($choices);

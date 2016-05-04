@@ -1,0 +1,1070 @@
+.builders-wrap {
+    background-color: $white;
+
+    @include bp(max-width, $bp-small) {
+        @include justify-content(center);
+        width: 100%;
+    }
+
+    @include bp(min-width, $bp-small + 1) {
+        // max-width: 50%;
+        width: 50%;
+    }
+}
+
+article {
+    overflow: hidden;
+    height: 100%;
+    display: none;
+
+    @include flexbox((
+        flex-direction: column,
+    ));
+
+    .header {
+        background-color: $teal;
+        color: $white;
+        padding: 15px;
+        @include flex-shrink(0);
+
+        h1 {
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 16px;
+            font-weight: 300;
+
+            strong {
+                font-weight: 600;
+            }
+        }
+    }
+
+    .body {
+        @include flexbox((
+            display: flex,
+            flex-direction: column,
+            flex-grow: 1,
+        ));
+        height: 100%;
+        overflow: hidden;
+
+        &.complete + .footer {
+            .builder-next {
+                background-color: $white;
+                color: #333;
+
+                &:before,
+                &:after {
+
+                    background-color: #333;
+                }
+            }
+        }
+    }
+
+    .footer {
+        background-color: #333;
+        width: 100%;
+        padding: 10px;
+        @include flex-shrink(0);
+
+        button {
+            background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+            border: solid $white 1px;
+            color: $white;
+            letter-spacing: 1px;
+            height: 30px;
+            overflow: hidden;
+            position: relative;
+            font-size: 11px;
+            letter-spacing: 2px;
+
+            @include transition(all 0.2s ease-out);
+
+            &:hover {
+                background-color: $black;
+                color: $white;
+            }
+
+            &:before,
+            &:after {
+                background-color: $white;
+                content: "";
+                position: absolute;
+                display: block;
+                height: 10px;
+                width: 2px;
+            }
+
+            $angle: 50deg;
+            $x: 10px;
+            $y: 6px;
+
+            &.builder-prev {
+                float: left;
+                padding-left: 30px;
+                padding-right: 15px;
+
+                &:before {
+                    left: $x;
+                    top: $y;
+                    @include transform(rotate($angle));
+                }
+
+                &:after {
+                    bottom: $y;
+                    left: $x;
+                    @include transform(rotate($angle*-1));
+                }
+            }
+
+            &.builder-next {
+                float: right;
+                padding-right: 30px;
+                padding-left: 15px;
+
+                &:before {
+                    right: $x;
+                    top: $y;
+                    @include transform(rotate($angle*-1));
+                }
+
+                &:after {
+                    bottom: $y;
+                    right: $x;
+                    @include transform(rotate($angle));
+                }
+            }
+        }
+    }
+
+    .toggle {
+        @include bp(max-width, $bp-small) {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            width: 25px;
+            height: 25px;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            display: none;
+        }
+    }
+}
+
+.length-wrap {
+    .notice {
+        width: 100%;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .length-choice .active,
+    .input,
+    .ruler,
+    .select {
+        display: none;
+    }
+
+    .length-choices {
+        @include display-flex(flex);
+        @include justify-content(space-around);
+        @include align-items(center);
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 500px;
+        text-align: center;
+        width: 100%;
+
+        .length-choice {
+            span {
+                text-transform: uppercase;
+            }
+
+            .name span {
+                font-weight: 600;
+                letter-spacing: 2px;
+            }
+
+            .desc {
+                letter-spacing: 1px;
+            }
+        }
+
+        .image {
+            cursor: pointer;
+            height: auto;
+            margin: 0 auto;
+            // max-width: 125px;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+
+            img {
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+
+    .rulers {
+        margin: 1em auto;
+        max-width: 600px;
+        width: 90%;
+
+        .ui-slider-horizontal {
+            height: 4px;
+            border: none;
+            @include background-image(linear-gradient(to right, #dd0000, orange, #eeee00));
+        }
+
+        .ui-slider-handle {
+            background: none;
+            background-color: white;
+            border-color: #898989;
+            border-radius: 50%;
+            border-width: 2px;
+            top: -9px;
+            @include box-shadow(#8c8c8c 3px 2px 3px);
+        }
+
+        .ui-slider-range {
+            background-color: #999;
+            background-image: none;
+        }
+
+        .ui-state-active {
+            background: none;
+            background-color: #ccc;
+            border: white;
+        }
+    }
+
+    .inputs {
+        color: #777;
+        margin: 0 auto;
+        text-transform: uppercase;
+        width: 100px;
+
+        span {
+            display: block;
+            font-size: 11px;
+            margin-bottom: 0.5em;
+            text-align: center;
+        }
+
+        label {
+            float: right;
+            font-size: 14px;
+            margin-top: 17px;
+            margin-left: 5px;
+        }
+
+        input {
+            border: 1px solid #999;
+            color: $black;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin: 0 auto 0 17px;
+            padding: 0.5em 0;
+            text-align: center;
+            width: 65px;
+        }
+
+        .input {
+            width: 106px;
+        }
+    }
+
+    .selects {
+        display: none;
+    }
+
+    .body button {
+        background-color: $teal;
+        border: 0 none;
+        color: $white;
+        font-size: 12px;
+        letter-spacing: 1px;
+        margin: 25px auto 0;
+        padding: 10px 15px;
+        width: 150px;
+    }
+}
+
+.details-wrap {
+    background-color: #e9e9e9;
+    display: none;
+
+    @include bp(max-width, $bp-small) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 20;
+    }
+
+    @include bp(min-width, $bp-small + 1) {
+        @include order(11);
+        @include flex-shrink(0);
+    }
+
+    &.active {
+        display: block;
+
+        .empty {
+            display: none;
+        }
+    }
+
+    .empty {
+        @include align-items(center);
+        @include justify-content(center);
+        text-transform: uppercase;
+        width: 100%;
+
+        @include bp(max-width, $bp-small) {
+            display: none;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            @include display-flex;
+        }
+    }
+
+    .control {
+        background-color: $black;
+        border: 0 none;
+        height: 40px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 40px;
+        z-index: 50;
+
+        @include bp(min-width, $bp-small + 1) {
+            display: none;
+        }
+    }
+}
+
+.details-content {
+    display: none;
+    position: relative;
+    max-height: 300px;
+    @include flex-wrap(wrap);
+
+    @include bp(max-width, $bp-small) {
+        @include justify-content(center);
+        @include flex-direction(row);
+
+        .details-wrap.active & {
+            @include display-flex;
+        }
+    }
+
+    @include bp(min-width, $bp-small + 1) {
+        overflow: hidden;
+
+        .details-wrap.active & {
+            display: block;
+        }
+    }
+
+    .name-wrap {
+        padding-top: 5px;
+
+        @include bp(max-width, $bp-small) {
+            @include order(1);
+
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            @include order(1);
+        }
+
+        span {
+            display: block;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .manufacturer {
+            margin-bottom: 5px;
+        }
+
+        .model {
+            font-weight: 600;
+        }
+    }
+
+    .image-wrap {
+        max-width: 300px;
+        position: relative;
+        height: 100%;
+
+        @include bp(max-width, $bp-small) {
+            @include order(2);
+            width: 85%;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            float: left;
+        }
+
+        img {
+            @include bp(max-width, $bp-small) {
+                height: auto;
+                width: 100%;
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                height: 30vh;
+                width: auto;
+            }
+        }
+
+        .choice {
+            left: 0;
+            position: absolute;
+            top: 0;
+        }
+    }
+
+    .choice-wrap {
+        @include bp(max-width, $bp-small) {
+            @include order(3);
+
+            width: 15%;
+
+            &.empty { display: none; }
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            @include order(9);
+
+            float: right;
+            width: 30%;
+            @include display-flex;
+            @include flex-flow(row wrap);
+            @include align-content(flex-start);
+            @include justify-content(center);
+        }
+
+        div {
+            border: 1px solid #666;
+            border-radius: 50%;
+            cursor: pointer;
+            height: 30px;
+            width: 30px;
+
+            @include bp(max-width, $bp-small) {
+                margin: 0 auto 20px;
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                margin-right: 10px;
+                margin-bottom: 10px;
+            }
+        }
+
+        // Fix spacing for incomplete rows
+        .blank {
+            border: 0 none;
+            height: 0;
+            margin-bottom: 0;
+            // width: 0;
+        }
+    }
+
+    .price-wrap {
+        @include bp(max-width, $bp-small) {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            @include order(3);
+        }
+
+        span {
+            color: $red;
+            font-size: 20px;
+            font-weight: 500;
+
+            &:before {
+                content: "$";
+            }
+        }
+    }
+
+    .information-wrap {
+        @include bp(max-width, $bp-small) {
+            @include order(5);
+
+            padding: 5px;
+            width: 100%;
+
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            @include order(4);
+        }
+
+        span {
+            display: block;
+        }
+    }
+
+    .select-option {
+        background-color: $yellow;
+        border: 0 none;
+        height: 35px;
+        letter-spacing: 1px;
+        padding: 10px 0;
+        position: relative;
+        margin: 15px auto;
+        width: 150px;
+
+        @include bp(max-width, $bp-small) {
+            @include order(6);
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            @include order(6);
+            margin-top: auto;
+        }
+
+        &:after {
+            color: $white;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            text-transform: uppercase;
+            top: 0;
+            width: 100%;
+
+            @include flex-center;
+        }
+
+        .details-wrap.selected &:after {
+            background-color: $green;
+            content: "Picked!";
+        }
+
+        .details-wrap.unavailable & {
+            cursor: default;
+
+            &:after {
+                content: "Out of Stock";
+                background-color: $red;
+            }
+        }
+    }
+}
+
+.options-box {
+    @include flexbox((
+        display: flex,
+        flex-direction: column,
+        flex-grow: 1,
+        order: 10,
+    ));
+
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    min-height: 160px;
+
+    h2 {
+        background-color: #333;
+        color: $white;
+        text-transform: uppercase;
+        position: relative;
+        padding: 10px 50px 10px 10px;
+        @include flex-shrink(0);
+
+        span {
+            float: right;
+
+            strong {
+                color: $red;
+            }
+        }
+    }
+}
+
+.options-wrap {
+    overflow-y: scroll;
+    height: 100%;
+    padding: 15px;
+
+    .active,
+    .selector {
+        display: none;
+    }
+}
+
+.options {
+    margin-bottom: 15px;
+
+    @include flexbox((
+        align-content: flex-start,
+        display: flex,
+        flex-wrap: wrap,
+        justify-content: center,
+    ));
+
+    h3 {
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        width: 100%;
+    }
+}
+
+.option {
+    border: 1px solid #ccc;
+    // cursor: pointer;
+    display: none;
+    position: relative;
+    margin: 5px;
+    max-width: 200px;
+    min-width: 115px;
+    width: 23%;
+
+    &:before {
+        color: $white;
+        font-size: 24px;
+        font-weight: 500;
+        height: 100%;
+        left: 0;
+        letter-spacing: 2px;
+        position: absolute;
+        text-align: center;
+        text-transform: uppercase;
+        top: 0;
+        width: 100%;
+        z-index: 20;
+
+        @include flexbox((
+            display: flex,
+            align-items: center,
+            justify-content: center,
+        ));
+    }
+
+    &:hover {
+        .outer {
+            display: block;
+        }
+    }
+
+    &.blank {
+        border: 0 none;
+        display: block;
+        margin-bottom: 0;
+        margin-top: 0;
+
+        @include order(9999 !important);
+    }
+
+    &.clicked {
+        outline: 3px solid $black;
+        border-color: $black;
+
+        .outer {
+            // display: block;
+        }
+    }
+
+    &.selected {
+        outline: 3px $green solid;
+        border-color: $green;
+
+        .option-select:after {
+            display: block;
+            @include display-flex;
+        }
+    }
+
+    &[data-status="unavailable"] {
+        @include order(9999 !important);
+
+        &:before {
+            display: none;
+        }
+
+        .inner:after {
+            background-color: rgba($white, 0.9);
+            content: "Out of Stock";
+            cursor: default;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            text-align: center;
+            text-transform: uppercase;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+
+            @include flexbox((
+                display: flex,
+                align-items: center,
+                justify-content: center,
+            ));
+        }
+
+        &:hover {
+            .option-select {
+                cursor: default;
+            }
+
+            .option-select:after {
+                background-color: $white;
+                border: solid 1px $black;
+                color: $black;
+                content: "Out of Stock";
+                height: 100%;
+                position: absolute;
+                text-align: center;
+                text-transform: uppercase;
+                width: 100%;
+
+                @include flexbox((
+                    align-items: center,
+                    display: flex,
+                    justify-content: center,
+                ));
+            }
+
+            .inner:after {
+                display: none;
+            }
+        }
+    }
+
+    .hasChoices {
+        color: lighten($red, 25%);
+        content: "*";
+        font-size: 24px;
+        font-weight: 900;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+
+    .outer {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: none;
+        z-index: 10;
+
+        button {
+            border: 0 none;
+            height: 40%;
+            width: 90%;
+            position: relative;
+            margin-top: 5%;
+            margin-left: 5%;
+        }
+    }
+
+    .option-specs {
+        background-color: lighten($teal, 15%);
+    }
+
+    .option-select {
+        background-color: darken($teal, 15%);
+
+        &:after {
+            @include flexcenter;
+            position: absolute;
+            display: none;
+            width: 100%;
+            height: 100%;
+            content: "Selected!";
+            background-color: $green;
+            left: 0;
+            top: 0;
+        }
+    }
+
+    .image-wrap {
+        height: 100%;
+        width: 100%;
+
+        img {
+            height: auto;
+            width: 100%;
+        }
+    }
+
+    .details {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    .name {
+        font-size: 10px;
+        letter-spacing: 1px;
+        position: absolute;
+        text-transform: uppercase;
+        text-align: center;
+        top: 4px;
+        width: 100%;
+
+        span {
+            display: block;
+        }
+    }
+
+    .price {
+        bottom: 15px;
+        left: 15px;
+        position: absolute;
+        font-size: 14px;
+        font-weight: 800;
+        color: $red;
+
+        &:before {
+            content: '$';
+        }
+
+        .cable-wrap &:after {
+            color: #bababa;
+            content: 'per ft';
+            display: block;
+            font-size: 10px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+    }
+}
+
+.extra-wrap {
+    .body {
+        overflow-y: auto;
+        padding: 15px;
+        @include display-flex;
+        @include flex-flow(row wrap);
+        @include align-content(flex-start);
+
+        > div {
+            padding: 25px;
+        }
+    }
+
+    h3 {
+        text-align: center;
+        text-transform: uppercase;
+        width: 100%;
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        margin-bottom: 1em;
+
+        span {
+            color: #aaa;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: lowercase;
+        }
+
+        p {
+            font-size: 10px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin: 1em auto 0;
+            text-transform: none;
+        }
+    }
+}
+
+.techflex-wrap {
+    position: relative;
+    width: 100%;
+    @include flexbox((
+        display: flex,
+        flex-flow: row wrap,
+        justify-content: center,
+        align-content: flex-start,
+    ));
+
+    &:before {
+        background-color: #999;
+        bottom: 0;
+        content: "";
+        height: 1px;
+        left: 5%;
+        position: absolute;
+        width: 90%;
+    }
+
+    .techflex {
+        margin: 0 5px 5px;
+        width: 75px;
+
+        &.blank {
+            margin-bottom: 0;
+        }
+
+        input {
+            display: none;
+
+            &:checked ~ label:before {
+                background-color: $white;
+                color: $black;
+                content: "Picked!";
+            }
+        }
+
+        span {
+            text-transform: uppercase;
+            font-size: 14px;
+            width: 100%;
+            display: block;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        label {
+            border: 1px solid $black;
+            cursor: pointer;
+            display: block;
+            height: 100px;
+            position: relative;
+            width: 100%;
+
+            &:before {
+                font-size: 12px;
+                content: "Pick me!";
+                color: $white;
+                background-color: $black;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 25px;
+                text-align: center;
+                padding-top: 7.5px;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+
+            img {
+                width: 100%;
+            }
+
+            &[for="techflex_white"] {
+                img {
+                    background-color: $black;
+                }
+            }
+        }
+    }
+}
+
+.tourproof-wrap,
+.reverse-wrap {
+    width: 50%;
+
+    input {
+        display: none;
+
+        &:checked ~ label {
+            background-position: center bottom;
+        }
+    }
+
+    span {
+        float: left;
+        margin-top: 5px;
+        color: #aaa;
+        font-size: 11px;
+        font-weight: 300;
+        letter-spacing: 1px;
+        text-transform: lowercase;
+    }
+
+    label {
+        background-image: image-url('builder/check.png');
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        cursor: pointer;
+        display: block;
+        height: 20px;
+        margin: 0 auto;
+        width: 20px;
+    }
+}
+
+.tourproof-wrap {
+    position: relative;
+    width: 100%;
+
+    .body-wrap[data-cable-type="patch"] & {
+        width: 50%;
+
+        &:after {
+            display: block;
+        }
+    }
+
+    &:after {
+        background-color: #999;
+        content: "";
+        display: none;
+        height: 80%;
+        position: absolute;
+        right: 0;
+        top: 10%;
+        width: 1px;
+    }
+
+
+    .tourproof-container {
+        max-width: 140px;
+        margin: 0 auto;
+    }
+
+    button {
+        background-color: #ccc;
+        border: 1px solid #bbb;
+        border-radius: 50%;
+        font-size: 10px;
+        font-weight: 300;
+        height: 15px;
+        padding-left: 2px;
+        position: relative;
+        right: -5px;
+        top: -3px;
+        width: 15px;
+    }
+}
+
+.reverse-wrap {
+    position: relative;
+    display: none;
+
+    .body-wrap[data-cable-type="patch"] & {
+        display: block;
+    }
+}

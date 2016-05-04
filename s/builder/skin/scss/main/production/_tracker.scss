@@ -1,0 +1,174 @@
+@mixin border($side: 'bottom', $color: '#333', $width: 1px) {
+    border-#{$side}: #{$width} solid #{$color};
+}
+
+
+.tracker-wrap {
+    background-color: $white;
+    z-index: 10;
+
+    > div {
+        text-align: center;
+    }
+
+    @include bp(max-width, $bp-small) {
+        bottom: 0;
+        height: 75px;
+        position: absolute;
+        width: 100%;
+        @include display-flex;
+        @include flex-direction(row);
+        @include flex-wrap(wrap);
+
+        .dot {
+            width: 20%;
+            height: 100%;
+
+            span {
+                // display: none;
+            }
+        }
+
+        .review-wrap {
+            display: none;
+        }
+
+        .price-wrap {
+            // display: none;
+        }
+    }
+
+    @include bp(min-width, $bp-small + 1) {
+        @include flexbox((
+            display: flex,
+            // align-items: center,
+            // justify-content: center,
+        ));
+
+        @include border('right');
+        height: 100%;
+
+        @include flexbox((
+            flex-direction: column,
+        ));
+
+        > div {
+            @include flexbox((
+                align-items: center,
+                display: flex,
+                justify-content: center,
+                flex-direction: column,
+            ));
+
+            text-align: center;
+            width: 75px;
+
+            + div {
+                @include border('bottom');
+            }
+        }
+    }
+
+    .masthead {
+        // replace text with background-image
+        @include border('bottom');
+
+        a {
+            cursor: pointer;
+            background-image: image-url('home.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: auto 80%;
+            display: block;
+
+            // width: 100%;
+            // height: 46.5px;
+        }
+    }
+
+    .dot {
+        background-color: $teal;
+        cursor: pointer;
+        color: $white;
+        position: relative;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 1px;
+        // padding-bottom: 10px;
+
+        &:before {
+            @include flexbox((
+                align-items: center,
+                display: flex,
+                justify-content: center,
+            ));
+
+            border: 1px solid $white;
+            border-radius: 50%;
+            content: "#";
+            margin: 10px auto;
+            width: 30px;
+            height: 30px;
+        }
+
+        @each $s in $steps {
+            &[data-pointer-component="#{$s}"]:before {
+                content: "#{index($steps, $s)}";
+            }
+
+            .body-wrap[data-current-step="#{$s}"] &[data-pointer-component="#{$s}"] {
+                background-color: $white;
+                color: $teal;
+
+                &:before {
+                    border-color: $teal;
+                    border-width: 2px;
+                }
+            }
+        }
+
+        &[data-status="incomplete"] {
+
+        }
+
+        &[data-status="complete"] {
+            &:before {
+                content: "";
+                background-color: green;
+                border-color: green;
+            }
+
+            &:after {
+                content: "";
+
+                width: 10px;
+                height: 20px;
+                border: solid #000;
+                border-width: 0 2px 2px 0;
+                position: absolute;
+                top: 10px;
+                left: 50%;
+
+                @include transform( rotate(45deg) );
+            }
+        }
+    }
+
+    .price-wrap {
+        @include border('top');
+        // margin-top: auto;
+        // height: 50px;
+
+        span {
+
+        }
+    }
+
+    .review-wrap {
+        // height: 50px;
+
+        button {
+
+        }
+    }
+}

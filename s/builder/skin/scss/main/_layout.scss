@@ -1,0 +1,89 @@
+html,
+body,
+.content-wrap,
+section,
+.body-wrap {
+    width: 100%;
+    height: 100%;
+}
+
+.content-wrap {
+    letter-spacing: 1px;
+
+    section {
+        display: none;
+    }
+
+    @each $section in $sections {
+        &[data-active-section="#{$section}"] section.#{$section}-wrap {
+            display: block;
+        }
+    }
+}
+
+.body-wrap {
+    @include flexbox((
+        display: flex,
+    ));
+    position: relative;
+    overflow: hidden;
+
+    @each $step in $steps {
+        &[data-current-step="#{$step}"] article[data-component="#{$step}"] {
+            @include display-flex;
+        }
+    }
+
+    @each $type in $cable-types {
+        &[data-cable-type="#{$type}"] {
+            article[data-component="length"] {
+                div[data-type="#{$type}"] {
+                    display: block;
+                }
+
+                .length-choice[data-type="#{$type}"] .inactive {
+                    display: none;
+                }
+
+                .length-choice[data-type="#{$type}"] .active {
+                    display: block;
+                }
+            }
+
+            .option.#{$type} {
+                display: block;
+            }
+        }
+    }
+}
+
+@include bp(max-width, $bp-small) {
+    .body-wrap {
+
+        &[data-current-step="closed"] {
+            .builders-wrap {
+                display: none;
+            }
+        }
+    }
+
+    .builders-wrap {
+        height: 100%;
+        z-index: 20;
+    }
+
+    .length-wrap {
+        .length-choice {
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+            &[data-type="patch"] {
+                margin-left: 20px;
+            }
+        }
+
+        .image {
+            max-width: 75px;
+        }
+    }
+}

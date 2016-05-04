@@ -1,0 +1,105 @@
+.confirmation-wrap {
+    .return-wrap {
+        background-color: #75bebf;
+        border: 0 none;
+        color: white;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: lighter;
+        height: 50px;
+        text-transform: uppercase;
+        width: 100%;
+        @include flexcenter;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 30px 50px;
+        border: 1px solid #bbb;
+        height: 75%;
+        margin-top: 25px;
+        width: 80%;
+        @include flexbox((
+            display: flex,
+            flex-direction: column,
+            justify-content: space-around,
+        ));
+    }
+
+    .confirm-text {
+        text-align: center;
+
+        img {
+            height: 75px;
+            margin: 0 auto;
+            width: 75px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 12px;
+            font-weight: 300;
+            margin: 0 auto;
+            line-height: 20px;
+            letter-spacing: 0;
+        }
+    }
+
+    .final-build {
+        margin: 15px 40px;
+        border-top: 1px solid #999;
+        border-bottom: 1px solid #999;
+        padding: 25px 0;
+        @include flexbox((
+            display: flex,
+            flex-direction: row,
+            justify-content: center,
+            align-items: center,
+        ));
+
+        ul {
+            margin-right: auto;
+        }
+
+        .qty-wrap {
+            label {
+                font-size: 12px;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+            input {
+                border: 1px solid #aaa;
+                margin: 10px auto;
+                padding: 4px;
+                text-align: center;
+                width: 50px;
+            }
+        }
+
+        & > span {
+            color: $red;
+            font-weight: 900;
+            margin-left: auto;
+        }
+    }
+
+    .overview {
+
+    }
+
+    button {
+        width: 200px;
+        margin: 0 auto;
+        padding: 10px 0;
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+}

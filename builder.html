@@ -8,84 +8,106 @@
 
 <head>
   <meta name="description" content="Design custom tailored cables that match your tone, your style, your music.">
-  <!-- <meta name=viewport content="width=device-width, initial-scale=1"> -->
+  <meta name=viewport content="width=device-width, initial-scale=1">
   <title>Cable Builder | Sinasoid</title>
 
   <!-- General stylesheets -->
-  <link rel="stylesheet" type="text/css" href="skin/css/fonts.css" />
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900,400italic' rel='stylesheet' type='text/css'>
 
   <!-- Page specific stylesheets -->
-  <link href="skin/css/styles.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href="skin/css/screen.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href="skin/css/jquery-ui.min.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="s/builder/skin/css/styles.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="s/builder/skin/css/new.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="s/builder/skin/css/jquery-ui.min.css" media="screen" rel="stylesheet" type="text/css" />
 
   <!-- General scripts -->
-  <script src="skin/js/vendor/modernizr-latest.js"></script>
-  <script src="skin/js/mobile.js"></script>
-</head>
+  <script src="s/builder/skin/js/vendor/modernizr.js"></script>
+  <script src="s/builder/skin/js/util.js"></script></head>
 
 <body>
   <!--[if lt IE 9]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
-  <div class="loader"></div>
+  <div id="loader" class="loader-wrap">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+  </div>
 
   <div class="modal">
     <div class="info"></div>
   </div>
-
   <div id="content" class="content-wrap">
     <section id="introduction" class="introduction-wrap">
       <div class="outer">
-        <button>Start</button>
+        <div class="inner">
+          <h1>Welcome to the cable builder!</h1>
+          <p>Build a cable to the exact specs you want&#8212;cable type, length, plugs, and even options like Techflex and extra protection.</p>
+          <p>Our cables are built with touring musicians in mind. With our Custom Shop cables, you can rest assured that your cables will perform at 100% when it really matters.</p>
+          <p>Anyways, let's get started!</p>
+          <h2>First, let's pick a cable type.</h2>
+          <button tabindex="-1">To Step 1!</button>
+        </div>
+
+        <span class="notice">This service was optimized for use on a desktop computer.</span>
       </div>
     </section>
 
     <section id="production" class="production-wrap">
-      <div id="header" class="header-wrap">
-        <a href="/v/customshop.html"></a>
-      </div>
-
       <div id="body" class="body-wrap">
-        <div id="display" class="display-wrap">
-          <div class="images">
-            <div class="cable">
-              <img class="cable-image" />
-            </div>
+        <div id="tracker" class="tracker-wrap">
+          <div class="masthead">
+            <a href="/Default.asp"></a>
+          </div>
 
-            <div class="input">
-              <img class="input-plug-image" />
-              <img class="input-boot-image" />
-            </div>
+          <div class="dot" data-pointer-component="length" data-status="incomplete">
+            <span>Length</span>
+          </div>
 
-            <div class="output">
-              <img class="output-plug-image" />
-              <img class="output-boot-image" />
-            </div>
+          <div class="dot" data-pointer-component="cable" data-status="incomplete">
+            <span>Cable</span>
+          </div>
+
+          <div class="dot" data-pointer-component="input" data-status="incomplete">
+            <span>Input</span>
+          </div>
+
+          <div class="dot" data-pointer-component="output" data-status="incomplete">
+            <span>Output</span>
+          </div>
+
+          <div class="dot" data-pointer-component="extra" data-status="incomplete">
+            <span>Extra</span>
+          </div>
+
+          <div id="price" class="price-wrap">
+            <span>$0.00</span>
+          </div>
+
+          <div class="review-wrap">
+            <button id="review">Review</button>
           </div>
         </div>
 
-        <div id="tracker" class="tracker-wrap">
-          <div class="dot" data-pointer-component="length"></div>
-          <div class="dot" data-pointer-component="cable"></div>
-          <div class="dot" data-pointer-component="input"></div>
-          <div class="dot" data-pointer-component="output"></div>
-          <div class="dot" data-pointer-component="other"></div>
-        </div>
-
         <div id="builders" class="builders-wrap">
-          <div id="instrument" class="builder">
-            <article class="length">
-              <div class="header">
-                <h1>1. Select<strong>Length</strong></h1>
-              </div>
+          <article class="length-wrap" data-component="length">
+            <button class="toggle">X</button>
 
+            <div class="header">
+              <h1>1. Select <strong>Length</strong></h1>
+            </div>
+
+            <div class="body">
               <div class="notice">
-                <img src="skin/images/misc/length/measurement.png" alt="We measure cable length from where the plugs meet the cable.">
+                <img src="s/builder/skin/images/misc/length/measurement.png" alt="We measure cable length from where the plugs meet the cable." />
               </div>
 
-              <input class="selector" type="hidden" data-length-type="patch" />
+              <div class="length-choices">
+                <div class="length-choice" data-type="patch" data-unit="in">
+                  <div class="image">
+                    <img class="active" src="s/builder/skin/images/misc/length/silhouette/patch-red.png" alt="Patch Cable">
+                    <img class="inactive" src="s/builder/skin/images/misc/length/silhouette/patch-gray.png" alt="Patch Cable">
+                  </div>
 
-              <div class="choices">
-                <div class="choice" data-length-type="patch" data-length-unit="in">
                   <div class="name">
                     <span>Patch</span>
                   </div>
@@ -93,229 +115,393 @@
                   <div class="desc">
                     <span>3-48 in</span>
                   </div>
-
-                  <div class="image">
-                    <img class="active" src="skin/images/misc/length/instrument/silhouette/patch-red.png" alt="Patch Cable">
-                    <img class="inactive" src="skin/images/misc/length/instrument/silhouette/patch-gray.png" alt="Patch Cable">
-                  </div>
                 </div>
 
-                <div class="choice" data-length-type="regular" data-length-unit="ft">
+                <div class="length-choice" data-type="instrument" data-unit="ft">
+                  <div class="image">
+                    <img class="active" src="s/builder/skin/images/misc/length/silhouette/instrument-red.png" alt="Instrument Cable">
+                    <img class="inactive" src="s/builder/skin/images/misc/length/silhouette/instrument-gray.png" alt="Instrument Cable">
+                  </div>
+
                   <div class="name">
-                    <span>Regular</span>
+                    <span>Instrument</span>
                   </div>
 
                   <div class="desc">
                     <span>4-20 ft</span>
                   </div>
+                </div>
 
+                <div class="length-choice" data-type="speaker" data-unit="ft">
                   <div class="image">
-                    <img class="active" src="skin/images/misc/length/instrument/silhouette/regular-red.png" alt="Regular Instrument Cable">
-                    <img class="inactive" src="skin/images/misc/length/instrument/silhouette/regular-gray.png" alt="Regular Instrument Cable">
+                    <img class="active" src="s/builder/skin/images/misc/length/silhouette/instrument-red.png" alt="Speaker Cable">
+                    <img class="inactive" src="s/builder/skin/images/misc/length/silhouette/instrument-gray.png" alt="Speaker Cable">
+                  </div>
+
+                  <div class="name">
+                    <span>Speaker</span>
+                  </div>
+
+                  <div class="desc">
+                    <span>4-30 ft</span>
                   </div>
                 </div>
               </div>
 
               <div class="rulers">
-                <div class="ruler" data-length-type="patch" data-length-unit="in" data-length-min="3" data-length-max="48"></div>
+                <div class="ruler" data-type="patch" data-unit="in" data-min="3" data-max="48" data-init="12"></div>
 
-                <div class="ruler" data-length-type="regular" data-length-unit="ft" data-length-min="4" data-length-max="20"></div>
+                <div class="ruler" data-type="instrument" data-unit="ft" data-min="4" data-max="20" data-init="10"></div>
+
+                <div class="ruler" data-type="speaker" data-unit="ft" data-min="4" data-max="30" data-init="10"></div>
               </div>
 
-              <div class="selects">
-                <div class="select" data-length-type="patch" data-length-unit="in" data-length-min="3" data-length-max="48">
+              <!--<div class="selects">
+                <div class="select" data-type="patch" data-unit="in" data-min="3" data-max="48" data-init="12">
                   <span>in</span>
                 </div>
 
-                <div class="select" data-length-type="regular" data-length-unit="ft" data-length-min="4" data-length-max="20">
+                <div class="select" data-type="instrument" data-unit="ft" data-min="4" data-max="20" data-init="10">
                   <span>ft</span>
                 </div>
-              </div>
+              </div>-->
 
               <div class="inputs">
-                <div class="input" data-length-type="patch" data-length-unit="in" data-length-min="3" data-length-max="48">
+                <div class="input" data-type="patch" data-unit="in" data-min="3" data-max="48" data-init="12">
                   <span>Length</span>
-                  <input type="text" maxlength="2">
+                  <input type="text" value="12" maxlength="2">
                   <label>in</label>
                 </div>
 
-                <div class="input" data-length-type="regular" data-length-unit="ft" data-length-min="4" data-length-max="20">
+                <div class="input" data-type="instrument" data-unit="ft" data-min="4" data-max="20" data-init="10">
                   <span>Length</span>
-                  <input type="text" maxlength="2">
+                  <input type="text" value="10" maxlength="2">
+                  <label>ft</label>
+                </div>
+
+                <div class="input" data-type="speaker" data-unit="ft" data-min="4" data-max="30" data-init="10">
+                  <span>Length</span>
+                  <input type="text" value="10" maxlength="2">
                   <label>ft</label>
                 </div>
               </div>
 
+              <button id="length-confirm">Confirm Length</button>
+            </div>
+
+            <div class="footer">
               <button class="builder-next">Next</button>
-            </article>
+            </div>
+          </article>
 
+          <article class="cable-wrap" data-component="cable">
+            <button class="toggle">X</button>
 
+            <div class="header">
+              <h1>2. Select <strong>Cable</strong></h1>
+            </div>
 
-            <article class="cable">
-              <div class="header">
-                <h1>2. Select<strong>Cable</strong></h1>
-              </div>
+            <div class="body">
+              <div id="cable-details-wrap" class="details-wrap">
+                <div class="empty">Click one of the options to see more details</div>
 
-              <div class="details-container">
-                <div class="empty"></div>
+                <button class="control"></button>
 
                 <div class="details-content">
-                  <input type="checkbox">
-
-                  <div class="images">
-                    <img class="component" src="" alt="">
+                  <div class="image-wrap">
+                    <img id="cable-details-component" class="component" src="" alt="">
                   </div>
 
-                  <div class="toggles">
-                    <button class="more-info">More Info</button>
-                    <button class="more-colors">Color Options</button>
+                  <div id="cable-details-choices" class="choice-wrap"></div>
+
+                  <div class="name-wrap">
+                    <span id="cable-details-manufacturer" class="manufacturer"></span>
+                    <span id="cable-details-model" class="model"></span>
                   </div>
 
-                  <div class="information">
-                    <button class="less-info"></button>
-
-                    <div class="name">
-                      <p><span></span><br/><strong></strong></p>
-                    </div>
-                    <div class="price"></div>
-                    <div class="specs"></div>
-                    <div class="choices"></div>
+                  <div class="price-wrap">
+                    <span id="cable-details-price" >$0.00</span>
                   </div>
+
+                  <div id="cable-details-information" class="information-wrap"></div>
+
+                  <button class="select-option">Pick Me!</button>
+
                 </div>
               </div>
 
-              <div class="options-container">
-                <div class="options-wrap">
-                  <input type="checkbox" class="active" name="active" />
-                  <div class="options premium">
-                    <h2>Premium Cables</h2>
+              <div class="options-box">
+                <div class="options-wrap"></div>
+              </div>
+            </div>
+
+            <div class="footer">
+              <button class="builder-prev">Prev</button>
+              <button class="builder-next">Next</button>
+            </div>
+          </article>
+
+          <article class="input-wrap" data-component="input">
+            <button class="toggle">X</button>
+
+            <div class="header">
+              <h1>3. Select <strong>Input</strong></h1>
+            </div>
+
+            <div class="body">
+              <div id="input-details-wrap" class="details-wrap">
+                <div class="empty">Click one of the options to see more details</div>
+
+                <button class="control"></button>
+
+                <div class="details-content">
+                  <div class="image-wrap">
+                    <img id="input-details-component" class="component" src="" alt="">
+                    <img id="input-details-choice" class="choice" src="" alt="">
                   </div>
-                  <div class="options standard">
-                    <h2>Standard Cables</h2>
+
+                  <div id="input-details-choices" class="choice-wrap"></div>
+
+                  <div class="name-wrap">
+                    <span id="input-details-manufacturer" class="manufacuter"></span>
+                    <span id="input-details-model" class="model"></span>
                   </div>
+
+                  <div class="price-wrap">
+                    <span id="input-details-price" >$0.00</span>
+                  </div>
+
+                  <button class="select-option">Pick Me!</button>
                 </div>
               </div>
-            </article>
 
+              <div class="options-box">
+                <div class="options-wrap"></div>
+              </div>
+            </div>
 
+            <div class="footer">
+              <button class="builder-prev">Prev</button>
+              <button class="builder-next">Next</button>
+            </div>
+          </article>
 
-            <article class="input">
-              <div class="header">
-                <h1>3. Select<strong>Input Plug</strong></h1>
+          <article class="output-wrap" data-component="output">
+            <button class="toggle">X</button>
+
+            <div class="header">
+              <h1>4. Select <strong>Output</strong></h1>
+            </div>
+
+            <div class="body">
+              <div id="output-details-wrap" class="details-wrap">
+                <div class="empty">Click one of the options to see more details</div>
+
+                <button class="control"></button>
+
+                <div class="details-content">
+                  <div class="image-wrap">
+                    <img id="output-details-component" class="component" src="" alt="">
+                    <img id="output-details-choice" class="choice" src="" alt="">
+                  </div>
+
+                  <div id="output-details-choices" class="choice-wrap"></div>
+
+                  <div class="name-wrap">
+                    <span id="output-details-manufacturer" class="manufacuter"></span>
+                    <span id="output-details-model" class="model"></span>
+                  </div>
+
+                  <div class="price-wrap">
+                    <span id="output-details-price" >$0.00</span>
+                  </div>
+
+                  <button class="select-option">Pick Me!</button>
+                </div>
               </div>
 
+              <div class="options-box">
+                <div class="options-wrap"></div>
+              </div>
+            </div>
 
-            </article>
+            <div class="footer">
+              <button class="builder-prev">Prev</button>
+              <button class="builder-next">Next</button>
+            </div>
+          </article>
 
-            <article class="output">
-              <div class="header">
-                <h1>4. Select<strong>Output Plug</strong></h1>
+          <article class="extra-wrap" data-component="extra">
+            <button class="toggle">X</button>
+
+            <div class="header">
+              <h1>5. Select <strong>Extra Options</strong></h1>
+            </div>
+
+            <div class="body">
+              <div id="techflex" class="techflex-wrap" data-option-type="techflex">
+                <h3>Techflex<span class="cost">+0.25/ft</span><p>Add an extra layer of protection to your cable.</p></h3>
+
+                <div class="techflex">
+                  <input id="techflex_white" type="radio" value="white" name="techflex">
+                  <span>white</span>
+                  <label for="techflex_white">
+                    <img src="s/builder/skin/images/techflex/white.png" alt="White Techflex" />
+                  </label>
+                </div>
+
+                <div class="techflex">
+                  <input id="techflex_gray" type="radio" value="gray" name="techflex">
+                  <span>gray</span>
+                  <label for="techflex_gray">
+                    <img src="s/builder/skin/images/techflex/gray.png" alt="Gray Techflex" />
+                  </label>
+                </div>
+
+                <div class="techflex">
+                  <input id="techflex_black" type="radio" value="black" name="techflex">
+                  <span>black</span>
+                  <label for="techflex_black">
+                    <img src="s/builder/skin/images/techflex/black.png" alt="Black Techflex" />
+                  </label>
+                </div>
+
+                <div class="techflex">
+                  <input id="techflex_red" type="radio" value="red" name="techflex">
+                  <span>red</span>
+                  <label for="techflex_red">
+                    <img src="s/builder/skin/images/techflex/red.png" alt="Red Techflex" />
+                  </label>
+                </div>
+
+                <div class="techflex">
+                  <input id="techflex_green" type="radio" value="green" name="techflex">
+                  <span>green</span>
+                  <label for="techflex_green">
+                    <img src="s/builder/skin/images/techflex/green.png" alt="Green Techflex" />
+                  </label>
+                </div>
+
+                <div class="techflex">
+                  <input id="techflex_aqua" type="radio" value="aqua" name="techflex">
+                  <span>aqua</span>
+                  <label for="techflex_aqua">
+                    <img src="s/builder/skin/images/techflex/aqua.png" alt="Aqua Techflex" />
+                  </label>
+                </div>
+
+                <div class="techflex">
+                  <input id="techflex_purple" type="radio" value="purple" name="techflex">
+                  <span>purple</span>
+                  <label for="techflex_purple">
+                    <img src="s/builder/skin/images/techflex/purple.png" alt="Purple Techflex" />
+                  </label>
+                </div>
               </div>
 
+              <div class="tourproof-wrap" data-option-type="tourproof">
+                <h3>Tour Proof<button>?</button><p>Extra-precision reinforcement<br>to minimize failure.</p></h3>
 
-            </article>
-
-            <article class="other">
-              <div class="header">
-                <h1></h1>
+                <div class="tourproof-container">
+                  <input id="tourproof" type="checkbox" name="tourproof">
+                  <span class="cost">+$3/cable</span>
+                  <label for="tourproof"></label>
+                </div>
               </div>
 
+              <div class="reverse-wrap" data-option-type="reverse_plugs">
+                <h3>Reverse Plug<p>Reverse the orientation of a right<br>angle plug on your patch cable.</p></h3>
 
-            </article>
-          </div>
+                <div class="reverse-container">
+                  <input id="reverse_plugs" type="checkbox" name="reverse_plugs">
+                  <label for="reverse_plugs"></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="footer">
+              <button class="builder-prev">Prev</button>
+              <button class="builder-next">Next</button>
+            </div>
+          </article>
         </div>
 
-        <div id="details" class="details-wrap">
-          <input type="checkbox" />
-          <div class="empty">
-            <p>Hover over a component and press
-              <button>Specs &amp; Info</button> to see advanced details and color options.</p>
-          </div>
+        <div id="display" class="display-wrap">
           <div class="images">
-            <div class="wrap">
-              <div class="arrows"></div>
-              <img class="component" />
-              <img class="choice" />
+            <div class="cable">
+              <img id="cable-image" class="cable-image" />
+            </div>
+
+            <div class="input">
+              <img id="input-plug-image" class="input-plug-image" />
+              <img id="input-boot-image" class="input-boot-image" />
+            </div>
+
+            <div class="output">
+              <img id="output-plug-image" class="output-plug-image" />
+              <img id="output-boot-image" class="output-boot-image" />
             </div>
           </div>
-          <div class="outer">
-            <div class="name">
-              <span></span> <strong></strong>
+
+          <div class="overview">
+            <div class="length" data-component="length">
+              <span>Length: <strong id="overview-length"></strong></span>
             </div>
-            <div class="price"></div>
-            <div class="choices"></div>
-            <div class="specs"></div>
-            <button class="select">Pick me!</button>
+            <div class="cable" data-component="cable">
+              <span>Cable: <strong id="overview-cable"></strong></span>
+            </div>
+            <div class="input" data-component="input">
+              <span>Input: <strong id="overview-input"></strong></span>
+            </div>
+            <div class="output" data-component="output">
+              <span>Output: <strong id="overview-output"></strong></span>
+            </div>
+            <div class="extras" data-component="extras">
+              <span>Extras: <strong id="overview-extras"></strong></span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="confirmation">
-      <div class="return">
+    <section id="confirmation" class="confirmation-wrap">
+      <div class="return-wrap return-button">
         <span>Back to the cable builder</span>
       </div>
-      <div class="details">
-        <div class="cart">
-          <div class="outer">
-            <div class="inner">
-              <img src="skin/images/cs.png" />
-              <h1>We're ready to build.</h1>
-              <h2>Every cable bought through the Cable Builder<br/>is hand built to order. Your cable order will<br/>be ready within <strong>3 business days.</strong></h2>
-              <ul class="items"></ul>
-              <div class="totals">
-                <h4>Total: <strong></strong></h4>
-              </div>
-              <button class="checkout">Checkout</button>
-              <button class="return">Back to the Cable Builder</button>
-            </div>
-          </div>
+
+      <div class="container">
+        <div class="confirm-text">
+          <h1>We're ready to build.</h1>
+          <h2>Every cable bought through the Cable Builder<br/>is hand built to order. Your cable order will<br/>be ready within <strong>3 business days.</strong></h2>
         </div>
+
+        <div class="final-build">
+          <ul id="final-build">
+            <li>Gotham GAC-1 Ultra Pro 10 ft | Red</li>
+            <li>Neutrik NP2C-BAG | Red</li>
+            <li>Neutrik NP2C-B | Black</li>
+            <li>No extra options selected.</li>
+          </ul>
+
+          <div class="qty-wrap">
+            <label for="final-qty">Qty</label>
+            <input id="final-qty" value="1">
+          </div>
+
+          <span id="final-price">$0.00</span>
+        </div>
+
+        <button id="checkout" class="cart-button">Add to Cart</button>
+        <!-- <button id="back" class="return-button">Back to the cable builder</button> -->
       </div>
     </section>
-  </div>
-
-  <div id="skeletons">
-    <div class="option skeleton">
-      <input class="selector" type="radio" />
-      <div class="inner">
-        <div class="overlay"></div>
-        <img class="component" />
-        <img class="choice" />
-        <p class="name"><span></span> <strong></strong></p>
-        <span class="price"></span>
-        <div class="details">
-          <p class="name"><span></span> <strong></strong></p>
-          <div class="choices"></div>
-          <button class="specs">Specs &amp; Info</button>
-        </div>
-      </div>
-      <button class="select"></button>
-    </div>
-    <div class="storage build skeleton">
-      <input class="select" type="radio" name="storage_build" />
-      <div class="identifier">
-        <p class="id"></p>
-        <p class="type"></p>
-        <p class="price"></p>
-      </div>
-      <div class="information">
-        <p class="cable"></p>
-        <p class="length"></p>
-        <p class="input"></p>
-        <p class="output"></p>
-        <p class="other"></p>
-        <p class="qty"></p>
-      </div>
-      <button class="set"></button>
-      <button class="remove"></button>
-    </div>
   </div>
 
   <!-- General scripts -->
-  <script src="skin/js/vendor/jquery-1.11.3.js"></script>
-  <script src="skin/js/vendor/jquery-ui.min.js"></script>
-  <script src="skin/js/vendor/jquery.ui.touch-punch.min.js"></script>
+  <script src="s/builder/skin/js/vendor/fastclick.js"></script>
+  <script src="s/builder/skin/js/vendor/jquery-1.11.3.min.js"></script>
+  <script src="s/builder/skin/js/vendor/jquery-ui.min.js"></script>
+  <script src="s/builder/skin/js/vendor/jquery.ui.touch-punch.min.js"></script>
 
   <!-- Page specific scripts -->
   <script type="text/javascript">
@@ -323,53 +509,30 @@
   </script>
   <script src="/a/j/soft_add.js"></script>
 
-  <script type="text/javascript" src="skin/js/vendor/imagesloaded.pkgd.js"></script>
-  <script type="text/javascript" src="skin/js/csb.js"></script>
-
-
-  <script>
-    window.$zopim || (function(d, s) {
-      var z = $zopim = function(c) {
-          z._.push(c)
-        },
-        $ = z.s =
-        d.createElement(s),
-        e = d.getElementsByTagName(s)[0];
-      z.set = function(o) {
-        z.set.
-        _.push(o)
-      };
-      z._ = [];
-      z.set._ = [];
-      $.async = !0;
-      $.setAttribute("charset", "utf-8");
-      $.src = "//v2.zopim.com/?2t8b50Ga9GU3UslMEnNmFUKHQqvZ4zC0";
-      z.t = +new Date;
-      $.
-      type = "text/javascript";
-      e.parentNode.insertBefore($, e)
-    })(document, "script");
-    $zopim(function() {
-      $zopim.livechat.window.hide();
-    });
-  </script>
+  <script type="text/javascript" src="s/builder/skin/js/vendor/imagesloaded.pkgd.js"></script>
+  <script type="text/javascript" src="s/builder/skin/js/vendor/jquery.slimscroll.js"></script>
+  <script type="text/javascript" src="s/builder/skin/js/csb.js"></script>
 
   <script>
-    (function(i, s, o, g, r, a, m) {
-      i['GoogleAnalyticsObject'] = r;
-      i[r] = i[r] || function() {
-        (i[r].q = i[r].q || []).push(arguments)
-      }, i[r].l = 1 * new Date();
-      a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0];
-      a.async = 1;
-      a.src = g;
-      m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    var scrollbarWidth = getScrollbarSize().width;
+    // Google analytics
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-43791522-1', 'auto');
     ga('require', 'displayfeatures');
     ga('send', 'pageview');
+
+    // Start of Zopim Live Chat Script
+    if( !window.isMobile.any() ) {
+      window.$zopim||function(t,e){var n=$zopim=function(t){n._.push(t)},s=n.s=t.createElement(e),a=t.getElementsByTagName(e)[0];n.set=function(t){n.set._.push(t)},n._=[],n.set._=[],s.async=!0,s.setAttribute("charset","utf-8"),s.src="//v2.zopim.com/?2t8b50Ga9GU3UslMEnNmFUKHQqvZ4zC0",n.t=+new Date,s.type="text/javascript",a.parentNode.insertBefore(s,a)}(document,"script");
+
+      $zopim(function() {
+        $zopim.livechat.window.setOffsetHorizontal(scrollbarWidth);
+      });
+    }
   </script>
 </body>
 

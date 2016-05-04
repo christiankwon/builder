@@ -1,8 +1,8 @@
 .builder li {
     // define filters
     $components: (
-        ('cable', 'Cable Type'),
         ('length' 'Cable Length'),
+        ('cable', 'Cable Type'),
         ('input' 'Input Plug'),
         ('output' 'Output Plug'),
         ('other' 'Other Options'),
@@ -85,6 +85,8 @@
     }
 
     .filter-container {
+        .isMobile & { display: none; }
+
         @include align-self(center);
         height: 50%;
         margin-right: 1%;

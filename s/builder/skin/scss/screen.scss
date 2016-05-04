@@ -9,21 +9,3 @@
 @import "main";
 @import "blocks";
 @import "media";
-
-// @import "hotfix";
-#display {
-    order: 3;
-}
-
-#storage {
-    left: auto;
-    right: 0;
-}
-
-.filters {
-    padding-left: 40px;
-}
-
-#header {
-    left: 5px;
-}

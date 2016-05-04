@@ -1,6 +1,5 @@
-.introduction-wrap {
+#introduction {
     display: none;
-
     body[data-display-introduction="show"] & {
         @include display-flex(flex);
         @include align-items(center);
@@ -70,6 +69,18 @@
                     border: #ff1300 solid 2px;
                 }
             }
+        }
+
+
+        .notice {
+            color: $red;
+            display: block;
+            font-weight: 900;
+            letter-spacing: 1px;
+            position: relative;
+            text-align: center;
+            text-transform: uppercase;
+            top: 25px;
         }
     }
 }
