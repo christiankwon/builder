@@ -46,8 +46,7 @@
         "instrument": true,
         "speaker": false,
         "xlr": false
-      },
-      "stock": 12
+      }
     },
 
     "CSB_BLDN_9778": {
@@ -96,8 +95,7 @@
         "instrument": true,
         "speaker": false,
         "xlr": false
-      },
-      "stock": 12
+      }
     },
 
     "CSB_CNRE_GS-4": {
@@ -146,8 +144,7 @@
         "instrument": false,
         "speaker": false,
         "xlr": false
-      },
-      "stock": 12
+      }
     },
 
     "CSB_CNRE_GS-6": {
@@ -221,8 +218,7 @@
         "instrument": true,
         "speaker": false,
         "xlr": false
-      },
-      "stock": 12
+      }
     },
 
     "CSB_CNRE_L-4E6S": {
@@ -271,8 +267,7 @@
         "instrument": true,
         "speaker": false,
         "xlr": true
-      },
-      "stock": 12
+      }
     },
 
     "CSB_GTHM_GAC-1_UP": {
@@ -329,8 +324,7 @@
         "instrument": true,
         "speaker": false,
         "xlr": false
-      },
-      "stock": 12
+      }
     },
 
     "CSB_GTHM_GAC-1": {
@@ -379,8 +373,7 @@
         "instrument": true,
         "speaker": false,
         "xlr": false
-      },
-      "stock": 12
+      }
     },
 
     "CSB_GTHM_GAC-2": {
@@ -429,8 +422,7 @@
         "instrument": true,
         "speaker": false,
         "xlr": true
-      },
-      "stock": 12
+      }
     },
 
     "CSB_EVIA_MNRL": {
@@ -479,8 +471,7 @@
         "instrument": false,
         "speaker": false,
         "xlr": false
-      },
-      "stock": 12
+      }
     },
 
     "CSB_EVIA_MLDY": {
@@ -533,8 +524,7 @@
         "instrument": true,
         "speaker": false,
         "xlr": false
-      },
-      "stock": 12
+      }
     },
 
     "CSB_VDMM_CLSC-XKE": {
@@ -593,8 +583,7 @@
         "instrument": true,
         "speaker": false,
         "xlr": false
-      },
-      "stock": 12
+      }
     }
   },
   "plugs": {

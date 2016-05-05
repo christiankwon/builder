@@ -5,8 +5,8 @@
         _ce = function(e)  { return document.createElement(e); },
         _qs = function(q)  { return document.querySelector(q); };
 
-    var JSON_URL = 's/builder/skin/js/options.json',
-        IMAGES_DIR = 's/builder/skin/images/';
+    var JSON_URL = 'builder/js/options.json',
+        IMAGES_DIR = 'builder/images/';
 
     if( window.location.protocol !== 'file:' ) {
         if( window.location.hostname.indexOf('www') === -1 ) {
@@ -17,7 +17,8 @@
     }
 
     if( isMobile.any() ) {
-        document.body.classList.add(isMobile);
+
+        document.body.classList.add("isMobile");
     }
 
     var OPTIONS_JSON, J_CABLES, J_PLUGS, J_BOOTS, J_OTHER, J_RESTRICTIONS,
@@ -63,8 +64,8 @@
 
         OVERVIEW_ELEMENTS = {
             length: _id('overview-length'),
-            cable: _id('overview-cable'),
-            input: _id('overview-input'),
+            cable:  _id('overview-cable'),
+            input:  _id('overview-input'),
             output: _id('overview-output'),
             extras: _id('overview-extras')
         },
@@ -250,7 +251,7 @@
                         }
                     }
 
-                    $('.dot[data-pointer-component="' + c +'"]', '#tracker').attr('data-status', 'complete');
+                    updateStatus(c, 'complete');
 
                 } else {
                     this.detailsWrap.wrap.removeClass('selected')
@@ -271,7 +272,7 @@
                         DISPLAY_IMAGES[c + 'Boot'].src = BLANK_IMAGE.boot;
                     }
 
-                    $('.dot[data-pointer-component="' + c +'"]', '#tracker').attr('data-status', 'incomplete');
+                    updateStatus(c, 'incomplete');
                 }
 
                 updateOverview(c, this);
@@ -294,7 +295,7 @@
             this.specsHtml    = [];
 
             this.getFullName = function() {
-                var str = this.manufacturer + ' ' + this.model;
+                var str = this.getName();
 
                 if( this.hasChoices ) {
                     str += ' | ' + this.currentColor;
@@ -309,14 +310,19 @@
 
                     for( p in this.specs ) { if( this.specs.hasOwnProperty(p) ) {
                         str = [
-                            '<span class="', p, '">', p,
-                            ': <strong>', this.specs[p], '</strong></span>'
+                            '<span class="',
+                            p,
+                            '">',
+                            p,
+                            ': <strong>',
+                            this.specs[p],
+                            '</strong></span>'
                         ].join('');
 
-                        s.push($(str));
+                        s.push(str);
                     }}
 
-                    this.specsHtml = s;
+                    this.specsHtml = s.join('');
                 }
 
                 return this.specsHtml;
@@ -479,7 +485,7 @@
             this.choicesHtml  = [];
 
             this.getFullName = function() {
-                var str = this.manufacturer + ' ' + this.model;
+                var str = this.getName();
 
                 if( this.hasChoices ) {
                     if( this.hasColor ) {
@@ -721,6 +727,8 @@
             };
         };
 
+    // generate #num blank blocks
+    // fix flex spacing
     var getBlankBlocks = function(num, c) {
         var arr = [], i, e, text;
 
@@ -735,6 +743,7 @@
         return arr;
     };
 
+    // generate standard option block
     var getOptionBlock = function(option) {
         var $block = $('<div/>', {id: option.code, class: 'option'}),
             block  = $block.get(0);
@@ -772,13 +781,34 @@
         );
 
         inner.append(images, details);
-        $block.append(selector, hasChoices, outer, inner);
+        $block.append(hasChoices, outer, inner);
 
         return block;
     };
 
+    var updateStatus = (function() {
+        var t = _id('tracker');
+
+        var tracker = {
+            length: t.querySelector('div[data-pointer-component="length"]'),
+            cable: t.querySelector('div[data-pointer-component="cable"]'),
+            input: t.querySelector('div[data-pointer-component="input"]'),
+            output: t.querySelector('div[data-pointer-component="output"]'),
+            extra: t.querySelector('div[data-pointer-component="extra"]')
+        };
+
+        return function(c, s) {
+            var el = tracker[c];
+
+            if( el ) {
+                el.setAttribute('data-status', s);
+            }
+        };
+    })();
+
     var updateOverview = function(component, data) {
         var text;
+
         switch(component) {
             case 'cable':
             case 'input':
@@ -791,6 +821,8 @@
 
             case 'length':
                 // data is a length
+
+                OVERVIEW_ELEMENTS.length.textContent = text;
                 break;
 
             case 'extras':
@@ -815,6 +847,47 @@
             // cable.textContent = CURRENT_CABLE.cable.
 
         $('#final-price').text(CURRENT_CABLE.getPrice().formatMoney());
+    };
+
+    var reset = function() {
+        $('#loader').fadeIn(50);
+
+        DISPLAY_IMAGES.cable.src  = BLANK_IMAGE[DEFAULT_CABLE_TYPE];
+        DISPLAY_IMAGES.input.src  = BLANK_IMAGE.input;
+        DISPLAY_IMAGES.output.src = BLANK_IMAGE.output;
+        DISPLAY_IMAGES.inputBoot.src  = BLANK_IMAGE.boot;
+        DISPLAY_IMAGES.outputBoot.src = BLANK_IMAGE.boot;
+
+        OVERVIEW_ELEMENTS.length.textContent = '';
+        OVERVIEW_ELEMENTS.cable.textContent = '';
+        OVERVIEW_ELEMENTS.input.textContent = '';
+        OVERVIEW_ELEMENTS.output.textContent = '';
+        OVERVIEW_ELEMENTS.extras.textContent = '';
+
+        $('#body').attr({
+            'data-cable-type': DEFAULT_CABLE_TYPE,
+            'data-current-step': MQ_SMALL.matches ? 'closed' : 'length'
+        });
+
+        $('.ruler').each(function() {
+            $(this).slider('value', this.getAttribute('data-init'));
+        });
+        $('.input').each(function() {
+            $(this).find('input').val(this.getAttribute('data-init'));
+        });
+
+        $('span', '#price').text('$0.00');
+        $('.dot').attr('data-status', 'incomplete');
+
+        $('.option.clicked, .option.selected').removeClass('clicked selected');
+        $('.details-wrap.active').removeClass('active');
+
+        $('.extra-wrap input:checked').prop('checked', false);
+
+        CURRENT_CABLE = new Setup();
+        window.CC = CURRENT_CABLE;
+
+        $('#loader').fadeOut();
     };
 
     var scrollToSection = function(section, speed) {
@@ -1282,29 +1355,39 @@
                     var type = e.delegateTarget.getAttribute('data-type'),
                         val = $('.input[data-type="' + type + '"] input').val();
 
+                    var C = CURRENT_CABLE;
+
                     // if current type is not the clicked type
-                    if( CURRENT_CABLE.type !== type ) {
+                    if( C.type !== type ) {
                         _id('body').setAttribute('data-cable-type', type);
 
-                        CURRENT_CABLE.type = type;
-                        CURRENT_CABLE.length.amount = +val;
-                        CURRENT_CABLE.length.unit = e.delegateTarget.getAttribute('data-unit');
+                        C.type = type;
+                        C.length.amount = +val;
+                        C.length.unit = e.delegateTarget.getAttribute('data-unit');
 
                         // if no cable is selected
                         // show empty cable image
-                        if( !CURRENT_CABLE.cable ) {
+                        if( !C.cable ) {
                             DISPLAY_IMAGES.cable.src = BLANK_IMAGE[type];
 
                         } else {
                             // if selected cable is not allowed as type
                             // unselect cable and show empty cable image
-                            if( !CURRENT_CABLE.cable.allowance[type] ) {
-                                CURRENT_CABLE.cable.selectOption();
+                            if( !C.cable.allowance[type] ) {
+                                C.cable.selectOption();
 
                             // else show correct type cable image
                             } else {
-                                DISPLAY_IMAGES.cable.src = CURRENT_CABLE.cable.getDisplayImageUrl();
+                                DISPLAY_IMAGES.cable.src = C.cable.getDisplayImageUrl();
                             }
+                        }
+
+                        if( C.input && !C.input.allowance[type] ) {
+                            C.input.selectOption();
+                        }
+
+                        if( C.output && C.output.allowance[type] ) {
+                            C.output.selectOption();
                         }
 
                         displayImages.initialize();
@@ -1338,7 +1421,6 @@
                     el.value = val;
                     el.ruler.slider('value', val);
 
-                    //
                     $('#body').attr('data-length', val);
 
                     updateCost();
@@ -1408,30 +1490,14 @@
     },
 
     initialSetup = function() {
-        $('#body').attr({
-            'data-cable-type': DEFAULT_CABLE_TYPE,
-            'data-current-step': 'closed'
-        });
-
-        DISPLAY_IMAGES.cable.src  = BLANK_IMAGE[DEFAULT_CABLE_TYPE];
-        DISPLAY_IMAGES.input.src  = BLANK_IMAGE.input;
-        DISPLAY_IMAGES.output.src = BLANK_IMAGE.output;
+        reset();
 
         var section = $('body').attr('data-display-introduction') ? 'introduction' : 'production';
         $('#content').attr('data-active-section', section);
         $('#content').attr('data-active-section', 'production');
 
-        if( !MQ_SMALL.matches ) {
-            $('#body').attr('data-current-step', 'length');
-        }
-
         displayImages.initialize();
         handles();
-
-        if( isMobile.any() &&
-            typeof $zopim === 'function' && typeof $zopim.livechat === 'object' ) {
-            $zopim.livechat.hideAll();
-        }
 
         setTimeout(function() {
             $('#loader').fadeOut('fast');
@@ -1445,13 +1511,13 @@
      * Calls init() to begin building each component
      */
     $(document).ready(function() {
-        if( MQ_SMALL.matches ) {
-            document.body.className = 'mq-small';
+        if( isMobile.any() &&
+            typeof $zopim === 'function' &&
+            typeof $zopim.livechat === 'object' ) {
+            $zopim.livechat.hideAll();
         }
 
         FastClick.attach(document.body);
-
-        CURRENT_CABLE = new Setup();
 
         $.getJSON( JSON_URL )
             .done(function(response) {
@@ -1472,8 +1538,6 @@
                 console.error(textStatus);
                 console.error(errorThrown);
             });
-
-        window.CC = CURRENT_CABLE;
     });
 
 })(jQuery);

@@ -1,55 +1,3 @@
-/* line 4, ../scss/mixin/_screensize.scss */
-body:before {
-  background-color: rgba(0, 0, 0, 0.4);
-  bottom: 0;
-  color: white;
-  content: "";
-  height: 15px;
-  left: 0;
-  line-height: 100%;
-  position: fixed;
-  pointer-events: none;
-  right: 0;
-  text-align: center;
-  z-index: 9999;
-}
-@media only screen and (max-width: 479px) {
-  /* line 4, ../scss/mixin/_screensize.scss */
-  body:before {
-    content: "You're on an XSMALL screen";
-  }
-}
-@media only screen and (min-width: 480px) and (max-width: 599px) {
-  /* line 4, ../scss/mixin/_screensize.scss */
-  body:before {
-    content: "You're on an SMALL screen";
-  }
-}
-@media only screen and (min-width: 600px) and (max-width: 770px) {
-  /* line 4, ../scss/mixin/_screensize.scss */
-  body:before {
-    content: "You're on an MEDIUM screen";
-  }
-}
-@media only screen and (min-width: 771px) and (max-width: 979px) {
-  /* line 4, ../scss/mixin/_screensize.scss */
-  body:before {
-    content: "You're on an LARGE screen";
-  }
-}
-@media only screen and (min-width: 980px) and (max-width: 1199px) {
-  /* line 4, ../scss/mixin/_screensize.scss */
-  body:before {
-    content: "You're on an XLARGE screen";
-  }
-}
-@media only screen and (min-width: 1200px) {
-  /* line 4, ../scss/mixin/_screensize.scss */
-  body:before {
-    content: "You're on an XLARGE+ screen";
-  }
-}
-
 /* line 1, ../scss/main/_layout.scss */
 html,
 body,
@@ -560,17 +508,13 @@ section,
   position: absolute;
   right: 10%;
   text-align: center;
+  text-transform: uppercase;
 }
-/* line 65, ../scss/main/production/_display.scss */
+/* line 66, ../scss/main/production/_display.scss */
 .display-wrap .overview span {
   cursor: default;
   font-size: 14px;
   font-weight: lighter;
-  text-transform: uppercase;
-}
-/* line 72, ../scss/main/production/_display.scss */
-.display-wrap .overview strong {
-  text-transform: none;
 }
 
 /* line 1, ../scss/main/production/_builder.scss */
@@ -1122,14 +1066,31 @@ article .footer button.builder-next:after {
     margin-bottom: 10px;
   }
 }
-/* line 481, ../scss/main/production/_builder.scss */
+/* line 479, ../scss/main/production/_builder.scss */
+.details-content .choice-wrap div[data-choice-status="unavailable"] {
+  position: relative;
+}
+/* line 482, ../scss/main/production/_builder.scss */
+.details-content .choice-wrap div[data-choice-status="unavailable"]:after {
+  position: absolute;
+  top: 0;
+  content: "";
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url('../images/misc/restricted.png?1462492080');
+  background-size: 60% auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+/* line 498, ../scss/main/production/_builder.scss */
 .details-content .choice-wrap .blank {
   border: 0 none;
   height: 0;
   margin-bottom: 0;
 }
 @media only screen and (max-width: 599px) {
-  /* line 489, ../scss/main/production/_builder.scss */
+  /* line 506, ../scss/main/production/_builder.scss */
   .details-content .price-wrap {
     position: absolute;
     top: 10px;
@@ -1137,24 +1098,24 @@ article .footer button.builder-next:after {
   }
 }
 @media only screen and (min-width: 600px) {
-  /* line 489, ../scss/main/production/_builder.scss */
+  /* line 506, ../scss/main/production/_builder.scss */
   .details-content .price-wrap {
     -webkit-order: 3;
     order: 3;
   }
 }
-/* line 500, ../scss/main/production/_builder.scss */
+/* line 517, ../scss/main/production/_builder.scss */
 .details-content .price-wrap span {
   color: #ed1100;
   font-size: 20px;
   font-weight: 500;
 }
-/* line 505, ../scss/main/production/_builder.scss */
+/* line 522, ../scss/main/production/_builder.scss */
 .details-content .price-wrap span:before {
   content: "$";
 }
 @media only screen and (max-width: 599px) {
-  /* line 511, ../scss/main/production/_builder.scss */
+  /* line 528, ../scss/main/production/_builder.scss */
   .details-content .information-wrap {
     -webkit-order: 5;
     order: 5;
@@ -1163,17 +1124,17 @@ article .footer button.builder-next:after {
   }
 }
 @media only screen and (min-width: 600px) {
-  /* line 511, ../scss/main/production/_builder.scss */
+  /* line 528, ../scss/main/production/_builder.scss */
   .details-content .information-wrap {
     -webkit-order: 4;
     order: 4;
   }
 }
-/* line 524, ../scss/main/production/_builder.scss */
+/* line 541, ../scss/main/production/_builder.scss */
 .details-content .information-wrap span {
   display: block;
 }
-/* line 529, ../scss/main/production/_builder.scss */
+/* line 546, ../scss/main/production/_builder.scss */
 .details-content .select-option {
   background-color: #f5c329;
   border: 0 none;
@@ -1185,21 +1146,21 @@ article .footer button.builder-next:after {
   width: 150px;
 }
 @media only screen and (max-width: 599px) {
-  /* line 529, ../scss/main/production/_builder.scss */
+  /* line 546, ../scss/main/production/_builder.scss */
   .details-content .select-option {
     -webkit-order: 6;
     order: 6;
   }
 }
 @media only screen and (min-width: 600px) {
-  /* line 529, ../scss/main/production/_builder.scss */
+  /* line 546, ../scss/main/production/_builder.scss */
   .details-content .select-option {
     -webkit-order: 6;
     order: 6;
     margin-top: auto;
   }
 }
-/* line 548, ../scss/main/production/_builder.scss */
+/* line 565, ../scss/main/production/_builder.scss */
 .details-content .select-option:after {
   color: #fff;
   height: 100%;
@@ -1215,22 +1176,22 @@ article .footer button.builder-next:after {
   display: flex;
   justify-content: center;
 }
-/* line 560, ../scss/main/production/_builder.scss */
+/* line 577, ../scss/main/production/_builder.scss */
 .details-wrap.selected .details-content .select-option:after {
   background-color: #57c285;
   content: "Picked!";
 }
-/* line 565, ../scss/main/production/_builder.scss */
+/* line 582, ../scss/main/production/_builder.scss */
 .details-wrap.unavailable .details-content .select-option {
   cursor: default;
 }
-/* line 568, ../scss/main/production/_builder.scss */
+/* line 585, ../scss/main/production/_builder.scss */
 .details-wrap.unavailable .details-content .select-option:after {
   content: "Out of Stock";
   background-color: #ed1100;
 }
 
-/* line 576, ../scss/main/production/_builder.scss */
+/* line 593, ../scss/main/production/_builder.scss */
 .options-box {
   display: -webkit-flex;
   -webkit-flex-direction: column;
@@ -1245,7 +1206,7 @@ article .footer button.builder-next:after {
   height: 100%;
   min-height: 160px;
 }
-/* line 589, ../scss/main/production/_builder.scss */
+/* line 606, ../scss/main/production/_builder.scss */
 .options-box h2 {
   background-color: #333;
   color: #fff;
@@ -1255,28 +1216,28 @@ article .footer button.builder-next:after {
   -webkit-flex-shrink: 0;
   flex-shrink: 0;
 }
-/* line 597, ../scss/main/production/_builder.scss */
+/* line 614, ../scss/main/production/_builder.scss */
 .options-box h2 span {
   float: right;
 }
-/* line 600, ../scss/main/production/_builder.scss */
+/* line 617, ../scss/main/production/_builder.scss */
 .options-box h2 span strong {
   color: #ed1100;
 }
 
-/* line 607, ../scss/main/production/_builder.scss */
+/* line 624, ../scss/main/production/_builder.scss */
 .options-wrap {
   overflow-y: scroll;
   height: 100%;
   padding: 15px;
 }
-/* line 612, ../scss/main/production/_builder.scss */
+/* line 629, ../scss/main/production/_builder.scss */
 .options-wrap .active,
 .options-wrap .selector {
   display: none;
 }
 
-/* line 618, ../scss/main/production/_builder.scss */
+/* line 635, ../scss/main/production/_builder.scss */
 .options {
   margin-bottom: 15px;
   -webkit-align-content: flex-start;
@@ -1288,14 +1249,14 @@ article .footer button.builder-next:after {
   flex-wrap: wrap;
   justify-content: center;
 }
-/* line 628, ../scss/main/production/_builder.scss */
+/* line 645, ../scss/main/production/_builder.scss */
 .options h3 {
   text-transform: uppercase;
   letter-spacing: 2px;
   width: 100%;
 }
 
-/* line 635, ../scss/main/production/_builder.scss */
+/* line 652, ../scss/main/production/_builder.scss */
 .option {
   border: 1px solid #ccc;
   display: none;
@@ -1305,7 +1266,7 @@ article .footer button.builder-next:after {
   min-width: 115px;
   width: 23%;
 }
-/* line 645, ../scss/main/production/_builder.scss */
+/* line 662, ../scss/main/production/_builder.scss */
 .option:before {
   color: #fff;
   font-size: 24px;
@@ -1326,11 +1287,11 @@ article .footer button.builder-next:after {
   align-items: center;
   justify-content: center;
 }
-/* line 667, ../scss/main/production/_builder.scss */
+/* line 684, ../scss/main/production/_builder.scss */
 .option:hover .outer {
   display: block;
 }
-/* line 672, ../scss/main/production/_builder.scss */
+/* line 689, ../scss/main/production/_builder.scss */
 .option.blank {
   border: 0 none;
   display: block;
@@ -1339,32 +1300,32 @@ article .footer button.builder-next:after {
   -webkit-order: 9999 !important;
   order: 9999 !important;
 }
-/* line 681, ../scss/main/production/_builder.scss */
+/* line 698, ../scss/main/production/_builder.scss */
 .option.clicked {
   outline: 3px solid #000;
   border-color: #000;
 }
-/* line 690, ../scss/main/production/_builder.scss */
+/* line 707, ../scss/main/production/_builder.scss */
 .option.selected {
   outline: 3px #57c285 solid;
   border-color: #57c285;
 }
-/* line 694, ../scss/main/production/_builder.scss */
+/* line 711, ../scss/main/production/_builder.scss */
 .option.selected .option-select:after {
   display: block;
   display: -webkit-flex;
   display: flex;
 }
-/* line 700, ../scss/main/production/_builder.scss */
+/* line 717, ../scss/main/production/_builder.scss */
 .option[data-status="unavailable"] {
   -webkit-order: 9999 !important;
   order: 9999 !important;
 }
-/* line 703, ../scss/main/production/_builder.scss */
+/* line 720, ../scss/main/production/_builder.scss */
 .option[data-status="unavailable"]:before {
   display: none;
 }
-/* line 707, ../scss/main/production/_builder.scss */
+/* line 724, ../scss/main/production/_builder.scss */
 .option[data-status="unavailable"] .inner:after {
   background-color: rgba(255, 255, 255, 0.9);
   content: "Out of Stock";
@@ -1384,11 +1345,11 @@ article .footer button.builder-next:after {
   align-items: center;
   justify-content: center;
 }
-/* line 728, ../scss/main/production/_builder.scss */
+/* line 745, ../scss/main/production/_builder.scss */
 .option[data-status="unavailable"]:hover .option-select {
   cursor: default;
 }
-/* line 732, ../scss/main/production/_builder.scss */
+/* line 749, ../scss/main/production/_builder.scss */
 .option[data-status="unavailable"]:hover .option-select:after {
   background-color: #fff;
   border: solid 1px #000;
@@ -1406,11 +1367,11 @@ article .footer button.builder-next:after {
   display: flex;
   justify-content: center;
 }
-/* line 750, ../scss/main/production/_builder.scss */
+/* line 767, ../scss/main/production/_builder.scss */
 .option[data-status="unavailable"]:hover .inner:after {
-  display: none;
+  content: "";
 }
-/* line 756, ../scss/main/production/_builder.scss */
+/* line 773, ../scss/main/production/_builder.scss */
 .option .hasChoices {
   color: #ff786e;
   content: "*";
@@ -1420,7 +1381,7 @@ article .footer button.builder-next:after {
   top: 5px;
   right: 5px;
 }
-/* line 766, ../scss/main/production/_builder.scss */
+/* line 783, ../scss/main/production/_builder.scss */
 .option .outer {
   display: none;
   position: absolute;
@@ -1431,7 +1392,7 @@ article .footer button.builder-next:after {
   display: none;
   z-index: 10;
 }
-/* line 776, ../scss/main/production/_builder.scss */
+/* line 793, ../scss/main/production/_builder.scss */
 .option .outer button {
   border: 0 none;
   height: 40%;
@@ -1440,15 +1401,15 @@ article .footer button.builder-next:after {
   margin-top: 5%;
   margin-left: 5%;
 }
-/* line 786, ../scss/main/production/_builder.scss */
+/* line 803, ../scss/main/production/_builder.scss */
 .option .option-specs {
   background-color: #9cc9ca;
 }
-/* line 790, ../scss/main/production/_builder.scss */
+/* line 807, ../scss/main/production/_builder.scss */
 .option .option-select {
   background-color: #478485;
 }
-/* line 793, ../scss/main/production/_builder.scss */
+/* line 810, ../scss/main/production/_builder.scss */
 .option .option-select:after {
   -webkit-align-items: center;
   display: -webkit-flex;
@@ -1465,24 +1426,24 @@ article .footer button.builder-next:after {
   left: 0;
   top: 0;
 }
-/* line 806, ../scss/main/production/_builder.scss */
+/* line 823, ../scss/main/production/_builder.scss */
 .option .image-wrap {
   height: 100%;
   width: 100%;
 }
-/* line 810, ../scss/main/production/_builder.scss */
+/* line 827, ../scss/main/production/_builder.scss */
 .option .image-wrap img {
   height: auto;
   width: 100%;
 }
-/* line 816, ../scss/main/production/_builder.scss */
+/* line 833, ../scss/main/production/_builder.scss */
 .option .details {
   height: 100%;
   position: absolute;
   top: 0;
   width: 100%;
 }
-/* line 823, ../scss/main/production/_builder.scss */
+/* line 840, ../scss/main/production/_builder.scss */
 .option .name {
   font-size: 10px;
   letter-spacing: 1px;
@@ -1492,11 +1453,11 @@ article .footer button.builder-next:after {
   top: 4px;
   width: 100%;
 }
-/* line 832, ../scss/main/production/_builder.scss */
+/* line 849, ../scss/main/production/_builder.scss */
 .option .name span {
   display: block;
 }
-/* line 837, ../scss/main/production/_builder.scss */
+/* line 854, ../scss/main/production/_builder.scss */
 .option .price {
   bottom: 15px;
   left: 15px;
@@ -1505,11 +1466,11 @@ article .footer button.builder-next:after {
   font-weight: 800;
   color: #ed1100;
 }
-/* line 845, ../scss/main/production/_builder.scss */
+/* line 862, ../scss/main/production/_builder.scss */
 .option .price:before {
   content: '$';
 }
-/* line 849, ../scss/main/production/_builder.scss */
+/* line 866, ../scss/main/production/_builder.scss */
 .cable-wrap .option .price:after {
   color: #bababa;
   content: 'per ft';
@@ -1519,7 +1480,7 @@ article .footer button.builder-next:after {
   text-transform: uppercase;
 }
 
-/* line 861, ../scss/main/production/_builder.scss */
+/* line 878, ../scss/main/production/_builder.scss */
 .extra-wrap .body {
   overflow-y: auto;
   padding: 15px;
@@ -1530,11 +1491,11 @@ article .footer button.builder-next:after {
   -webkit-align-content: flex-start;
   align-content: flex-start;
 }
-/* line 868, ../scss/main/production/_builder.scss */
+/* line 885, ../scss/main/production/_builder.scss */
 .extra-wrap .body > div {
   padding: 25px;
 }
-/* line 873, ../scss/main/production/_builder.scss */
+/* line 890, ../scss/main/production/_builder.scss */
 .extra-wrap h3 {
   text-align: center;
   text-transform: uppercase;
@@ -1544,7 +1505,7 @@ article .footer button.builder-next:after {
   letter-spacing: 2px;
   margin-bottom: 1em;
 }
-/* line 882, ../scss/main/production/_builder.scss */
+/* line 899, ../scss/main/production/_builder.scss */
 .extra-wrap h3 span {
   color: #aaa;
   font-size: 12px;
@@ -1552,7 +1513,7 @@ article .footer button.builder-next:after {
   letter-spacing: 1px;
   text-transform: lowercase;
 }
-/* line 890, ../scss/main/production/_builder.scss */
+/* line 907, ../scss/main/production/_builder.scss */
 .extra-wrap h3 p {
   font-size: 10px;
   font-weight: 300;
@@ -1561,7 +1522,7 @@ article .footer button.builder-next:after {
   text-transform: none;
 }
 
-/* line 900, ../scss/main/production/_builder.scss */
+/* line 917, ../scss/main/production/_builder.scss */
 .techflex-wrap {
   position: relative;
   width: 100%;
@@ -1574,7 +1535,7 @@ article .footer button.builder-next:after {
   justify-content: center;
   align-content: flex-start;
 }
-/* line 910, ../scss/main/production/_builder.scss */
+/* line 927, ../scss/main/production/_builder.scss */
 .techflex-wrap:before {
   background-color: #999;
   bottom: 0;
@@ -1584,26 +1545,26 @@ article .footer button.builder-next:after {
   position: absolute;
   width: 90%;
 }
-/* line 920, ../scss/main/production/_builder.scss */
+/* line 937, ../scss/main/production/_builder.scss */
 .techflex-wrap .techflex {
   margin: 0 5px 5px;
   width: 75px;
 }
-/* line 924, ../scss/main/production/_builder.scss */
+/* line 941, ../scss/main/production/_builder.scss */
 .techflex-wrap .techflex.blank {
   margin-bottom: 0;
 }
-/* line 928, ../scss/main/production/_builder.scss */
+/* line 945, ../scss/main/production/_builder.scss */
 .techflex-wrap .techflex input {
   display: none;
 }
-/* line 931, ../scss/main/production/_builder.scss */
+/* line 948, ../scss/main/production/_builder.scss */
 .techflex-wrap .techflex input:checked ~ label:before {
   background-color: #fff;
   color: #000;
   content: "Picked!";
 }
-/* line 938, ../scss/main/production/_builder.scss */
+/* line 955, ../scss/main/production/_builder.scss */
 .techflex-wrap .techflex span {
   text-transform: uppercase;
   font-size: 14px;
@@ -1612,7 +1573,7 @@ article .footer button.builder-next:after {
   text-align: center;
   letter-spacing: 1px;
 }
-/* line 947, ../scss/main/production/_builder.scss */
+/* line 964, ../scss/main/production/_builder.scss */
 .techflex-wrap .techflex label {
   border: 1px solid #000;
   cursor: pointer;
@@ -1621,7 +1582,7 @@ article .footer button.builder-next:after {
   position: relative;
   width: 100%;
 }
-/* line 955, ../scss/main/production/_builder.scss */
+/* line 972, ../scss/main/production/_builder.scss */
 .techflex-wrap .techflex label:before {
   font-size: 12px;
   content: "Pick me!";
@@ -1637,31 +1598,31 @@ article .footer button.builder-next:after {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-/* line 971, ../scss/main/production/_builder.scss */
+/* line 988, ../scss/main/production/_builder.scss */
 .techflex-wrap .techflex label img {
   width: 100%;
 }
-/* line 976, ../scss/main/production/_builder.scss */
+/* line 993, ../scss/main/production/_builder.scss */
 .techflex-wrap .techflex label[for="techflex_white"] img {
   background-color: #000;
 }
 
-/* line 984, ../scss/main/production/_builder.scss */
+/* line 1001, ../scss/main/production/_builder.scss */
 .tourproof-wrap,
 .reverse-wrap {
   width: 50%;
 }
-/* line 988, ../scss/main/production/_builder.scss */
+/* line 1005, ../scss/main/production/_builder.scss */
 .tourproof-wrap input,
 .reverse-wrap input {
   display: none;
 }
-/* line 991, ../scss/main/production/_builder.scss */
+/* line 1008, ../scss/main/production/_builder.scss */
 .tourproof-wrap input:checked ~ label,
 .reverse-wrap input:checked ~ label {
   background-position: center bottom;
 }
-/* line 996, ../scss/main/production/_builder.scss */
+/* line 1013, ../scss/main/production/_builder.scss */
 .tourproof-wrap span,
 .reverse-wrap span {
   float: left;
@@ -1672,7 +1633,7 @@ article .footer button.builder-next:after {
   letter-spacing: 1px;
   text-transform: lowercase;
 }
-/* line 1006, ../scss/main/production/_builder.scss */
+/* line 1023, ../scss/main/production/_builder.scss */
 .tourproof-wrap label,
 .reverse-wrap label {
   background-image: url('../images/builder/check.png?1456850568');
@@ -1686,20 +1647,20 @@ article .footer button.builder-next:after {
   width: 20px;
 }
 
-/* line 1019, ../scss/main/production/_builder.scss */
+/* line 1036, ../scss/main/production/_builder.scss */
 .tourproof-wrap {
   position: relative;
   width: 100%;
 }
-/* line 1023, ../scss/main/production/_builder.scss */
+/* line 1040, ../scss/main/production/_builder.scss */
 .body-wrap[data-cable-type="patch"] .tourproof-wrap {
   width: 50%;
 }
-/* line 1026, ../scss/main/production/_builder.scss */
+/* line 1043, ../scss/main/production/_builder.scss */
 .body-wrap[data-cable-type="patch"] .tourproof-wrap:after {
   display: block;
 }
-/* line 1031, ../scss/main/production/_builder.scss */
+/* line 1048, ../scss/main/production/_builder.scss */
 .tourproof-wrap:after {
   background-color: #999;
   content: "";
@@ -1710,12 +1671,12 @@ article .footer button.builder-next:after {
   top: 10%;
   width: 1px;
 }
-/* line 1043, ../scss/main/production/_builder.scss */
+/* line 1060, ../scss/main/production/_builder.scss */
 .tourproof-wrap .tourproof-container {
   max-width: 140px;
   margin: 0 auto;
 }
-/* line 1048, ../scss/main/production/_builder.scss */
+/* line 1065, ../scss/main/production/_builder.scss */
 .tourproof-wrap button {
   background-color: #ccc;
   border: 1px solid #bbb;
@@ -1730,12 +1691,12 @@ article .footer button.builder-next:after {
   width: 15px;
 }
 
-/* line 1063, ../scss/main/production/_builder.scss */
+/* line 1080, ../scss/main/production/_builder.scss */
 .reverse-wrap {
   position: relative;
   display: none;
 }
-/* line 1067, ../scss/main/production/_builder.scss */
+/* line 1084, ../scss/main/production/_builder.scss */
 .body-wrap[data-cable-type="patch"] .reverse-wrap {
   display: block;
 }

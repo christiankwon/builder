@@ -61,16 +61,12 @@
         position: absolute;
         right: 10%;
         text-align: center;
+        text-transform: uppercase;
 
         span {
             cursor: default;
             font-size: 14px;
             font-weight: lighter;
-            text-transform: uppercase;
-        }
-
-        strong {
-            text-transform: none;
         }
     }
 }

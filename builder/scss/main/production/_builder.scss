@@ -475,6 +475,23 @@ article {
                 margin-right: 10px;
                 margin-bottom: 10px;
             }
+
+            &[data-choice-status="unavailable"] {
+                position: relative;
+
+                &:after {
+                    position: absolute;
+                    top: 0;
+                    content: "";
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    background-image: image-url('misc/restricted.png');
+                    background-size: 60% auto;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                }
+            }
         }
 
         // Fix spacing for incomplete rows
@@ -748,7 +765,7 @@ article {
             }
 
             .inner:after {
-                display: none;
+                content: "";
             }
         }
     }
