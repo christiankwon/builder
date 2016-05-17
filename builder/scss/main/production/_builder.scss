@@ -2,12 +2,13 @@
     background-color: $white;
 
     @include bp(max-width, $bp-small) {
-        @include justify-content(center);
+        padding-bottom: 75px;
+        position: absolute;
         width: 100%;
+        @include justify-content(center);
     }
 
     @include bp(min-width, $bp-small + 1) {
-        // max-width: 50%;
         width: 50%;
     }
 }
@@ -25,14 +26,16 @@ article {
         background-color: $teal;
         color: $white;
         padding: 15px;
+        position: relative;
         @include flex-shrink(0);
 
         h1 {
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
             font-size: 16px;
             font-weight: 300;
+            letter-spacing: 2px;
+            margin: 0;
+            text-transform: uppercase;
+            text-align: center;
 
             strong {
                 font-weight: 600;
@@ -68,6 +71,14 @@ article {
         width: 100%;
         padding: 10px;
         @include flex-shrink(0);
+
+        @include bp(max-width, $bp-small) {
+            display: none;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+
+        }
 
         button {
             background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
@@ -139,22 +150,84 @@ article {
         }
     }
 
-    .toggle {
+    .back,
+    .home {
         @include bp(max-width, $bp-small) {
+            background-color: #333;
+            border: 0 none;
+            font-weight: 300;
+            height: 100%;
+            letter-spacing: 2px;
+            padding: 5px;
             position: absolute;
-            right: 5px;
-            top: 5px;
-            width: 25px;
-            height: 25px;
+            top: 0;
+            width: 40px;
+            z-index: 10;
+
+            &:before,
+            &:after {
+                background-color: darken($white, 10%);
+                content: "";
+                position: absolute;
+                width: 2px;
+            }
         }
 
         @include bp(min-width, $bp-small + 1) {
             display: none;
         }
     }
+
+    .back {
+        @include bp(max-width, $bp-small) {
+            left: 0;
+
+            &:before,
+            &:after {
+                height: 15px;
+            }
+
+            &:before {
+                left: 15px;
+                top: 11px;
+                @include transform(rotate(50deg));
+            }
+
+            &:after {
+                bottom: 10px;
+                left: 15px;
+                @include transform(rotate(-50deg));
+            }
+        }
+    }
+
+    .home {
+        @include bp(max-width, $bp-small) {
+            right: 0;
+
+            &:before,
+            &:after {
+                height: 30px;
+                right: 19px;
+                top: 8px;
+            }
+
+            &:before {
+                @include transform(rotate(45deg));
+            }
+
+            &:after {
+                @include transform(rotate(-45deg));
+            }
+        }
+    }
 }
 
 .length-wrap {
+    .body {
+        overflow-y: scroll;
+    }
+
     .notice {
         width: 100%;
 
@@ -177,13 +250,19 @@ article {
         @include align-items(center);
         margin-left: auto;
         margin-right: auto;
-        max-width: 500px;
         text-align: center;
+        text-transform: uppercase;
         width: 100%;
 
         .length-choice {
-            span {
-                text-transform: uppercase;
+            @include bp(max-width, $bp-small) {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                margin-top: 20px;
+                margin-bottom: 30px;
             }
 
             .name span {
@@ -200,10 +279,17 @@ article {
             cursor: pointer;
             height: auto;
             margin: 0 auto;
-            // max-width: 125px;
             overflow: hidden;
             position: relative;
             width: 100%;
+
+            @include bp(max-width, $bp-small) {
+                max-width: 75px;
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                max-width: 150px;
+            }
 
             img {
                 height: 100%;
@@ -292,7 +378,7 @@ article {
         color: $white;
         font-size: 12px;
         letter-spacing: 1px;
-        margin: 25px auto 0;
+        margin: 25px auto 10px;
         padding: 10px 15px;
         width: 150px;
     }
@@ -338,27 +424,11 @@ article {
             @include display-flex;
         }
     }
-
-    .control {
-        background-color: $black;
-        border: 0 none;
-        height: 40px;
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 40px;
-        z-index: 50;
-
-        @include bp(min-width, $bp-small + 1) {
-            display: none;
-        }
-    }
 }
 
 .details-content {
     display: none;
     position: relative;
-    max-height: 300px;
     @include flex-wrap(wrap);
 
     @include bp(max-width, $bp-small) {
@@ -372,18 +442,22 @@ article {
 
     @include bp(min-width, $bp-small + 1) {
         overflow: hidden;
+        max-height: 300px;
 
         .details-wrap.active & {
-            display: block;
+            @include display-flex;
         }
     }
 
     .name-wrap {
+        background-color: #f14f17;
         padding-top: 5px;
+        position: relative;
 
         @include bp(max-width, $bp-small) {
             @include order(1);
 
+            height: 45px;
             margin-bottom: 10px;
             width: 100%;
         }
@@ -414,7 +488,7 @@ article {
 
         @include bp(max-width, $bp-small) {
             @include order(2);
-            width: 85%;
+            width: 50%;
         }
 
         @include bp(min-width, $bp-small + 1) {
@@ -442,9 +516,12 @@ article {
 
     .choice-wrap {
         @include bp(max-width, $bp-small) {
-            @include order(3);
+            @include order(6);
 
-            width: 15%;
+            margin: 20px 0;
+            width: 100%;
+            @include display-flex;
+            @include justify-content(center);
 
             &.empty { display: none; }
         }
@@ -468,7 +545,7 @@ article {
             width: 30px;
 
             @include bp(max-width, $bp-small) {
-                margin: 0 auto 20px;
+                margin: 0 10px;
             }
 
             @include bp(min-width, $bp-small + 1) {
@@ -499,15 +576,17 @@ article {
             border: 0 none;
             height: 0;
             margin-bottom: 0;
-            // width: 0;
+
+            @include bp(max-width, $bp-small) {
+                display: none;
+            }
         }
     }
 
     .price-wrap {
         @include bp(max-width, $bp-small) {
-            position: absolute;
-            top: 10px;
-            left: 10px;
+            @include order(4);
+            float: right;
         }
 
         @include bp(min-width, $bp-small + 1) {
@@ -528,9 +607,11 @@ article {
     .information-wrap {
         @include bp(max-width, $bp-small) {
             @include order(5);
+            float: right;
+            clear: right;
 
             padding: 5px;
-            width: 100%;
+            width: 50%;
 
         }
 
@@ -622,13 +703,16 @@ article {
 }
 
 .options-wrap {
-    overflow-y: scroll;
     height: 100%;
-    padding: 15px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 
-    .active,
-    .selector {
-        display: none;
+    @include bp(max-width, $bp-small) {
+        padding: 5px;
+    }
+
+    @include bp(min-width, $bp-small + 1 ) {
+        padding: 10px;
     }
 }
 
@@ -639,7 +723,7 @@ article {
         align-content: flex-start,
         display: flex,
         flex-wrap: wrap,
-        justify-content: center,
+        justify-content: space-around,
     ));
 
     h3 {
@@ -651,39 +735,18 @@ article {
 
 .option {
     border: 1px solid #ccc;
-    // cursor: pointer;
     display: none;
     position: relative;
-    margin: 5px;
     max-width: 200px;
     min-width: 115px;
     width: 23%;
 
-    &:before {
-        color: $white;
-        font-size: 24px;
-        font-weight: 500;
-        height: 100%;
-        left: 0;
-        letter-spacing: 2px;
-        position: absolute;
-        text-align: center;
-        text-transform: uppercase;
-        top: 0;
-        width: 100%;
-        z-index: 20;
-
-        @include flexbox((
-            display: flex,
-            align-items: center,
-            justify-content: center,
-        ));
+    @include bp(max-width, $bp-small) {
+        margin: 5px;
     }
 
-    &:hover {
-        .outer {
-            display: block;
-        }
+    @include bp(min-width, $bp-small + 1 ) {
+        margin: 5px;
     }
 
     &.blank {
@@ -695,13 +758,15 @@ article {
         @include order(9999 !important);
     }
 
+    &:hover {
+        .outer {
+            @include display-flex;
+        }
+    }
+
     &.clicked {
         outline: 3px solid $black;
         border-color: $black;
-
-        .outer {
-            // display: block;
-        }
     }
 
     &.selected {
@@ -709,22 +774,16 @@ article {
         border-color: $green;
 
         .option-select:after {
-            display: block;
             @include display-flex;
         }
     }
 
     &[data-status="unavailable"] {
-        @include order(9999 !important);
-
         &:before {
-            display: none;
-        }
-
-        .inner:after {
-            background-color: rgba($white, 0.9);
+            background-color: rgba($white, 0.8);
             content: "Out of Stock";
             cursor: default;
+            display: none;
             height: 100%;
             left: 0;
             position: absolute;
@@ -734,14 +793,16 @@ article {
             width: 100%;
             z-index: 10;
 
-            @include flexbox((
-                display: flex,
-                align-items: center,
-                justify-content: center,
-            ));
+            @include display-flex;
+            @include align-items(center);
+            @include justify-content(center);
         }
 
         &:hover {
+            &:before {
+                display: none;
+            }
+
             .option-select {
                 cursor: default;
             }
@@ -757,11 +818,7 @@ article {
                 text-transform: uppercase;
                 width: 100%;
 
-                @include flexbox((
-                    align-items: center,
-                    display: flex,
-                    justify-content: center,
-                ));
+                @include flexcenter;
             }
 
             .inner:after {
@@ -781,22 +838,25 @@ article {
     }
 
     .outer {
+        background-color: rgba($white, 0.75);
         display: none;
+        height: 100%;
+        left: 0;
         position: absolute;
         top: 0;
-        left: 0;
         width: 100%;
-        height: 100%;
-        display: none;
         z-index: 10;
+
+        @include align-items(center);
+        @include justify-content(space-around);
+        @include flex-direction(column);
 
         button {
             border: 0 none;
-            height: 40%;
-            width: 90%;
+            height: 45px;
+            padding: 0 10px;
             position: relative;
-            margin-top: 5%;
-            margin-left: 5%;
+            width: 80%;
         }
     }
 

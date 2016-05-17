@@ -10,14 +10,8 @@ section,
 .content-wrap {
     letter-spacing: 1px;
 
-    section {
-        display: none;
-    }
-
-    @each $section in $sections {
-        &[data-active-section="#{$section}"] section.#{$section}-wrap {
-            display: block;
-        }
+    &[data-active-section="introduction"] .introduction-wrap {
+        display: block;
     }
 }
 
@@ -70,20 +64,5 @@ section,
     .builders-wrap {
         height: 100%;
         z-index: 20;
-    }
-
-    .length-wrap {
-        .length-choice {
-            margin-top: 10px;
-            margin-bottom: 10px;
-
-            &[data-type="patch"] {
-                margin-left: 20px;
-            }
-        }
-
-        .image {
-            max-width: 75px;
-        }
     }
 }

@@ -38,18 +38,7 @@
   </div>
   <div id="content" class="content-wrap">
     <section id="introduction" class="introduction-wrap">
-      <div class="outer">
-        <div class="inner">
-          <h1>Welcome to the cable builder!</h1>
-          <p>Build a cable to the exact specs you want&#8212;cable type, length, plugs, and even options like Techflex and extra protection.</p>
-          <p>Our cables are built with touring musicians in mind. With our Custom Shop cables, you can rest assured that your cables will perform at 100% when it really matters.</p>
-          <p>Anyways, let's get started!</p>
-          <h2>First, let's pick a cable type.</h2>
-          <button tabindex="-1">To Step 1!</button>
-        </div>
-
-        <span class="notice">This service was optimized for use on a desktop computer.</span>
-      </div>
+      <div class="wrap"><button id="start">Start Building</button></div>
     </section>
 
     <section id="production" class="production-wrap">
@@ -90,10 +79,9 @@
 
         <div id="builders" class="builders-wrap">
           <article class="length-wrap" data-component="length">
-            <button class="toggle">X</button>
-
             <div class="header">
               <h1>1. Select <strong>Length</strong></h1>
+              <button class="home"></button>
             </div>
 
             <div class="body">
@@ -132,7 +120,7 @@
                   </div>
                 </div>
 
-                <div class="length-choice" data-type="speaker" data-unit="ft">
+                <!-- <div class="length-choice" data-type="speaker" data-unit="ft">
                   <div class="image">
                     <img class="active" src="builder/images/misc/length/silhouette/instrument-red.png" alt="Speaker Cable">
                     <img class="inactive" src="builder/images/misc/length/silhouette/instrument-gray.png" alt="Speaker Cable">
@@ -145,7 +133,7 @@
                   <div class="desc">
                     <span>4-30 ft</span>
                   </div>
-                </div>
+                </div> -->
               </div>
 
               <div class="rulers">
@@ -153,7 +141,7 @@
 
                 <div class="ruler" data-type="instrument" data-unit="ft" data-min="4" data-max="20" data-init="10"></div>
 
-                <div class="ruler" data-type="speaker" data-unit="ft" data-min="4" data-max="30" data-init="10"></div>
+                <!-- <div class="ruler" data-type="speaker" data-unit="ft" data-min="4" data-max="30" data-init="10"></div> -->
               </div>
 
               <!--<div class="selects">
@@ -179,11 +167,11 @@
                   <label>ft</label>
                 </div>
 
-                <div class="input" data-type="speaker" data-unit="ft" data-min="4" data-max="30" data-init="10">
+                <!-- <div class="input" data-type="speaker" data-unit="ft" data-min="4" data-max="30" data-init="10">
                   <span>Length</span>
                   <input type="text" value="10" maxlength="2">
                   <label>ft</label>
-                </div>
+                </div> -->
               </div>
 
               <button id="length-confirm">Confirm Length</button>
@@ -195,18 +183,13 @@
           </article>
 
           <article class="cable-wrap" data-component="cable">
-            <button class="toggle">X</button>
-
             <div class="header">
               <h1>2. Select <strong>Cable</strong></h1>
+              <button class="home"></button>
             </div>
 
             <div class="body">
               <div id="cable-details-wrap" class="details-wrap">
-                <div class="empty">Click one of the options to see more details</div>
-
-                <button class="control"></button>
-
                 <div class="details-content">
                   <div class="image-wrap">
                     <img id="cable-details-component" class="component" src="" alt="">
@@ -215,18 +198,21 @@
                   <div id="cable-details-choices" class="choice-wrap"></div>
 
                   <div class="name-wrap">
+                    <button class="back"></button>
+
                     <span id="cable-details-manufacturer" class="manufacturer"></span>
                     <span id="cable-details-model" class="model"></span>
+
+                    <button class="home"></button>
                   </div>
 
                   <div class="price-wrap">
-                    <span id="cable-details-price" >$0.00</span>
+                    <span id="cable-details-price">$0.00</span>
                   </div>
 
                   <div id="cable-details-information" class="information-wrap"></div>
 
                   <button class="select-option">Pick Me!</button>
-
                 </div>
               </div>
 
@@ -242,18 +228,13 @@
           </article>
 
           <article class="input-wrap" data-component="input">
-            <button class="toggle">X</button>
-
             <div class="header">
               <h1>3. Select <strong>Input</strong></h1>
+              <button class="home"></button>
             </div>
 
             <div class="body">
               <div id="input-details-wrap" class="details-wrap">
-                <div class="empty">Click one of the options to see more details</div>
-
-                <button class="control"></button>
-
                 <div class="details-content">
                   <div class="image-wrap">
                     <img id="input-details-component" class="component" src="" alt="">
@@ -263,8 +244,12 @@
                   <div id="input-details-choices" class="choice-wrap"></div>
 
                   <div class="name-wrap">
+                    <button class="back"></button>
+
                     <span id="input-details-manufacturer" class="manufacuter"></span>
                     <span id="input-details-model" class="model"></span>
+
+                    <button class="home"></button>
                   </div>
 
                   <div class="price-wrap">
@@ -287,17 +272,13 @@
           </article>
 
           <article class="output-wrap" data-component="output">
-            <button class="toggle">X</button>
-
             <div class="header">
               <h1>4. Select <strong>Output</strong></h1>
+              <button class="home"></button>
             </div>
 
             <div class="body">
               <div id="output-details-wrap" class="details-wrap">
-                <div class="empty">Click one of the options to see more details</div>
-
-                <button class="control"></button>
 
                 <div class="details-content">
                   <div class="image-wrap">
@@ -308,8 +289,12 @@
                   <div id="output-details-choices" class="choice-wrap"></div>
 
                   <div class="name-wrap">
+                    <button class="back"></button>
+
                     <span id="output-details-manufacturer" class="manufacuter"></span>
                     <span id="output-details-model" class="model"></span>
+
+                    <button class="home"></button>
                   </div>
 
                   <div class="price-wrap">
@@ -332,10 +317,9 @@
           </article>
 
           <article class="extra-wrap" data-component="extra">
-            <button class="toggle">X</button>
-
             <div class="header">
               <h1>5. Select <strong>Extra Options</strong></h1>
+              <button class="home"></button>
             </div>
 
             <div class="body">

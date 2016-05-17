@@ -342,7 +342,7 @@
                         $(div)
                             .attr({
                                 'data-value': p,
-                                'data-status': colors[p].status,
+                                'data-choice-status': colors[p].status,
                                 'data-qty': colors[p].qty
                             })
                             .css('background-color', colors[p].color);
@@ -385,16 +385,14 @@
             };
 
             this.setChoice = function(e) {
-                var color = e.target.getAttribute('data-value');
+                var color = e.target.getAttribute('data-value'),
+                    status = e.target.getAttribute('data-choice-status') === 'available' ? true : false,
+                    url;
 
-                if( e.target.getAttribute('data-choice-status') === 'unavailable' ) {
-                    return false;
-                }
-
-                if( color !== this.currentColor ) {
+                if( this.hasChoices && color !== this.currentColor ) {
                     this.currentColor = color;
 
-                    var url = this.getBuilderImageUrl();
+                    url = this.getBuilderImageUrl();
 
                     $('#'+ this.code).find('.component').attr('src', url);
 
@@ -750,13 +748,20 @@
 
         option.html = block;
         block.option = option;
+
+        var order = option.order || 270,
+            status = option.status || 'unavailable';
+
         block.setAttribute('data-component', option.component);
-        block.setAttribute('data-status', option.status || 'unavailable');
+        block.setAttribute('data-status', status);
         block.setAttribute('data-stock', option.stock);
 
-        $block.addClass(option.getAllowanceString()).css('order', option.order);
+        $block.addClass(option.getAllowanceString());
 
-        var selector = $('<input/>', {class: 'selector', type: 'radio', name: option.component + 'Selector'});
+        if( status === 'unavailable' ) {
+            order += 300;
+        }
+        $block.css('order', order);
 
         var hasChoices = option.hasChoices ? $('<div/>', {class: 'hasChoices'}).append($('<span/>', {text: '*'})) : null;
 
@@ -820,7 +825,12 @@
                 break;
 
             case 'length':
-                // data is a length
+                text = [
+                    CURRENT_CABLE.type,
+                    ' ',
+                    CURRENT_CABLE.length.amount,
+                    CURRENT_CABLE.length.unit
+                ].join('');
 
                 OVERVIEW_ELEMENTS.length.textContent = text;
                 break;
@@ -917,8 +927,8 @@
         update: function() {
             var w, h;
 
-            w = $(this.container).width();
-            h = $(this.container).height();
+            w = this.container.width();
+            h = this.container.height();
 
             this.width = w;
             this.height = h;
@@ -1084,14 +1094,20 @@
             $('.dot', '#tracker').on('click', function(e) {
                 step = e.currentTarget.getAttribute('data-pointer-component');
 
+                $('.details-wrap.active').removeClass('active');
+
                 if( body.getAttribute('data-current-step') !== step ) {
                     body.setAttribute('data-current-step', step);
                 }
             });
         })();
 
-        (function() {
-            //
+        (function intro() {
+            $('#introduction').on('click', 'button', function(e) {
+                var parent = e.delegateTarget;
+
+                parent.parentNode.setAttribute('data-active-section', 'production');
+            });
         })();
     },
 
@@ -1302,24 +1318,28 @@
                 }
             });
 
-            _.find('.details-wrap .expand').on('click', function(e) {
-                var parent = $(e.currentTarget).parents('.body');
-
-                if( parent.attr('data-details') === 'hidden' ) {
-                    parent.attr('data-details', 'visible');
-                } else {
-                    parent.attr('data-details', 'hidden');
-                }
-            });
-
-            _.find('.details-wrap .control').on('click', function(e) {
-                var parent = $(e.currentTarget).parent();
+            _.find('.details-wrap .back').on('click', function(e) {
+                var parent = $(e.currentTarget).parents('.details-wrap');
 
                 parent.get(0).option.html.classList.remove('clicked');
 
                 if( parent.hasClass('active') ) {
                     parent.removeClass('active');
                 }
+            });
+
+            _.find('.home').on('click', function(e) {
+                if( e.currentTarget.parentNode.nodeName === 'div' ) {
+                    var parent = $(e.currentTarget).parent();
+
+                    parent.get(0).option.html.classList.remove('clicked');
+
+                    if( parent.hasClass('active') ) {
+                        parent.removeClass('active');
+                    }
+                }
+
+                _id('body').setAttribute('data-current-step', 'closed');
             });
 
             _.find('.option').not('.blank').on('click', '.option-specs', function(e) {
@@ -1336,10 +1356,6 @@
 
             _.find('.option').not('.blank').on('mouseleave', function(e) {
                 this.option.offHoverOption.call(this.option, e);
-            });
-
-            _.find('.toggle').on('click', function() {
-                _id('body').setAttribute('data-current-step', 'closed');
             });
 
             _.find('.select-option').on('click', function() {
@@ -1397,6 +1413,7 @@
                     $('#body').attr('data-length', val);
 
                     updateCost();
+                    updateOverview('length');
                 });
 
                 _.find('.length-wrap .ruler').on('slide', function(e, ui) {
@@ -1412,6 +1429,8 @@
 
                     // update overview
                     updateCost();
+                    updateOverview('length');
+                    updateStatus('length', 'complete');
                 });
 
                 _.find('.length-wrap .input').on('keyup', 'input', function(e) {
@@ -1449,28 +1468,21 @@
                     $('#body').attr('data-length', val);
 
                     updateCost();
+                    updateOverview('length');
+                    updateStatus('length', 'complete');
                 });
 
                 _.find('#length-confirm').on('click', function() {
                     $('#body').attr('data-current-step', 'cable');
-                    $('#tracker .dot[data-pointer-component="length"]').attr('data-status', 'complete');
-                    $(this).parents('.body').addClass('complete');
+                    updateOverview('length');
+                    updateStatus('length', 'complete');
                 });
             })();
 
-            _.find('.extra-wrap input').on('change', function() {
-                var opt = this.name,
-                    type = this.type,
-                    value = null;
+            _.find('.extra-wrap input[type="checkbox"]').on('change', function() {
+                var opt = this.name;
 
-                if( type === 'radio' ) {
-                    value = this.value;
-
-                } else if( type === 'checkbox') {
-                    value = this.checked;
-                }
-
-                CURRENT_CABLE[opt] = value;
+                CURRENT_CABLE[opt] = this.checked;
             });
 
             _.find('.extra-wrap .techflex').on('click', 'label', function(e) {
@@ -1480,11 +1492,34 @@
                     id    = label.htmlFor,
                     input = _id(id),
                     checked = input.checked,
-                    value = !checked ? input.value : null;
+                    value = !checked ? input.value : false;
 
                 input.checked = !checked;
+                CURRENT_CABLE.techflex = value;
+            });
 
-                console.log(value);
+            $(DISPLAY_IMAGES.cable).on('click', function() {
+                $('#body').attr('data-current-step', 'cable');
+
+                if( CURRENT_CABLE.cable ) {
+                    CURRENT_CABLE.cable.showDetails();
+                }
+            });
+
+            $(DISPLAY_IMAGES.input).on('click', function() {
+                $('#body').attr('data-current-step', 'input');
+
+                if( CURRENT_CABLE.input ) {
+                    CURRENT_CABLE.input.showDetails();
+                }
+            });
+
+            $(DISPLAY_IMAGES.output).on('click', function() {
+                $('#body').attr('data-current-step', 'output');
+
+                if( CURRENT_CABLE.output ) {
+                    CURRENT_CABLE.output.showDetails();
+                }
             });
         }
     },
@@ -1494,7 +1529,7 @@
 
         var section = $('body').attr('data-display-introduction') ? 'introduction' : 'production';
         $('#content').attr('data-active-section', section);
-        $('#content').attr('data-active-section', 'production');
+        $('#content').attr('data-active-section', 'introduction');
 
         displayImages.initialize();
         handles();

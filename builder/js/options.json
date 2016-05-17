@@ -7,7 +7,7 @@
         "manufacturer": "Sinasoid Signature",
         "model": "Slate"
       },
-      "price": 5,
+      "price": 4,
       "status": "available",
       "category": "premium",
       "order": 190,
@@ -57,7 +57,7 @@
         "model": "9778"
       },
       "price": 2,
-      "status": "available",
+      "status": "unavailable",
       "category": "standard",
       "order": 20,
       "specs": {
@@ -184,30 +184,33 @@
       "has_colors": true,
       "colors": {
         "black": {
-          "default": true,
           "id": 1647,
-          "color": "black",
+          "color": "#000",
+          "status": "unavailable",
           "qty": 18
         },
         "red": {
           "id": 1649,
-          "color": "red",
+          "color": "#e90d2f",
+          "status": "unavailable",
           "qty": 18
         },
         "orange": {
+          "default": true,
           "id": 1650,
-          "color": "orange",
+          "color": "#ff864f",
+          "status": "available",
           "qty": 18
         },
         "yellow": {
           "id": 1651,
-          "color": "yellow",
+          "color": "#fcf86c",
           "status": "unavailable",
           "qty": 18
         },
         "green": {
           "id": 1652,
-          "color": "green",
+          "color": "#25c265",
           "status": "unavailable",
           "qty": 18
         },
@@ -308,13 +311,13 @@
       "colors": {
         "black": {
           "id": 1647,
-          "color": "black",
+          "color": "#000",
           "qty": 18
         },
         "red": {
           "default": true,
-          "color": "red",
           "id": 1649,
+          "color": "#ff2b3d",
           "qty": 18
         },
         "option_category_id": "149"
@@ -587,107 +590,42 @@
     }
   },
   "plugs": {
-    "SWITCHCRAFT_280": {
+    "G&H_BF2P_G": {
       "name": {
-        "manufacturer": "Switchcraft",
-        "model": "280"
+        "manufacturer": "G&H",
+        "model": "BF2P Gold"
       },
-      "manufacturer": "switchcraft",
-      "model": "280",
-      "price": 4,
-      "status": "available",
-      "category": "straight",
-      "angle": "straight",
-      "connector": "nickel",
-      "series": null,
-      "colors": {
-        "nickel": {
-          "input_option_id": 374,
-          "output_option_id": 382
-        }
-      },
-      "allowance": {
-        "patch": true,
-        "instrument": true,
-        "speaker": false,
-        "xlr": false
-      }
-    },
-
-    "SWITCHCRAFT_380": {
-      "name": {
-        "manufacturer": "Switchcraft",
-        "model": "380"
-      },
-      "manufacturer": "switchcraft",
-      "model": "380",
-      "price": 5,
-      "status": "available",
-      "category": "straight",
-      "angle": "straight",
-      "connector": "nickel",
-      "series": null,
-      "colors": {
-        "nickel": {
-          "input_option_id": 1794,
-          "output_option_id": 1795
-        }
-      },
-      "allowance": {
-        "patch": true,
-        "instrument": true,
-        "speaker": false,
-        "xlr": false
-      }
-    },
-
-    "SWITCHCRAFT_228": {
-      "name": {
-        "manufacturer": "Switchcraft",
-        "model": "228 Pancake"
-      },
-      "manufacturer": "switchcraft",
-      "model": "228",
+      "manufacturer": "g&h",
+      "model": "bf2p",
       "price": 7,
       "status": "available",
-      "category": "right",
-      "angle": "right",
-      "connector": "nickel",
-      "series": null,
-      "colors": {
-        "nickel": {
-          "input_option_id": 373,
-          "output_option_id": 381
-        }
-      },
-      "allowance": {
-        "patch": true,
-        "instrument": true,
-        "speaker": false,
-        "xlr": false
-      }
-    },
-
-    "NEUTRIK_NP2X-B": {
-      "name": {
-        "manufacturer": "Neutrik",
-        "model": "NP2X-B"
-      },
-      "manufacturer": "neutrik",
-      "model": "np2x-b",
-      "price": 9,
-      "status": "available",
       "category": "straight",
-      "angle": "straight",
-      "connector": "gold",
-      "series": "x",
+      "series": "bigfoot",
+      "has_colors": true,
       "colors": {
-        "black": {
-          "input_option_id": 375,
-          "output_option_id": 383
+        "ggg": {
+          "default": true,
+          "input_option_id": 1603,
+          "output_option_id": 1618,
+          "status": "available",
+          "color": "#fff282",
+          "qty": 100
+        },
+        "ngg": {
+          "input_option_id": 1601,
+          "output_option_id": 1616,
+          "status": "available",
+          "color": "#dce4f5",
+          "qty": 100
+        },
+        "bgg": {
+          "input_option_id": 1602,
+          "output_option_id": 1617,
+          "status": "available",
+          "color": "#000",
+          "qty": 100
         }
       },
-      "has_boots": true,
       "allowance": {
         "patch": true,
         "instrument": true,
@@ -696,26 +634,66 @@
       }
     },
 
-    "NEUTRIK_NP2X-WT": {
+    "G&H_BF2P_N": {
       "name": {
-        "manufacturer": "Neutrik",
-        "model": "NP2X-WT"
+        "manufacturer": "G&H",
+        "model": "BF2P Nickel"
       },
-      "manufacturer": "neutrik",
-      "model": "np2x-wt",
+      "manufacturer": "g&h",
+      "model": "bf2p",
+      "price": 6,
+      "status": "available",
+      "category": "straight",
+      "series": "bigfoot",
+      "has_colors": true,
+      "colors": {
+        "nnn": {
+          "default": true,
+          "input_option_id": 2358,
+          "output_option_id": 2359,
+          "status": "available",
+          "color": "#dce4f5",
+          "qty": 100
+        }
+      },
+      "allowance": {
+        "patch": true,
+        "instrument": true,
+        "speaker": true,
+        "xlr": false
+      }
+    },
+
+    "G&H_BF2PM": {
+      "name": {
+        "manufacturer": "G&H",
+        "model": "BF2P High Clarity"
+      },
+      "manufacturer": "g&h",
+      "model": "bf2pm",
       "price": 9,
       "status": "unavailable",
       "category": "straight",
       "angle": "straight",
-      "connector": "nickel",
-      "series": "x",
+      "series": "bigfoot",
+      "has_colors": true,
       "colors": {
-        "silver": {
-          "input_option_id": 2050,
-          "output_option_id": 2051
+        "nnn": {
+          "default": true,
+          "input_option_id": 1812,
+          "output_option_id": 1813,
+          "color": "#dce4f5",
+          "status": "unavailable",
+          "qty": 100
+        },
+        "bnn": {
+          "input_option_id": 1814,
+          "output_option_id": 1815,
+          "color": "#000",
+          "status": "unavailable",
+          "qty": 100
         }
       },
-      "has_boots": false,
       "allowance": {
         "patch": true,
         "instrument": true,
@@ -724,26 +702,40 @@
       }
     },
 
-    "NEUTRIK_NP2RX": {
+    "G&H_RF2P_G": {
       "name": {
-        "manufacturer": "Neutrik",
-        "model": "NP2RX"
+        "manufacturer": "G&H",
+        "model": "RF2P Gold"
       },
-      "manufacturer": "neutrik",
-      "model": "np2rx",
-      "price": 11,
+      "manufacturer": "g&h",
+      "model": "rf2p",
+      "price": 8,
       "status": "available",
       "category": "right",
       "angle": "right",
-      "connector": "nickel",
-      "series": "x",
+      "series": "rightfoot",
+      "has_colors": true,
       "colors": {
-        "nickel": {
-          "input_option_id": 732,
-          "output_option_id": 731
+        "ngg": {
+          "default": true,
+          "input_option_id": 1605,
+          "output_option_id": 1608,
+          "status": "unavailable",
+          "qty": 100
+        },
+        "bgg": {
+          "input_option_id": 1606,
+          "output_option_id": 1609,
+          "status": "unavailable",
+          "qty": 100
+        },
+        "ggg": {
+          "input_option_id": 1607,
+          "output_option_id": 1610,
+          "status": "unavailable",
+          "qty": 100
         }
       },
-      "has_boots": true,
       "allowance": {
         "patch": true,
         "instrument": true,
@@ -752,26 +744,34 @@
       }
     },
 
-    "NEUTRIK_NP2RX-B": {
+    "G&H_RF2P_N": {
       "name": {
-        "manufacturer": "Neutrik",
-        "model": "NP2RX-B"
+        "manufacturer": "G&H",
+        "model": "RF2P Nickel"
       },
-      "manufacturer": "neutrik",
-      "model": "np2rx-b",
-      "price": 11,
-      "status": "available",
+      "manufacturer": "g&h",
+      "model": "rf2p",
+      "price": 8,
+      "status": "unavailable",
       "category": "right",
       "angle": "right",
-      "connector": "gold",
-      "series": "x",
+      "series": "rightfoot",
+      "has_colors": true,
       "colors": {
-        "black": {
-          "input_option_id": 376,
-          "output_option_id": 384
+        "nnn": {
+          "default": true,
+          "input_option_id": 1808,
+          "output_option_id": 1811,
+          "status": "unavailable",
+          "qty": 100
+        },
+        "bnn": {
+          "input_option_id": 1809,
+          "output_option_id": 1810,
+          "status": "unavailable",
+          "qty": 100
         }
       },
-      "has_boots": true,
       "allowance": {
         "patch": true,
         "instrument": true,
@@ -780,58 +780,72 @@
       }
     },
 
-    "NEUTRIK_NP2X-SILENT": {
+    "G&H_WOOD_MAH": {
       "name": {
-        "manufacturer": "Neutrik",
-        "model": "NP2X-Silent"
+        "manufacturer": "G&H",
+        "model": "Mahogany"
       },
-      "manufacturer": "neutrik",
-      "model": "np2x-silent",
-      "price": 16,
+      "manufacturer": "g&h",
+      "model": "mah",
+      "price": 12,
       "status": "available",
       "category": "straight",
-      "angle": "straight",
-      "connector": "gold",
-      "series": "x",
+      "series": "wood",
+      "has_colors": true,
       "colors": {
-        "red": {
-          "input_option_id": 377,
-          "output_option_id": 385
+        "nickel": {
+          "default": true,
+          "input_option_id": 2360,
+          "output_option_id": 2361,
+          "status": "available",
+          "qty": 100
+        },
+        "gold": {
+          "input_option_id": 2362,
+          "output_option_id": 2363,
+          "status": "available",
+          "qty": 100
         }
       },
-      "has_boots": true,
       "allowance": {
         "patch": true,
         "instrument": true,
-        "speaker": false,
+        "speaker": true,
         "xlr": false
       }
     },
 
-    "NEUTRIK_NP2RX-SILENT": {
+    "G&H_WOOD_MAP": {
       "name": {
-        "manufacturer": "Neutrik",
-        "model": "NP2RX-Silent"
+        "manufacturer": "G&H",
+        "model": "Maple"
       },
-      "manufacturer": "neutrik",
-      "model": "np2rx-silent",
-      "price": 20,
+      "manufacturer": "g&h",
+      "model": "map",
+      "price": 12,
       "status": "available",
-      "category": "right",
-      "angle": "right",
-      "connector": "gold",
-      "series": "x",
+      "category": "straight",
+      "series": "wood",
+      "has_colors": true,
       "colors": {
-        "red": {
-          "input_option_id": 378,
-          "output_option_id": 386
+        "nickel": {
+          "default": true,
+          "input_option_id": 2365,
+          "output_option_id": 2364,
+          "status": "available",
+          "qty": 100
+        },
+        "gold": {
+          "input_option_id": 2366,
+          "output_option_id": 2367,
+          "status": "available",
+          "qty": 100
         }
       },
-      "has_boots": true,
       "allowance": {
         "patch": true,
         "instrument": true,
-        "speaker": false,
+        "speaker": true,
         "xlr": false
       }
     },
@@ -843,11 +857,9 @@
       },
       "manufacturer": "neutrik",
       "model": "np2c",
-      "price": 7,
+      "price": 6,
       "status": "available",
       "category": "straight",
-      "angle": "straight",
-      "connector": "nickel",
       "series": "c",
       "colors": {
         "nickel": {
@@ -871,11 +883,9 @@
       },
       "manufacturer": "neutrik",
       "model": "np2c-b",
-      "price": 9,
+      "price": 8,
       "status": "available",
       "category": "straight",
-      "angle": "straight",
-      "connector": "gold",
       "series": "c",
       "colors": {
         "black": {
@@ -899,11 +909,9 @@
       },
       "manufacturer": "neutrik",
       "model": "np2c-bag",
-      "price": 7,
+      "price": 6,
       "status": "available",
       "category": "straight",
-      "angle": "straight",
-      "connector": "nickel",
       "series": "c",
       "colors": {
         "black": {
@@ -912,6 +920,162 @@
         }
       },
       "has_boots": true,
+      "allowance": {
+        "patch": true,
+        "instrument": true,
+        "speaker": true,
+        "xlr": false
+      }
+    },
+
+    "NEUTRIK_NP2X-B": {
+      "name": {
+        "manufacturer": "Neutrik",
+        "model": "NP2X-B"
+      },
+      "manufacturer": "neutrik",
+      "model": "np2x-b",
+      "price": 7.5,
+      "status": "available",
+      "category": "straight",
+      "series": "x",
+      "colors": {
+        "black": {
+          "input_option_id": 375,
+          "output_option_id": 383
+        }
+      },
+      "has_boots": true,
+      "allowance": {
+        "patch": true,
+        "instrument": true,
+        "speaker": true,
+        "xlr": false
+      }
+    },
+
+    "NEUTRIK_NP2RX": {
+      "name": {
+        "manufacturer": "Neutrik",
+        "model": "NP2RX"
+      },
+      "manufacturer": "neutrik",
+      "model": "np2rx",
+      "price": 9,
+      "status": "available",
+      "category": "right",
+      "series": "x",
+      "colors": {
+        "nickel": {
+          "input_option_id": 732,
+          "output_option_id": 731
+        }
+      },
+      "has_boots": true,
+      "allowance": {
+        "patch": true,
+        "instrument": true,
+        "speaker": true,
+        "xlr": false
+      }
+    },
+
+    "NEUTRIK_NP2RX-B": {
+      "name": {
+        "manufacturer": "Neutrik",
+        "model": "NP2RX-B"
+      },
+      "manufacturer": "neutrik",
+      "model": "np2rx-b",
+      "price": 9,
+      "status": "available",
+      "category": "right",
+      "series": "x",
+      "colors": {
+        "black": {
+          "input_option_id": 376,
+          "output_option_id": 384
+        }
+      },
+      "has_boots": true,
+      "allowance": {
+        "patch": true,
+        "instrument": true,
+        "speaker": true,
+        "xlr": false
+      }
+    },
+
+    "NEUTRIK_NP2X-SILENT": {
+      "name": {
+        "manufacturer": "Neutrik",
+        "model": "NP2X-Silent"
+      },
+      "manufacturer": "neutrik",
+      "model": "np2x-silent",
+      "price": 14,
+      "status": "available",
+      "category": "straight",
+      "series": "x",
+      "colors": {
+        "red": {
+          "input_option_id": 377,
+          "output_option_id": 385
+        }
+      },
+      "has_boots": true,
+      "allowance": {
+        "patch": true,
+        "instrument": true,
+        "speaker": false,
+        "xlr": false
+      }
+    },
+
+    "NEUTRIK_NP2RX-SILENT": {
+      "name": {
+        "manufacturer": "Neutrik",
+        "model": "NP2RX-Silent"
+      },
+      "manufacturer": "neutrik",
+      "model": "np2rx-silent",
+      "price": 17,
+      "status": "available",
+      "category": "right",
+      "series": "x",
+      "colors": {
+        "red": {
+          "input_option_id": 378,
+          "output_option_id": 386
+        }
+      },
+      "has_boots": true,
+      "allowance": {
+        "patch": true,
+        "instrument": true,
+        "speaker": false,
+        "xlr": false
+      }
+    },
+
+    "NEUTRIK_NP2X-WT": {
+      "name": {
+        "manufacturer": "Neutrik",
+        "model": "NP2X-WT"
+      },
+      "manufacturer": "neutrik",
+      "model": "np2x-wt",
+      "price": 7.5,
+      "status": "unavailable",
+      "category": "straight",
+      "series": "x",
+      "colors": {
+        "silver": {
+          "input_option_id": 2050,
+          "output_option_id": 2051
+        }
+      },
+      "has_boots": false,
       "allowance": {
         "patch": true,
         "instrument": true,
@@ -930,8 +1094,6 @@
       "price": 16,
       "status": "available",
       "category": "other",
-      "angle": "other",
-      "connector": "nickel",
       "colors": {
         "black": {
           "input_option_id": 2053,
@@ -956,8 +1118,6 @@
       "price": 16,
       "status": "available",
       "category": "other",
-      "angle": "other",
-      "connector": "nickel",
       "colors": {
         "black": {
           "input_option_id": 2055,
@@ -972,142 +1132,77 @@
       }
     },
 
-    "G&H_BF2P": {
+    "SWITCHCRAFT_228": {
       "name": {
-        "manufacturer": "G&H",
-        "model": "BF2P"
+        "manufacturer": "Switchcraft",
+        "model": "228 Pancake"
       },
-      "manufacturer": "g&h",
-      "model": "bf2p",
-      "price": 7,
+      "manufacturer": "switchcraft",
+      "model": "228",
+      "price": 6,
+      "status": "available",
+      "category": "right",
+      "series": null,
+      "colors": {
+        "nickel": {
+          "input_option_id": 373,
+          "output_option_id": 381
+        }
+      },
+      "allowance": {
+        "patch": true,
+        "instrument": true,
+        "speaker": false,
+        "xlr": false
+      }
+    },
+
+    "SWITCHCRAFT_280": {
+      "name": {
+        "manufacturer": "Switchcraft",
+        "model": "280"
+      },
+      "manufacturer": "switchcraft",
+      "model": "280",
+      "price": 3,
       "status": "available",
       "category": "straight",
-      "angle": "straight",
-      "connector": "gold",
-      "series": "straight",
-      "has_colors": true,
+      "series": null,
       "colors": {
-        "ggg": {
-          "default": true,
-          "input_option_id": 1603,
-          "output_option_id": 1618,
-          "status": "available",
-          "color": "gold"
-        },
-        "ngg": {
-          "input_option_id": 1601,
-          "output_option_id": 1616,
-          "status": "available",
-          "color": "nickel"
-        },
-        "bgg": {
-          "input_option_id": 1602,
-          "output_option_id": 1617,
-          "status": "available",
-          "color": "black"
+        "nickel": {
+          "input_option_id": 374,
+          "output_option_id": 382
         }
       },
       "allowance": {
         "patch": true,
         "instrument": true,
-        "speaker": true,
+        "speaker": false,
         "xlr": false
       }
     },
 
-    "G&H_BF2PM": {
+    "SWITCHCRAFT_380": {
       "name": {
-        "manufacturer": "G&H",
-        "model": "BF2P High Clarity"
+        "manufacturer": "Switchcraft",
+        "model": "380"
       },
-      "manufacturer": "g&h",
-      "model": "bf2pm",
-      "price": 9,
-      "status": "unavailable",
+      "manufacturer": "switchcraft",
+      "model": "380",
+      "price": 4,
+      "status": "available",
       "category": "straight",
-      "angle": "straight",
-      "series": "straight",
-      "has_colors": true,
+      "series": null,
       "colors": {
-        "nnn": {
-          "default": true,
-          "input_option_id": 1812,
-          "output_option_id": 1813,
-          "status": "unavailable",
-          "connector": "nickel",
-          "shell": "nickel"
-        },
-        "bnn": {
-          "input_option_id": 1814,
-          "output_option_id": 1815,
-          "status": "unavailable",
-          "connector": "nickel",
-          "shell": "black"
+        "nickel": {
+          "input_option_id": 1794,
+          "output_option_id": 1795
         }
       },
       "allowance": {
         "patch": true,
         "instrument": true,
-        "speaker": true,
-        "xlr": false
-      }
-    },
-
-    "G&H_RF2P": {
-      "name": {
-        "manufacturer": "G&H",
-        "model": "RF2P"
-      },
-      "manufacturer": "g&h",
-      "model": "rf2p",
-      "price": 8,
-      "status": "unavailable",
-      "category": "right",
-      "angle": "right",
-      "series": "straight",
-      "has_colors": true,
-      "colors": {
-        "ggg": {
-          "input_option_id": 1607,
-          "output_option_id": 1610,
-          "status": "unavailable",
-          "connector": "gold",
-          "shell": "gold"
-        },
-        "ngg": {
-          "default": true,
-          "input_option_id": 1605,
-          "output_option_id": 1608,
-          "status": "unavailable",
-          "connector": "gold",
-          "shell": "nickel"
-        },
-        "bgg": {
-          "input_option_id": 1606,
-          "output_option_id": 1609,
-          "status": "unavailable",
-          "connector": "gold",
-          "shell": "black"
-        },
-        "nnn": {
-          "input_option_id": 1808,
-          "output_option_id": 1811,
-          "status": "unavailable",
-          "connector": "nickel",
-          "shell": "nickel"
-        },
-        "bnn": {
-          "input_option_id": 1809,
-          "output_option_id": 1810,
-          "status": "unavailable",
-          "connector": "nickel",
-          "shell": "black"
-        }
-      },
-      "allowance": {
-        "patch": true,
-        "instrument": true,
-        "speaker": true,
+        "speaker": false,
         "xlr": false
       }
     }

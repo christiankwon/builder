@@ -2,10 +2,8 @@
     border-#{$side}: #{$width} solid #{$color};
 }
 
-
 .tracker-wrap {
     background-color: $white;
-    z-index: 10;
 
     > div {
         text-align: center;
@@ -16,9 +14,9 @@
         height: 75px;
         position: absolute;
         width: 100%;
+        z-index: 30;
         @include display-flex;
-        @include flex-direction(row);
-        @include flex-wrap(wrap);
+        @include flex-flow(row wrap);
 
         .dot {
             width: 20%;

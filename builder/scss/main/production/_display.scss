@@ -4,6 +4,15 @@
     position: relative;
     height: 100%;
 
+    @include bp(max-width, $bp-small) {
+        @include justify-content(center);
+        width: 100%;
+    }
+
+    @include bp(min-width, $bp-small + 1) {
+        // width: 50%;
+    }
+
     @include flexbox((
         flex-grow: 1,
         flex-basis: 1

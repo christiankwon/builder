@@ -1,3 +1,8 @@
+.production-wrap {
+    position: relative;
+    z-index: 2000;
+}
+
 @import "production/tracker";
 @import "production/display";
 @import "production/builder";
