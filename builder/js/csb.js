@@ -1490,7 +1490,7 @@
                             C.input.selectOption();
                         }
 
-                        if( C.output && C.output.allowance[type] ) {
+                        if( C.output && !C.output.allowance[type] ) {
                             C.output.selectOption();
                         }
 
