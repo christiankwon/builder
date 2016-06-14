@@ -10,12 +10,12 @@
       "price": 4,
       "status": "available",
       "category": "premium",
-      "order": 190,
+      "order": 1,
       "specs": {
-        "capacitance": "25",
+        "capacitance": 25,
+        "diameter": 0.273,
         "flexibility": "med",
-        "shield": "spiral",
-        "diameter": "0.273"
+        "shield": "spiral"
       },
       "lengths": {
         "option_category_id": 155,
@@ -30,7 +30,7 @@
           "isConsistent": true,
           "start_num": 3,
           "end_num": 20,
-           "start_id": 1864,
+          "start_id": 1864,
           "end_id": 1881
         }
       },
@@ -61,10 +61,10 @@
       "category": "standard",
       "order": 20,
       "specs": {
-        "capacitance": "44",
+        "capacitance": 44,
+        "diameter": 0.23,
         "flexibility": "med",
-        "shield": "spiral",
-        "diameter": "0.23"
+        "shield": "spiral"
       },
       "lengths": {
         "option_category_id": 73,
@@ -110,10 +110,10 @@
       "category": "standard",
       "order": 30,
       "specs": {
-        "capacitance": "47",
+        "capacitance": 47,
+        "diameter": 0.157,
         "flexibility": "high",
-        "shield": "braided",
-        "diameter": "0.157"
+        "shield": "braided"
       },
       "lengths": {
         "option_category_id": 195,
@@ -154,15 +154,15 @@
         "manufacturer": "Canare",
         "model": "GS-6"
       },
-      "price": 2.5,
-      "status": "available",
+      "price": 2,
+      "status": "unavailable",
       "category": "standard",
       "order": 31,
       "specs": {
-        "capacitance": "49",
+        "capacitance": 49,
+        "diameter": 0.227,
         "flexibility": "high",
-        "shield": "braided",
-        "diameter": "0.227"
+        "shield": "braided"
       },
       "lengths": {
         "option_category_id": 75,
@@ -199,7 +199,7 @@
           "default": true,
           "id": 1650,
           "color": "#ff864f",
-          "status": "available",
+          "status": "unavailable",
           "qty": 18
         },
         "yellow": {
@@ -231,15 +231,15 @@
         "manufacturer": "Canare",
         "model": "L-4E6S"
       },
-      "price": 3.5,
+      "price": 3,
       "status": "available",
       "category": "standard",
       "order": 32,
       "specs": {
-        "capacitance": "49",
+        "capacitance": 49,
+        "diameter": 0.231,
         "flexibility": "high",
-        "shield": "braided",
-        "diameter": "0.231"
+        "shield": "braided"
       },
       "lengths": {
         "option_category_id": 76,
@@ -273,6 +273,108 @@
       }
     },
 
+    "CSB_EVIA_MNRL": {
+      "manufacturer": "evidence-audio",
+      "model": "monorail",
+      "name": {
+        "manufacturer": "Evidence Audio",
+        "model": "Monorail"
+      },
+      "price": 3,
+      "status": "unavailable",
+      "category": "premium",
+      "order": 131,
+      "specs": {
+        "capacitance": 23,
+        "diameter": 0.155,
+        "flexibility": "low",
+        "shield": "spiral"
+      },
+      "lengths": {
+        "option_category_id": 72,
+        "patch": {
+          "isConsistent": true,
+          "start_num": 1,
+          "end_num": 48,
+          "start_id": 1156,
+          "end_id": 1203
+        },
+        "instrument": {
+          "isConsistent": true,
+          "start_num": 3,
+          "end_num": 20,
+          "start_id": 1204,
+          "end_id": 1221
+        }
+      },
+      "has_colors": false,
+      "colors": {
+        "red": {
+          "id": null,
+          "qty": 32
+        }
+      },
+      "allowance": {
+        "patch": true,
+        "instrument": false,
+        "speaker": false,
+        "xlr": false
+      }
+    },
+
+    "CSB_EVIA_MLDY": {
+      "manufacturer": "evidence-audio",
+      "model": "melody",
+      "name": {
+        "manufacturer": "Evidence Audio",
+        "model": "Melody"
+      },
+      "price": 5,
+      "status": "unavailable",
+      "category": "premium",
+      "order": 130,
+      "specs": {
+        "capacitance": 28,
+        "diameter": 0.254,
+        "flexibility": "low",
+        "shield": "spiral"
+      },
+      "lengths": {
+        "option_category_id": 71,
+        "patch": {
+          "isConsistent": true,
+          "start_num": 1,
+          "end_num": 48,
+          "start_id": 1090,
+          "end_id": 1137
+        },
+        "instrument": {
+          "isConsistent": true,
+          "start_num": 3,
+          "end_num": 20,
+          "start_id": 1138,
+          "end_id": 1155
+        }
+      },
+      "has_colors": false,
+      "colors": {
+        "black": {
+          "id": null,
+          "qty": 90
+        },
+        "blue": {
+          "id": null,
+          "qty": 90
+        }
+      },
+      "allowance": {
+        "patch": true,
+        "instrument": true,
+        "speaker": false,
+        "xlr": false
+      }
+    },
+
     "CSB_GTHM_GAC-1_UP": {
       "manufacturer": "gotham",
       "model": "gac-1-ultra-pro",
@@ -280,15 +382,15 @@
         "manufacturer": "Gotham",
         "model": "GAC-1 Ultra Pro"
       },
-      "price": 2,
+      "price": 1.5,
       "status": "available",
       "category": "standard",
       "order": 70,
       "specs": {
-        "capacitance": "21",
+        "capacitance": 21,
+        "diameter": 0.241,
         "flexibility": "high",
-        "shield": "spiral",
-        "diameter": "0.241"
+        "shield": "spiral"
       },
       "lengths": {
         "option_category_id": 74,
@@ -338,14 +440,14 @@
         "model": "GAC-1"
       },
       "price": 1,
-      "status": "unavailable",
+      "status": "available",
       "category": "standard",
       "order": 71,
       "specs": {
-        "capacitance": "44",
+        "capacitance": 44,
+        "diameter": 0.211,
         "flexibility": "high",
-        "shield": "spiral",
-        "diameter": "0.211"
+        "shield": "spiral"
       },
       "lengths": {
         "option_category_id": 79,
@@ -391,10 +493,10 @@
       "category": "standard",
       "order": 72,
       "specs": {
-        "capacitance": "57",
+        "capacitance": 57,
+        "diameter": 0.216,
         "flexibility": "high",
-        "shield": "spiral",
-        "diameter": "0.216"
+        "shield": "spiral"
       },
       "lengths": {
         "option_category_id": 80,
@@ -428,98 +530,143 @@
       }
     },
 
-    "CSB_EVIA_MNRL": {
-      "manufacturer": "evidence-audio",
-      "model": "monorail",
+    "CSB_LAKE_AVB20UGC": {
+      "manufacturer": "lake",
+      "model": "avb20ugc",
       "name": {
-        "manufacturer": "Evidence Audio",
-        "model": "Monorail"
+        "manufacturer": "Lake",
+        "model": "AVB20UGC"
       },
-      "price": 3,
-      "status": "unavailable",
-      "category": "premium",
-      "order": 131,
+      "price": 2,
+      "status": "available",
+      "category": "standard",
+      "order": 120,
       "specs": {
-        "capacitance": "23",
+        "capacitance": 22,
+        "diameter": 0.229,
         "flexibility": "low",
-        "shield": "spiral",
-        "diameter": "0.155"
+        "shield": "double braid"
       },
       "lengths": {
-        "option_category_id": 72,
+        "option_category_id": 201,
         "patch": {
           "isConsistent": true,
           "start_num": 1,
           "end_num": 48,
-          "start_id": 1156,
-          "end_id": 1203
+          "start_id": 2292,
+          "end_id": 2339
         },
         "instrument": {
           "isConsistent": true,
           "start_num": 3,
           "end_num": 20,
-          "start_id": 1204,
-          "end_id": 1221
-        }
-      },
-      "has_colors": false,
-      "colors": {
-        "red": {
-          "id": null,
-          "qty": 32
-        }
-      },
-      "allowance": {
-        "patch": true,
-        "instrument": false,
-        "speaker": false,
-        "xlr": false
-      }
-    },
-
-    "CSB_EVIA_MLDY": {
-      "manufacturer": "evidence-audio",
-      "model": "melody",
-      "name": {
-        "manufacturer": "Evidence Audio",
-        "model": "Melody"
-      },
-      "price": 5,
-      "status": "unavailable",
-      "category": "premium",
-      "order": 130,
-      "specs": {
-        "capacitance": "28",
-        "flexibility": "low",
-        "shield": "spiral",
-        "diameter": "0.254"
-      },
-      "lengths": {
-        "option_category_id": 71,
-        "patch": {
-          "isConsistent": true,
-          "start_num": 1,
-          "end_num": 48,
-          "start_id": 1090,
-          "end_id": 1137
-        },
-        "instrument": {
-          "isConsistent": true,
-          "start_num": 3,
-          "end_num": 20,
-          "start_id": 1138,
-          "end_id": 1155
+          "start_id": 2340,
+          "end_id": 2357
         }
       },
       "has_colors": false,
       "colors": {
         "black": {
           "id": null,
-          "qty": 90
+          "qty": 200
+        }
+      },
+      "allowance": {
+        "patch": true,
+        "instrument": true,
+        "speaker": false,
+        "xlr": false
+      }
+    },
+
+    "CSB_MGMI_2319": {
+      "manufacturer": "mogami",
+      "model": "2319",
+      "name": {
+        "manufacturer": "Mogami",
+        "model": "2319"
+      },
+      "price": 1,
+      "status": "available",
+      "category": "standard",
+      "order": 130,
+      "specs": {
+        "capacitance": 47,
+        "diameter": 0.197,
+        "flexibility": "high",
+        "shield": "spiral"
+      },
+      "lengths": {
+        "option_category_id": 199,
+        "patch": {
+          "isConsistent": true,
+          "start_num": 1,
+          "end_num": 48,
+          "start_id": 2160,
+          "end_id": 2207
         },
-        "blue": {
+        "instrument": {
+          "isConsistent": true,
+          "start_num": 3,
+          "end_num": 20,
+          "start_id": 2208,
+          "end_id": 2225
+        }
+      },
+      "has_colors": false,
+      "colors": {
+        "black": {
           "id": null,
-          "qty": 90
+          "qty": 200
+        }
+      },
+      "allowance": {
+        "patch": true,
+        "instrument": true,
+        "speaker": false,
+        "xlr": false
+      }
+    },
+
+    "CSB_MGMI_2524": {
+      "manufacturer": "mogami",
+      "model": "2524",
+      "name": {
+        "manufacturer": "Mogami",
+        "model": "2524"
+      },
+      "price": 1.5,
+      "status": "available",
+      "category": "standard",
+      "order": 131,
+      "specs": {
+        "capacitance": 40,
+        "diameter": 0.239,
+        "flexibility": "med",
+        "shield": "spiral"
+      },
+      "lengths": {
+        "option_category_id": 200,
+        "patch": {
+          "isConsistent": true,
+          "start_num": 1,
+          "end_num": 48,
+          "start_id": 2226,
+          "end_id": 2273
+        },
+        "instrument": {
+          "isConsistent": true,
+          "start_num": 3,
+          "end_num": 20,
+          "start_id": 2274,
+          "end_id": 2291
+        }
+      },
+      "has_colors": false,
+      "colors": {
+        "black": {
+          "id": null,
+          "qty": 200
         }
       },
       "allowance": {
@@ -542,10 +689,10 @@
       "category": "standard",
       "order": 220,
       "specs": {
-        "capacitance": "25",
+        "capacitance": 25,
+        "diameter": 0.235,
         "flexibility": "high",
-        "shield": "spiral",
-        "diameter": "0.235"
+        "shield": "spiral"
       },
       "lengths": {
         "option_category_id": 78,
@@ -672,7 +819,7 @@
       "manufacturer": "g&h",
       "model": "bf2pm",
       "price": 9,
-      "status": "unavailable",
+      "status": "available",
       "category": "straight",
       "angle": "straight",
       "series": "bigfoot",
@@ -683,14 +830,14 @@
           "input_option_id": 1812,
           "output_option_id": 1813,
           "color": "#dce4f5",
-          "status": "unavailable",
+          "status": "available",
           "qty": 100
         },
         "bnn": {
           "input_option_id": 1814,
           "output_option_id": 1815,
           "color": "#000",
-          "status": "unavailable",
+          "status": "available",
           "qty": 100
         }
       },
@@ -720,19 +867,19 @@
           "default": true,
           "input_option_id": 1605,
           "output_option_id": 1608,
-          "status": "unavailable",
+          "status": "available",
           "qty": 100
         },
         "bgg": {
           "input_option_id": 1606,
           "output_option_id": 1609,
-          "status": "unavailable",
+          "status": "available",
           "qty": 100
         },
         "ggg": {
           "input_option_id": 1607,
           "output_option_id": 1610,
-          "status": "unavailable",
+          "status": "available",
           "qty": 100
         }
       },
@@ -752,7 +899,7 @@
       "manufacturer": "g&h",
       "model": "rf2p",
       "price": 8,
-      "status": "unavailable",
+      "status": "available",
       "category": "right",
       "angle": "right",
       "series": "rightfoot",
@@ -762,13 +909,13 @@
           "default": true,
           "input_option_id": 1808,
           "output_option_id": 1811,
-          "status": "unavailable",
+          "status": "available",
           "qty": 100
         },
         "bnn": {
           "input_option_id": 1809,
           "output_option_id": 1810,
-          "status": "unavailable",
+          "status": "available",
           "qty": 100
         }
       },
@@ -1066,7 +1213,7 @@
       "manufacturer": "neutrik",
       "model": "np2x-wt",
       "price": 7.5,
-      "status": "unavailable",
+      "status": "available",
       "category": "straight",
       "series": "x",
       "colors": {
