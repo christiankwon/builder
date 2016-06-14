@@ -844,24 +844,24 @@
             case 'input':
             case 'output':
                 // data is an option
-                text = data.getFullName();
+                text = data.isSelected() ? data.getFullName() : '';
 
                 OVERVIEW_ELEMENTS[component].textContent = text;
                 break;
 
             case 'length':
                 text = [
-                    CURRENT_CABLE.type,
-                    ' ',
                     CURRENT_CABLE.length.amount,
-                    CURRENT_CABLE.length.unit
+                    CURRENT_CABLE.length.unit,
+                    ' ',
+                    CURRENT_CABLE.type
                 ].join('');
 
                 OVERVIEW_ELEMENTS.length.textContent = text;
                 break;
 
             case 'extras':
-                console.log(CURRENT_CABLE);
+                OVERVIEW_ELEMENTS.extras.textContent = CURRENT_CABLE.getExtraOptions();
                 break;
 
             default:
