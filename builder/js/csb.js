@@ -499,8 +499,8 @@
             this.component    = data.component;
             this.series       = data.series;
             this.angle        = data.angle;
-            this.hasColor     = data.has_colors;
-            this.hasBoot      = data.has_boots;
+            this.hasColor     = data.has_colors || false;
+            this.hasBoot      = data.has_boots || false;
             this.hasChoices   = data.has_colors || data.has_boots;
             this.colors       = data.colors;
             this.currentColor = data.currentColor;
