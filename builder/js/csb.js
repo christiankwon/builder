@@ -57,7 +57,7 @@
         INPUT_PLUG_OPTION_CATEGORY_ID  = 64,
         OUTPUT_PLUG_OPTION_CATEGORY_ID = 65,
 
-        TECHFLEX_COST = 0.50,
+        TECHFLEX_COST = 0.45,
         TOURPROOF_COST = 3,
 
         TOUCH = Modernizr.touch,
