@@ -909,13 +909,175 @@
         el.textContent = '$' + CURRENT_CABLE.getPrice().formatMoney();
     };
 
-    var updateConfirmation = function() {
-        var ul = _id('final-build');
+    var confirmation = {
+        check: function() {
+            var cc = CURRENT_CABLE;
 
-        var cable = _ce('li');
-            // cable.textContent = CURRENT_CABLE.cable.
+            if( !cc.cable ) {
+                return false;
+            } else if( !cc.input ) {
+                return false;
+            } else if( !cc.output ) {
+                return false;
+            }
 
-        $('#final-price').text(CURRENT_CABLE.getPrice().formatMoney());
+            return true;
+        },
+
+        update: function() {
+            var cc = CURRENT_CABLE;
+
+            _id('final-cable').textContent  = cc.length.amount.toString() + cc.length.unit + ' ' + cc.cable.getFullName();
+            _id('final-input').textContent  = cc.input.getFullName();
+            _id('final-output').textContent = cc.output.getFullName();
+            _id('final-extra').textContent  = cc.getExtraOptions();
+
+            $('#final-price').text(CURRENT_CABLE.getPrice().formatMoney());
+        },
+
+        go: function() {
+            if( this.check() ) {
+                this.update();
+                this.show();
+            } else {
+                this.error();
+            }
+        },
+
+        error: function() {
+            console.log("INCOMPLETE");
+            // find all incomplete fields
+            // return array? or display errors?
+        },
+
+        show: function() {
+            _id('content').setAttribute('data-active-section', 'confirmation');
+        },
+
+        price: function() {
+            var per = CURRENT_CABLE.getPrice(),
+                qty = _id('final-qty').value;
+
+            _id('final-price').textContent = (per * qty).formatMoney();
+        },
+
+        checkout: function() {
+            var _getOptionName = function(type, cable, opt_cat_id, opt_id) {
+                var name = "";
+
+                switch(type) {
+                    case 'select':
+                    case 'check':
+                    case 'checkbox':
+                        name = "SELECT___" + cable + "___" + opt_cat_id;
+                        break;
+
+                    case 'text':
+                    case 'textbox':
+                        name = "TEXTBOX___" + opt_id + "___" + cable + "___" + opt_cat_id;
+                        break;
+                }
+                return name;
+            };
+
+            var _getCableLengthId = function() {
+                var cable  = cc.cable,
+                    type   = cc.type,
+                    length = cc.length.amount,
+                    lengths = cable.lengths[type];
+
+                if( lengths.isConsistent ) {
+                    if( length >= lengths.start_num && length <= lengths.end_num ) {
+                        return lengths.start_id + (length - lengths.start_num);
+                    }
+                }
+            };
+
+            // add pending to checkout button and disable it
+
+            var cc = CURRENT_CABLE;
+
+            var cable  = cc.cable,
+                input  = cc.input,
+                output = cc.output;
+
+            var code = cable.code;
+
+            // set default values for unknown variables
+            var Post = {
+                'ProductCode': code,
+                'ReplaceCartID':'',
+                'ReturnTo':'',
+                'btnaddtocart.x':'5',
+                'btnaddtocart.y':'5',
+                'e':''
+            };
+
+            // set Quantity
+            Post['QTY.' + code] = _id('final-qty').value;
+
+            // set Cable and Cable Color
+            Post[_getOptionName('select', code, cable.lengths.option_category_id)] = _getCableLengthId();
+
+            if( cable.hasChoices ) {
+                Post[_getOptionName('select', code, cable.colors.option_category_id)] = cable.colors[cc.cable.currentColor].id;
+            }
+
+            // set Input Plug and Inpug Plug Choice
+            if( input.hasColor ) {
+                Post[_getOptionName('select', code, INPUT_PLUG_OPTION_CATEGORY_ID)] = input.colors[input.currentColor].input_option_id;
+
+            } else {
+                Post[_getOptionName('select', code, INPUT_PLUG_OPTION_CATEGORY_ID)] = input.colors[Object.keys(input.colors)[0]].input_option_id;
+
+                if( input.hasBoot) {
+                    Post[_getOptionName('select', code, J_BOOTS[input.manufacturer][input.series].input_option_category_id)] = J_BOOTS[input.manufacturer][input.series].boot[input.currentBoot].input_option_id;
+                }
+            }
+
+            // set Output Plug and Output Plug Choice
+            if( output.hasColor ) {
+                Post[_getOptionName('select', code, OUTPUT_PLUG_OPTION_CATEGORY_ID)] = output.colors[output.currentColor].output_option_id;
+
+            } else {
+                Post[_getOptionName('select', code, OUTPUT_PLUG_OPTION_CATEGORY_ID)] = output.colors[Object.keys(output.colors)[0]].output_option_id;
+
+                if( output.hasBoot) {
+                    Post[_getOptionName('select', code, J_BOOTS[output.manufacturer][output.series].input_option_category_id)] = J_BOOTS[output.manufacturer][output.series].boot[output.currentBoot].output_option_id;
+                }
+            }
+
+            if( cc.techflex ) {
+                Post[_getOptionName('select', code, J_OTHER.techflex.option_category_id)] = J_OTHER.techflex.colors[cc.techflex].id;
+
+                Post[_getOptionName('select', code, J_OTHER.techflex.length.option_category_id)] = J_OTHER.techflex.length['feet_' + (cc.type === 'patch' ? Math.floor((cc.length.amount - 1) / 12) + 1 : cc.length.amount)];
+            }
+
+            if( cc.tourproof ) {
+                Post[_getOptionName('select', code, J_OTHER.tourproof.option_category_id)] = J_OTHER.tourproof.option_id;
+            }
+
+            if( cc.reverse_plugs ) {
+                Post[_getOptionName('select', code, J_OTHER.reverse_plugs.option_category_id)] = J_OTHER.reverse_plugs.option_id;
+            }
+
+            $.ajax({
+                url:'/ProductDetails.asp?ProductCode=' + code + '&AjaxError=Y',
+                type: 'POST',
+                cache: false,
+                data: $.param(Post),
+                processData: false,
+                dataType: 'text',
+            }).done(function() {
+                // $('#confirmation').removeClass('pending').addClass('complete');
+                // window.location.href = "/ShoppingCart.asp";
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                // $('#confirmation').addClass('error');
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+            });
+        }
     };
 
     var resetBuilder = function() {
@@ -1147,7 +1309,17 @@
                 } else if( e.keyCode == 39 ) { // right
                     article = $('article[data-component="' + current + '"]').next();
 
-                    if( temp.length ) body.setAttribute('data-current-step', temp.attr('data-component'));
+                    if( article.length ) {
+                        next = article.attr('data-component');
+                    } else {
+                        confirmation.go();
+                    }
+                }
+
+                if( next.length ) {
+                    if( _id('content').getAttribute('data-active-section') === 'production' ) {
+                        changeStep(next, current);
+                    }
                 }
             });
         })();
@@ -1157,6 +1329,8 @@
                 current, step;
 
             $('.dot', '#tracker').on('click', function(e) {
+                current = body.getAttribute('data-current-step');
+
                 step = e.currentTarget.getAttribute('data-pointer-component');
 
                 $('.details-wrap.active').removeClass('active');
@@ -1168,12 +1342,48 @@
         })();
 
         (function intro() {
-            $('#introduction').on('click', 'button', function(e) {
-                var parent = e.delegateTarget;
-
-                parent.parentNode.setAttribute('data-active-section', 'production');
+            $('#introduction').on('click', function() {
+                _id('content').setAttribute('data-active-section', 'production');
             });
         })();
+
+        (function confirmationHandles() {
+            $('.return-wrap.return-button', '#confirmation').on('click', function() {
+                _id('content').setAttribute('data-active-section', 'production');
+            });
+
+            $('#checkout').on('click', function() {
+                confirmation.checkout();
+            });
+
+            $('#final-qty').on({
+                keyup: function(e) {
+                    var input, value;
+
+                    input = e.target;
+                    value = input.value.split('.')[0].replace(/\D/g, '');
+
+                    input.value = value;
+
+                    confirmation.price();
+                }, blur: function(e) {
+                    var input, value;
+
+                    input = e.target;
+                    value = +input.value;
+
+                    if( !value || value < 1 ) value = 1;
+
+                    input.value = value;
+
+                    confirmation.price();
+                }
+            });
+        })();
+
+        $('#review').on('click', function() {
+            confirmation.go()
+        });
     },
 
     build = {
