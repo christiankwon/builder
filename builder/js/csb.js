@@ -167,6 +167,27 @@
 
                 return total;
             };
+            this.getExtraOptions = function() {
+                var str = '';
+
+                if( this.techflex ) {
+                    str += this.techflex + ' Techflex'
+                }
+
+                if( this.tourproof ) {
+                    if( str ) { str += '; ' }
+
+                    str += 'Tourproof'
+                }
+
+                if( this.reverse_plugs ) {
+                    if( str ) { str += '; ' }
+
+                    str += 'Reversed Plugs'
+                }
+
+                return str;
+            };
         },
 
         Option = function(data) {
