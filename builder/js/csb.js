@@ -428,21 +428,25 @@
                 };
 
                 var color = e.target.getAttribute('data-value'),
-                    status = e.target.getAttribute('data-choice-status') === 'available' ? true : false,
-                    url;
+                    status = _getStatus(),
+                    option = e.target.option;
 
                 if( this.hasChoices && color !== this.currentColor ) {
                     this.currentColor = color;
 
-                    url = this.getBuilderImageUrl();
-
-                    $('#'+ this.code).find('.component').attr('src', url);
+                    var url = this.getBuilderImageUrl();
 
                     this.detailsWrap.img_component.attr('src', url);
 
-                    if( CURRENT_CABLE.cable &&
+                    if( status ) {
+                        $('#'+ this.code).find('.component').attr('src', url);
+                    }
+
+                    if( status && CURRENT_CABLE.cable &&
                         CURRENT_CABLE.cable.code === this.code ) {
                         DISPLAY_IMAGES.cable.src = this.getDisplayImageUrl();
+
+                        updateOverview(this.component, this);
                     }
                 }
 
