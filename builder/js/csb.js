@@ -1392,6 +1392,19 @@
             });
 
             (function _lengthHandles() {
+                var _updateLength = function(val) {
+                    if( val ) {
+                        CURRENT_CABLE.length.amount = val;
+
+                        $('#body').attr('data-length', val);
+                    }
+
+                    updateCost();
+                    updateOverview('length');
+                    updateStatus('length', 'complete');
+                    _updateCableStatus(val);
+                };
+
                 _.find('.length-wrap .length-choice').on('click', 'img', function(e) {
                     var type = e.delegateTarget.getAttribute('data-type'),
                         val = $('.input[data-type="' + type + '"] input').val();
@@ -1434,11 +1447,7 @@
                         displayImages.initialize();
                     }
 
-                    //
-                    $('#body').attr('data-length', val);
-
-                    updateCost();
-                    updateOverview('length');
+                    _updateLength(val);
                 });
 
                 _.find('.length-wrap .ruler').on('slide', function(e, ui) {
@@ -1449,13 +1458,7 @@
                     // update input
                     this.input.value = val;
 
-                    //
-                    $('#body').attr('data-length', val);
-
-                    // update overview
-                    updateCost();
-                    updateOverview('length');
-                    updateStatus('length', 'complete');
+                    _updateLength(val);
                 });
 
                 _.find('.length-wrap .input').on('keyup', 'input', function(e) {
@@ -1465,9 +1468,7 @@
                     el.value = val;
                     el.ruler.slider('value', val);
 
-                    $('#body').attr('data-length', val);
-
-                    updateCost();
+                    _updateLength(val);
                 });
 
                 _.find('.length-wrap .input').on('blur', 'input', function(e) {
@@ -1487,20 +1488,13 @@
 
                     el.value = val;
                     el.ruler.slider('value', val);
-                    CURRENT_CABLE.length.amount = val;
 
-                    //
-                    $('#body').attr('data-length', val);
-
-                    updateCost();
-                    updateOverview('length');
-                    updateStatus('length', 'complete');
+                    _updateLength(val);
                 });
 
                 _.find('#length-confirm').on('click', function() {
                     $('#body').attr('data-current-step', 'cable');
-                    updateOverview('length');
-                    updateStatus('length', 'complete');
+                    _updateLength();
                 });
             })();
 
