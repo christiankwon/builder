@@ -1487,6 +1487,9 @@
                 var opt = this.name;
 
                 CURRENT_CABLE[opt] = this.checked;
+                updateOverview('extras');
+                updateStatus('extras', 'complete');
+                updateCost();
             });
 
             _.find('.extra-wrap .techflex').on('click', 'label', function(e) {
@@ -1500,6 +1503,9 @@
 
                 input.checked = !checked;
                 CURRENT_CABLE.techflex = value;
+                updateOverview('extras');
+                updateStatus('extras', 'complete');
+                updateCost();
             });
 
             $(DISPLAY_IMAGES.cable).on('click', function() {
