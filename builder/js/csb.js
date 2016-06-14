@@ -410,6 +410,23 @@
             };
 
             this.setChoice = function(e) {
+                var _getStatus = function() {
+                    var status = true;
+
+                    var target = e.target,
+                        option = target.option;
+
+                    if( target.getAttribute('data-choice-status') !== 'available' ) {
+                        status = false;
+                    }
+
+                    if( option.colors[color].qty < CURRENT_CABLE.length.amount ) {
+                        status = false;
+                    }
+
+                    return status;
+                };
+
                 var color = e.target.getAttribute('data-value'),
                     status = e.target.getAttribute('data-choice-status') === 'available' ? true : false,
                     url;
