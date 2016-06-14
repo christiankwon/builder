@@ -26,9 +26,13 @@
 
         CURRENT_VERSION = 3,
 
-        DEFAULT_CABLE_TYPE         = 'instrument',
-        DEFAULT_LENGTH             = 10,
-        DEFAULT_UNIT               = 'ft',
+        DEFAULT_CABLE_TYPE         = 'patch',
+        DEFAULT_LENGTH             = 12,
+        DEFAULT_UNIT               = 'in',
+
+        // DEFAULT_CABLE_TYPE         = 'regular',
+        // DEFAULT_LENGTH             = 10,
+        // DEFAULT_UNIT               = 'ft',
 
         DEFAULT_PLUG_HEIGHT        = 300,
         DEFAULT_PLUG_WIDTH         = 180,
