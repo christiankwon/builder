@@ -863,7 +863,7 @@
         $('#final-price').text(CURRENT_CABLE.getPrice().formatMoney());
     };
 
-    var reset = function() {
+    var resetBuilder = function() {
         $('#loader').fadeIn(50);
 
         DISPLAY_IMAGES.cable.src  = BLANK_IMAGE[DEFAULT_CABLE_TYPE];
@@ -1535,7 +1535,7 @@
     },
 
     initialSetup = function() {
-        reset();
+        resetBuilder();
 
         var section = $('body').attr('data-display-introduction') ? 'introduction' : 'production';
         $('#content').attr('data-active-section', section);
