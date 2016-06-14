@@ -1367,20 +1367,31 @@
                 _id('body').setAttribute('data-current-step', 'closed');
             });
 
-            _.find('.option').not('.blank').on('click', '.option-specs', function(e) {
-                e.delegateTarget.option.showDetails();
-            });
+            _.find('.option').not('.blank').on({
+                click: function(e) {
+                    if( e.target.parentNode.className === 'outer' ) {
+                        switch( e.target.className ) {
+                            case 'option-specs':
+                                e.delegateTarget.option.showDetails();
+                                break;
 
-            _.find('.option').not('.blank').on('click', '.option-select', function(e) {
-                e.delegateTarget.option.selectOption();
-            });
+                            case 'option-select':
+                                e.delegateTarget.option.selectOption();
+                                break;
 
-            _.find('.option').not('.blank').on('mouseenter', function(e) {
-                this.option.onHoverOption.call(this.option, e);
-            });
+                            default:
+                                break;
+                        }
+                    }
+                },
 
-            _.find('.option').not('.blank').on('mouseleave', function(e) {
-                this.option.offHoverOption.call(this.option, e);
+                mouseenter: function(e) {
+                    this.option.onHoverOption.call(this.option, e);
+                },
+
+                mouseleave: function(e) {
+                    this.option.offHoverOption.call(this.option, e);
+                }
             });
 
             _.find('.select-option').on('click', function() {
