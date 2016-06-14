@@ -837,6 +837,19 @@
         return block;
     };
 
+    var changeStep = (function() {
+        var b = _id('body');
+
+        return function(next, prev) {
+            if( prev === 'length' ) {
+                updateOverview('length');
+                updateStatus('length', 'complete');
+            }
+
+            b.setAttribute('data-current-step', next);
+        };
+    })();
+
     var updateStatus = (function() {
         var t = _id('tracker');
 
