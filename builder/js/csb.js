@@ -1585,6 +1585,12 @@
 
                 } else if( e.currentTarget.className === 'builder-next' ) {
                     next = article.next();
+
+                    if( !next.length ) {
+                        confirmation.go();
+
+                        return false;
+                    }
                 }
 
                 if( next.length ) {
