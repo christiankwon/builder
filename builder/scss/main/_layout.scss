@@ -13,6 +13,16 @@ section,
     &[data-active-section="introduction"] .introduction-wrap {
         display: block;
     }
+
+    &[data-active-section="confirmation"] {
+        section {
+            display: none;
+        }
+
+        .confirmation-wrap {
+            display: block;
+        }
+    }
 }
 
 .body-wrap {
