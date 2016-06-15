@@ -947,15 +947,21 @@
         check: function() {
             var cc = CURRENT_CABLE;
 
+            var arr = [];
+
             if( !cc.cable ) {
-                return false;
-            } else if( !cc.input ) {
-                return false;
-            } else if( !cc.output ) {
-                return false;
+                arr.push('cable');
             }
 
-            return true;
+            if( !cc.input ) {
+                arr.push('input');
+            }
+
+            if( !cc.output ) {
+                arr.push('output');
+            }
+
+            return arr;
         },
 
         update: function() {
@@ -970,18 +976,20 @@
         },
 
         go: function() {
-            if( this.check() ) {
+            var status = this.check();
+
+            if( !status.length ) {
                 this.update();
                 this.show();
             } else {
-                this.error();
+                this.error(status);
             }
         },
 
-        error: function() {
-            console.log("INCOMPLETE");
-            // find all incomplete fields
-            // return array? or display errors?
+        error: function(arr) {
+            for( var i = 0; i < arr.length; i++ ) {
+                updateStatus(arr[i], 'error');
+            }
         },
 
         show: function() {

@@ -103,7 +103,6 @@
 
             border: 1px solid $white;
             border-radius: 50%;
-            content: "#";
             margin: 10px auto;
             width: 30px;
             height: 30px;
@@ -125,8 +124,16 @@
             }
         }
 
-        &[data-status="incomplete"] {
-
+        &[data-status="error"] {
+            &:before {
+                background-color: $red;
+                background-image: image-url('misc/x.white.png');
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: 50% auto;
+                border: solid 2px $red !important;
+                content: "";
+            }
         }
 
         &[data-status="complete"] {
