@@ -750,13 +750,6 @@
       "series": "bigfoot",
       "has_colors": true,
       "colors": {
-        "ggg": {
-          "default": true,
-          "input_option_id": 1603,
-          "output_option_id": 1618,
-          "status": "available",
-          "color": "#fff282"
-        },
         "ngg": {
           "input_option_id": 1601,
           "output_option_id": 1616,
@@ -768,6 +761,13 @@
           "output_option_id": 1617,
           "status": "available",
           "color": "#000"
+        },
+        "ggg": {
+          "default": true,
+          "input_option_id": 1603,
+          "output_option_id": 1618,
+          "status": "available",
+          "color": "#fff282"
         }
       },
       "allowance": {
