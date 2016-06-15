@@ -262,7 +262,7 @@
 
                     DISPLAY_IMAGES[c].src = this.getDisplayImageUrl();
 
-                    if( this.hasBoot ) {
+                    if( this.hasBoots ) {
                         DISPLAY_IMAGES[c + 'Boot'].src = this.getDisplayBootImageUrl();
                     }
 
@@ -302,7 +302,7 @@
                     DISPLAY_IMAGES[c].src = BLANK_IMAGE[c];
                 }
 
-                if( this.hasBoot ) {
+                if( this.hasBoots ) {
                     DISPLAY_IMAGES[c + 'Boot'].src = BLANK_IMAGE.boot;
                 }
 
@@ -527,8 +527,8 @@
             this.component    = data.component;
             this.series       = data.series;
             this.angle        = data.angle;
-            this.hasColor     = data.has_colors || false;
-            this.hasBoot      = data.has_boots || false;
+            this.hasColors    = data.has_colors || false;
+            this.hasBoots     = data.has_boots || false;
             this.hasChoices   = data.has_colors || data.has_boots;
             this.colors       = data.colors;
             this.currentColor = data.currentColor;
@@ -539,11 +539,11 @@
                 var str = this.getName();
 
                 if( this.hasChoices ) {
-                    if( this.hasColor ) {
+                    if( this.hasColors ) {
                         str += ' | ' + this.currentColor;
                     }
 
-                    if( this.hasBoot ) {
+                    if( this.hasBoots ) {
                         str += ' | ' + this.currentBoot;
                     }
                 }
@@ -579,7 +579,7 @@
             this.getDisplayImageUrl = function(color) {
                 color = color || this.currentColor;
 
-                if( this.hasBoot ) {
+                if( this.hasBoots ) {
                     color = '';
                 }
 
@@ -613,7 +613,7 @@
                 var p, colors, arr = [], div, extras = [];
 
                 if( !this.choicesHtml.length ) {
-                    if( this.hasBoot ) {
+                    if( this.hasBoots ) {
                         colors = BOOTS[this.manufacturer][this.series];
 
                         for( p in colors ) { if( colors.hasOwnProperty(p) ) {
@@ -636,7 +636,7 @@
 
                         this.choicesHtml = arr;
 
-                    } else if( this.hasColor ) {
+                    } else if( this.hasColors ) {
                         colors = this.colors;
 
                         for( p in colors ) { if( colors.hasOwnProperty(p) ) {
@@ -673,7 +673,7 @@
                     status = false;
                 }
 
-                if( this.hasBoot && color !== this.currentBoot ) {
+                if( this.hasBoots && color !== this.currentBoot ) {
                     this.currentBoot = color;
 
                     url = this.getBuilderBootImageUrl();
@@ -685,7 +685,7 @@
                     }
                 }
 
-                if( this.hasColor && color !== this.currentColor ) {
+                if( this.hasColors && color !== this.currentColor ) {
                     this.currentColor = color;
                     url = this.getBuilderImageUrl();
                     $(document.getElementById(this.code)).find('.component').attr('src', url);
@@ -741,7 +741,7 @@
                     alt: this.getName()
                 });
 
-                if( this.hasBoot ) {
+                if( this.hasBoots ) {
                     _.img_choice.attr({
                         src: this.getBuilderBootImageUrl()
                     });
@@ -760,7 +760,7 @@
             this.onHoverOption = function(e) {
                 DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
 
-                if( this.hasBoot ) {
+                if( this.hasBoots ) {
                     DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
                 } else {
                     DISPLAY_IMAGES[this.component + 'Boot'].src = BLANK_IMAGE_URL;
@@ -1037,25 +1037,25 @@
             }
 
             // set Input Plug and Inpug Plug Choice
-            if( input.hasColor ) {
+            if( input.hasColors ) {
                 Post[_getOptionName('select', code, INPUT_PLUG_OPTION_CATEGORY_ID)] = input.colors[input.currentColor].input_option_id;
 
             } else {
                 Post[_getOptionName('select', code, INPUT_PLUG_OPTION_CATEGORY_ID)] = input.colors[Object.keys(input.colors)[0]].input_option_id;
 
-                if( input.hasBoot) {
+                if( input.hasBoots ) {
                     Post[_getOptionName('select', code, J_BOOTS[input.manufacturer][input.series].input_option_category_id)] = J_BOOTS[input.manufacturer][input.series].boot[input.currentBoot].input_option_id;
                 }
             }
 
             // set Output Plug and Output Plug Choice
-            if( output.hasColor ) {
+            if( output.hasColors ) {
                 Post[_getOptionName('select', code, OUTPUT_PLUG_OPTION_CATEGORY_ID)] = output.colors[output.currentColor].output_option_id;
 
             } else {
                 Post[_getOptionName('select', code, OUTPUT_PLUG_OPTION_CATEGORY_ID)] = output.colors[Object.keys(output.colors)[0]].output_option_id;
 
-                if( output.hasBoot) {
+                if( output.hasBoots ) {
                     Post[_getOptionName('select', code, J_BOOTS[output.manufacturer][output.series].input_option_category_id)] = J_BOOTS[output.manufacturer][output.series].boot[output.currentBoot].output_option_id;
                 }
             }
