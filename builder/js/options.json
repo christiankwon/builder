@@ -8,7 +8,7 @@
         "model": "Slate"
       },
       "price": 4,
-      "status": "available",
+      "status": "unavailable",
       "category": "premium",
       "order": 1,
       "specs": {
@@ -755,19 +755,19 @@
           "input_option_id": 1603,
           "output_option_id": 1618,
           "status": "available",
-          "color": "#fff282",
+          "color": "#fff282"
         },
         "ngg": {
           "input_option_id": 1601,
           "output_option_id": 1616,
           "status": "available",
-          "color": "#dce4f5",
+          "color": "#dce4f5"
         },
         "bgg": {
           "input_option_id": 1602,
           "output_option_id": 1617,
           "status": "available",
-          "color": "#000",
+          "color": "#000"
         }
       },
       "allowance": {
@@ -796,7 +796,13 @@
           "input_option_id": 2358,
           "output_option_id": 2359,
           "status": "available",
-          "color": "#dce4f5",
+          "color": "#dce4f5"
+        },
+        "bnn": {
+          "input_option_id": 2434,
+          "output_option_id": 2435,
+          "status": "available",
+          "color": "#000"
         }
       },
       "allowance": {
@@ -826,13 +832,13 @@
           "input_option_id": 1812,
           "output_option_id": 1813,
           "color": "#dce4f5",
-          "status": "available",
+          "status": "available"
         },
         "bnn": {
           "input_option_id": 1814,
           "output_option_id": 1815,
           "color": "#000",
-          "status": "available",
+          "status": "available"
         }
       },
       "allowance": {
@@ -861,17 +867,20 @@
           "default": true,
           "input_option_id": 1605,
           "output_option_id": 1608,
-          "status": "available",
+          "color": "#dce4f5",
+          "status": "available"
         },
         "bgg": {
           "input_option_id": 1606,
           "output_option_id": 1609,
-          "status": "available",
+          "color": "#000",
+          "status": "available"
         },
         "ggg": {
           "input_option_id": 1607,
           "output_option_id": 1610,
-          "status": "available",
+          "color": "#fff282",
+          "status": "available"
         }
       },
       "allowance": {
@@ -900,12 +909,14 @@
           "default": true,
           "input_option_id": 1808,
           "output_option_id": 1811,
-          "status": "available",
+          "color": "#dce4f5",
+          "status": "available"
         },
         "bnn": {
           "input_option_id": 1809,
           "output_option_id": 1810,
-          "status": "available",
+          "color": "#000",
+          "status": "available"
         }
       },
       "allowance": {
@@ -933,12 +944,14 @@
           "default": true,
           "input_option_id": 2360,
           "output_option_id": 2361,
-          "status": "available",
+          "color": "#dce4f5",
+          "status": "available"
         },
         "gold": {
           "input_option_id": 2362,
           "output_option_id": 2363,
-          "status": "available",
+          "color": "#fff282",
+          "status": "available"
         }
       },
       "allowance": {
@@ -966,12 +979,14 @@
           "default": true,
           "input_option_id": 2365,
           "output_option_id": 2364,
-          "status": "available",
+          "color": "#dce4f5",
+          "status": "available"
         },
         "gold": {
           "input_option_id": 2366,
           "output_option_id": 2367,
           "status": "available",
+          "color": "#fff282"
         }
       },
       "allowance": {
@@ -1425,6 +1440,9 @@
       "colors": {
         "red": {
           "id": 2057
+        },
+        "orange": {
+          "id": 2478
         },
         "aqua": {
           "id": 2052
