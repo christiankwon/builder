@@ -1440,8 +1440,6 @@
         },
 
         cables: function() {
-            var container = $('article[data-component="cable"] .options-wrap', '#builders');
-
             var _hasDefaultColor = function(obj) {
                 for( var p in obj ) { if( obj.hasOwnProperty(p) ) {
                     if( obj[p].default ) {
@@ -1451,6 +1449,8 @@
 
                 return null;
             };
+
+            var container = $('article[data-component="cable"] .options-wrap', '#builders');
 
             var opt = {};
 
