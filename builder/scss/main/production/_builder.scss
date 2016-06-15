@@ -884,7 +884,7 @@ article {
 
     &[data-status="unavailable"] {
         &:before {
-            content: "Out of Stock";
+            content: "Coming Soon";
         }
 
         &:hover {
@@ -892,7 +892,7 @@ article {
                 cursor: default;
 
                 &:after {
-                    content: "Out of Stock";
+                    content: "Coming Soon";
                 }
             }
         }
