@@ -325,6 +325,7 @@
             this.colors       = data.colors;
             this.currentColor = data.currentColor;
             this.hasChoices   = data.has_colors;
+            this.hasColors    = data.has_colors;
             this.choicesHtml  = [];
             this.specsHtml    = [];
 
@@ -822,7 +823,27 @@
             });
         }
 
-        var hasChoices = option.hasChoices ? $('<div/>', {class: 'hasChoices'}).append($('<span/>', {text: '*'})) : null;
+        var choicesDiv = null;
+        if( option.hasChoices ) {
+            var choices = [], obj, c;
+
+            if( option.hasColors ) {
+                // console.log(option.colors);
+                obj = option.colors;
+
+            } else if( option.hasBoots ) {
+                obj = J_BOOTS[option.manufacturer][option.series].boot;
+
+            }
+
+            for( c in obj ) { if( obj.hasOwnProperty(c) ) {
+                if( c !== 'option_category_id' ) {
+                    choices.push($('<div/>').css('color', obj[c].color).text('*'));
+                }
+            }}
+
+            choicesDiv = $('<div/>', {class: 'hasChoices'}).html(choices);
+        }
 
         var outer = $('<div/>', {class: 'outer'}).append(
             $('<button/>', {text: 'Specs & Info', class: 'option-specs'}),
@@ -845,7 +866,7 @@
         );
 
         inner.append(images, details);
-        $block.append(hasChoices, outer, inner);
+        $block.append(choicesDiv, outer, inner);
 
         return block;
     };
