@@ -1706,6 +1706,10 @@
                             if( t.data('stock') < val ) {
                                 t.addClass('insufficient');
                                 t.css('order', t.data('order') + 300);
+
+                                if( this.option.isSelected() ) {
+                                    this.option.deselectOption();
+                                }
                             } else {
                                 t.removeClass('insufficient');
                                 t.css('order', t.data('order'));
