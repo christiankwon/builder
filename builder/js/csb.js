@@ -243,7 +243,7 @@
             this.selectOption = function(e) {
                 var c = this.component;
 
-                if( this.status === 'unavailable' ) {
+                if( this.status === 'unavailable' || this.stock < CURRENT_CABLE.length.amount ) {
                     return false;
                 }
 
