@@ -1603,7 +1603,7 @@
                 }
 
                 if( next.length ) {
-                    b.setAttribute(attr, next.attr('data-component'));
+                    changeStep(next.attr('data-component'), current);
                 }
             });
 
