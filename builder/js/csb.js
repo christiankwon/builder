@@ -1681,14 +1681,12 @@
                 var _updateLength = function(val) {
                     if( val ) {
                         CURRENT_CABLE.length.amount = val;
-
-                        $('#body').attr('data-length', val);
+                        _updateCableStatus(val);
                     }
 
                     updateCost();
                     updateOverview('length');
                     updateStatus('length', 'complete');
-                    _updateCableStatus(val);
                 };
 
                 var _updateCableStatus = (function() {
