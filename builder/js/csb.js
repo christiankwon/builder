@@ -240,7 +240,7 @@
                 return val.trim();
             };
 
-            this.selectOption = function(e) {
+            this.selectOption = function() {
                 var c = this.component;
 
                 if( this.status === 'unavailable' || this.stock < CURRENT_CABLE.length.amount ) {
@@ -277,31 +277,41 @@
 
                     updateStatus(c, 'complete');
 
+                    updateOverview(c, this);
+                    updateCost();
+
                 } else {
-                    this.detailsWrap.wrap.removeClass('selected')
-                        .next().removeClass('selected')
-                        .parent().removeClass('complete');
-
-                    this.html.classList.remove('selected');
-
-                    CURRENT_CABLE[c] = null;
-
-                    if( c === 'cable' ) {
-                        DISPLAY_IMAGES[c].src = BLANK_IMAGE[CURRENT_CABLE.type];
-                    } else {
-                        DISPLAY_IMAGES[c].src = BLANK_IMAGE[c];
-                    }
-
-                    if( this.hasBoot ) {
-                        DISPLAY_IMAGES[c + 'Boot'].src = BLANK_IMAGE.boot;
-                    }
-
-                    updateStatus(c, 'incomplete');
+                    this.deselectOption.call(this);
                 }
+            };
+
+            this.deselectOption = function() {
+                var c = this.component;
+
+                this.detailsWrap.wrap.removeClass('selected')
+                    .next().removeClass('selected')
+                    .parent().removeClass('complete');
+
+                this.html.classList.remove('selected');
+
+                CURRENT_CABLE[c] = null;
+
+                if( c === 'cable' ) {
+                    DISPLAY_IMAGES[c].src = BLANK_IMAGE[CURRENT_CABLE.type];
+                } else {
+                    DISPLAY_IMAGES[c].src = BLANK_IMAGE[c];
+                }
+
+                if( this.hasBoot ) {
+                    DISPLAY_IMAGES[c + 'Boot'].src = BLANK_IMAGE.boot;
+                }
+
+                updateStatus(c, 'incomplete');
 
                 updateOverview(c, this);
                 updateCost();
-            };
+
+            }
         },
 
         Cable = function(data, el) {
