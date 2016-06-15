@@ -1818,9 +1818,8 @@
     initialSetup = function() {
         resetBuilder();
 
-        var section = $('body').attr('data-display-introduction') ? 'introduction' : 'production';
-        $('#content').attr('data-active-section', section);
         $('#content').attr('data-active-section', 'introduction');
+        $('#content').attr('data-active-section', 'production');
 
         displayImages.initialize();
         handles();
