@@ -792,7 +792,7 @@
         option.html = block;
         block.option = option;
 
-        var order = option.order || 270,
+        var order  = option.order  || 270,
             status = option.status || 'unavailable';
 
         block.setAttribute('data-component', option.component);
@@ -800,8 +800,9 @@
         $block.addClass(option.getAllowanceString());
 
         if( status === 'unavailable' ) {
-            order += 300;
+            order += 600;
         }
+
         $block.css('order', order);
 
         if( option.component === 'cable' ) {
@@ -1692,10 +1693,14 @@
                         cables.each(function() {
                             var t = $(this);
 
+                            if( t.data('status') === 'unavailable' ) { return true; }
+
                             if( t.data('stock') < val ) {
                                 t.addClass('insufficient');
+                                t.css('order', t.data('order') + 300);
                             } else {
                                 t.removeClass('insufficient');
+                                t.css('order', t.data('order'));
                             }
                         });
                     };
