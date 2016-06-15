@@ -855,7 +855,7 @@ article {
 
     &.selected {
         &:before {
-            content: "";
+            content: "Selected!";
         }
 
         &:hover {
