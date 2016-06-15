@@ -1,20 +1,13 @@
 .loader-wrap {
-    display: none;
     background-color: #000;
-    position: fixed;
+    bottom: 0;
+    display: none;
     left: 0;
+    position: fixed;
     right: 0;
     top: 0;
-    bottom: 0;
     z-index: 9999;
-
-    @include flexbox((
-        display: flex,
-        justify-content: center,
-        align-items: center,
-    ));
-
-    $num: 5;
+    @include flexcenter;
 
     @include keyframes(wave) {
         0%, 40%, 100% {

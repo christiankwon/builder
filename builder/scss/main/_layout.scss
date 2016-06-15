@@ -43,14 +43,14 @@ section,
             article[data-component="length"] {
                 div[data-type="#{$type}"] {
                     display: block;
-                }
 
-                .length-choice[data-type="#{$type}"] .inactive {
-                    display: none;
-                }
+                    .inactive {
+                        display: none;
+                    }
 
-                .length-choice[data-type="#{$type}"] .active {
-                    display: block;
+                    .active {
+                        display: block;
+                    }
                 }
             }
 
