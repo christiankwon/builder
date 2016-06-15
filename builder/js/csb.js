@@ -807,6 +807,7 @@
         if( option.component === 'cable' ) {
             $block.data({
                 'order': order,
+                'stock': option.stock
             });
         }
 
@@ -1467,19 +1468,15 @@
                 data.component = 'cable';
                 data.currentColor = _hasDefaultColor(data.colors);
 
-                var stock;
-
                 if( data.currentColor ) {
-                    stock = data.colors[data.currentColor].qty;
+                    data.stock = data.colors[data.currentColor].qty;
                 } else {
                     var key = Object.keys(data.colors)[0];
-                    stock = data.colors[key].qty || 0;
+                    data.stock = data.colors[key].qty || 0;
                 }
 
                 var cable = new Cable(data);
                 var block = getOptionBlock(cable);
-
-                block.setAttribute('data-stock', stock);
 
                 if( !opt[data.category] ) {
                     opt[data.category] = [];
@@ -1695,7 +1692,7 @@
                         cables.each(function() {
                             var t = $(this);
 
-                            if( t.attr('data-stock') < val ) {
+                            if( t.data('stock') < val ) {
                                 t.addClass('insufficient');
                             } else {
                                 t.removeClass('insufficient');
