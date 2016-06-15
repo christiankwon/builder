@@ -804,6 +804,12 @@
         }
         $block.css('order', order);
 
+        if( option.component === 'cable' ) {
+            $block.data({
+                'order': order,
+            });
+        }
+
         var hasChoices = option.hasChoices ? $('<div/>', {class: 'hasChoices'}).append($('<span/>', {text: '*'})) : null;
 
         var outer = $('<div/>', {class: 'outer'}).append(
