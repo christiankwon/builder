@@ -1680,6 +1680,27 @@
                     _updateCableStatus(val);
                 };
 
+                var _updateCableStatus = (function() {
+                    var cables = $('.option[data-component="cable"]'),
+                        body = $('#body');
+
+                    return function(val) {
+                        if( body.attr('data-cable-type') === 'patch' ) {
+                            val = val / 12;
+                        }
+
+                        cables.each(function() {
+                            var t = $(this);
+
+                            if( t.attr('data-stock') < val ) {
+                                t.addClass('insufficient');
+                            } else {
+                                t.removeClass('insufficient');
+                            }
+                        });
+                    };
+                })();
+
                 _.find('.length-wrap .length-choice').on('click', 'img', function(e) {
                     var type = e.delegateTarget.getAttribute('data-type'),
                         val = $('.input[data-type="' + type + '"] input').val();
