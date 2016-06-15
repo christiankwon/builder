@@ -199,7 +199,6 @@
             this.status       = data.status;
             this.allowance    = data.allowance;
             this.detailsWrap  = DETAILS_CONTAINER[data.component];
-            // this.perUnit   = data.perUnit;
 
             this.isSelected = function() {
                 return CURRENT_CABLE[this.component] &&
@@ -276,7 +275,6 @@
                     }
 
                     updateStatus(c, 'complete');
-
                     updateOverview(c, this);
                     updateCost();
 
@@ -828,7 +826,6 @@
             var choices = [], obj, c;
 
             if( option.hasColors ) {
-                // console.log(option.colors);
                 obj = option.colors;
 
             } else if( option.hasBoots ) {
@@ -888,10 +885,10 @@
         var t = _id('tracker');
 
         var tracker = {
-            length: t.querySelector('div[data-pointer-component="length"]'),
-            cable:  t.querySelector('div[data-pointer-component="cable"]'),
-            input:  t.querySelector('div[data-pointer-component="input"]'),
-            output: t.querySelector('div[data-pointer-component="output"]'),
+            length:  t.querySelector('div[data-pointer-component="length"]'),
+            cable:   t.querySelector('div[data-pointer-component="cable"]'),
+            input:   t.querySelector('div[data-pointer-component="input"]'),
+            output:  t.querySelector('div[data-pointer-component="output"]'),
             extras:  t.querySelector('div[data-pointer-component="extra"]')
         };
 
