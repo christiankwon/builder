@@ -756,21 +756,18 @@
           "output_option_id": 1618,
           "status": "available",
           "color": "#fff282",
-          "qty": 100
         },
         "ngg": {
           "input_option_id": 1601,
           "output_option_id": 1616,
           "status": "available",
           "color": "#dce4f5",
-          "qty": 100
         },
         "bgg": {
           "input_option_id": 1602,
           "output_option_id": 1617,
           "status": "available",
           "color": "#000",
-          "qty": 100
         }
       },
       "allowance": {
@@ -800,7 +797,6 @@
           "output_option_id": 2359,
           "status": "available",
           "color": "#dce4f5",
-          "qty": 100
         }
       },
       "allowance": {
@@ -831,14 +827,12 @@
           "output_option_id": 1813,
           "color": "#dce4f5",
           "status": "available",
-          "qty": 100
         },
         "bnn": {
           "input_option_id": 1814,
           "output_option_id": 1815,
           "color": "#000",
           "status": "available",
-          "qty": 100
         }
       },
       "allowance": {
@@ -868,19 +862,16 @@
           "input_option_id": 1605,
           "output_option_id": 1608,
           "status": "available",
-          "qty": 100
         },
         "bgg": {
           "input_option_id": 1606,
           "output_option_id": 1609,
           "status": "available",
-          "qty": 100
         },
         "ggg": {
           "input_option_id": 1607,
           "output_option_id": 1610,
           "status": "available",
-          "qty": 100
         }
       },
       "allowance": {
@@ -910,13 +901,11 @@
           "input_option_id": 1808,
           "output_option_id": 1811,
           "status": "available",
-          "qty": 100
         },
         "bnn": {
           "input_option_id": 1809,
           "output_option_id": 1810,
           "status": "available",
-          "qty": 100
         }
       },
       "allowance": {
@@ -945,13 +934,11 @@
           "input_option_id": 2360,
           "output_option_id": 2361,
           "status": "available",
-          "qty": 100
         },
         "gold": {
           "input_option_id": 2362,
           "output_option_id": 2363,
           "status": "available",
-          "qty": 100
         }
       },
       "allowance": {
@@ -980,13 +967,11 @@
           "input_option_id": 2365,
           "output_option_id": 2364,
           "status": "available",
-          "qty": 100
         },
         "gold": {
           "input_option_id": 2366,
           "output_option_id": 2367,
           "status": "available",
-          "qty": 100
         }
       },
       "allowance": {

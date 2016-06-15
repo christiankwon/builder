@@ -800,8 +800,6 @@
 
         block.setAttribute('data-component', option.component);
         block.setAttribute('data-status', status);
-        block.setAttribute('data-stock', option.stock);
-
         $block.addClass(option.getAllowanceString());
 
         if( status === 'unavailable' ) {
@@ -1466,8 +1464,19 @@
                 data.component = 'cable';
                 data.currentColor = _hasDefaultColor(data.colors);
 
+                var stock;
+
+                if( data.currentColor ) {
+                    stock = data.colors[data.currentColor].qty;
+                } else {
+                    var key = Object.keys(data.colors)[0];
+                    stock = data.colors[key].qty || 0;
+                }
+
                 var cable = new Cable(data);
                 var block = getOptionBlock(cable);
+
+                block.setAttribute('data-stock', stock);
 
                 if( !opt[data.category] ) {
                     opt[data.category] = [];
