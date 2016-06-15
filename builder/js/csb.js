@@ -128,7 +128,6 @@
             this.reverse_plugs = false;
             this.tourproof = false;
             this.techflex = '';
-            this.price = 0;
             this.quantity = 1;
             this.version = CURRENT_VERSION;
             this.getPrice = function() {
@@ -449,8 +448,6 @@
                         updateOverview(this.component, this);
                     }
                 }
-
-                updateOverview(this.component, this);
             };
 
             this.showDetails = function() {
