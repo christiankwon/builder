@@ -185,17 +185,16 @@ article {
             &:before,
             &:after {
                 height: 15px;
+                left: 18px;
             }
 
             &:before {
-                left: 15px;
                 top: 11px;
                 @include transform(rotate(50deg));
             }
 
             &:after {
                 bottom: 10px;
-                left: 15px;
                 @include transform(rotate(-50deg));
             }
         }
@@ -453,6 +452,9 @@ article {
         background-color: #f14f17;
         padding-top: 5px;
         position: relative;
+        text-align: center;
+        text-transform: uppercase;
+
 
         @include bp(max-width, $bp-small) {
             @include order(1);
@@ -460,16 +462,21 @@ article {
             height: 45px;
             margin-bottom: 10px;
             width: 100%;
+
+            span {
+                display: block;
+            }
         }
 
         @include bp(min-width, $bp-small + 1) {
             @include order(1);
-        }
 
-        span {
-            display: block;
-            text-transform: uppercase;
-            text-align: center;
+            width: 100%;
+
+            span {
+                display: inline-block;
+                padding: 5px 0;
+            }
         }
 
         .manufacturer {
@@ -488,17 +495,19 @@ article {
 
         @include bp(max-width, $bp-small) {
             @include order(2);
-            width: 50%;
+            width: 100%;
         }
 
         @include bp(min-width, $bp-small + 1) {
+            @include order(2);
             float: left;
         }
 
         img {
             @include bp(max-width, $bp-small) {
                 height: auto;
-                width: 100%;
+                width: 80%;
+                margin: 0 auto;
             }
 
             @include bp(min-width, $bp-small + 1) {
@@ -512,13 +521,32 @@ article {
             position: absolute;
             top: 0;
         }
+
+        .more-details {
+            @include bp(max-width, $bp-small) {
+                background-color: #999;
+                border: solid 2px black;
+                border-radius: 50%;
+                bottom: 10px;
+                height: 25px;
+                left: 10px;
+                padding: 5px;
+                position: absolute;
+                width: 25px;
+                @include flexcenter;
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                display: none;
+            }
+        }
     }
 
     .choice-wrap {
         @include bp(max-width, $bp-small) {
-            @include order(6);
+            @include order(3);
 
-            margin: 20px 0;
+            margin: 10px 0;
             width: 100%;
             @include display-flex;
             @include justify-content(center);
@@ -527,7 +555,7 @@ article {
         }
 
         @include bp(min-width, $bp-small + 1) {
-            @include order(9);
+            @include order(3);
 
             float: right;
             width: 30%;
@@ -557,16 +585,16 @@ article {
                 position: relative;
 
                 &:after {
+                    background-image: image-url('misc/restricted.png');
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: 60% auto;
+                    content: "";
+                    height: 100%;
+                    left: 0;
                     position: absolute;
                     top: 0;
-                    content: "";
-                    left: 0;
-                    height: 100%;
                     width: 100%;
-                    background-image: image-url('misc/restricted.png');
-                    background-size: 60% auto;
-                    background-repeat: no-repeat;
-                    background-position: center center;
                 }
             }
         }
@@ -586,11 +614,13 @@ article {
     .price-wrap {
         @include bp(max-width, $bp-small) {
             @include order(4);
-            float: right;
+
+            margin-top: 5px;
+            @include flexcenter;
         }
 
         @include bp(min-width, $bp-small + 1) {
-            @include order(3);
+            @include order(6);
         }
 
         span {
@@ -601,17 +631,23 @@ article {
             &:before {
                 content: "$";
             }
+
+            article[data-component="cable"] &:after {
+                color: #666;
+                content: "/ft";
+                font-size: 14px;
+                font-weight: 300;
+            }
         }
     }
 
     .information-wrap {
         @include bp(max-width, $bp-small) {
-            @include order(5);
-            float: right;
-            clear: right;
-
-            padding: 5px;
-            width: 50%;
+            left: 5%;
+            position: absolute;
+            top: 75px;
+            width: 90%;
+            z-index: 5;
 
         }
 
@@ -631,15 +667,16 @@ article {
         letter-spacing: 1px;
         padding: 10px 0;
         position: relative;
-        margin: 15px auto;
+        margin: 10px auto 0;
         width: 150px;
 
         @include bp(max-width, $bp-small) {
-            @include order(6);
+            @include order(5);
+            margin-left: auto;
         }
 
         @include bp(min-width, $bp-small + 1) {
-            @include order(6);
+            @include order(5);
             margin-top: auto;
         }
 
@@ -749,6 +786,47 @@ article {
         margin: 5px;
     }
 
+    &:before {
+        background-color: rgba($white, 0.8);
+        cursor: default;
+        display: none;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        text-transform: uppercase;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+        @include flex-center;
+    }
+
+    &:hover {
+        &:before {
+            display: none;
+        }
+
+        .option-select {
+            cursor: default;
+        }
+
+        .option-select:after {
+            background-color: $white;
+            border: solid 1px $black;
+            color: $black;
+            height: 100%;
+            position: absolute;
+            text-align: center;
+            text-transform: uppercase;
+            width: 100%;
+            @include flexcenter;
+        }
+
+        .inner:after {
+            content: "";
+        }
+    }
+
     &.blank {
         border: 0 none;
         display: block;
@@ -778,51 +856,26 @@ article {
         }
     }
 
-    &[data-status="unavailable"] {
+    &.insufficient {
         &:before {
-            background-color: rgba($white, 0.8);
-            content: "Out of Stock";
-            cursor: default;
-            display: none;
-            height: 100%;
-            left: 0;
-            position: absolute;
-            text-align: center;
-            text-transform: uppercase;
-            top: 0;
-            width: 100%;
-            z-index: 10;
-
-            @include display-flex;
-            @include align-items(center);
-            @include justify-content(center);
+            content: "Insufficient Stock";
         }
 
         &:hover {
-            &:before {
-                display: none;
-            }
-
-            .option-select {
-                cursor: default;
-            }
-
             .option-select:after {
-                background-color: $white;
-                border: solid 1px $black;
-                color: $black;
-                content: "Out of Stock";
-                height: 100%;
-                position: absolute;
-                text-align: center;
-                text-transform: uppercase;
-                width: 100%;
-
-                @include flexcenter;
+                content: "Insufficient Stock";
             }
+        }
+    }
 
-            .inner:after {
-                content: "";
+    &[data-status="unavailable"] {
+        &:before {
+            content: "Out of Stock";
+        }
+
+        &:hover {
+            .option-select:after {
+                content: "Out of Stock";
             }
         }
     }
