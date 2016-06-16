@@ -478,83 +478,86 @@
         this.hasColors    = data.has_colors;
         this.choicesHtml  = [];
         this.specsHtml    = [];
+    };
 
-        this.getSpecs = function() {
-            if( !this.specsHtml.length ) {
-                var p, s = [], str;
+    Cable.prototype = Object.create(Option.prototype);
+    Cable.prototype.constructor = Cable;
 
-                for( p in this.specs ) { if( this.specs.hasOwnProperty(p) ) {
-                    str = [
-                        '<span class="',
-                        p,
-                        '">',
-                        p,
-                        ': <strong>',
-                        this.specs[p],
-                        '</strong></span>'
-                    ].join('');
+    Cable.prototype.getSpecs = function() {
+        if( !this.specsHtml.length ) {
+            var p, s = [], str;
 
-                    s.push(str);
-                }}
+            for( p in this.specs ) { if( this.specs.hasOwnProperty(p) ) {
+                str = [
+                    '<span class="',
+                    p,
+                    '">',
+                    p,
+                    ': <strong>',
+                    this.specs[p],
+                    '</strong></span>'
+                ].join('');
 
-                this.specsHtml = s.join('');
+                s.push(str);
+            }}
+
+            this.specsHtml = s.join('');
+        }
+
+        return this.specsHtml;
+    };
+
+    Cable.prototype.setChoice = function(e) {
+        var _getStatus = function() {
+            var status = true;
+
+            var target = e.target,
+                option = target.option;
+
+            if( target.getAttribute('data-choice-status') !== 'available' ) {
+                status = false;
             }
 
-            return this.specsHtml;
-        };
-
-        this.setChoice = function(e) {
-            var _getStatus = function() {
-                var status = true;
-
-                var target = e.target,
-                    option = target.option;
-
-                if( target.getAttribute('data-choice-status') !== 'available' ) {
-                    status = false;
-                }
-
-                if( option.colors[color].qty < CURRENT_CABLE.length.amount ) {
-                    status = false;
-                }
-
-                return status;
-            };
-
-            var color = e.target.getAttribute('data-value'),
-                status = _getStatus(),
-                option = e.target.option;
-
-            if( this.hasChoices && color !== this.currentColor ) {
-                this.currentColor = color;
-
-                var url = this.getBuilderImageUrl();
-
-                this.detailsWrap.img_component.attr('src', url);
-
-                if( status ) {
-                    $('#'+ this.code).find('.component').attr('src', url);
-                }
-
-                if( status && CURRENT_CABLE.cable &&
-                    CURRENT_CABLE.cable.code === this.code ) {
-                    DISPLAY_IMAGES.cable.src = this.getDisplayImageUrl();
-
-                    updateOverview(this.component, this);
-                }
+            if( option.colors[color].qty < CURRENT_CABLE.length.amount ) {
+                status = false;
             }
+
+            return status;
         };
 
-        this.onHoverOption = function(e) {
+        var color = e.target.getAttribute('data-value'),
+            status = _getStatus(),
+            option = e.target.option;
 
-            DISPLAY_IMAGES.cable.src = this.getDisplayImageUrl();
-        };
+        if( this.hasChoices && color !== this.currentColor ) {
+            this.currentColor = color;
 
-        this.offHoverOption = function(e) {
-            var url = CURRENT_CABLE[this.component] && CURRENT_CABLE[this.component].getDisplayImageUrl() || BLANK_IMAGE[CURRENT_CABLE.type];
+            var url = this.getBuilderImageUrl();
 
-            DISPLAY_IMAGES.cable.src = url;
-        };
+            this.detailsWrap.img_component.attr('src', url);
+
+            if( status ) {
+                $('#'+ this.code).find('.component').attr('src', url);
+            }
+
+            if( status && CURRENT_CABLE.cable &&
+                CURRENT_CABLE.cable.code === this.code ) {
+                DISPLAY_IMAGES.cable.src = this.getDisplayImageUrl();
+
+                updateOverview(this.component, this);
+            }
+        }
+    };
+
+    Cable.prototype.onHoverOption = function(e) {
+
+        DISPLAY_IMAGES.cable.src = this.getDisplayImageUrl();
+    };
+
+    Cable.prototype.offHoverOption = function(e) {
+        var url = CURRENT_CABLE[this.component] && CURRENT_CABLE[this.component].getDisplayImageUrl() || BLANK_IMAGE[CURRENT_CABLE.type];
+
+        DISPLAY_IMAGES.cable.src = url;
     };
 
     var Plug = function(data, el) {
@@ -571,98 +574,95 @@
         this.currentColor = data.currentColor;
         this.currentBoot  = data.currentBoot;
         this.choicesHtml  = [];
-
-        this.getBuilderBootImageUrl = function(color) {
-            color = color || this.currentBoot;
-
-            var model = this.model.split('-')[0];
-
-            return [
-                IMAGES_DIR, 'builder/plug/',
-                formatTextForImageUrl(this.manufacturer), '/',
-                formatTextForImageUrl(model), '/',
-                formatTextForImageUrl(color), '.png'
-            ].join('');
-        };
-
-        this.getDisplayBootImageUrl = function(color) {
-            color = color || this.currentBoot;
-
-            if( !color ) {
-                return BLANK_IMAGE_URL;
-            }
-
-            var model = this.model.split('-')[0];
-
-            return [
-                IMAGES_DIR, 'display/plug/',
-                formatTextForImageUrl(this.manufacturer), '/',
-                formatTextForImageUrl(model), '/',
-                formatTextForImageUrl(color), '.png'
-            ].join('');
-        };
-
-        this.setChoice = function(e) {
-            var color = e.target.getAttribute('data-value'),
-                status = true,
-                url = BLANK_IMAGE_URL;
-
-            if( e.target.getAttribute('data-choice-status') === 'unavailable' ) {
-                status = false;
-            }
-
-            if( this.hasBoots && color !== this.currentBoot ) {
-                this.currentBoot = color;
-
-                url = this.getBuilderBootImageUrl();
-                this.detailsWrap.img_choice.attr('src', url);
-
-                if( CURRENT_CABLE[this.component] &&
-                    CURRENT_CABLE[this.component].code === this.code ) {
-                    DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
-                }
-            }
-
-            if( this.hasColors && color !== this.currentColor ) {
-                this.currentColor = color;
-                url = this.getBuilderImageUrl();
-                $(document.getElementById(this.code)).find('.component').attr('src', url);
-                this.detailsWrap.img_component.attr('src', url);
-
-                if( CURRENT_CABLE[this.component] &&
-                    CURRENT_CABLE[this.component].code === this.code ) {
-                    DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
-                }
-            }
-
-            updateOverview(this.component, this);
-        };
-
-        this.onHoverOption = function(e) {
-            DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
-
-            if( this.hasBoots ) {
-                DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
-            } else {
-                DISPLAY_IMAGES[this.component + 'Boot'].src = BLANK_IMAGE_URL;
-            }
-        };
-
-        this.offHoverOption = function(e) {
-            var CC = CURRENT_CABLE[this.component];
-
-            var url = CC && CC.getDisplayImageUrl() || BLANK_IMAGE[this.component],
-                boot = CC && CC.getDisplayBootImageUrl() || BLANK_IMAGE_URL;
-
-            DISPLAY_IMAGES[this.component].src = url;
-            DISPLAY_IMAGES[this.component + 'Boot'].src = boot;
-        };
     };
-
-    Cable.prototype = Object.create(Option.prototype);
-    Cable.prototype.constructor = Cable;
     Plug.prototype  = Object.create(Option.prototype);
     Plug.prototype.constructor = Plug;
+
+    Plug.prototype.getBuilderBootImageUrl = function(color) {
+        color = color || this.currentBoot;
+
+        var model = this.model.split('-')[0];
+
+        return [
+            IMAGES_DIR, 'builder/plug/',
+            formatTextForImageUrl(this.manufacturer), '/',
+            formatTextForImageUrl(model), '/',
+            formatTextForImageUrl(color), '.png'
+        ].join('');
+    };
+
+    Plug.prototype.getDisplayBootImageUrl = function(color) {
+        color = color || this.currentBoot;
+
+        if( !color ) {
+            return BLANK_IMAGE_URL;
+        }
+
+        var model = this.model.split('-')[0];
+
+        return [
+            IMAGES_DIR, 'display/plug/',
+            formatTextForImageUrl(this.manufacturer), '/',
+            formatTextForImageUrl(model), '/',
+            formatTextForImageUrl(color), '.png'
+        ].join('');
+    };
+
+    Plug.prototype.setChoice = function(e) {
+        var color = e.target.getAttribute('data-value'),
+            status = true,
+            url = BLANK_IMAGE_URL;
+
+        if( e.target.getAttribute('data-choice-status') === 'unavailable' ) {
+            status = false;
+        }
+
+        if( this.hasBoots && color !== this.currentBoot ) {
+            this.currentBoot = color;
+
+            url = this.getBuilderBootImageUrl();
+            this.detailsWrap.img_choice.attr('src', url);
+
+            if( CURRENT_CABLE[this.component] &&
+                CURRENT_CABLE[this.component].code === this.code ) {
+                DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
+            }
+        }
+
+        if( this.hasColors && color !== this.currentColor ) {
+            this.currentColor = color;
+            url = this.getBuilderImageUrl();
+            $(document.getElementById(this.code)).find('.component').attr('src', url);
+            this.detailsWrap.img_component.attr('src', url);
+
+            if( CURRENT_CABLE[this.component] &&
+                CURRENT_CABLE[this.component].code === this.code ) {
+                DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
+            }
+        }
+
+        updateOverview(this.component, this);
+    };
+
+    Plug.prototype.onHoverOption = function(e) {
+        DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
+
+        if( this.hasBoots ) {
+            DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
+        } else {
+            DISPLAY_IMAGES[this.component + 'Boot'].src = BLANK_IMAGE_URL;
+        }
+    };
+
+    Plug.prototype.offHoverOption = function(e) {
+        var CC = CURRENT_CABLE[this.component];
+
+        var url = CC && CC.getDisplayImageUrl() || BLANK_IMAGE[this.component],
+            boot = CC && CC.getDisplayBootImageUrl() || BLANK_IMAGE_URL;
+
+        DISPLAY_IMAGES[this.component].src = url;
+        DISPLAY_IMAGES[this.component + 'Boot'].src = boot;
+    };
 
     // generate #num blank blocks
     // fix flex spacing
