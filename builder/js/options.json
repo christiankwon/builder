@@ -1364,33 +1364,39 @@
           "red": {
             "input_option_id": 1489,
             "output_option_id": 1789,
-            "color": "#e90d2f"
+            "color": "#e90d2f",
+            "status": "available"
           },
           "orange": {
             "input_option_id": 1486,
             "output_option_id": 1786,
-            "color": "#ff864f"
+            "color": "#ff864f",
+            "status": "available"
           },
           "green": {
             "input_option_id": 1487,
             "output_option_id": 1787,
-            "color": "#25c265"
+            "color": "#25c265",
+            "status": "available"
           },
           "violet": {
             "input_option_id": 1490,
             "output_option_id": 1790,
-            "color": "#6154ba"
+            "color": "#6154ba",
+            "status": "available"
           },
           "gray": {
             "input_option_id": 1488,
             "output_option_id": 1788,
-            "color": "#999da3"
+            "color": "#999da3",
+            "status": "available"
           },
           "black": {
             "default": true,
             "input_option_id": 1491,
             "output_option_id": 1791,
-            "color": "#000000"
+            "color": "#000000",
+            "status": "available"
           }
         }
       },
@@ -1402,32 +1408,38 @@
             "default": true,
             "input_option_id": 1796,
             "output_option_id": 1807,
-            "color": "#000000"
+            "color": "#000000",
+            "status": "available"
           },
           "red": {
             "input_option_id": 1797,
             "output_option_id": 1802,
-            "color": "#a24743"
+            "color": "#a24743",
+            "status": "available"
           },
           "orange": {
             "input_option_id": 1798,
             "output_option_id": 1803,
-            "color": "#fbac44"
+            "color": "#fbac44",
+            "status": "available"
           },
           "green": {
             "input_option_id": 1799,
             "output_option_id": 1804,
-            "color": "#4b7968"
+            "color": "#4b7968",
+            "status": "available"
           },
           "blue": {
             "input_option_id": 1800,
             "output_option_id": 1805,
-            "color": "#3848a4"
+            "color": "#3848a4",
+            "status": "available"
           },
           "vintage cream": {
             "input_option_id": 1801,
             "output_option_id": 1806,
-            "color": "#edecd4"
+            "color": "#edecd4",
+            "status": "available"
           }
         }
       }
