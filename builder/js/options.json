@@ -38,7 +38,7 @@
       "colors": {
         "gray": {
           "id": null,
-          "qty": 18
+          "qty": 0
         }
       },
       "allowance": {
@@ -87,7 +87,7 @@
       "colors": {
         "black": {
           "id": null,
-          "qty": 18
+          "qty": 35
         }
       },
       "allowance": {
@@ -136,7 +136,7 @@
       "colors": {
         "black": {
           "id": null,
-          "qty": 18
+          "qty": 300
         }
       },
       "allowance": {
@@ -186,33 +186,33 @@
         "black": {
           "id": 1647,
           "color": "#000",
-          "status": "unavailable",
-          "qty": 18
+          "status": "available",
+          "qty": 100
         },
         "red": {
           "id": 1649,
           "color": "#e90d2f",
           "status": "unavailable",
-          "qty": 18
+          "qty": 0
         },
         "orange": {
           "default": true,
           "id": 1650,
           "color": "#ff864f",
           "status": "unavailable",
-          "qty": 18
+          "qty": 0
         },
         "yellow": {
           "id": 1651,
           "color": "#fcf86c",
           "status": "unavailable",
-          "qty": 18
+          "qty": 0
         },
         "green": {
           "id": 1652,
           "color": "#25c265",
           "status": "unavailable",
-          "qty": 18
+          "qty": 0
         },
         "option_category_id": 149
       },
@@ -262,7 +262,7 @@
       "colors": {
         "black": {
           "id": null,
-          "qty": 18
+          "qty": 30
         }
       },
       "allowance": {
@@ -311,7 +311,7 @@
       "colors": {
         "red": {
           "id": null,
-          "qty": 32
+          "qty": 0
         }
       },
       "allowance": {
@@ -360,11 +360,11 @@
       "colors": {
         "black": {
           "id": null,
-          "qty": 90
+          "qty": 0
         },
         "blue": {
           "id": null,
-          "qty": 90
+          "qty": 0
         }
       },
       "allowance": {
@@ -414,13 +414,13 @@
         "black": {
           "id": 1647,
           "color": "#000",
-          "qty": 18
+          "qty": 200
         },
         "red": {
           "default": true,
           "id": 1649,
           "color": "#ff2b3d",
-          "qty": 18
+          "qty": 200
         },
         "option_category_id": "149"
       },
@@ -470,7 +470,7 @@
       "colors": {
         "black": {
           "id": null,
-          "qty": 18
+          "qty": 200
         }
       },
       "allowance": {
@@ -519,7 +519,7 @@
       "colors": {
         "black": {
           "id": null,
-          "qty": 18
+          "qty": 100
         }
       },
       "allowance": {
@@ -717,14 +717,14 @@
           "id": 1647,
           "color": "black",
           "status": "available",
-          "qty": 18
+          "qty": 200
         },
         "white": {
           "default": true,
           "id": 1678,
           "color": "white",
           "status": "available",
-          "qty": 18
+          "qty": 200
         },
         "option_category_id": "149"
       },
