@@ -330,6 +330,68 @@
             return this.choicesHtml;
         },
 
+        showDetails: function() {
+            var option    = this,
+                choices   = option.getChoices(),
+                container = option.detailsWrap;
+
+            if( !choices.length ) {
+                container.choice.addClass('empty');
+            } else {
+                container.choice.removeClass('empty');
+            }
+
+            if( option.html.classList.contains('clicked') ) {
+                // this.selectOption();
+            }
+
+            if( option ) {
+                option.html.classList.remove('clicked');
+            }
+
+            option.html.classList.add('clicked');
+
+            container.wrap.addClass('active');
+            container.wrap.get(0).option = option;
+
+            if( option.isSelected() ) {
+                container.wrap.addClass('selected');
+            } else {
+                container.wrap.removeClass('selected');
+            }
+
+            if( option.status === 'unavailable' ) {
+                container.wrap.addClass('unavailable');
+            } else {
+                container.wrap.removeClass('unavailable');
+            }
+
+            container.img_component.attr({
+                src: option.getBuilderImageUrl(),
+                alt: option.getName()
+            });
+
+            if( option instanceof Cable ) {
+                container.specs.html(option.getSpecs());
+
+            } else if( option instanceof Plug ) {
+                if( option.hasBoots ) {
+                    container.img_choice.attr({
+                        src: option.getBuilderBootImageUrl()
+                    });
+                } else {
+                    container.img_choice.attr({
+                        src: BLANK_IMAGE_URL
+                    });
+                }
+            }
+
+            container.manufacturer.text(option.nameObj.manufacturer);
+            container.model.text(option.nameObj.model);
+            container.price.html(option.getPrice());
+            container.choice.html(choices);
+        },
+
         selectOption: function() {
             var c = this.component;
 
@@ -400,7 +462,7 @@
             updateOverview(c, this);
             updateCost();
         }
-    }
+    };
 
     var Cable = function(data, el) {
         Option.apply(this, arguments);
@@ -481,54 +543,6 @@
                     updateOverview(this.component, this);
                 }
             }
-        };
-
-        this.showDetails = function() {
-            var _ = this.detailsWrap,
-                choices = this.getChoices(),
-                option  = _.wrap.get(0).option;
-
-            if( !choices.length ) {
-                _.choice.addClass('empty');
-            } else {
-                _.choice.removeClass('empty');
-            }
-
-            if( this.html.classList.contains('clicked') ) {
-                // this.selectOption();
-            }
-
-            if( option ) {
-                option.html.classList.remove('clicked');
-            }
-
-            this.html.classList.add('clicked');
-
-            _.wrap.addClass('active');
-            _.wrap.get(0).option = this;
-
-            if( this.isSelected() ) {
-                _.wrap.addClass('selected');
-            } else {
-                _.wrap.removeClass('selected');
-            }
-
-            if( this.status === 'unavailable' ) {
-                _.wrap.addClass('unavailable');
-            } else {
-                _.wrap.removeClass('unavailable');
-            }
-
-            _.img_component.attr({
-                src: this.getBuilderImageUrl(),
-                alt: this.getName()
-            });
-
-            _.manufacturer.text(this.nameObj.manufacturer);
-            _.model.text(this.nameObj.model);
-            _.price.html(this.getPrice());
-            _.choice.html(this.getChoices());
-            _.specs.html(this.getSpecs());
         };
 
         this.onHoverOption = function(e) {
@@ -622,63 +636,6 @@
             }
 
             updateOverview(this.component, this);
-        };
-
-        this.showDetails = function() {
-            var _ = this.detailsWrap,
-                choices = this.getChoices(),
-                option  = _.wrap.get(0).option;
-
-            if( !choices.length ) {
-                _.choice.addClass('empty');
-            } else {
-                _.choice.removeClass('empty');
-            }
-
-            if( this.html.classList.contains('clicked') ) {
-                // this.selectOption();
-            }
-
-            if( option ) {
-                option.html.classList.remove('clicked');
-            }
-
-            this.html.classList.add('clicked');
-
-            _.wrap.addClass('active');
-            _.wrap.get(0).option = this;
-
-            if( this.isSelected() ) {
-                _.wrap.addClass('selected');
-            } else {
-                _.wrap.removeClass('selected');
-            }
-
-            if( this.status === 'unavailable' ) {
-                _.wrap.addClass('unavailable');
-            } else {
-                _.wrap.removeClass('unavailable');
-            }
-
-            _.img_component.attr({
-                src: this.getBuilderImageUrl(),
-                alt: this.getName()
-            });
-
-            if( this.hasBoots ) {
-                _.img_choice.attr({
-                    src: this.getBuilderBootImageUrl()
-                });
-            } else {
-                _.img_choice.attr({
-                    src: BLANK_IMAGE_URL
-                });
-            }
-
-            _.manufacturer.text(this.nameObj.manufacturer);
-            _.model.text(this.nameObj.model);
-            _.price.html(this.getPrice());
-            _.choice.html(this.getChoices());
         };
 
         this.onHoverOption = function(e) {
