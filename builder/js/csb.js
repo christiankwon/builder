@@ -212,8 +212,10 @@
             return this.nameObj.manufacturer + ' ' + this.nameObj.model;
         },
 
-        getFullName: function(choice) {
+        getFullName: function() {
             var str = this.getName();
+
+            var choice = this.hasChoices && (this.currentColor || this.currentBoot) || '';
 
             if( choice ) {
                 str += ' | ' + choice;
@@ -337,12 +339,6 @@
         this.hasColors    = data.has_colors;
         this.choicesHtml  = [];
         this.specsHtml    = [];
-
-        this.getFullName = function() {
-            var choice = this.hasChoices && this.currentColor || '';
-
-            return Object.getPrototypeOf(this).getFullName.call(this, choice);
-        };
 
         this.getSpecs = function() {
             if( !this.specsHtml.length ) {
@@ -540,22 +536,6 @@
         this.currentColor = data.currentColor;
         this.currentBoot  = data.currentBoot;
         this.choicesHtml  = [];
-
-        this.getFullName = function() {
-            var str = this.getName();
-
-            if( this.hasChoices ) {
-                if( this.hasColors ) {
-                    str += ' | ' + this.currentColor;
-                }
-
-                if( this.hasBoots ) {
-                    str += ' | ' + this.currentBoot;
-                }
-            }
-
-            return str;
-        };
 
         this.getBuilderImageUrl = function(color) {
             color = color || this.currentColor;
