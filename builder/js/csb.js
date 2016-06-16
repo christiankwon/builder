@@ -253,6 +253,45 @@
             return val.trim();
         },
 
+        getBuilderImageUrl: function(color) {
+            color = color || this.currentColor;
+
+            return [
+                IMAGES_DIR,
+                'builder/',
+                this.part, '/',
+                formatTextForImageUrl(this.manufacturer), '/',
+                formatTextForImageUrl(this.model),
+                color && '.' + color || '',
+                '.jpg'
+            ].join('');
+        },
+
+        getDisplayImageUrl: function(color) {
+            var part = this.part;
+
+            color = color || this.currentColor;
+
+            var url = [
+                IMAGES_DIR,
+                'display/',
+                part, '/'
+            ];
+
+            if( part === 'cable' ) {
+                url.push(CURRENT_CABLE.type, '/');
+            }
+
+            url.push(
+                formatTextForImageUrl(this.manufacturer), '/',
+                formatTextForImageUrl(this.model),
+                (color && !this.hasBoots) && '.' + color || '',
+                '.png'
+            );
+
+            return url.join('');
+        },
+
         selectOption: function() {
             var c = this.component;
 
@@ -395,31 +434,6 @@
             return this.choicesHtml;
         };
 
-        this.getBuilderImageUrl = function(color) {
-            color = color || this.currentColor;
-
-            return [
-                IMAGES_DIR, 'builder/cable/',
-                formatTextForImageUrl(this.manufacturer), '/',
-                formatTextForImageUrl(this.model),
-                color && '.' + color || '',
-                '.jpg'
-            ].join('');
-        };
-
-        this.getDisplayImageUrl = function(color) {
-            color = color || this.currentColor;
-
-            return [
-                IMAGES_DIR, 'display/cable/',
-                CURRENT_CABLE.type, '/',
-                formatTextForImageUrl(this.manufacturer), '/',
-                formatTextForImageUrl(this.model),
-                color && '.' + color || '',
-                '.png'
-            ].join('');
-        };
-
         this.setChoice = function(e) {
             var _getStatus = function() {
                 var status = true;
@@ -537,18 +551,6 @@
         this.currentBoot  = data.currentBoot;
         this.choicesHtml  = [];
 
-        this.getBuilderImageUrl = function(color) {
-            color = color || this.currentColor;
-
-            return [
-                IMAGES_DIR, 'builder/plug/',
-                formatTextForImageUrl(this.manufacturer), '/',
-                formatTextForImageUrl(this.model),
-                color && '.' + color || '',
-                '.jpg'
-            ].join('');
-        };
-
         this.getBuilderBootImageUrl = function(color) {
             color = color || this.currentBoot;
 
@@ -559,22 +561,6 @@
                 formatTextForImageUrl(this.manufacturer), '/',
                 formatTextForImageUrl(model), '/',
                 formatTextForImageUrl(color), '.png'
-            ].join('');
-        };
-
-        this.getDisplayImageUrl = function(color) {
-            color = color || this.currentColor;
-
-            if( this.hasBoots ) {
-                color = '';
-            }
-
-            return [
-                IMAGES_DIR, 'display/plug/',
-                formatTextForImageUrl(this.manufacturer), '/',
-                formatTextForImageUrl(this.model),
-                color && '.' + color || '',
-                '.png'
             ].join('');
         };
 
