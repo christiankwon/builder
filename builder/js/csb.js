@@ -112,9 +112,7 @@
                 price:         $(_id('output-details-price')),
                 choice:        $(_id('output-details-choices')),
             }
-        },
-
-        BOOTS = {};
+        };
 
     var Setup = function() {
             this.type = DEFAULT_CABLE_TYPE;
@@ -292,6 +290,46 @@
             return url.join('');
         },
 
+        getChoices: function() {
+            var p, div, colors, arr = [], extras = [];
+
+            if( !this.hasChoices ) {
+                return [];
+            }
+
+            if( !this.choicesHtml.length ) {
+                if( this.hasColors ) {
+                    colors = this.colors;
+                } else if( this.hasBoots ) {
+                    colors = J_BOOTS[this.manufacturer][this.series].boot;
+                }
+
+                for( p in colors ) { if( colors.hasOwnProperty(p) ) {
+                    if( p === 'option_category_id' ) { continue; }
+
+                    div = document.createElement('div');
+
+                    div.option = this;
+
+                    $(div).attr({
+                        'data-value': p,
+                        'data-choice-status': colors[p].status
+                    }).css({
+                        'background-color': colors[p].color
+                    });
+
+                    arr.push(div);
+                }}
+
+                extras = getBlankBlocks(arr.length);
+                arr = arr.concat(extras);
+
+                this.choicesHtml = arr;
+            }
+
+            return this.choicesHtml;
+        },
+
         selectOption: function() {
             var c = this.component;
 
@@ -401,37 +439,6 @@
             }
 
             return this.specsHtml;
-        };
-
-        this.getChoices = function() {
-            if( this.colors.option_category_id && !this.choicesHtml.length ) {
-                var p, colors = this.colors, arr = [];
-
-                for( p in colors ) { if( colors.hasOwnProperty(p) ) {
-                    if( p === 'option_category_id' ) { continue; }
-
-                    var div = document.createElement('div');
-
-                    div.option = this;
-
-                    $(div)
-                        .attr({
-                            'data-value': p,
-                            'data-choice-status': colors[p].status,
-                            'data-qty': colors[p].qty
-                        })
-                        .css('background-color', colors[p].color);
-
-                    arr.push(div);
-                }}
-
-                var extras = getBlankBlocks(arr.length);
-                arr = arr.concat(extras);
-
-                this.choicesHtml = arr;
-            }
-
-            return this.choicesHtml;
         };
 
         this.setChoice = function(e) {
@@ -579,61 +586,6 @@
                 formatTextForImageUrl(model), '/',
                 formatTextForImageUrl(color), '.png'
             ].join('');
-        };
-
-        this.getChoices = function() {
-            var p, colors, arr = [], div, extras = [];
-
-            if( !this.choicesHtml.length ) {
-                if( this.hasBoots ) {
-                    colors = BOOTS[this.manufacturer][this.series];
-
-                    for( p in colors ) { if( colors.hasOwnProperty(p) ) {
-                        div = document.createElement('div');
-
-                        div.option = this;
-
-                        $(div)
-                            .attr({
-                                'data-value': p,
-                                'data-choice-status': colors[p].status
-                            })
-                            .css('background-color', colors[p]);
-
-                        arr.push(div);
-                    }}
-
-                    extras = getBlankBlocks(arr.length);
-                    arr = arr.concat(extras);
-
-                    this.choicesHtml = arr;
-
-                } else if( this.hasColors ) {
-                    colors = this.colors;
-
-                    for( p in colors ) { if( colors.hasOwnProperty(p) ) {
-                        div = document.createElement('div');
-
-                        div.option = this;
-
-                        $(div)
-                            .attr({
-                                'data-value': p,
-                                'data-choice-status': colors[p].status
-                            })
-                            .css('background-color', colors[p].color);
-
-                        arr.push(div);
-                    }}
-
-                    extras = getBlankBlocks(arr.length);
-                    arr = arr.concat(extras);
-
-                    this.choicesHtml = arr;
-                }
-            }
-
-            return this.choicesHtml;
         };
 
         this.setChoice = function(e) {
@@ -1526,22 +1478,6 @@
 
                 return '';
             };
-
-            for( var m in J_BOOTS ) { if( J_BOOTS.hasOwnProperty(m) ) {
-                var manu = J_BOOTS[m];
-
-                if( !BOOTS[m] ) { BOOTS[m] = {}; }
-
-                for( var s in manu ) { if( manu.hasOwnProperty(s) ) {
-                    var series = manu[s];
-
-                    if( !BOOTS[m][s] ) { BOOTS[m][s] = {}; }
-
-                    for( var c in series.boot ) { if( series.boot.hasOwnProperty(c) ) {
-                        BOOTS[m][s][c] = series.boot[c].color;
-                    }}
-                }}
-            }}
 
             for( var i = 0; i < sides.length; i++ ) {
                 var container = $('article[data-component="' + sides[i] + '"] .options-wrap', '#builders');
