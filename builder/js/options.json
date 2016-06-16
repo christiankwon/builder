@@ -414,12 +414,14 @@
         "black": {
           "id": 1647,
           "color": "#000",
+          "status": "available",
           "qty": 200
         },
         "red": {
           "default": true,
           "id": 1649,
           "color": "#ff2b3d",
+          "status": "available",
           "qty": 200
         },
         "option_category_id": "149"
