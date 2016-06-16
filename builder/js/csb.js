@@ -313,7 +313,7 @@
 
                     $(div).attr({
                         'data-value': p,
-                        'data-choice-status': colors[p].status
+                        'data-choice-status': this.hasColors ? colors[p].status : this.status
                     }).css({
                         'background-color': colors[p].color
                     });
@@ -511,40 +511,40 @@
         var _getStatus = function() {
             var status = true;
 
-            var target = e.target,
-                option = target.option;
-
             if( target.getAttribute('data-choice-status') !== 'available' ) {
                 status = false;
             }
 
-            if( option.colors[color].qty < CURRENT_CABLE.length.amount ) {
+            if( this.colors[color].qty < CURRENT_CABLE.length.amount ) {
                 status = false;
             }
 
             return status;
         };
 
-        var color = e.target.getAttribute('data-value'),
-            status = _getStatus(),
-            option = e.target.option;
+        var target = e.target;
 
-        if( this.hasChoices && color !== this.currentColor ) {
+        var color = target.getAttribute('data-value'),
+            status = _getStatus.call(this);
+
+        var url = BLANK_IMAGE_URL;
+
+        if( this.hasColors && color !== this.currentColor ) {
             this.currentColor = color;
 
-            var url = this.getBuilderImageUrl();
+            url = this.getBuilderImageUrl();
 
             this.detailsWrap.img_component.attr('src', url);
 
             if( status ) {
-                $('#'+ this.code).find('.component').attr('src', url);
-            }
+                $('.component', _id(this.code)).attr('src', url);
 
-            if( status && CURRENT_CABLE.cable &&
-                CURRENT_CABLE.cable.code === this.code ) {
-                DISPLAY_IMAGES.cable.src = this.getDisplayImageUrl();
+                if( CURRENT_CABLE.cable &&
+                    CURRENT_CABLE.cable.code === this.code ) {
+                    DISPLAY_IMAGES.cable.src = this.getDisplayImageUrl();
 
-                updateOverview(this.component, this);
+                    updateOverview(this.component, this);
+                }
             }
         }
     };
@@ -609,35 +609,50 @@
     };
 
     Plug.prototype.setChoice = function(e) {
-        var color = e.target.getAttribute('data-value'),
-            status = true,
-            url = BLANK_IMAGE_URL;
+        var _getStatus = function() {
+            var status = true;
 
-        if( e.target.getAttribute('data-choice-status') === 'unavailable' ) {
-            status = false;
+            if( target.getAttribute('data-choice-status') !== 'available' ) {
+                status = false;
+            }
+
+            return status;
+        };
+
+        var target = e.target;
+
+        var color = target.getAttribute('data-value'),
+            status = _getStatus.call(this);
+
+        var url = BLANK_IMAGE_URL;
+
+        if( this.hasColors && color !== this.currentColor ) {
+            this.currentColor = color;
+
+            url = this.getBuilderImageUrl();
+
+            this.detailsWrap.img_component.attr('src', url);
+
+            if( status ) {
+                $('.component', _id(this.code)).attr('src', url);
+
+                if( CURRENT_CABLE[this.component] &&
+                    CURRENT_CABLE[this.component].code === this.code ) {
+                    DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
+                }
+            }
         }
 
         if( this.hasBoots && color !== this.currentBoot ) {
             this.currentBoot = color;
 
-            url = this.getBuilderBootImageUrl();
-            this.detailsWrap.img_choice.attr('src', url);
+            this.detailsWrap.img_choice.attr('src', this.getBuilderBootImageUrl());
 
-            if( CURRENT_CABLE[this.component] &&
-                CURRENT_CABLE[this.component].code === this.code ) {
-                DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
-            }
-        }
-
-        if( this.hasColors && color !== this.currentColor ) {
-            this.currentColor = color;
-            url = this.getBuilderImageUrl();
-            $(document.getElementById(this.code)).find('.component').attr('src', url);
-            this.detailsWrap.img_component.attr('src', url);
-
-            if( CURRENT_CABLE[this.component] &&
-                CURRENT_CABLE[this.component].code === this.code ) {
-                DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
+            if( status ) {
+                if( CURRENT_CABLE[this.component] &&
+                    CURRENT_CABLE[this.component].code === this.code ) {
+                    DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
+                }
             }
         }
 
