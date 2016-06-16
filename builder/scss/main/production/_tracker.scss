@@ -155,6 +155,11 @@
                 @include transform( rotate(45deg) );
             }
         }
+
+        span {
+            display: block;
+            margin-bottom: 10px;
+        }
     }
 
     .price-wrap {
