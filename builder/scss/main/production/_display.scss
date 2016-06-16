@@ -78,4 +78,31 @@
             font-weight: lighter;
         }
     }
+
+    .techflex-window {
+        border: solid 2px $black;
+        border-radius: 50%;
+        display: none;
+        position: absolute;
+        overflow: hidden;
+
+        .body-wrap[data-cable-type="patch"] & {
+            left: 25px;
+            top: 30px;
+            height: 50px;
+            width: 50px;
+        }
+
+        .body-wrap[data-cable-type="instrument"] & {
+            left: -10px;
+            bottom: 105px;
+            height: 75px;
+            width: 75px;
+        }
+
+        img {
+            height: 100%;
+            width: 100%;
+        }
+    }
 }

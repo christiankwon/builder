@@ -862,6 +862,20 @@
         el.textContent = '$' + CURRENT_CABLE.getPrice().formatMoney();
     };
 
+    var toggleTechflexWindow = (function() {
+        var box = $('#techflex-window');
+
+        return function(val, label) {
+            if( val ) {
+                box.show();
+                box.children().get(0).src = label.children[0].src;
+
+            } else {
+                box.hide();
+            }
+        };
+    })();
+
     var confirmation = {
         check: function() {
             var cc = CURRENT_CABLE;
@@ -1780,9 +1794,16 @@
 
                 input.checked = !checked;
                 CURRENT_CABLE.techflex = value;
+
+                toggleTechflexWindow(value, label);
+
                 updateOverview('extras');
                 updateStatus('extras', 'complete');
                 updateCost();
+            });
+
+            $('#techflex-window').on('click', function() {
+                changeStep('extras', _id('body').getAttribute('data-current-step'));
             });
 
             $(DISPLAY_IMAGES.cable).on('click', function() {
