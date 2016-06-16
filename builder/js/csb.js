@@ -399,6 +399,8 @@
             }
 
             if( !this.isSelected() ) {
+                this.showDetails();
+
                 this.detailsWrap.wrap.addClass('selected')
                     .next().addClass('selected')
                     .parent().addClass('complete');
@@ -413,8 +415,16 @@
 
                 DISPLAY_IMAGES[c].src = this.getDisplayImageUrl();
 
+                if( DISPLAY_IMAGES[c + 'Boot'] ) {
+                    if( this.hasBoots) {
+                        DISPLAY_IMAGES[c + 'Boot'].src = this.getDisplayBootImageUrl();
+                    } else {
+                        DISPLAY_IMAGES[c + 'Boot'].src = BLANK_IMAGE.boot;
+                    }
+                }
+
                 if( this.hasBoots ) {
-                    DISPLAY_IMAGES[c + 'Boot'].src = this.getDisplayBootImageUrl();
+
                 }
 
                 if( MQ_SMALL.matches ) {
