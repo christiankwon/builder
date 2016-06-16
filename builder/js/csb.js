@@ -1512,11 +1512,30 @@
         },
 
         other: function() {
-            // double length of techflex items to fix flexbox alignment
-            var length = $('.techflex').length;
+            var _getTechflexBlock = function(color) {
+                return $('<div/>', {class: 'techflex'}).append(
+                    $('<input/>', {
+                        type: 'radio',
+                        id: 'techflex_' + color,
+                        name: 'techflex',
+                        value: color
+                    }),
+                    $('<span/>', {text: color}),
+                    $('<label/>', {for: 'techflex_' + color}).append(
+                        $('<img/>', {
+                            alt: color + ' techflex',
+                            src: IMAGES_DIR + 'techflex/' + color + '.png'
+                        })
+                    )
+                );
+            }
 
+            var c, colors = J_OTHER.techflex.colors, arr = [];
+            for( c in colors ) { if( colors.hasOwnProperty(c) ) {
+                arr.push(_getTechflexBlock(c));
+            }}
 
-            var arr = getBlankBlocks(length, 'techflex');
+            arr = arr.concat(getBlankBlocks(arr.length, 'techflex'));
 
             $('#techflex').append(arr);
         },
