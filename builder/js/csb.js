@@ -818,7 +818,7 @@
             cable:   t.querySelector('div[data-pointer-component="cable"]'),
             input:   t.querySelector('div[data-pointer-component="input"]'),
             output:  t.querySelector('div[data-pointer-component="output"]'),
-            extras:  t.querySelector('div[data-pointer-component="extra"]')
+            extras:  t.querySelector('div[data-pointer-component="extras"]')
         };
 
         return function(c, s) {
@@ -910,7 +910,7 @@
             _id('final-cable').textContent  = cc.length.amount.toString() + cc.length.unit + ' ' + cc.cable.getFullName();
             _id('final-input').textContent  = cc.input.getFullName();
             _id('final-output').textContent = cc.output.getFullName();
-            _id('final-extra').textContent  = cc.getExtraOptions();
+            _id('final-extras').textContent  = cc.getExtraOptions();
 
             $('#final-price').text(CURRENT_CABLE.getPrice().formatMoney());
         },
@@ -1781,7 +1781,7 @@
                 });
             })();
 
-            _.find('.extra-wrap input[type="checkbox"]').on('change', function() {
+            _.find('.extras-wrap input[type="checkbox"]').on('change', function() {
                 var opt = this.name;
 
                 CURRENT_CABLE[opt] = this.checked;
@@ -1790,7 +1790,7 @@
                 updateCost();
             });
 
-            _.find('.extra-wrap .techflex').on('click', 'label', function(e) {
+            _.find('.extras-wrap .techflex').on('click', 'label', function(e) {
                 e.preventDefault();
 
                 var label = e.currentTarget,
