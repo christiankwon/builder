@@ -2,8 +2,7 @@
     "use strict";
 
     var _id = function(id) { return document.getElementById(id); },
-        _ce = function(e)  { return document.createElement(e); },
-        _qs = function(q)  { return document.querySelector(q); };
+        _ce = function(e)  { return document.createElement(e); };
 
     var JSON_URL = 'builder/js/options.json',
         IMAGES_DIR = 'builder/images/';
@@ -136,7 +135,7 @@
                     var price = this.cable.price;
 
                     if( this.type === 'patch' ) {
-                        total += (price / 4) * (Math.floor((length - 1) / 3) + 1)
+                        total += (price / 4) * (Math.floor((length - 1) / 3) + 1);
                     } else {
                         total += price * length;
                     }
@@ -168,19 +167,19 @@
                 var str = '';
 
                 if( this.techflex ) {
-                    str += this.techflex + ' Techflex'
+                    str += this.techflex + ' Techflex';
                 }
 
                 if( this.tourproof ) {
-                    if( str ) { str += '; ' }
+                    if( str ) { str += '; '; }
 
-                    str += 'Tourproof'
+                    str += 'Tourproof';
                 }
 
                 if( this.reverse_plugs ) {
-                    if( str ) { str += '; ' }
+                    if( str ) { str += '; '; }
 
-                    str += 'Reversed Plugs'
+                    str += 'Reversed Plugs';
                 }
 
                 return str;
@@ -307,7 +306,7 @@
                 for( p in colors ) { if( colors.hasOwnProperty(p) ) {
                     if( p === 'option_category_id' ) { continue; }
 
-                    div = document.createElement('div');
+                    div = _ce('div');
 
                     div.option = this;
 
@@ -481,6 +480,7 @@
     };
 
     Cable.prototype = Object.create(Option.prototype);
+
     Cable.prototype.constructor = Cable;
 
     Cable.prototype.getSpecs = function() {
@@ -555,7 +555,9 @@
     };
 
     Cable.prototype.offHoverOption = function(e) {
-        var url = CURRENT_CABLE[this.component] && CURRENT_CABLE[this.component].getDisplayImageUrl() || BLANK_IMAGE[CURRENT_CABLE.type];
+        var obj = CURRENT_CABLE[this.component];
+
+        var url = obj && obj.getDisplayImageUrl() || BLANK_IMAGE[CURRENT_CABLE.type];
 
         DISPLAY_IMAGES.cable.src = url;
     };
@@ -575,7 +577,9 @@
         this.currentBoot  = data.currentBoot;
         this.choicesHtml  = [];
     };
+
     Plug.prototype  = Object.create(Option.prototype);
+
     Plug.prototype.constructor = Plug;
 
     Plug.prototype.getBuilderBootImageUrl = function(color) {
@@ -659,28 +663,30 @@
                 }
             }
         }
-
-
     };
 
     Plug.prototype.onHoverOption = function(e) {
-        DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
+        var comp = this.component;
+
+        DISPLAY_IMAGES[comp].src = this.getDisplayImageUrl();
 
         if( this.hasBoots ) {
-            DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
+            DISPLAY_IMAGES[comp + 'Boot'].src = this.getDisplayBootImageUrl();
         } else {
-            DISPLAY_IMAGES[this.component + 'Boot'].src = BLANK_IMAGE_URL;
+            DISPLAY_IMAGES[comp + 'Boot'].src = BLANK_IMAGE_URL;
         }
     };
 
     Plug.prototype.offHoverOption = function(e) {
-        var CC = CURRENT_CABLE[this.component];
+        var comp = this.component;
 
-        var url = CC && CC.getDisplayImageUrl() || BLANK_IMAGE[this.component],
-            boot = CC && CC.getDisplayBootImageUrl() || BLANK_IMAGE_URL;
+        var obj = CURRENT_CABLE[comp];
 
-        DISPLAY_IMAGES[this.component].src = url;
-        DISPLAY_IMAGES[this.component + 'Boot'].src = boot;
+        var url  = obj && obj.getDisplayImageUrl()     || BLANK_IMAGE[comp],
+            boot = obj && obj.getDisplayBootImageUrl() || BLANK_IMAGE_URL;
+
+        DISPLAY_IMAGES[comp].src = url;
+        DISPLAY_IMAGES[comp + 'Boot'].src = boot;
     };
 
     // generate #num blank blocks
@@ -693,7 +699,7 @@
         for( i = 0; i < num; i++ ) {
             e = _ce('div');
             e.className = text;
-            arr.push(e)
+            arr.push(e);
         }
 
         return arr;
@@ -1081,7 +1087,6 @@
         multiplier: 1,
         height: 0,
         width: 0,
-        headerHeight: $('#header').height(),
 
         initialize: function() {
             var type = _id('body').getAttribute('data-cable-type');
@@ -1110,7 +1115,6 @@
                 var c  = this.container,
                     i  = this.images,
                     r  = DEFAULT_PATCH_CABLE_HEIGHT / DEFAULT_PATCH_CABLE_WIDTH,
-                    hh = this.headerHeight,
                     w  = this.width * scale,
                     h  = w * r;
 
@@ -1242,7 +1246,7 @@
 
                 next = '';
 
-                current = body.getAttribute('data-current-step');
+                current = _id('body').getAttribute('data-current-step');
 
                 if( e.keyCode == 37 ) { // left
                     article = $('article[data-component="' + current + '"]').prev();
@@ -1327,7 +1331,7 @@
         })();
 
         $('#review').on('click', function() {
-            confirmation.go()
+            confirmation.go();
         });
     },
 
@@ -1430,13 +1434,13 @@
 
             for( var p in opt ) { if( opt.hasOwnProperty(p) ) {
                 var blanks = getBlankBlocks(opt[p].length, 'option');
-                var data = opt[p].concat(blanks);
+                var el = opt[p].concat(blanks);
 
                 var div = $('<div/>', {class: 'options ' + p});
 
                 var h = $('<h3/>', {text: p});
 
-                div.html(data).prepend(h);
+                div.html(el).prepend(h);
 
                 container.append(div);
             }}
@@ -1469,7 +1473,7 @@
                     if( data.has_colors ) {
                         data.currentColor = _hasDefaultColor(data.colors);
                     } else if( data.has_boots ) {
-                        data.currentBoot = _hasDefaultColor(J_BOOTS[data.manufacturer][data.series]['boot']);
+                        data.currentBoot = _hasDefaultColor(J_BOOTS[data.manufacturer][data.series].boot);
                     }
 
                     var plug = new Plug(data);
@@ -1484,13 +1488,13 @@
 
                 for( p in opt ) { if( opt.hasOwnProperty(p) ) {
                     var blanks = getBlankBlocks(opt[p].length, 'option');
-                    var data = opt[p].concat(blanks);
+                    var el = opt[p].concat(blanks);
 
                     var div = $('<div/>', {class: 'options ' + p});
 
                     var h = $('<h3/>', {text: p});
 
-                    div.html(data).prepend(h);
+                    div.html(el).prepend(h);
 
                     container.append(div);
                 }}
