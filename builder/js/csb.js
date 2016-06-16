@@ -639,6 +639,8 @@
                 if( CURRENT_CABLE[this.component] &&
                     CURRENT_CABLE[this.component].code === this.code ) {
                     DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
+
+                    updateOverview(this.component, this);
                 }
             }
         }
@@ -652,11 +654,13 @@
                 if( CURRENT_CABLE[this.component] &&
                     CURRENT_CABLE[this.component].code === this.code ) {
                     DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
+
+                    updateOverview(this.component, this);
                 }
             }
         }
 
-        updateOverview(this.component, this);
+
     };
 
     Plug.prototype.onHoverOption = function(e) {
