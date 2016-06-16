@@ -114,9 +114,9 @@
             }
         },
 
-        BOOTS = {},
+        BOOTS = {};
 
-        Setup = function() {
+    var Setup = function() {
             this.type = DEFAULT_CABLE_TYPE;
             this.length = {
                 amount: DEFAULT_LENGTH,
@@ -199,583 +199,595 @@
             this.status       = data.status;
             this.allowance    = data.allowance;
             this.detailsWrap  = DETAILS_CONTAINER[data.component];
+        };
 
-            this.isSelected = function() {
-                return CURRENT_CABLE[this.component] &&
-                       CURRENT_CABLE[this.component].code === this.code;
-            };
+    Option.prototype = {
+        isSelected: function() {
+            return CURRENT_CABLE[this.component] &&
+                   CURRENT_CABLE[this.component].code === this.code;
+        },
 
-            this.getName = function() {
+        getName: function() {
 
-                return this.nameObj.manufacturer + ' ' + this.nameObj.model;
-            };
+            return this.nameObj.manufacturer + ' ' + this.nameObj.model;
+        },
 
-            this.getPrice = function() {
-                // need to format
-                return this.price;
-            };
+        getFullName: function(choice) {
+            var str = this.getName();
 
-            this.getAllowanceString = function() {
-                var val = '';
+            if( choice ) {
+                str += ' | ' + choice;
+            }
 
-                var a = this.allowance;
+            return str;
+        },
 
-                if( a.patch ) {
-                    val += 'patch ';
+        getPrice: function() {
+            // need to format
+            return this.price;
+        },
+
+        getAllowanceString: function() {
+            var val = '';
+
+            var a = this.allowance;
+
+            if( a.patch ) {
+                val += 'patch ';
+            }
+
+            if( a.instrument ) {
+                val += 'instrument ';
+            }
+
+            if( a.speaker ) {
+                val += 'speaker ';
+            }
+
+            if( a.xlr ) {
+                val += 'xlr ';
+            }
+
+            return val.trim();
+        },
+
+        selectOption: function() {
+            var c = this.component;
+
+            if( this.status === 'unavailable' || this.stock < CURRENT_CABLE.length.amount ) {
+                return false;
+            }
+
+            if( !this.isSelected() ) {
+                this.detailsWrap.wrap.addClass('selected')
+                    .next().addClass('selected')
+                    .parent().addClass('complete');
+
+                if( CURRENT_CABLE[c] ) {
+                    CURRENT_CABLE[c].html.classList.remove('selected');
                 }
 
-                if( a.instrument ) {
-                    val += 'instrument ';
-                }
+                this.html.classList.add('selected');
 
-                if( a.speaker ) {
-                    val += 'speaker ';
-                }
+                CURRENT_CABLE[c] = this;
 
-                if( a.xlr ) {
-                    val += 'xlr ';
-                }
-
-                return val.trim();
-            };
-
-            this.selectOption = function() {
-                var c = this.component;
-
-                if( this.status === 'unavailable' || this.stock < CURRENT_CABLE.length.amount ) {
-                    return false;
-                }
-
-                if( !this.isSelected() ) {
-                    this.detailsWrap.wrap.addClass('selected')
-                        .next().addClass('selected')
-                        .parent().addClass('complete');
-
-                    if( CURRENT_CABLE[c] ) {
-                        CURRENT_CABLE[c].html.classList.remove('selected');
-                    }
-
-                    this.html.classList.add('selected');
-
-                    CURRENT_CABLE[c] = this;
-
-                    DISPLAY_IMAGES[c].src = this.getDisplayImageUrl();
-
-                    if( this.hasBoots ) {
-                        DISPLAY_IMAGES[c + 'Boot'].src = this.getDisplayBootImageUrl();
-                    }
-
-                    if( MQ_SMALL.matches ) {
-                        var wrap = this.detailsWrap.wrap;
-
-                        if( wrap.hasClass('active') ) {
-                            wrap.removeClass('active');
-                            _id('body').setAttribute('data-current-step', 'closed');
-                        }
-                    }
-
-                    updateStatus(c, 'complete');
-                    updateOverview(c, this);
-                    updateCost();
-
-                } else {
-                    this.deselectOption.call(this);
-                }
-            };
-
-            this.deselectOption = function() {
-                var c = this.component;
-
-                this.detailsWrap.wrap.removeClass('selected')
-                    .next().removeClass('selected')
-                    .parent().removeClass('complete');
-
-                this.html.classList.remove('selected');
-
-                CURRENT_CABLE[c] = null;
-
-                if( c === 'cable' ) {
-                    DISPLAY_IMAGES[c].src = BLANK_IMAGE[CURRENT_CABLE.type];
-                } else {
-                    DISPLAY_IMAGES[c].src = BLANK_IMAGE[c];
-                }
+                DISPLAY_IMAGES[c].src = this.getDisplayImageUrl();
 
                 if( this.hasBoots ) {
-                    DISPLAY_IMAGES[c + 'Boot'].src = BLANK_IMAGE.boot;
+                    DISPLAY_IMAGES[c + 'Boot'].src = this.getDisplayBootImageUrl();
                 }
 
-                updateStatus(c, 'incomplete');
+                if( MQ_SMALL.matches ) {
+                    var wrap = this.detailsWrap.wrap;
 
+                    if( wrap.hasClass('active') ) {
+                        wrap.removeClass('active');
+                        _id('body').setAttribute('data-current-step', 'closed');
+                    }
+                }
+
+                updateStatus(c, 'complete');
                 updateOverview(c, this);
                 updateCost();
 
+            } else {
+                this.deselectOption.call(this);
             }
         },
 
-        Cable = function(data, el) {
-            Option.apply(this, arguments);
+        deselectOption: function() {
+            var c = this.component;
 
-            this.part         = 'cable';
-            this.component    = 'cable';
-            this.specs        = data.specs;
-            this.stock        = data.stock;
-            this.lengths      = data.lengths;
-            this.colors       = data.colors;
-            this.currentColor = data.currentColor;
-            this.hasChoices   = data.has_colors;
-            this.hasColors    = data.has_colors;
-            this.choicesHtml  = [];
-            this.specsHtml    = [];
+            this.detailsWrap.wrap.removeClass('selected')
+                .next().removeClass('selected')
+                .parent().removeClass('complete');
 
-            this.getFullName = function() {
-                var str = this.getName();
+            this.html.classList.remove('selected');
 
-                if( this.hasChoices ) {
+            CURRENT_CABLE[c] = null;
+
+            if( c === 'cable' ) {
+                DISPLAY_IMAGES[c].src = BLANK_IMAGE[CURRENT_CABLE.type];
+            } else {
+                DISPLAY_IMAGES[c].src = BLANK_IMAGE[c];
+            }
+
+            if( this.hasBoots ) {
+                DISPLAY_IMAGES[c + 'Boot'].src = BLANK_IMAGE.boot;
+            }
+
+            updateStatus(c, 'incomplete');
+
+            updateOverview(c, this);
+            updateCost();
+        }
+    }
+
+    var Cable = function(data, el) {
+        Option.apply(this, arguments);
+
+        this.part         = 'cable';
+        this.component    = 'cable';
+        this.specs        = data.specs;
+        this.stock        = data.stock;
+        this.lengths      = data.lengths;
+        this.colors       = data.colors;
+        this.currentColor = data.currentColor;
+        this.hasChoices   = data.has_colors;
+        this.hasColors    = data.has_colors;
+        this.choicesHtml  = [];
+        this.specsHtml    = [];
+
+        this.getFullName = function() {
+            var choice = this.hasChoices && this.currentColor || '';
+
+            return Object.getPrototypeOf(this).getFullName.call(this, choice);
+        };
+
+        this.getSpecs = function() {
+            if( !this.specsHtml.length ) {
+                var p, s = [], str;
+
+                for( p in this.specs ) { if( this.specs.hasOwnProperty(p) ) {
+                    str = [
+                        '<span class="',
+                        p,
+                        '">',
+                        p,
+                        ': <strong>',
+                        this.specs[p],
+                        '</strong></span>'
+                    ].join('');
+
+                    s.push(str);
+                }}
+
+                this.specsHtml = s.join('');
+            }
+
+            return this.specsHtml;
+        };
+
+        this.getChoices = function() {
+            if( this.colors.option_category_id && !this.choicesHtml.length ) {
+                var p, colors = this.colors, arr = [];
+
+                for( p in colors ) { if( colors.hasOwnProperty(p) ) {
+                    if( p === 'option_category_id' ) { continue; }
+
+                    var div = document.createElement('div');
+
+                    div.option = this;
+
+                    $(div)
+                        .attr({
+                            'data-value': p,
+                            'data-choice-status': colors[p].status,
+                            'data-qty': colors[p].qty
+                        })
+                        .css('background-color', colors[p].color);
+
+                    arr.push(div);
+                }}
+
+                var extras = getBlankBlocks(arr.length);
+                arr = arr.concat(extras);
+
+                this.choicesHtml = arr;
+            }
+
+            return this.choicesHtml;
+        };
+
+        this.getBuilderImageUrl = function(color) {
+            color = color || this.currentColor;
+
+            return [
+                IMAGES_DIR, 'builder/cable/',
+                formatTextForImageUrl(this.manufacturer), '/',
+                formatTextForImageUrl(this.model),
+                color && '.' + color || '',
+                '.jpg'
+            ].join('');
+        };
+
+        this.getDisplayImageUrl = function(color) {
+            color = color || this.currentColor;
+
+            return [
+                IMAGES_DIR, 'display/cable/',
+                CURRENT_CABLE.type, '/',
+                formatTextForImageUrl(this.manufacturer), '/',
+                formatTextForImageUrl(this.model),
+                color && '.' + color || '',
+                '.png'
+            ].join('');
+        };
+
+        this.setChoice = function(e) {
+            var _getStatus = function() {
+                var status = true;
+
+                var target = e.target,
+                    option = target.option;
+
+                if( target.getAttribute('data-choice-status') !== 'available' ) {
+                    status = false;
+                }
+
+                if( option.colors[color].qty < CURRENT_CABLE.length.amount ) {
+                    status = false;
+                }
+
+                return status;
+            };
+
+            var color = e.target.getAttribute('data-value'),
+                status = _getStatus(),
+                option = e.target.option;
+
+            if( this.hasChoices && color !== this.currentColor ) {
+                this.currentColor = color;
+
+                var url = this.getBuilderImageUrl();
+
+                this.detailsWrap.img_component.attr('src', url);
+
+                if( status ) {
+                    $('#'+ this.code).find('.component').attr('src', url);
+                }
+
+                if( status && CURRENT_CABLE.cable &&
+                    CURRENT_CABLE.cable.code === this.code ) {
+                    DISPLAY_IMAGES.cable.src = this.getDisplayImageUrl();
+
+                    updateOverview(this.component, this);
+                }
+            }
+        };
+
+        this.showDetails = function() {
+            var _ = this.detailsWrap,
+                choices = this.getChoices(),
+                option  = _.wrap.get(0).option;
+
+            if( !choices.length ) {
+                _.choice.addClass('empty');
+            } else {
+                _.choice.removeClass('empty');
+            }
+
+            if( this.html.classList.contains('clicked') ) {
+                // this.selectOption();
+            }
+
+            if( option ) {
+                option.html.classList.remove('clicked');
+            }
+
+            this.html.classList.add('clicked');
+
+            _.wrap.addClass('active');
+            _.wrap.get(0).option = this;
+
+            if( this.isSelected() ) {
+                _.wrap.addClass('selected');
+            } else {
+                _.wrap.removeClass('selected');
+            }
+
+            if( this.status === 'unavailable' ) {
+                _.wrap.addClass('unavailable');
+            } else {
+                _.wrap.removeClass('unavailable');
+            }
+
+            _.img_component.attr({
+                src: this.getBuilderImageUrl(),
+                alt: this.getName()
+            });
+
+            _.manufacturer.text(this.nameObj.manufacturer);
+            _.model.text(this.nameObj.model);
+            _.price.html(this.getPrice());
+            _.choice.html(this.getChoices());
+            _.specs.html(this.getSpecs());
+        };
+
+        this.onHoverOption = function(e) {
+
+            DISPLAY_IMAGES.cable.src = this.getDisplayImageUrl();
+        };
+
+        this.offHoverOption = function(e) {
+            var url = CURRENT_CABLE[this.component] && CURRENT_CABLE[this.component].getDisplayImageUrl() || BLANK_IMAGE[CURRENT_CABLE.type];
+
+            DISPLAY_IMAGES.cable.src = url;
+        };
+    };
+
+    var Plug = function(data, el) {
+        Option.apply(this, arguments);
+
+        this.part         = 'plug';
+        this.component    = data.component;
+        this.series       = data.series;
+        this.angle        = data.angle;
+        this.hasColors    = data.has_colors || false;
+        this.hasBoots     = data.has_boots || false;
+        this.hasChoices   = data.has_colors || data.has_boots;
+        this.colors       = data.colors;
+        this.currentColor = data.currentColor;
+        this.currentBoot  = data.currentBoot;
+        this.choicesHtml  = [];
+
+        this.getFullName = function() {
+            var str = this.getName();
+
+            if( this.hasChoices ) {
+                if( this.hasColors ) {
                     str += ' | ' + this.currentColor;
                 }
 
-                return str;
-            };
-
-            this.getSpecs = function() {
-                if( !this.specsHtml.length ) {
-                    var p, s = [], str;
-
-                    for( p in this.specs ) { if( this.specs.hasOwnProperty(p) ) {
-                        str = [
-                            '<span class="',
-                            p,
-                            '">',
-                            p,
-                            ': <strong>',
-                            this.specs[p],
-                            '</strong></span>'
-                        ].join('');
-
-                        s.push(str);
-                    }}
-
-                    this.specsHtml = s.join('');
+                if( this.hasBoots ) {
+                    str += ' | ' + this.currentBoot;
                 }
+            }
 
-                return this.specsHtml;
-            };
+            return str;
+        };
 
-            this.getChoices = function() {
-                if( this.colors.option_category_id && !this.choicesHtml.length ) {
-                    var p, colors = this.colors, arr = [];
+        this.getBuilderImageUrl = function(color) {
+            color = color || this.currentColor;
+
+            return [
+                IMAGES_DIR, 'builder/plug/',
+                formatTextForImageUrl(this.manufacturer), '/',
+                formatTextForImageUrl(this.model),
+                color && '.' + color || '',
+                '.jpg'
+            ].join('');
+        };
+
+        this.getBuilderBootImageUrl = function(color) {
+            color = color || this.currentBoot;
+
+            var model = this.model.split('-')[0];
+
+            return [
+                IMAGES_DIR, 'builder/plug/',
+                formatTextForImageUrl(this.manufacturer), '/',
+                formatTextForImageUrl(model), '/',
+                formatTextForImageUrl(color), '.png'
+            ].join('');
+        };
+
+        this.getDisplayImageUrl = function(color) {
+            color = color || this.currentColor;
+
+            if( this.hasBoots ) {
+                color = '';
+            }
+
+            return [
+                IMAGES_DIR, 'display/plug/',
+                formatTextForImageUrl(this.manufacturer), '/',
+                formatTextForImageUrl(this.model),
+                color && '.' + color || '',
+                '.png'
+            ].join('');
+        };
+
+        this.getDisplayBootImageUrl = function(color) {
+            color = color || this.currentBoot;
+
+            if( !color ) {
+                return BLANK_IMAGE_URL;
+            }
+
+            var model = this.model.split('-')[0];
+
+            return [
+                IMAGES_DIR, 'display/plug/',
+                formatTextForImageUrl(this.manufacturer), '/',
+                formatTextForImageUrl(model), '/',
+                formatTextForImageUrl(color), '.png'
+            ].join('');
+        };
+
+        this.getChoices = function() {
+            var p, colors, arr = [], div, extras = [];
+
+            if( !this.choicesHtml.length ) {
+                if( this.hasBoots ) {
+                    colors = BOOTS[this.manufacturer][this.series];
 
                     for( p in colors ) { if( colors.hasOwnProperty(p) ) {
-                        if( p === 'option_category_id' ) { continue; }
-
-                        var div = document.createElement('div');
+                        div = document.createElement('div');
 
                         div.option = this;
 
                         $(div)
                             .attr({
                                 'data-value': p,
-                                'data-choice-status': colors[p].status,
-                                'data-qty': colors[p].qty
+                                'data-choice-status': colors[p].status
+                            })
+                            .css('background-color', colors[p]);
+
+                        arr.push(div);
+                    }}
+
+                    extras = getBlankBlocks(arr.length);
+                    arr = arr.concat(extras);
+
+                    this.choicesHtml = arr;
+
+                } else if( this.hasColors ) {
+                    colors = this.colors;
+
+                    for( p in colors ) { if( colors.hasOwnProperty(p) ) {
+                        div = document.createElement('div');
+
+                        div.option = this;
+
+                        $(div)
+                            .attr({
+                                'data-value': p,
+                                'data-choice-status': colors[p].status
                             })
                             .css('background-color', colors[p].color);
 
                         arr.push(div);
                     }}
 
-                    var extras = getBlankBlocks(arr.length);
+                    extras = getBlankBlocks(arr.length);
                     arr = arr.concat(extras);
 
                     this.choicesHtml = arr;
                 }
+            }
 
-                return this.choicesHtml;
-            };
-
-            this.getBuilderImageUrl = function(color) {
-                color = color || this.currentColor;
-
-                return [
-                    IMAGES_DIR, 'builder/cable/',
-                    formatTextForImageUrl(this.manufacturer), '/',
-                    formatTextForImageUrl(this.model),
-                    color && '.' + color || '',
-                    '.jpg'
-                ].join('');
-            };
-
-            this.getDisplayImageUrl = function(color) {
-                color = color || this.currentColor;
-
-                return [
-                    IMAGES_DIR, 'display/cable/',
-                    CURRENT_CABLE.type, '/',
-                    formatTextForImageUrl(this.manufacturer), '/',
-                    formatTextForImageUrl(this.model),
-                    color && '.' + color || '',
-                    '.png'
-                ].join('');
-            };
-
-            this.setChoice = function(e) {
-                var _getStatus = function() {
-                    var status = true;
-
-                    var target = e.target,
-                        option = target.option;
-
-                    if( target.getAttribute('data-choice-status') !== 'available' ) {
-                        status = false;
-                    }
-
-                    if( option.colors[color].qty < CURRENT_CABLE.length.amount ) {
-                        status = false;
-                    }
-
-                    return status;
-                };
-
-                var color = e.target.getAttribute('data-value'),
-                    status = _getStatus(),
-                    option = e.target.option;
-
-                if( this.hasChoices && color !== this.currentColor ) {
-                    this.currentColor = color;
-
-                    var url = this.getBuilderImageUrl();
-
-                    this.detailsWrap.img_component.attr('src', url);
-
-                    if( status ) {
-                        $('#'+ this.code).find('.component').attr('src', url);
-                    }
-
-                    if( status && CURRENT_CABLE.cable &&
-                        CURRENT_CABLE.cable.code === this.code ) {
-                        DISPLAY_IMAGES.cable.src = this.getDisplayImageUrl();
-
-                        updateOverview(this.component, this);
-                    }
-                }
-            };
-
-            this.showDetails = function() {
-                var _ = this.detailsWrap,
-                    choices = this.getChoices(),
-                    option  = _.wrap.get(0).option;
-
-                if( !choices.length ) {
-                    _.choice.addClass('empty');
-                } else {
-                    _.choice.removeClass('empty');
-                }
-
-                if( this.html.classList.contains('clicked') ) {
-                    // this.selectOption();
-                }
-
-                if( option ) {
-                    option.html.classList.remove('clicked');
-                }
-
-                this.html.classList.add('clicked');
-
-                _.wrap.addClass('active');
-                _.wrap.get(0).option = this;
-
-                if( this.isSelected() ) {
-                    _.wrap.addClass('selected');
-                } else {
-                    _.wrap.removeClass('selected');
-                }
-
-                if( this.status === 'unavailable' ) {
-                    _.wrap.addClass('unavailable');
-                } else {
-                    _.wrap.removeClass('unavailable');
-                }
-
-                _.img_component.attr({
-                    src: this.getBuilderImageUrl(),
-                    alt: this.getName()
-                });
-
-                _.manufacturer.text(this.nameObj.manufacturer);
-                _.model.text(this.nameObj.model);
-                _.price.html(this.getPrice());
-                _.choice.html(this.getChoices());
-                _.specs.html(this.getSpecs());
-            };
-
-            this.onHoverOption = function(e) {
-
-                DISPLAY_IMAGES.cable.src = this.getDisplayImageUrl();
-            };
-
-            this.offHoverOption = function(e) {
-                var url = CURRENT_CABLE[this.component] && CURRENT_CABLE[this.component].getDisplayImageUrl() || BLANK_IMAGE[CURRENT_CABLE.type];
-
-                DISPLAY_IMAGES.cable.src = url;
-            };
-        },
-
-        Plug = function(data, el) {
-            Option.apply(this, arguments);
-
-            this.part         = 'plug';
-            this.component    = data.component;
-            this.series       = data.series;
-            this.angle        = data.angle;
-            this.hasColors    = data.has_colors || false;
-            this.hasBoots     = data.has_boots || false;
-            this.hasChoices   = data.has_colors || data.has_boots;
-            this.colors       = data.colors;
-            this.currentColor = data.currentColor;
-            this.currentBoot  = data.currentBoot;
-            this.choicesHtml  = [];
-
-            this.getFullName = function() {
-                var str = this.getName();
-
-                if( this.hasChoices ) {
-                    if( this.hasColors ) {
-                        str += ' | ' + this.currentColor;
-                    }
-
-                    if( this.hasBoots ) {
-                        str += ' | ' + this.currentBoot;
-                    }
-                }
-
-                return str;
-            };
-
-            this.getBuilderImageUrl = function(color) {
-                color = color || this.currentColor;
-
-                return [
-                    IMAGES_DIR, 'builder/plug/',
-                    formatTextForImageUrl(this.manufacturer), '/',
-                    formatTextForImageUrl(this.model),
-                    color && '.' + color || '',
-                    '.jpg'
-                ].join('');
-            };
-
-            this.getBuilderBootImageUrl = function(color) {
-                color = color || this.currentBoot;
-
-                var model = this.model.split('-')[0];
-
-                return [
-                    IMAGES_DIR, 'builder/plug/',
-                    formatTextForImageUrl(this.manufacturer), '/',
-                    formatTextForImageUrl(model), '/',
-                    formatTextForImageUrl(color), '.png'
-                ].join('');
-            };
-
-            this.getDisplayImageUrl = function(color) {
-                color = color || this.currentColor;
-
-                if( this.hasBoots ) {
-                    color = '';
-                }
-
-                return [
-                    IMAGES_DIR, 'display/plug/',
-                    formatTextForImageUrl(this.manufacturer), '/',
-                    formatTextForImageUrl(this.model),
-                    color && '.' + color || '',
-                    '.png'
-                ].join('');
-            };
-
-            this.getDisplayBootImageUrl = function(color) {
-                color = color || this.currentBoot;
-
-                if( !color ) {
-                    return BLANK_IMAGE_URL;
-                }
-
-                var model = this.model.split('-')[0];
-
-                return [
-                    IMAGES_DIR, 'display/plug/',
-                    formatTextForImageUrl(this.manufacturer), '/',
-                    formatTextForImageUrl(model), '/',
-                    formatTextForImageUrl(color), '.png'
-                ].join('');
-            };
-
-            this.getChoices = function() {
-                var p, colors, arr = [], div, extras = [];
-
-                if( !this.choicesHtml.length ) {
-                    if( this.hasBoots ) {
-                        colors = BOOTS[this.manufacturer][this.series];
-
-                        for( p in colors ) { if( colors.hasOwnProperty(p) ) {
-                            div = document.createElement('div');
-
-                            div.option = this;
-
-                            $(div)
-                                .attr({
-                                    'data-value': p,
-                                    'data-choice-status': colors[p].status
-                                })
-                                .css('background-color', colors[p]);
-
-                            arr.push(div);
-                        }}
-
-                        extras = getBlankBlocks(arr.length);
-                        arr = arr.concat(extras);
-
-                        this.choicesHtml = arr;
-
-                    } else if( this.hasColors ) {
-                        colors = this.colors;
-
-                        for( p in colors ) { if( colors.hasOwnProperty(p) ) {
-                            div = document.createElement('div');
-
-                            div.option = this;
-
-                            $(div)
-                                .attr({
-                                    'data-value': p,
-                                    'data-choice-status': colors[p].status
-                                })
-                                .css('background-color', colors[p].color);
-
-                            arr.push(div);
-                        }}
-
-                        extras = getBlankBlocks(arr.length);
-                        arr = arr.concat(extras);
-
-                        this.choicesHtml = arr;
-                    }
-                }
-
-                return this.choicesHtml;
-            };
-
-            this.setChoice = function(e) {
-                var color = e.target.getAttribute('data-value'),
-                    status = true,
-                    url = BLANK_IMAGE_URL;
-
-                if( e.target.getAttribute('data-choice-status') === 'unavailable' ) {
-                    status = false;
-                }
-
-                if( this.hasBoots && color !== this.currentBoot ) {
-                    this.currentBoot = color;
-
-                    url = this.getBuilderBootImageUrl();
-                    this.detailsWrap.img_choice.attr('src', url);
-
-                    if( CURRENT_CABLE[this.component] &&
-                        CURRENT_CABLE[this.component].code === this.code ) {
-                        DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
-                    }
-                }
-
-                if( this.hasColors && color !== this.currentColor ) {
-                    this.currentColor = color;
-                    url = this.getBuilderImageUrl();
-                    $(document.getElementById(this.code)).find('.component').attr('src', url);
-                    this.detailsWrap.img_component.attr('src', url);
-
-                    if( CURRENT_CABLE[this.component] &&
-                        CURRENT_CABLE[this.component].code === this.code ) {
-                        DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
-                    }
-                }
-
-                updateOverview(this.component, this);
-            };
-
-            this.showDetails = function() {
-                var _ = this.detailsWrap,
-                    choices = this.getChoices(),
-                    option  = _.wrap.get(0).option;
-
-                if( !choices.length ) {
-                    _.choice.addClass('empty');
-                } else {
-                    _.choice.removeClass('empty');
-                }
-
-                if( this.html.classList.contains('clicked') ) {
-                    // this.selectOption();
-                }
-
-                if( option ) {
-                    option.html.classList.remove('clicked');
-                }
-
-                this.html.classList.add('clicked');
-
-                _.wrap.addClass('active');
-                _.wrap.get(0).option = this;
-
-                if( this.isSelected() ) {
-                    _.wrap.addClass('selected');
-                } else {
-                    _.wrap.removeClass('selected');
-                }
-
-                if( this.status === 'unavailable' ) {
-                    _.wrap.addClass('unavailable');
-                } else {
-                    _.wrap.removeClass('unavailable');
-                }
-
-                _.img_component.attr({
-                    src: this.getBuilderImageUrl(),
-                    alt: this.getName()
-                });
-
-                if( this.hasBoots ) {
-                    _.img_choice.attr({
-                        src: this.getBuilderBootImageUrl()
-                    });
-                } else {
-                    _.img_choice.attr({
-                        src: BLANK_IMAGE_URL
-                    });
-                }
-
-                _.manufacturer.text(this.nameObj.manufacturer);
-                _.model.text(this.nameObj.model);
-                _.price.html(this.getPrice());
-                _.choice.html(this.getChoices());
-            };
-
-            this.onHoverOption = function(e) {
-                DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
-
-                if( this.hasBoots ) {
-                    DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
-                } else {
-                    DISPLAY_IMAGES[this.component + 'Boot'].src = BLANK_IMAGE_URL;
-                }
-            };
-
-            this.offHoverOption = function(e) {
-                var CC = CURRENT_CABLE[this.component];
-
-                var url = CC && CC.getDisplayImageUrl() || BLANK_IMAGE[this.component],
-                    boot = CC && CC.getDisplayBootImageUrl() || BLANK_IMAGE_URL;
-
-                DISPLAY_IMAGES[this.component].src = url;
-                DISPLAY_IMAGES[this.component + 'Boot'].src = boot;
-            };
+            return this.choicesHtml;
         };
+
+        this.setChoice = function(e) {
+            var color = e.target.getAttribute('data-value'),
+                status = true,
+                url = BLANK_IMAGE_URL;
+
+            if( e.target.getAttribute('data-choice-status') === 'unavailable' ) {
+                status = false;
+            }
+
+            if( this.hasBoots && color !== this.currentBoot ) {
+                this.currentBoot = color;
+
+                url = this.getBuilderBootImageUrl();
+                this.detailsWrap.img_choice.attr('src', url);
+
+                if( CURRENT_CABLE[this.component] &&
+                    CURRENT_CABLE[this.component].code === this.code ) {
+                    DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
+                }
+            }
+
+            if( this.hasColors && color !== this.currentColor ) {
+                this.currentColor = color;
+                url = this.getBuilderImageUrl();
+                $(document.getElementById(this.code)).find('.component').attr('src', url);
+                this.detailsWrap.img_component.attr('src', url);
+
+                if( CURRENT_CABLE[this.component] &&
+                    CURRENT_CABLE[this.component].code === this.code ) {
+                    DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
+                }
+            }
+
+            updateOverview(this.component, this);
+        };
+
+        this.showDetails = function() {
+            var _ = this.detailsWrap,
+                choices = this.getChoices(),
+                option  = _.wrap.get(0).option;
+
+            if( !choices.length ) {
+                _.choice.addClass('empty');
+            } else {
+                _.choice.removeClass('empty');
+            }
+
+            if( this.html.classList.contains('clicked') ) {
+                // this.selectOption();
+            }
+
+            if( option ) {
+                option.html.classList.remove('clicked');
+            }
+
+            this.html.classList.add('clicked');
+
+            _.wrap.addClass('active');
+            _.wrap.get(0).option = this;
+
+            if( this.isSelected() ) {
+                _.wrap.addClass('selected');
+            } else {
+                _.wrap.removeClass('selected');
+            }
+
+            if( this.status === 'unavailable' ) {
+                _.wrap.addClass('unavailable');
+            } else {
+                _.wrap.removeClass('unavailable');
+            }
+
+            _.img_component.attr({
+                src: this.getBuilderImageUrl(),
+                alt: this.getName()
+            });
+
+            if( this.hasBoots ) {
+                _.img_choice.attr({
+                    src: this.getBuilderBootImageUrl()
+                });
+            } else {
+                _.img_choice.attr({
+                    src: BLANK_IMAGE_URL
+                });
+            }
+
+            _.manufacturer.text(this.nameObj.manufacturer);
+            _.model.text(this.nameObj.model);
+            _.price.html(this.getPrice());
+            _.choice.html(this.getChoices());
+        };
+
+        this.onHoverOption = function(e) {
+            DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
+
+            if( this.hasBoots ) {
+                DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
+            } else {
+                DISPLAY_IMAGES[this.component + 'Boot'].src = BLANK_IMAGE_URL;
+            }
+        };
+
+        this.offHoverOption = function(e) {
+            var CC = CURRENT_CABLE[this.component];
+
+            var url = CC && CC.getDisplayImageUrl() || BLANK_IMAGE[this.component],
+                boot = CC && CC.getDisplayBootImageUrl() || BLANK_IMAGE_URL;
+
+            DISPLAY_IMAGES[this.component].src = url;
+            DISPLAY_IMAGES[this.component + 'Boot'].src = boot;
+        };
+    };
+
+    Cable.prototype = Object.create(Option.prototype);
+    Cable.prototype.constructor = Cable;
+    Plug.prototype  = Object.create(Option.prototype);
+    Plug.prototype.constructor = Plug;
 
     // generate #num blank blocks
     // fix flex spacing

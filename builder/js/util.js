@@ -4,6 +4,14 @@ if( typeof String.prototype.trim !== 'function' ) {
     }
 }
 
+if (typeof Object.create !== 'function') {
+    Object.create = function (o) {
+        function F() {}
+        F.prototype = o;
+        return new F();
+    };
+}
+
 Number.prototype.formatMoney = function(c, d, t) {
     var n = this,
         c = isNaN(c = Math.abs(c)) ? 2 : c,
