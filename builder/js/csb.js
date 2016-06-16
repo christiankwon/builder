@@ -794,9 +794,16 @@
         var b = _id('body');
 
         return function(next, prev) {
+            if( b.getAttribute('data-current-step') === next ) { return false; }
+
             if( prev === 'length' ) {
                 updateOverview('length');
                 updateStatus('length', 'complete');
+            }
+
+            if( next === 'extras' ) {
+                updateOverview('extras');
+                updateStatus('extras', 'complete');
             }
 
             b.setAttribute('data-current-step', next);
