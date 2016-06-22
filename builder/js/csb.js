@@ -429,10 +429,6 @@
                     }
                 }
 
-                if( this.hasBoots ) {
-
-                }
-
                 if( MQ_SMALL.matches ) {
                     var wrap = this.detailsWrap.wrap;
 
