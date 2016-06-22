@@ -394,8 +394,14 @@
         selectOption: function() {
             var c = this.component;
 
-            if( this.status === 'unavailable' || this.stock < CURRENT_CABLE.length.amount ) {
+            if( this.status === 'unavailable' ) {
                 return false;
+            }
+
+            if( this.isPrototypeOf(Cable) ) {
+                if( this.stock < CURRENT_CABLE.length.amount ) {
+                    return false;
+                }
             }
 
             if( !this.isSelected() ) {
