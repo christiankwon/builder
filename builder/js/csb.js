@@ -1479,7 +1479,7 @@
             });
 
             $('.switch', '#modal').on('click', function() {
-                this.parentNode.setAttribute('data-which', this.textContent)
+                this.parentNode.setAttribute('data-which', this.textContent);
             });
         })();
 
@@ -1750,7 +1750,7 @@
                         })
                     )
                 );
-            }
+            };
 
             var c, colors = J_OTHER.techflex.colors, arr = [];
             for( c in colors ) { if( colors.hasOwnProperty(c) ) {
@@ -2017,8 +2017,8 @@
             $('#tourproof-modal').on('click', function(e) {
                 var attr = 'data-status';
 
-                if( _id('modal').getAttribute('data-status') !== 'open' ) {
-                    _id('modal').setAttribute('data-status', 'open');
+                if( _id('modal').getAttribute(attr) !== 'open' ) {
+                    _id('modal').setAttribute(attr, 'open');
                 }
             });
 
