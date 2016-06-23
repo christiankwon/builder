@@ -1466,6 +1466,27 @@
             });
         })();
 
+        (function modal() {
+            $('#modal').on('click', function() {
+                var attr = 'data-status';
+
+                if( this.getAttribute(attr) === 'open' ) {
+                    this.setAttribute(attr, 'closed');
+                }
+            });
+
+            $('div', '#modal').on('click', function(e) {
+                if( e.target.className !== 'exit' ) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+
+            $('.switch', '#modal').on('click', function() {
+                this.parentNode.setAttribute('data-which', this.textContent)
+            });
+        })();
+
         $('#review').on('click', function() {
             confirmation.go();
         });
@@ -1916,6 +1937,14 @@
 
             $('#techflex-window').on('click', function() {
                 changeStep('extras', _id('body').getAttribute('data-current-step'));
+            });
+
+            $('#tourproof-modal').on('click', function(e) {
+                var attr = 'data-status';
+
+                if( _id('modal').getAttribute('data-status') !== 'open' ) {
+                    _id('modal').setAttribute('data-status', 'open');
+                }
             });
 
             $(DISPLAY_IMAGES.cable).on('click', function() {

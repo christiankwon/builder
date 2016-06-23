@@ -1017,13 +1017,14 @@ article {
     }
 
     h3 {
-        text-align: center;
-        text-transform: uppercase;
-        width: 100%;
         font-size: 18px;
         font-weight: 800;
         letter-spacing: 2px;
         margin-bottom: 1em;
+        position: relative;
+        text-align: center;
+        text-transform: uppercase;
+        width: 100%;
 
         span {
             color: #aaa;
@@ -1160,7 +1161,6 @@ article {
     }
 
     span {
-        float: left;
         margin-top: 5px;
         color: #aaa;
         font-size: 11px;
@@ -1207,8 +1207,28 @@ article {
 
 
     .tourproof-container {
-        max-width: 140px;
+        max-width: 165px;
         margin: 0 auto;
+
+        @include bp(max-width, $bp-small) {
+            text-align: center;
+
+            span {
+                margin-top: 0;
+            }
+
+            label {
+                margin-top: 5px;
+            }
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            padding-right: 75px;
+
+            label {
+                float: right;
+            }
+        }
     }
 
     button {
@@ -1219,10 +1239,18 @@ article {
         font-weight: 300;
         height: 15px;
         padding-left: 2px;
-        position: relative;
-        right: -5px;
-        top: -3px;
         width: 15px;
+
+        @include bp(max-width, $bp-small) {
+            position: absolute;
+            right: -10px;
+            top: 10px;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            margin-left: 5px;
+            vertical-align: middle;
+        }
     }
 }
 
