@@ -442,6 +442,8 @@
             } else {
                 this.deselectOption.call(this);
             }
+
+            restrictions.check();
         },
 
         deselectOption: function() {
@@ -553,6 +555,7 @@
                     DISPLAY_IMAGES.cable.src = this.getDisplayImageUrl();
 
                     updateOverview(this.component, this);
+                    restrictions.check();
                 }
             }
         }
@@ -654,6 +657,7 @@
                     DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
 
                     updateOverview(this.component, this);
+                    restrictions.check();
                 }
             }
         }
@@ -669,6 +673,7 @@
                     DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
 
                     updateOverview(this.component, this);
+                    restrictions.check();
                 }
             }
         }
@@ -866,6 +871,107 @@
         var el = _id('price').querySelector('span');
 
         el.textContent = '$' + CURRENT_CABLE.getPrice().formatMoney();
+    };
+
+    var restrictions = {
+        check: function() {
+            var cc = CURRENT_CABLE;
+
+            if( !cc.cable || (!cc.input && !cc.output) ) {
+                return true;
+            }
+
+            var obj = J_RESTRICTIONS[cc.cable.code];
+
+            // if restrictions for this cable do not exist, exit
+            if( !obj ) {
+                return true;
+            }
+
+            var ref;
+
+            var d = obj.disallow,
+                a = obj.allow;
+
+            var i, c;
+
+            var checks = [];
+
+            var status = [];
+
+            if( cc.input ) {
+                checks.push(cc.input);
+            }
+
+            if( cc.output ) {
+                checks.push(cc.output);
+            }
+
+            if( d ) {
+                if( d === 'all' ) {
+                    for( i = 0; i < checks.length; i++ ) {
+                        status[i] = false;
+                    }
+
+                } else if ( typeof d === 'object' ) {
+                    for( i = 0; i < checks.length; i++ ) {
+                        status[i] = true;
+
+                        c = checks[i];
+
+                        ref = d[c.manufacturer];
+
+                        if( ref && ref.series[c.series] ) {
+                            status[i] = false;
+                        }
+                    }
+                }
+            }
+
+            if( a ) {
+                if( a === 'all' ) {
+                    for( i = 0; i < checks.length; i++ ) {
+                        status[i] = true;
+                    }
+
+                } else if( typeof a === 'object' ) {
+                    for( i = 0; i < checks.length; i++ ) {
+                        c = checks[i];
+
+                        ref = a[c.manufacturer];
+
+                        if( ref ) {
+                            if( ref.series instanceof Array ) {
+
+                            } else if( typeof ref.series === 'object' && ref.series[c.series] ) {
+                                ref = ref.series[c.series];
+
+                                if( ref instanceof Array && ref.indexOf(c.currentBoot) > -1 ) {
+                                    status[i] = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            this.enforce(status.indexOf(true) > -1);
+        },
+
+        enforce: function(status) {
+            // status answers the question:
+            // Is techflex allowed on this cable?
+            _id('techflex').setAttribute('data-enabled', status);
+
+            if( !status ) {
+                $('.techflex input:checked', '#techflex').prop('checked', false);
+
+                CURRENT_CABLE.techflex = false;
+                toggleTechflexWindow(false);
+                updateOverview('extras');
+                updateCost();
+            }
+        }
     };
 
     var toggleTechflexWindow = (function() {
@@ -1803,8 +1909,8 @@
 
                 toggleTechflexWindow(value, label);
 
-                updateOverview('extras');
                 updateStatus('extras', 'complete');
+                updateOverview('extras');
                 updateCost();
             });
 

@@ -1063,6 +1063,26 @@ article {
         width: 90%;
     }
 
+    &[data-enabled="true"] {
+        &:after {
+            display: none;
+        }
+    }
+
+    &[data-enabled="false"] {
+        &:after {
+            position: absolute;
+            content: "NO TECHFLEX FOR YOU";
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba($white, 0.9);
+            border: solid 2px $black;
+            @include flexcenter;
+        }
+    }
+
     .techflex {
         margin: 0 5px 5px;
         width: 75px;
