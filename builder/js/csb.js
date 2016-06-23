@@ -20,7 +20,7 @@
         document.body.classList.add("isMobile");
     }
 
-    var OPTIONS_JSON, J_CABLES, J_PLUGS, J_BOOTS, J_OTHER, J_RESTRICTIONS,
+    var OPTIONS_JSON, J_TYPES, J_CABLES, J_PLUGS, J_BOOTS, J_OTHER, J_RESTRICTIONS,
         CURRENT_CABLE = null,
 
         CURRENT_VERSION = 3,
@@ -1508,46 +1508,125 @@
 
             $('#builders').append(structure);
 
-            build.length();
+            build.lengths();
             build.cables();
             build.plugs();
             build.other();
         },
 
-        length: function() {
-            var rulers = this.structure.find('.ruler');
-            rulers.each(function() {
-                var type = this.getAttribute('data-type'),
-                    $this = $(this);
+        lengths: function() {
+            var _getChoice = function() {
+                var div = _ce('div');
+                    div.className = 'length-choice';
+                    div.setAttribute('data-type', type);
+                    div.setAttribute('data-unit', unit);
 
-                $this.slider({
-                    value: +this.getAttribute('data-init'),
-                    min: +this.getAttribute('data-min'),
-                    max: +this.getAttribute('data-max'),
-                    range: 'max'
+                var image = _ce('div');
+                    image.className = 'image';
+                div.appendChild(image);
+
+                var active = _ce('img');
+                    active.className = 'active';
+                    active.src = [
+                        IMAGES_DIR,
+                        'misc/length/silhouette/',
+                        type,
+                        '-red.png'
+                    ].join('');
+                    active.alt = display + ' Cable';
+                image.appendChild(active);
+
+                var inactive = _ce('img');
+                    inactive.className = 'inactive';
+                    inactive.src = [
+                        IMAGES_DIR,
+                        'misc/length/silhouette/',
+                        type,
+                        '-gray.png'
+                    ].join('');
+                    inactive.alt = display + ' Cable';
+                image.appendChild(inactive);
+
+
+                var name = _ce('div');
+                    name.className = 'name';
+                    name.innerHTML = '<span>' + display + '</span>';
+                div.appendChild(name);
+
+                var desc = _ce('div');
+                    desc.className = 'desc';
+                    desc.innerHTML = '<span>' + min + '-' + max + ' ' + unit + '</span>';
+                div.appendChild(desc);
+
+                return div;
+
+            },  _getRuler = function() {
+                var div = _ce('div');
+                    div.className = 'ruler';
+                    div.setAttribute('data-type', type);
+                    div.setAttribute('data-unit', unit);
+                    div.setAttribute('data-min',  min);
+                    div.setAttribute('data-max',  max);
+                    div.setAttribute('data-init', init);
+
+                $(div).slider({
+                    range: 'max',
+                    value: init,
+                    min: min,
+                    max: max
                 });
 
-                this.input = $('.input[data-type="' + type + '"] input').get(0);
-                this.input.ruler = $this;
-            });
+                return div;
 
-            var selects = this.structure.find('article.length .select');
-            selects.each(function() {
-                var init = +this.getAttribute('data-init');
+            },  _getInput = function() {
+                var div = _ce('div');
+                    div.className = 'input';
+                    div.setAttribute('data-type', type);
+                    div.setAttribute('data-unit', unit);
+                    div.setAttribute('data-min',  min);
+                    div.setAttribute('data-max',  max);
+                    div.setAttribute('data-init', init);
+                    div.innerHTML = [
+                        '<span>' + display + '</span>',
+                        '<input type="text" value="' + init + '" maxlength="3">',
+                        '<label>' + unit + '</label>'
+                    ].join('');
 
-                var select = $('<select/>'),
-                    min = +this.getAttribute('data-min'),
-                    max = +this.getAttribute('data-max'),
-                    html = '';
+                return div;
+            };
 
-                for( var i = min; i <= max; i++ ) {
-                    var selected = init === i ? ' selected="selected"' : '';
+            var choices = [], rulers = [], inputs = [];
 
-                    html += '<option value="' + i + '"' + selected + '>' + i + '</option>';
-                }
+            var type, display, min, max, unit, init;
 
-                select.html(html).prependTo(this);
-            });
+            for( type in J_TYPES ) { if( J_TYPES.hasOwnProperty(type) ) {
+                var data = J_TYPES[type];
+
+                display = data.display;
+                min     = data.min;
+                max     = data.max;
+                unit    = data.unit;
+                init    = data.initial;
+
+                if( !data.enabled || !display.length || !min || !max || !init ) { continue; }
+
+                choices.push(_getChoice());
+                rulers.push(_getRuler());
+                inputs.push(_getInput());
+            }}
+
+            for( var i = 0; i < inputs.length; i++ ) {
+                var input = inputs[i].querySelector('input');
+
+                input.ruler = $(rulers[i]);
+                rulers[i].input = input;
+            }
+
+            var article = $('.length-wrap', '#builders');
+
+            article.find('.length-choices').append(choices);
+            article.find('.rulers').append(rulers);
+            article.find('.inputs').append(inputs);
         },
 
         cables: function() {
@@ -2005,6 +2084,7 @@
         $.getJSON( JSON_URL )
             .done(function(response) {
                 OPTIONS_JSON   = response;
+                J_TYPES        = OPTIONS_JSON.types;
                 J_CABLES       = OPTIONS_JSON.cables;
                 J_PLUGS        = OPTIONS_JSON.plugs;
                 J_BOOTS        = OPTIONS_JSON.boots;

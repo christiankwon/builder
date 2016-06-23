@@ -1,4 +1,38 @@
 {
+  "types": {
+    "patch": {
+      "display": "Patch",
+      "min": 3,
+      "max": 48,
+      "unit": "in",
+      "initial": 12,
+      "enabled": true
+    },
+    "instrument": {
+      "display": "Instrument",
+      "min": 4,
+      "max": 20,
+      "unit": "ft",
+      "initial": 10,
+      "enabled": true
+    },
+    "speaker": {
+      "display": "Speaker",
+      "min": 1,
+      "max": 30,
+      "unit": "ft",
+      "initial": 3,
+      "enabled": false
+    },
+    "xlr": {
+      "display": "XLR",
+      "min": -1,
+      "max": -1,
+      "unit": "ft",
+      "initial": -1,
+      "enabled": false
+    }
+  },
   "cables": {
     "CSB_SINA_SLATE": {
       "manufacturer": "sinasoid",
