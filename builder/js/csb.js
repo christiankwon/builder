@@ -1168,8 +1168,6 @@
     };
 
     var resetBuilder = function() {
-        $('#loader').fadeIn(50);
-
         DISPLAY_IMAGES.cable.src      = BLANK_IMAGE[DEFAULT_CABLE_TYPE];
         DISPLAY_IMAGES.input.src      = BLANK_IMAGE.input;
         DISPLAY_IMAGES.output.src     = BLANK_IMAGE.output;
@@ -1204,8 +1202,6 @@
 
         CURRENT_CABLE = new Setup();
         window.CC = CURRENT_CABLE;
-
-        $('#loader').fadeOut();
     };
 
     var scrollToSection = function(section, speed) {
