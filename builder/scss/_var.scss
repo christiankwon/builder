@@ -7,6 +7,14 @@ $bp-medium: 770px;
 $bp-large: 979px;
 $bp-xlarge: 1199px;
 
+$breakpoints: (
+    'xsmall': $bp-xsmall,
+    'small': $bp-small,
+    'medium': $bp-medium,
+    'large': $bp-large,
+    'xlarge': $bp-xlarge,
+);
+
 $media-folder: "../images/";
 
 $techflex-colors: 'white' 'gray' 'black' 'aqua' 'red' 'purple' 'green';

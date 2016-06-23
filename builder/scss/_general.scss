@@ -1,0 +1,7 @@
+@each $size, $width in $breakpoints {
+    .mq-#{$size} {
+        @include bp(min-width, $width + 1) {
+            display: none;
+        }
+    }
+}
