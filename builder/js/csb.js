@@ -332,7 +332,8 @@
         showDetails: function() {
             var option    = this,
                 choices   = option.getChoices(),
-                container = option.detailsWrap;
+                container = option.detailsWrap,
+                old       = container.wrap.get(0).option;
 
             if( !choices.length ) {
                 container.choice.addClass('empty');
@@ -340,12 +341,8 @@
                 container.choice.removeClass('empty');
             }
 
-            if( option.html.classList.contains('clicked') ) {
-                // this.selectOption();
-            }
-
-            if( option ) {
-                option.html.classList.remove('clicked');
+            if( old ) {
+                old.html.classList.remove('clicked');
             }
 
             option.html.classList.add('clicked');
