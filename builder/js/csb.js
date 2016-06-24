@@ -221,9 +221,16 @@
             return str;
         },
 
-        getPrice: function() {
-            // need to format
-            return this.price;
+        getPrice: function(format) {
+            var val = this.price;
+
+            if( format ) {
+                if( val % 1 !== 0 ) {
+                    val += '0';
+                }
+            }
+
+            return val;
         },
 
         getAllowanceString: function() {
@@ -384,7 +391,7 @@
 
             container.manufacturer.text(option.nameObj.manufacturer);
             container.model.text(option.nameObj.model);
-            container.price.html(option.getPrice());
+            container.price.html(option.getPrice(true));
             container.choice.html(choices);
         },
 
@@ -785,7 +792,7 @@
                 $('<span/>', {text: option.nameObj.manufacturer}),
                 $('<strong/>', {text: option.nameObj.model})
             ),
-            $('<span/>', {class: 'price', text: option.price})
+            $('<span/>', {class: 'price', text: option.getPrice(true)})
         );
 
         inner.append(images, details);
