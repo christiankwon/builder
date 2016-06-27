@@ -824,6 +824,8 @@
     var updateStatus = (function() {
         var t = _id('tracker');
 
+        var b = _id('body');
+
         var tracker = {
             length:  t.querySelector('div[data-pointer-component="length"]'),
             cable:   t.querySelector('div[data-pointer-component="cable"]'),
@@ -832,11 +834,34 @@
             extras:  t.querySelector('div[data-pointer-component="extras"]')
         };
 
+        var _isComplete = function() {
+            var _s = function(e) {
+                return e.getAttribute('data-status') === 'complete';
+            };
+
+            var t = tracker;
+
+            if( _s(t.length) &&  _s(t.cable) &&  _s(t.input) &&  _s(t.output) && _s(t.extras)) {
+                return true;
+            }
+
+            return false;
+        };
+
         return function(c, s) {
             var el = tracker[c];
 
             if( el ) {
                 el.setAttribute('data-status', s);
+            }
+
+            if( !_isComplete() ) {
+                if( b.getAttribute('data-completed') !== 'false' ) {
+                    b.setAttribute('data-completed', 'false');
+                }
+
+            } else {
+                b.setAttribute('data-completed', 'true');
             }
         };
     })();
@@ -1490,7 +1515,7 @@
             });
         })();
 
-        $('#review').on('click', function() {
+        $('.review-wrap').on('click', 'button', function() {
             confirmation.go();
         });
     },

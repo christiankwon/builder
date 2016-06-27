@@ -59,6 +59,41 @@ section,
             }
         }
     }
+
+    &[data-completed="true"] {
+        article {
+            height: calc(100% - 50px);
+        }
+    }
+}
+
+.review-wrap {
+    display: none;
+    height: 50px;
+    width: 100%;
+
+    .body-wrap[data-completed="true"] & {
+        display: block;
+    }
+
+    .tracker-wrap & {
+        @include bp(min-width, $bp-small + 1) {
+            display: none !important;
+        }
+    }
+
+    .builders-wrap & {
+        @include bp(max-width, $bp-small) {
+            display: none !important;
+        }
+    }
+
+    button {
+        background-color: lighten($green, 15%);
+        border: 0 none;
+        height: 100%;
+        width: 100%;
+    }
 }
 
 @include bp(max-width, $bp-small) {
