@@ -1874,9 +1874,9 @@
                     if( val ) {
                         CURRENT_CABLE.length.amount = val;
                         _updateCableStatus(val);
+                        updateCost();
                     }
 
-                    updateCost();
                     updateOverview('length');
                     updateStatus('length', 'complete');
                 };
