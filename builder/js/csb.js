@@ -340,7 +340,8 @@
             var option    = this,
                 choices   = option.getChoices(),
                 container = option.detailsWrap,
-                old       = container.wrap.get(0).option;
+                wrap      = container.wrap,
+                old       = wrap.get(0).option;
 
             if( !choices.length ) {
                 container.choice.addClass('empty');
@@ -354,19 +355,19 @@
 
             option.html.classList.add('clicked');
 
-            container.wrap.addClass('active');
-            container.wrap.get(0).option = option;
+            wrap.addClass('active');
+            wrap.get(0).option = option;
 
             if( option.isSelected() ) {
-                container.wrap.addClass('selected');
+                wrap.addClass('selected');
             } else {
-                container.wrap.removeClass('selected');
+                wrap.removeClass('selected');
             }
 
             if( option.status === 'unavailable' ) {
-                container.wrap.addClass('unavailable');
+                wrap.addClass('unavailable');
             } else {
-                container.wrap.removeClass('unavailable');
+                wrap.removeClass('unavailable');
             }
 
             container.img_component.attr({
