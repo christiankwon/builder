@@ -1847,6 +1847,8 @@
                             default:
                                 break;
                         }
+                    } else if( e.target.className === 'outer' ) {
+                        e.delegateTarget.option.showDetails();
                     }
                 },
 
