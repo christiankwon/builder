@@ -2078,6 +2078,9 @@
         displayImages.initialize();
         handles();
 
+        // force cable stock update on load
+        $('.input input', '#builders').first().trigger('keyup');
+
         setTimeout(function() {
             $('#loader').fadeOut('fast');
         }, Math.floor(Math.random() * (500 - 100 + 1)) + 100);
