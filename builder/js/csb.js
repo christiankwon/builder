@@ -802,12 +802,20 @@
     };
 
     var changeStep = (function() {
-        var b = _id('body');
+        var b = _id('body'), current;
 
-        return function(next, prev) {
-            if( b.getAttribute('data-current-step') === next ) { return false; }
+        return function(next) {
+            current = b.getAttribute('data-current-step');
 
-            if( prev === 'length' ) {
+            if( current === next ) {
+                return false;
+            }
+
+            if( _id('content').getAttribute('data-active-section') !== 'production' ) {
+                return false;
+            }
+
+            if( current === 'length' ) {
                 updateOverview('length');
                 updateStatus('length', 'complete');
             }
@@ -817,7 +825,11 @@
                 updateStatus('extras', 'complete');
             }
 
-            b.setAttribute('data-current-step', next);
+            if( next === 'confirmation' ) {
+                confirmation.go();
+            } else if( next ) {
+                b.setAttribute('data-current-step', next);
+            }
         };
     })();
 
@@ -1404,53 +1416,44 @@
         })();
 
         (function horizontalArrowKeys() {
-            var current, article, next;
+            var current, button, next;
 
             $('body').on('keydown', function(e) {
-
                 next = '';
-
+                button = null;
                 current = _id('body').getAttribute('data-current-step');
 
                 if( e.keyCode == 37 ) { // left
-                    article = $('article[data-component="' + current + '"]').prev();
+                    button = $('article[data-component="' + current + '"] .builder-prev');
 
-                    if( article.length ) {
-                        next = article.attr('data-component');
+                    if( button.length ) {
+                        next = button.attr('data-next');
                     }
 
                 } else if( e.keyCode == 39 ) { // right
-                    article = $('article[data-component="' + current + '"]').next();
+                    button = $('article[data-component="' + current + '"] .builder-next');
 
-                    if( article.length ) {
-                        next = article.attr('data-component');
-                    } else {
-                        confirmation.go();
+                    if( button.length ) {
+                        next = button.attr('data-next');
                     }
+
+                } else {
+                    return true;
                 }
 
-                if( next.length ) {
-                    if( _id('content').getAttribute('data-active-section') === 'production' ) {
-                        changeStep(next, current);
-                    }
+                if( next ) {
+                    changeStep(next);
                 }
             });
         })();
 
         (function tracker() {
-            var body = _id('body'),
-                current, step;
+            var body = _id('body'), next;
 
             $('.dot', '#tracker').on('click', function(e) {
-                current = body.getAttribute('data-current-step');
+                next = e.currentTarget.getAttribute('data-pointer-component');
 
-                step = e.currentTarget.getAttribute('data-pointer-component');
-
-                $('.details-wrap.active').removeClass('active');
-
-                if( step !== current ) {
-                    changeStep(step, current);
-                }
+                changeStep(next);
             });
         })();
 
@@ -1797,28 +1800,11 @@
         handles: function() {
             var _ = this.structure;
 
-            _.find('.footer').on('click', 'button', function(e) {
+            _.find('.footer', '#builders').on('click', 'button', function(e) {
                 var b = _id('body'),
-                    current = b.getAttribute('data-current-step'),
-                    article = $('article[data-component="' + current + '"]'),
-                    next;
+                    next = e.currentTarget.getAttribute('data-next');
 
-                if( e.currentTarget.className === 'builder-prev') {
-                    next = article.prev();
-
-                } else if( e.currentTarget.className === 'builder-next' ) {
-                    next = article.next();
-
-                    if( !next.length ) {
-                        confirmation.go();
-
-                        return false;
-                    }
-                }
-
-                if( next.length ) {
-                    changeStep(next.attr('data-component'), current);
-                }
+                    changeStep(next);
             });
 
             _.find('.details-wrap .back').on('click', function(e) {
@@ -2043,7 +2029,7 @@
             });
 
             $('#techflex-window').on('click', function() {
-                changeStep('extras', _id('body').getAttribute('data-current-step'));
+                changeStep('extras');
             });
 
             $('#tourproof-modal').on('click', function(e) {
