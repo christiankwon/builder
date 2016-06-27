@@ -11,7 +11,6 @@
 
     @include bp(max-width, $bp-small) {
         bottom: 0;
-        height: 75px;
         position: absolute;
         width: 100%;
         z-index: 30;
@@ -88,6 +87,14 @@
         letter-spacing: 1px;
         position: relative;
         text-transform: uppercase;
+
+        @include bp(max-width, $bp-small) {
+            height: 75px;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            height: 75px;
+        }
 
         &:before {
             @include flexbox((
