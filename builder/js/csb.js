@@ -827,7 +827,8 @@
 
             if( next === 'confirmation' ) {
                 confirmation.go();
-            } else if( next ) {
+
+            } else {
                 b.setAttribute('data-current-step', next);
             }
         };
