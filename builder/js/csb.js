@@ -403,12 +403,6 @@
                 return false;
             }
 
-            if( this.isPrototypeOf(Cable) ) {
-                if( this.stock < CURRENT_CABLE.length.amount ) {
-                    return false;
-                }
-            }
-
             if( !this.isSelected() ) {
                 this.showDetails();
 
@@ -488,7 +482,6 @@
         this.part         = 'cable';
         this.component    = 'cable';
         this.specs        = data.specs;
-        this.stock        = data.stock;
         this.lengths      = data.lengths;
         this.colors       = data.colors;
         this.currentColor = data.currentColor;
@@ -531,10 +524,6 @@
             var status = true;
 
             if( target.getAttribute('data-choice-status') !== 'available' ) {
-                status = false;
-            }
-
-            if( this.colors[color].qty < CURRENT_CABLE.length.amount ) {
                 status = false;
             }
 
@@ -738,20 +727,18 @@
         var order  = option.order  || 270,
             status = option.status || 'unavailable';
 
-        block.setAttribute('data-component', option.component);
-        block.setAttribute('data-status', status);
-        $block.addClass(option.getAllowanceString());
-
         if( status === 'unavailable' ) {
             order += 600;
         }
 
+        block.setAttribute('data-component', option.component);
+        block.setAttribute('data-status', status);
+        $block.addClass(option.getAllowanceString());
         $block.css('order', order);
 
         if( option.component === 'cable' ) {
             $block.data({
-                'order': order,
-                'stock': option.stock
+                'order': order
             });
         }
 
@@ -1401,7 +1388,9 @@
 
     handles = function() {
         (function onWindowSizeChange() {
-            var $w = $(window), $b = $('body'), c = _id('content'),
+            var $w = $(window),
+                $b = $('body'),
+                c = _id('content'),
                 width, height, section;
 
             $w.on('resize orientationchange', function() {
@@ -1684,13 +1673,6 @@
                 data.component = 'cable';
                 data.currentColor = _hasDefaultColor(data.colors);
 
-                if( data.currentColor ) {
-                    data.stock = data.colors[data.currentColor].qty;
-                } else {
-                    var key = Object.keys(data.colors)[0];
-                    data.stock = data.colors[key].qty || 0;
-                }
-
                 var cable = new Cable(data);
                 var block = getOptionBlock(cable);
 
@@ -1874,42 +1856,12 @@
                 var _updateLength = function(val) {
                     if( val ) {
                         CURRENT_CABLE.length.amount = val;
-                        _updateCableStatus(val);
                         updateCost();
                     }
 
                     updateOverview('length');
                     updateStatus('length', 'complete');
                 };
-
-                var _updateCableStatus = (function() {
-                    var cables = $('.option[data-component="cable"]'),
-                        body = $('#body');
-
-                    return function(val) {
-                        if( body.attr('data-cable-type') === 'patch' ) {
-                            val = val / 12;
-                        }
-
-                        cables.each(function() {
-                            var t = $(this);
-
-                            if( t.data('status') === 'unavailable' ) { return true; }
-
-                            if( t.data('stock') < val ) {
-                                t.addClass('insufficient');
-                                t.css('order', t.data('order') + 300);
-
-                                if( this.option.isSelected() ) {
-                                    this.option.deselectOption();
-                                }
-                            } else {
-                                t.removeClass('insufficient');
-                                t.css('order', t.data('order'));
-                            }
-                        });
-                    };
-                })();
 
                 _.find('.length-wrap .length-choice').on('click', 'img', function(e) {
                     var type = e.delegateTarget.getAttribute('data-type'),
@@ -2078,9 +2030,6 @@
 
         displayImages.initialize();
         handles();
-
-        // force cable stock update on load
-        $('.input input', '#builders').first().trigger('keyup');
 
         setTimeout(function() {
             $('#loader').fadeOut('fast');

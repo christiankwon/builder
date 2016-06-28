@@ -866,22 +866,6 @@ article {
         }
     }
 
-    &.insufficient {
-        &:before {
-            content: "Insufficient Stock";
-        }
-
-        &:hover {
-            .option-select {
-                cursor: default;
-
-                &:after {
-                    content: "Insufficient Stock";
-                }
-            }
-        }
-    }
-
     &[data-status="unavailable"] {
         &:before {
             content: "Coming Soon";

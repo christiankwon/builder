@@ -42,7 +42,8 @@
         "model": "Slate"
       },
       "price": 4,
-      "status": "unavailable",
+      "status": "backordered",
+      "restock_time": 3,
       "category": "premium",
       "order": 1,
       "specs": {
@@ -71,8 +72,7 @@
       "has_colors": false,
       "colors": {
         "gray": {
-          "id": null,
-          "qty": 0
+          "id": null
         }
       },
       "allowance": {
@@ -120,8 +120,7 @@
       "has_colors": false,
       "colors": {
         "black": {
-          "id": null,
-          "qty": 35
+          "id": null
         }
       },
       "allowance": {
@@ -169,8 +168,7 @@
       "has_colors": false,
       "colors": {
         "black": {
-          "id": null,
-          "qty": 300
+          "id": null
         }
       },
       "allowance": {
@@ -189,7 +187,7 @@
         "model": "GS-6"
       },
       "price": 2,
-      "status": "unavailable",
+      "status": "available",
       "category": "standard",
       "order": 31,
       "specs": {
@@ -220,33 +218,28 @@
         "black": {
           "id": 1647,
           "color": "#000",
-          "status": "available",
-          "qty": 100
+          "status": "available"
         },
         "red": {
+          "default": true,
           "id": 1649,
           "color": "#e90d2f",
-          "status": "unavailable",
-          "qty": 0
+          "status": "available"
         },
         "orange": {
-          "default": true,
           "id": 1650,
           "color": "#ff864f",
-          "status": "unavailable",
-          "qty": 0
+          "status": "unavailable"
         },
         "yellow": {
           "id": 1651,
           "color": "#fcf86c",
-          "status": "unavailable",
-          "qty": 0
+          "status": "unavailable"
         },
         "green": {
           "id": 1652,
           "color": "#25c265",
-          "status": "unavailable",
-          "qty": 0
+          "status": "unavailable"
         },
         "option_category_id": 149
       },
@@ -295,8 +288,7 @@
       "has_colors": false,
       "colors": {
         "black": {
-          "id": null,
-          "qty": 30
+          "id": null
         }
       },
       "allowance": {
@@ -344,8 +336,7 @@
       "has_colors": false,
       "colors": {
         "red": {
-          "id": null,
-          "qty": 0
+          "id": null
         }
       },
       "allowance": {
@@ -393,12 +384,10 @@
       "has_colors": false,
       "colors": {
         "black": {
-          "id": null,
-          "qty": 0
+          "id": null
         },
         "blue": {
-          "id": null,
-          "qty": 0
+          "id": null
         }
       },
       "allowance": {
@@ -448,15 +437,13 @@
         "black": {
           "id": 1647,
           "color": "#000",
-          "status": "available",
-          "qty": 200
+          "status": "available"
         },
         "red": {
           "default": true,
           "id": 1649,
           "color": "#ff2b3d",
-          "status": "available",
-          "qty": 200
+          "status": "available"
         },
         "option_category_id": "149"
       },
@@ -505,8 +492,7 @@
       "has_colors": false,
       "colors": {
         "black": {
-          "id": null,
-          "qty": 200
+          "id": null
         }
       },
       "allowance": {
@@ -554,8 +540,7 @@
       "has_colors": false,
       "colors": {
         "black": {
-          "id": null,
-          "qty": 100
+          "id": null
         }
       },
       "allowance": {
@@ -603,8 +588,7 @@
       "has_colors": false,
       "colors": {
         "black": {
-          "id": null,
-          "qty": 200
+          "id": null
         }
       },
       "allowance": {
@@ -652,8 +636,7 @@
       "has_colors": false,
       "colors": {
         "black": {
-          "id": null,
-          "qty": 200
+          "id": null
         }
       },
       "allowance": {
@@ -701,8 +684,7 @@
       "has_colors": false,
       "colors": {
         "black": {
-          "id": null,
-          "qty": 200
+          "id": null
         }
       },
       "allowance": {
@@ -752,15 +734,13 @@
         "black": {
           "id": 1647,
           "color": "black",
-          "status": "available",
-          "qty": 200
+          "status": "available"
         },
         "white": {
           "default": true,
           "id": 1678,
           "color": "white",
-          "status": "available",
-          "qty": 200
+          "status": "available"
         },
         "option_category_id": "149"
       },
