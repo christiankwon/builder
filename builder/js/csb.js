@@ -98,6 +98,7 @@
                 model:         $(_id('input-details-model')),
                 img_component: $(_id('input-details-component')),
                 img_choice:    $(_id('input-details-choice')),
+                img_measure:   $(_id('input-details-measurement')),
                 price:         $(_id('input-details-price')),
                 choice:        $(_id('input-details-choices')),
             },
@@ -108,6 +109,7 @@
                 model:         $(_id('output-details-model')),
                 img_component: $(_id('output-details-component')),
                 img_choice:    $(_id('output-details-choice')),
+                img_measure:   $(_id('output-details-measurement')),
                 price:         $(_id('output-details-price')),
                 choice:        $(_id('output-details-choices')),
             }
@@ -388,6 +390,8 @@
                         src: BLANK_IMAGE_URL
                     });
                 }
+
+                container.img_measure.attr('src', option.getMeasurementImage());
             }
 
             container.manufacturer.text(option.nameObj.manufacturer);
@@ -618,6 +622,24 @@
             formatTextForImageUrl(this.manufacturer), '/',
             formatTextForImageUrl(model), '/',
             formatTextForImageUrl(color), '.png'
+        ].join('');
+    };
+
+    Plug.prototype.getMeasurementImage = function() {
+        var manu = this.manufacturer,
+            model = this.model;
+
+        if( manu === 'g&h' ) {
+            model = model.split('-')[0];
+        }
+
+        return [
+            IMAGES_DIR,
+            'builder/plug/',
+            formatTextForImageUrl(manu), '/',
+            'overlay/',
+            formatTextForImageUrl(model),
+            '.png'
         ].join('');
     };
 
