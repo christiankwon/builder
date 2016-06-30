@@ -406,7 +406,7 @@
         "model": "GAC-1 Ultra Pro"
       },
       "price": 1.5,
-      "status": "available",
+      "status": "backordered",
       "category": "standard",
       "order": 70,
       "specs": {
@@ -1229,7 +1229,7 @@
       "manufacturer": "neutrik",
       "model": "np2x-wt",
       "price": 7.5,
-      "status": "available",
+      "status": "backordered",
       "category": "straight",
       "series": "x",
       "colors": {

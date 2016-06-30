@@ -670,6 +670,18 @@ article {
         }
     }
 
+    .backordered-wrap {
+        @include order(8);
+
+        display: none;
+        color: $red;
+        font-weight: 500;
+
+        .details-wrap.backordered & {
+            display: block;
+        }
+    }
+
     .select-option {
         background-color: $yellow;
         border: 0 none;

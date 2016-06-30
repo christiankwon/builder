@@ -90,6 +90,7 @@
                 price:         $(_id('cable-details-price')),
                 choice:        $(_id('cable-details-choices')),
                 specs:         $(_id('cable-details-information')),
+                backordered:   $(_id('cable-details-backordered')),
             },
 
             input: {
@@ -101,6 +102,7 @@
                 img_measure:   $(_id('input-details-measurement')),
                 price:         $(_id('input-details-price')),
                 choice:        $(_id('input-details-choices')),
+                backordered:   $(_id('input-details-backordered')),
             },
 
             output: {
@@ -112,6 +114,7 @@
                 img_measure:   $(_id('output-details-measurement')),
                 price:         $(_id('output-details-price')),
                 choice:        $(_id('output-details-choices')),
+                backordered:   $(_id('output-details-backordered')),
             }
         };
 
@@ -198,6 +201,7 @@
             this.status       = data.status;
             this.allowance    = data.allowance;
             this.detailsWrap  = DETAILS_CONTAINER[data.component];
+            this.restockTime  = data.restock_time || 2;
         };
 
     Option.prototype = {
@@ -343,7 +347,8 @@
                 choices   = option.getChoices(),
                 container = option.detailsWrap,
                 wrap      = container.wrap,
-                old       = wrap.get(0).option;
+                old       = wrap.get(0).option,
+                classes   = ['details-wrap active'];
 
             if( !choices.length ) {
                 container.choice.addClass('empty');
@@ -357,20 +362,20 @@
 
             option.html.classList.add('clicked');
 
-            wrap.addClass('active');
             wrap.get(0).option = option;
 
             if( option.isSelected() ) {
-                wrap.addClass('selected');
-            } else {
-                wrap.removeClass('selected');
+                classes.push('selected');
             }
 
             if( option.status === 'unavailable' ) {
-                wrap.addClass('unavailable');
-            } else {
-                wrap.removeClass('unavailable');
+                classes.push('unavailable');
+            } else if( option.status === 'backordered' ) {
+                classes.push('backordered');
+                container.backordered.text(option.restockTime);
             }
+
+            wrap.get(0).className = classes.join(' ');
 
             container.img_component.attr({
                 src: option.getBuilderImageUrl(),
