@@ -50,7 +50,7 @@
         "capacitance": 25,
         "diameter": 0.273,
         "flexibility": "med",
-        "shield": "spiral"
+        "shield": "double spiral"
       },
       "lengths": {
         "option_category_id": 155,
@@ -413,7 +413,7 @@
         "capacitance": 21,
         "diameter": 0.241,
         "flexibility": "high",
-        "shield": "spiral"
+        "shield": "double spiral"
       },
       "lengths": {
         "option_category_id": 74,
