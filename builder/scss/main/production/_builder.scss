@@ -46,7 +46,6 @@ article {
     .body {
         @include flexbox((
             display: flex,
-            flex-direction: column,
             flex-grow: 1,
         ));
         height: 100%;
@@ -153,7 +152,7 @@ article {
     .back,
     .home {
         @include bp(max-width, $bp-small) {
-            background-color: #333;
+            background-color: darken($orange, 5%);
             border: 0 none;
             font-weight: 300;
             height: 100%;
@@ -225,6 +224,7 @@ article {
 .length-wrap {
     .body {
         overflow-y: scroll;
+        @include flex-direction(column);
     }
 
     .notice {
@@ -388,51 +388,38 @@ article {
     display: none;
 
     @include bp(max-width, $bp-small) {
+        height: 100%;
+        left: 0;
+        padding-bottom: 75px;
         position: absolute;
         top: 0;
-        left: 0;
-        height: 100%;
         width: 100%;
         z-index: 20;
     }
 
     @include bp(min-width, $bp-small + 1) {
-        @include order(11);
+        width: 225px;
         @include flex-shrink(0);
     }
 
     &.active {
         display: block;
-
-        .empty {
-            display: none;
-        }
-    }
-
-    .empty {
-        @include align-items(center);
-        @include justify-content(center);
-        text-transform: uppercase;
-        width: 100%;
-
-        @include bp(max-width, $bp-small) {
-            display: none;
-        }
-
-        @include bp(min-width, $bp-small + 1) {
-            @include display-flex;
-        }
     }
 }
 
 .details-content {
     display: none;
+    height: 100%;
     position: relative;
-    @include flex-wrap(wrap);
+
+    $small-header-height: 45px;
 
     @include bp(max-width, $bp-small) {
         @include justify-content(center);
         @include flex-direction(row);
+        @include flex-wrap(wrap);
+        overflow-y: auto;
+        padding-top: $small-header-height + 10px;
 
         .details-wrap.active & {
             @include display-flex;
@@ -440,28 +427,30 @@ article {
     }
 
     @include bp(min-width, $bp-small + 1) {
-        overflow: hidden;
-        max-height: 300px;
+        overflow-y: auto;
 
         .details-wrap.active & {
             @include display-flex;
+            @include flex-direction(column);
         }
     }
 
     .name-wrap {
         background-color: $orange;
-        padding-top: 5px;
+        padding: 5px;
         position: relative;
         text-align: center;
         text-transform: uppercase;
 
-
         @include bp(max-width, $bp-small) {
             @include order(1);
 
-            height: 45px;
+            height: $small-header-height;
             margin-bottom: 10px;
+            position: fixed;
+            top: 0;
             width: 100%;
+            z-index: 50;
 
             span {
                 display: block;
@@ -475,12 +464,11 @@ article {
 
             span {
                 display: inline-block;
-                padding: 5px 0;
             }
         }
 
         .manufacturer {
-            margin-bottom: 5px;
+            display: block;
         }
 
         .model {
@@ -489,9 +477,8 @@ article {
     }
 
     .image-wrap {
-        max-width: 300px;
         position: relative;
-        height: 100%;
+        width: 100%;
 
         @include bp(max-width, $bp-small) {
             @include order(2);
@@ -506,19 +493,19 @@ article {
         img {
             @include bp(max-width, $bp-small) {
                 height: auto;
-                width: 80%;
                 margin: 0 auto;
+                width: 80%;
             }
 
             @include bp(min-width, $bp-small + 1) {
-                height: 30vh;
-                width: auto;
+                height: auto;
+                width: 100%;
             }
         }
 
         .choice,
         .measurement {
-            left: 0;
+            left: 10%;
             position: absolute;
             top: 0;
         }
@@ -533,6 +520,8 @@ article {
         }
 
         .more-details {
+            display: none !important;
+
             @include bp(max-width, $bp-small) {
                 background-color: #999;
                 border: solid 2px black;
@@ -553,13 +542,13 @@ article {
     }
 
     .choice-wrap {
+        background-color: #ccc;
+
         @include bp(max-width, $bp-small) {
             @include order(3);
 
-            margin: 10px 0;
+            padding: 5px 10px 0;
             width: 100%;
-            @include display-flex;
-            @include justify-content(center);
 
             &.empty { display: none; }
         }
@@ -567,28 +556,44 @@ article {
         @include bp(min-width, $bp-small + 1) {
             @include order(3);
 
-            float: right;
-            width: 30%;
+            padding: 5px 10px 0;
+            position: relative;
+        }
+
+        &:before {
+            content: "Additional Options:";
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            width: 100%;
             @include display-flex;
-            @include flex-flow(row wrap);
-            @include align-content(flex-start);
-            @include justify-content(center);
+            @include align-items(center);
+        }
+
+        &.empty {
+            display: none;
         }
 
         div {
             border: 1px solid #666;
             border-radius: 50%;
             cursor: pointer;
-            height: 30px;
-            width: 30px;
 
             @include bp(max-width, $bp-small) {
-                margin: 0 10px;
+                margin-right: 15px;
+                margin-bottom: 15px;
+                width: 30px;
+                height: 30px;
+                float: left;
             }
 
             @include bp(min-width, $bp-small + 1) {
+                float: left;
                 margin-right: 10px;
                 margin-bottom: 10px;
+                padding-bottom: calc(20% - 10px);
+                width: calc(20% - 10px);
             }
 
             &[data-choice-status="unavailable"] {
@@ -631,6 +636,9 @@ article {
 
         @include bp(min-width, $bp-small + 1) {
             @include order(6);
+
+            text-align: center;
+            margin: 10px;
         }
 
         span {
@@ -653,32 +661,55 @@ article {
 
     .information-wrap {
         @include bp(max-width, $bp-small) {
-            left: 5%;
-            position: absolute;
-            top: 75px;
-            width: 90%;
-            z-index: 5;
+            @include order(15);
 
+            padding: 10px;
         }
 
         @include bp(min-width, $bp-small + 1) {
-            @include order(4);
+            @include order(15);
+
+            padding: 10px 3px;
         }
 
-        span {
-            display: block;
+        .spec {
+
+        }
+
+        .label {
+            display: inline-block;
+            text-align: right;
+            width: 100px;
         }
     }
 
     .backordered-wrap {
-        @include order(8);
+        @include bp(max-width, $bp-small) {
+            @include order(3);
+        }
 
-        display: none;
+        @include bp(min-width, $bp-small + 1) {
+            @include order(8);
+        }
+
+        background-color: $white;
         color: $red;
-        font-weight: 500;
+        display: none;
+        font-weight: 300;
+        font-size: 12px;
+        line-height: 15px;
+        padding: 5px;
+        text-align: center;
+        width: 100%;
 
         .details-wrap.backordered & {
             display: block;
+        }
+
+        span {
+            color: $red;
+            display: block;
+            font-weight: 700;
         }
     }
 
@@ -693,13 +724,12 @@ article {
         width: 150px;
 
         @include bp(max-width, $bp-small) {
-            @include order(5);
+            @include order(10);
             margin-left: auto;
         }
 
         @include bp(min-width, $bp-small + 1) {
-            @include order(5);
-            margin-top: auto;
+            @include order(10);
         }
 
         &:after {
@@ -735,7 +765,6 @@ article {
         display: flex,
         flex-direction: column,
         flex-grow: 1,
-        order: 10,
     ));
 
     overflow: hidden;
@@ -798,6 +827,7 @@ article {
     position: relative;
     max-width: 200px;
     min-width: 115px;
+    overflow: hidden;
     width: 23%;
 
     @include bp(max-width, $bp-small) {
@@ -905,13 +935,11 @@ article {
     }
 
     .hasChoices {
-        color: lighten($red, 25%);
-        content: "*";
-        font-size: 20px;
-        font-weight: 900;
+        font-size: 18px;
+        line-height: 0.9;
         position: absolute;
-        top: 5px;
-        right: 5px;
+        right: 0;
+        top: 0;
     }
 
     .outer {

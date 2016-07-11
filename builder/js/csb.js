@@ -333,8 +333,8 @@
                     arr.push(div);
                 }}
 
-                extras = getBlankBlocks(arr.length);
-                arr = arr.concat(extras);
+                // extras = getBlankBlocks(arr.length);
+                // arr = arr.concat(extras);
 
                 this.choicesHtml = arr;
             }
@@ -372,7 +372,7 @@
                 classes.push('unavailable');
             } else if( option.status === 'backordered' ) {
                 classes.push('backordered');
-                container.backordered.text(option.restockTime);
+                container.backordered.text(option.restockTime + ' weeks.');
             }
 
             wrap.get(0).className = classes.join(' ');
@@ -510,13 +510,11 @@
 
             for( p in this.specs ) { if( this.specs.hasOwnProperty(p) ) {
                 str = [
-                    '<span class="',
+                    '<p class="spec"><span class="label">',
                     p,
-                    '">',
-                    p,
-                    ': <strong>',
+                    '</span>: <strong>',
                     this.specs[p],
-                    '</strong></span>'
+                    '</strong></p>'
                 ].join('');
 
                 s.push(str);
