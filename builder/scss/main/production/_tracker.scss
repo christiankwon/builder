@@ -4,6 +4,7 @@
 
 .tracker-wrap {
     background-color: $white;
+    @include user-select(none);
 
     > div {
         text-align: center;
