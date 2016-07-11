@@ -72,8 +72,19 @@
       "has_colors": false,
       "colors": {
         "gray": {
-          "id": null
-        }
+          "id": 2481,
+          "status": "available",
+          "default": true
+        },
+        "red": {
+          "id": 1649,
+          "status": "available"
+        },
+        "white": {
+          "id": 1648,
+          "status": "available"
+        },
+        "option_category_id": 149
       },
       "allowance": {
         "patch": true,
