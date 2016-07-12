@@ -69,19 +69,22 @@
           "end_id": 1881
         }
       },
-      "has_colors": false,
+      "has_colors": true,
       "colors": {
         "gray": {
+          "default": true,
           "id": 2481,
-          "status": "available",
-          "default": true
+          "color": "#555",
+          "status": "available"
         },
         "red": {
           "id": 1649,
+          "color": "#e90d2f",
           "status": "available"
         },
         "white": {
           "id": 1648,
+          "color": "#fff",
           "status": "available"
         },
         "option_category_id": 149
