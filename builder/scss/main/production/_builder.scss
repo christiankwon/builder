@@ -23,8 +23,8 @@ article {
     ));
 
     .header {
-        background-color: $teal;
-        color: $white;
+        background-color: lighten($teal, 20%);
+        color: $black;
         padding: 15px;
         position: relative;
         @include flex-shrink(0);
@@ -152,7 +152,7 @@ article {
     .back,
     .home {
         @include bp(max-width, $bp-small) {
-            background-color: darken($orange, 5%);
+            background-color: lighten($teal, 20%);
             border: 0 none;
             font-weight: 300;
             height: 100%;
@@ -165,7 +165,7 @@ article {
 
             &:before,
             &:after {
-                background-color: darken($white, 10%);
+                background-color: lighten($black, 10%);
                 content: "";
                 position: absolute;
                 width: 2px;
@@ -436,7 +436,8 @@ article {
     }
 
     .name-wrap {
-        background-color: $orange;
+        background-color: darken($teal, 30%);
+        color: $white;
         padding: 5px;
         position: relative;
         text-align: center;
@@ -446,6 +447,7 @@ article {
             @include order(1);
 
             height: $small-header-height;
+            left: 0;
             margin-bottom: 10px;
             position: fixed;
             top: 0;
@@ -463,38 +465,39 @@ article {
             width: 100%;
 
             span {
-                display: inline-block;
+                display: block;
             }
         }
 
         .manufacturer {
             display: block;
+            font-weight: 300;
         }
 
         .model {
-            font-weight: 600;
+            font-weight: 500;
         }
     }
 
     .image-wrap {
         position: relative;
-        width: 100%;
 
         @include bp(max-width, $bp-small) {
             @include order(2);
-            width: 100%;
+            width: 80%;
         }
 
         @include bp(min-width, $bp-small + 1) {
             @include order(2);
             float: left;
+            width: 100%;
         }
 
         img {
             @include bp(max-width, $bp-small) {
                 height: auto;
                 margin: 0 auto;
-                width: 80%;
+                width: 100%;
             }
 
             @include bp(min-width, $bp-small + 1) {
@@ -505,18 +508,67 @@ article {
 
         .choice,
         .measurement {
-            left: 10%;
             position: absolute;
             top: 0;
+
+            @include bp(max-width, $bp-small) {
+                left: 0;
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                left: 0;
+            }
         }
 
         .measurement {
-            background-color: rgba($black, 0.5);
+            background-color: rgba($black, 0.75);
             display: none;
+
+            &.clicked {
+                display: block;
+            }
         }
 
         &:hover .measurement {
             display: block;
+        }
+
+        article[data-component="cable"] & {
+            &:hover .measurement {
+                @include display-flex;
+            }
+
+            .measurement {
+                @include align-items(center);
+                @include justify-content(center);
+                @include flex-direction(column);
+                color: $white;
+                cursor: default;
+                text-align: center;
+
+                @include bp(max-width, $bp-small) {
+                    height: 100%;
+                    width: 100%;
+                }
+
+                @include bp(min-width, $bp-small + 1) {
+                    height: 100%;
+                    width: 100%;
+                }
+
+                &.clicked {
+                    @include display-flex;
+                }
+
+                .spec {
+                    margin-bottom: 10px;
+                }
+
+                .label {
+                    display: block;
+                    font-size: 12px;
+                }
+            }
         }
 
         .more-details {
@@ -582,7 +634,7 @@ article {
 
             @include bp(max-width, $bp-small) {
                 margin-right: 15px;
-                margin-bottom: 15px;
+                margin-bottom: 10px;
                 width: 30px;
                 height: 30px;
                 float: left;
@@ -611,6 +663,24 @@ article {
                     top: 0;
                     width: 100%;
                 }
+            }
+        }
+
+        .selected {
+            position: relative;
+
+            &:after {
+                border: 3px solid $green;
+                border-radius: 50%;
+                content: "";
+                display: none;
+                height: calc(100% + 4px);
+                left: -2px;
+                position: absolute;
+                top: -2px;
+                width: calc(100% + 4px);
+
+                .details-wrap.selected & { display: block; }
             }
         }
 
@@ -659,30 +729,6 @@ article {
         }
     }
 
-    .information-wrap {
-        @include bp(max-width, $bp-small) {
-            @include order(15);
-
-            padding: 10px;
-        }
-
-        @include bp(min-width, $bp-small + 1) {
-            @include order(15);
-
-            padding: 10px 3px;
-        }
-
-        .spec {
-
-        }
-
-        .label {
-            display: inline-block;
-            text-align: right;
-            width: 100px;
-        }
-    }
-
     .backordered-wrap {
         @include bp(max-width, $bp-small) {
             @include order(3);
@@ -693,6 +739,7 @@ article {
         }
 
         background-color: $white;
+        border: 2px solid $black;
         color: $red;
         display: none;
         font-weight: 300;
@@ -746,7 +793,7 @@ article {
 
         .details-wrap.selected &:after {
             background-color: $green;
-            content: "Picked!";
+            content: "Selected";
         }
 
         .details-wrap.unavailable & {
@@ -767,17 +814,17 @@ article {
         flex-grow: 1,
     ));
 
-    overflow: hidden;
-    position: relative;
     height: 100%;
     min-height: 160px;
+    overflow: hidden;
+    position: relative;
 
     h2 {
         background-color: #333;
         color: $white;
-        text-transform: uppercase;
-        position: relative;
         padding: 10px 50px 10px 10px;
+        position: relative;
+        text-transform: uppercase;
         @include flex-shrink(0);
 
         span {
@@ -860,7 +907,7 @@ article {
 
         .option-select:after {
             background-color: $white;
-            border: solid 1px $black;
+            outline: 2px solid darken($green, 25%);
             color: $black;
             display: none;
             height: 100%;
@@ -892,8 +939,8 @@ article {
     }
 
     &.clicked {
-        outline: 3px solid $black;
-        border-color: $black;
+        outline: 3px solid $yellow;
+        border-color: $yellow;
     }
 
     &.selected {
@@ -907,12 +954,17 @@ article {
 
     &.selected {
         &:before {
-            content: "Selected!";
+            background-color: rgba(lighten($green, 10%), 0.75);
+            color: $white;
+            content: "Selected";
+            font-weight: 700;
+            letter-spacing: 2px;
         }
 
         &:hover {
             .option-select:after {
                 background-color: $green;
+                color: $white;
                 content: "Selected";
             }
         }
@@ -920,7 +972,9 @@ article {
 
     &[data-status="unavailable"] {
         &:before {
+            color: #333;
             content: "Coming Soon";
+            font-weight: 300;
         }
 
         &:hover {
@@ -928,7 +982,9 @@ article {
                 cursor: default;
 
                 &:after {
+                    color: #333;
                     content: "Coming Soon";
+                    font-weight: 300;
                 }
             }
         }
@@ -953,30 +1009,35 @@ article {
         z-index: 10;
 
         @include align-items(center);
-        @include justify-content(space-around);
+        @include justify-content(center);
         @include flex-direction(column);
 
         button {
             border: 0 none;
-            height: 45px;
+            font-size: 13px;
+            height: 30px;
             padding: 0 10px;
             position: relative;
-            width: 80%;
+            width: 75%;
         }
     }
 
     .option-specs {
-        background-color: lighten($teal, 15%);
+        background-color: $yellow;
+        color: $black;
+        margin-bottom: 15px;
+        outline: 2px solid darken($yellow, 10%);
     }
 
     .option-select {
-        background-color: darken($teal, 15%);
+        background-color: lighten($green, 30%);
+        outline: 2px solid lighten($green, 20%);
 
         &:after {
             @include flexcenter;
             height: 100%;
-            position: absolute;
             left: 0;
+            position: absolute;
             top: 0;
             width: 100%;
             display: none;
@@ -1015,12 +1076,12 @@ article {
     }
 
     .price {
-        bottom: 15px;
-        left: 15px;
-        position: absolute;
+        bottom: 10px;
+        color: $red;
         font-size: 14px;
         font-weight: 800;
-        color: $red;
+        left: 10px;
+        position: absolute;
 
         &:before {
             content: '$';
@@ -1132,7 +1193,7 @@ article {
             &:checked ~ label:before {
                 background-color: $white;
                 color: $black;
-                content: "Picked!";
+                content: "Selected";
             }
         }
 
@@ -1155,7 +1216,7 @@ article {
 
             &:before {
                 font-size: 12px;
-                content: "Pick me!";
+                content: "Select";
                 color: $white;
                 background-color: $black;
                 position: absolute;

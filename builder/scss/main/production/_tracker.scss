@@ -81,6 +81,7 @@
     }
 
     .dot {
+        $teal: darken($teal, 40%);
         background-color: $teal;
         color: $white;
         cursor: pointer;

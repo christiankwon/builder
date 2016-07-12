@@ -89,7 +89,7 @@
                 img_component: $(_id('cable-details-component')),
                 price:         $(_id('cable-details-price')),
                 choice:        $(_id('cable-details-choices')),
-                specs:         $(_id('cable-details-information')),
+                specs:         $(_id('cable-details-measurement')),
                 backordered:   $(_id('cable-details-backordered')),
             },
 
@@ -512,7 +512,7 @@
                 str = [
                     '<p class="spec"><span class="label">',
                     p,
-                    '</span>: <strong>',
+                    ':</span> <strong>',
                     this.specs[p],
                     '</strong></p>'
                 ].join('');
@@ -815,16 +815,19 @@
     };
 
     var changeStep = (function() {
-        var b = _id('body'), current;
+        var b = _id('body'), c = _id('content'), current;
 
         return function(next) {
             current = b.getAttribute('data-current-step');
 
-            if( current === next ) {
-                return false;
+            if( MQ_SMALL.matches ) {
+                $('#' + current + '-details-wrap').removeClass('active');
             }
 
-            if( _id('content').getAttribute('data-active-section') !== 'production' ) {
+            if( c.getAttribute('data-active-section') !== 'production' ) {
+                return false;
+            }
+            if( current === next ) {
                 return false;
             }
 
@@ -1824,6 +1827,10 @@
                 if( parent.hasClass('active') ) {
                     parent.removeClass('active');
                 }
+            });
+
+            _.find('.measurement').on('click', function(e) {
+                e.currentTarget.classList.toggle('clicked');
             });
 
             _.find('.home').on('click', function(e) {
