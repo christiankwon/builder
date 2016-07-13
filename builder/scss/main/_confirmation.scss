@@ -12,21 +12,37 @@
         text-transform: uppercase;
         width: 100%;
         @include flexcenter;
+
+        @include bp(max-width, $bp-small) {
+            height: 30px;
+        }
+
+        @include bp(min-width, $bp-small) {
+            height: 50px;
+        }
     }
 
     .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 30px 50px;
-        border: 1px solid #bbb;
-        height: 75%;
-        margin-top: 25px;
-        width: 80%;
         @include flexbox((
             display: flex,
             flex-direction: column,
             justify-content: space-around,
         ));
+
+        @include bp(max-width, $bp-small) {
+            margin: 25px auto 0;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            border: 1px solid #bbb;
+            height: 75%;
+            margin: 25px auto 0;
+            max-width: 800px;
+            padding: 30px 50px;
+            width: 80%;
+        }
     }
 
     .confirm-text {
@@ -55,20 +71,51 @@
     }
 
     .final-build {
-        margin: 15px 40px;
-        border-top: 1px solid #999;
-        border-bottom: 1px solid #999;
-        padding: 25px 0;
         @include flexcenter;
-        @include flex-direction(row);
+
+        @include bp(max-width, $bp-small) {
+            margin: 25px auto 0;
+            padding: 20px 10px;
+            position: relative;
+            @include flex-direction(column);
+
+            &:after {
+                content: "";
+                height: 1px;
+                width: 60%;
+                position: absolute;
+                top: -5px;
+                left: 20%;
+                background-color: #999;
+            }
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            border-bottom: 1px solid #999;
+            border-top: 1px solid #999;
+            margin: 15px 40px;
+            padding: 25px 0;
+            @include flex-direction(row);
+        }
 
         ul {
             font-size: 12px;
             margin-right: auto;
             text-transform: uppercase;
+
+            @include bp(max-width, $bp-small) {
+                text-align: center;
+                width: 100%;
+            }
+        }
+
+        li {
+            line-height: 15px;
         }
 
         .qty-wrap {
+            margin: 15px 0 15px -30px;
+
             label {
                 font-size: 12px;
                 font-weight: 600;
@@ -89,21 +136,20 @@
             font-weight: 900;
             margin-left: auto;
 
+            @include bp(max-width, $bp-small) {
+                margin-right: auto;
+            }
+
             &:before {
                 content: "$";
             }
         }
     }
 
-    .overview {
-
-    }
-
     button {
-        width: 200px;
-        margin: 0 auto;
-        padding: 10px 0;
         font-size: 12px;
-        margin-bottom: 10px;
+        margin: 0 auto 10px;
+        padding: 10px 0;
+        width: 200px;
     }
 }

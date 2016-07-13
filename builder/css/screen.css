@@ -1062,7 +1062,7 @@ body[data-display-introduction="show"] #introduction .notice {
 }
 /* line 326, ../scss/blocks/production/display/_pointers.scss */
 [data-restriction-techflex="false"] .pointer.techflex:after {
-  background: #f5c329 url("../images/backpack/warning.png") no-repeat scroll center center/80% auto;
+  background: #f5dd88 url("../images/backpack/warning.png") no-repeat scroll center center/80% auto;
   border-radius: 50%;
   content: "";
   cursor: pointer;
@@ -1953,7 +1953,7 @@ li.length .filters > div.showNotice .measurement {
 /* line 124, ../scss/blocks/production/_builder.scss */
 [data-restriction-techflex="false"] .builder li.other .option[data-option-type="techflex"]:before {
   display: none;
-  background-color: #f5c329;
+  background-color: #f5dd88;
   background-image: url("../images/backpack/warning.png");
   background-repeat: no-repeat;
   background-position: center center;

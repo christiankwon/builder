@@ -330,6 +330,10 @@
                         'background-color': colors[p].color
                     });
 
+                    if( colors[p].default ) {
+                        div.className = 'selected';
+                    }
+
                     arr.push(div);
                 }}
 
@@ -514,10 +518,12 @@
                     p,
                     ':</span> <strong>',
                     this.specs[p],
-                    '</strong></p>'
-                ].join('');
+                    '</strong>',
+                    p === 'capacitance' ? '<button class="modal-capacitance">?</button>' : '',
+                    '</p>'
+                ];
 
-                s.push(str);
+                s.push(str.join(''));
             }}
 
             this.specsHtml = s.join('');
@@ -537,6 +543,16 @@
             return status;
         };
 
+        var _getSelected = function(el) {
+
+            return el.className === 'selected';
+        };
+
+        var _getNewChoice = function(el) {
+
+            return el.getAttribute('data-value') === color;
+        };
+
         var target = e.target;
 
         var color = target.getAttribute('data-value'),
@@ -553,6 +569,9 @@
 
             if( status ) {
                 $('.component', _id(this.code)).attr('src', url);
+
+                this.choicesHtml.filter(_getSelected)[0].className = '';
+                this.choicesHtml.filter(_getNewChoice)[0].className = 'selected';
 
                 if( CURRENT_CABLE.cable &&
                     CURRENT_CABLE.cable.code === this.code ) {
@@ -657,6 +676,16 @@
             return status;
         };
 
+        var _getSelected = function(el) {
+
+            return el.className === 'selected';
+        };
+
+        var _getNewChoice = function(el) {
+
+            return el.getAttribute('data-value') === color;
+        };
+
         var target = e.target;
 
         var color = target.getAttribute('data-value'),
@@ -674,6 +703,9 @@
             if( status ) {
                 $('.component', _id(this.code)).attr('src', url);
 
+                this.choicesHtml.filter(_getSelected)[0].className = '';
+                this.choicesHtml.filter(_getNewChoice)[0].className = 'selected';
+
                 if( CURRENT_CABLE[this.component] &&
                     CURRENT_CABLE[this.component].code === this.code ) {
                     DISPLAY_IMAGES[this.component].src = this.getDisplayImageUrl();
@@ -690,6 +722,9 @@
             this.detailsWrap.img_choice.attr('src', this.getBuilderBootImageUrl());
 
             if( status ) {
+                this.choicesHtml.filter(_getSelected)[0].className = '';
+                this.choicesHtml.filter(_getNewChoice)[0].className = 'selected';
+
                 if( CURRENT_CABLE[this.component] &&
                     CURRENT_CABLE[this.component].code === this.code ) {
                     DISPLAY_IMAGES[this.component + 'Boot'].src = this.getDisplayBootImageUrl();
@@ -789,7 +824,7 @@
         }
 
         var outer = $('<div/>', {class: 'outer'}).append(
-            $('<button/>', {text: 'Specs & Info', class: 'option-specs'}),
+            $('<button/>', {text: 'Specs', class: 'option-specs'}),
             $('<button/>', {text: 'Select', class: 'option-select'})
         );
 
@@ -1518,10 +1553,10 @@
 
         (function modal() {
             $('#modal').on('click', function() {
-                var attr = 'data-status';
+                var attr = 'data-modal';
 
-                if( this.getAttribute(attr) === 'open' ) {
-                    this.setAttribute(attr, 'closed');
+                if( this.getAttribute(attr) ) {
+                    this.removeAttribute(attr);
                 }
             });
 
@@ -1643,9 +1678,37 @@
                     ].join('');
 
                 return div;
+
+            },  _getSelect = function() {
+                var div = _ce('div');
+                    div.className = 'select';
+                    div.setAttribute('data-type', type);
+                    div.setAttribute('data-unit', unit);
+                    div.setAttribute('data-min',  min);
+                    div.setAttribute('data-max',  max);
+                    div.setAttribute('data-init', init);
+
+                var select = _ce('select');
+
+                var opt = null;
+                for( var i = min; i <= max; i++ ) {
+                    opt = _ce('option');
+                    opt.value = i;
+                    opt.textContent = i + ' ' + unit;
+
+                    if( i === init ) {
+                        opt.selected = true;
+                    }
+
+                    select.appendChild(opt);
+                }
+
+                div.appendChild(select);
+
+                return div;
             };
 
-            var choices = [], rulers = [], inputs = [];
+            var choices = [], rulers = [], inputs = [], selects = [];
 
             var type, display, min, max, unit, init;
 
@@ -1663,13 +1726,21 @@
                 choices.push(_getChoice());
                 rulers.push(_getRuler());
                 inputs.push(_getInput());
+                selects.push(_getSelect());
             }}
 
             for( var i = 0; i < inputs.length; i++ ) {
-                var input = inputs[i].querySelector('input');
+                var input = inputs[i].querySelector('input'),
+                    select = selects[i].querySelector('select');
 
                 input.ruler = $(rulers[i]);
+                input.select = select;
+
                 rulers[i].input = input;
+                rulers[i].select = select;
+
+                select.input = input;
+                select.ruler = $(rulers[i]);
             }
 
             var article = $('.length-wrap', '#builders');
@@ -1677,6 +1748,7 @@
             article.find('.length-choices').append(choices);
             article.find('.rulers').append(rulers);
             article.find('.inputs').append(inputs);
+            article.find('.selects').append(selects);
         },
 
         cables: function() {
@@ -1829,7 +1901,19 @@
                 }
             });
 
+            _.find('.details-wrap').on('click', '.modal-capacitance', function(e) {
+                var attr = 'data-modal';
+
+                if( _id('modal').getAttribute(attr) !== 'capacitance' ) {
+                    _id('modal').setAttribute(attr, 'capacitance');
+                }
+            });
+
             _.find('.measurement').on('click', function(e) {
+                if( e.target.className === 'modal-capacitance') {
+                    return true;
+                }
+
                 e.currentTarget.classList.toggle('clicked');
             });
 
@@ -1941,12 +2025,12 @@
                 });
 
                 _.find('.length-wrap .ruler').on('slide', function(e, ui) {
-                    var val = ui.value;
-                    // update CC
-                    CURRENT_CABLE.length.amount = val;
+                    var val = ui.value,
+                        el = e.currentTarget;
 
                     // update input
-                    this.input.value = val;
+                    el.input.value = val;
+                    el.select.value = val;
 
                     _updateLength(val);
                 });
@@ -1957,6 +2041,7 @@
 
                     el.value = val;
                     el.ruler.slider('value', val);
+                    el.select.value = val;
 
                     _updateLength(val);
                 });
@@ -1978,12 +2063,24 @@
 
                     el.value = val;
                     el.ruler.slider('value', val);
+                    el.select.value = val;
+
+                    _updateLength(val);
+                });
+
+                _.find('.length-wrap .select').on('change', 'select', function(e) {
+                    var el = e.currentTarget,
+                        val = Number(el.value);
+
+                    el.input.value = val;
+                    el.ruler.slider('value', val);
 
                     _updateLength(val);
                 });
 
                 _.find('#length-confirm').on('click', function() {
                     $('#body').attr('data-current-step', 'cable');
+
                     _updateLength();
                 });
             })();
@@ -2021,10 +2118,10 @@
             });
 
             $('#tourproof-modal').on('click', function(e) {
-                var attr = 'data-status';
+                var attr = 'data-modal';
 
-                if( _id('modal').getAttribute(attr) !== 'open' ) {
-                    _id('modal').setAttribute(attr, 'open');
+                if( _id('modal').getAttribute(attr) !== 'tourproof' ) {
+                    _id('modal').setAttribute(attr, 'tourproof');
                 }
             });
 
