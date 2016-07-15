@@ -58,7 +58,7 @@
             width: 75px;
 
             + div {
-                @include border('bottom');
+                @include border('bottom', #999);
             }
         }
     }

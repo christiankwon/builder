@@ -42,7 +42,7 @@
         "model": "Slate"
       },
       "price": 4,
-      "status": "backordered",
+      "status": "available",
       "restock_time": 3,
       "category": "premium",
       "order": 1,
@@ -105,7 +105,7 @@
         "model": "9778"
       },
       "price": 2,
-      "status": "unavailable",
+      "status": "backordered",
       "category": "standard",
       "order": 20,
       "specs": {
@@ -201,7 +201,7 @@
         "model": "GS-6"
       },
       "price": 2,
-      "status": "available",
+      "status": "backordered",
       "category": "standard",
       "order": 31,
       "specs": {
@@ -243,17 +243,17 @@
         "orange": {
           "id": 1650,
           "color": "#ff864f",
-          "status": "unavailable"
+          "status": "backordered"
         },
         "yellow": {
           "id": 1651,
           "color": "#fcf86c",
-          "status": "unavailable"
+          "status": "backordered"
         },
         "green": {
           "id": 1652,
           "color": "#25c265",
-          "status": "unavailable"
+          "status": "backordered"
         },
         "option_category_id": 149
       },
@@ -321,7 +321,7 @@
         "model": "Monorail"
       },
       "price": 3,
-      "status": "unavailable",
+      "status": "backordered",
       "category": "premium",
       "order": 131,
       "specs": {
@@ -369,7 +369,7 @@
         "model": "Melody"
       },
       "price": 5,
-      "status": "unavailable",
+      "status": "backordered",
       "category": "premium",
       "order": 130,
       "specs": {
@@ -717,7 +717,7 @@
         "model": "Classic XKE"
       },
       "price": 2,
-      "status": "unavailable",
+      "status": "backordered",
       "category": "standard",
       "order": 220,
       "specs": {

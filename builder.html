@@ -77,7 +77,7 @@
               <button class="home"></button>
             </div>
 
-            <div class="body">
+            <div class="body scrollbar">
               <div class="notice">
                 <img src="builder/images/misc/length/measurement.png" alt="We measure cable length from where the plugs meet the cable." />
               </div>
@@ -106,11 +106,11 @@
 
             <div class="body">
               <div class="options-box">
-                <div class="options-wrap"></div>
+                <div class="options-wrap scrollbar"></div>
               </div>
 
               <div id="cable-details-wrap" class="details-wrap">
-                <div class="details-content">
+                <div class="details-content scrollbar">
                   <div class="name-wrap">
                     <button class="back"></button>
 
@@ -128,12 +128,12 @@
 
                   <div id="cable-details-choices" class="choice-wrap"></div>
 
-                  <div class="price-wrap">
-                    <span id="cable-details-price">$0.00</span>
-                  </div>
-
                   <div class="backordered-wrap">
                     <p>Currently backordered for: <span id="cable-details-backordered">0 weeks.</span>Expect delays.</p>
+                  </div>
+
+                  <div class="price-wrap">
+                    <span id="cable-details-price">$0.00</span>
                   </div>
 
                   <button class="select-option">Select</button>
@@ -155,11 +155,11 @@
 
             <div class="body">
               <div class="options-box">
-                <div class="options-wrap"></div>
+                <div class="options-wrap scrollbar"></div>
               </div>
 
               <div id="input-details-wrap" class="details-wrap">
-                <div class="details-content">
+                <div class="details-content scrollbar">
                   <div class="name-wrap">
                     <button class="back"></button>
 
@@ -172,17 +172,19 @@
                   <div class="image-wrap">
                     <img id="input-details-component" class="component" src="" alt="">
                     <img id="input-details-choice" class="choice" src="" alt="">
-                    <img id="input-details-measurement" class="measurement" src="" alt="">
+                    <div class="measurement">
+                      <img id="input-details-measurement" src="" alt="">
+                    </div>
                   </div>
 
                   <div id="input-details-choices" class="choice-wrap"></div>
 
-                  <div class="price-wrap">
-                    <span id="input-details-price" >$0.00</span>
-                  </div>
-
                   <div class="backordered-wrap">
                     <p>Currently backordered for: <span id="input-details-backordered">0 weeks.</span>Expect delays.</p>
+                  </div>
+
+                  <div class="price-wrap">
+                    <span id="input-details-price" >$0.00</span>
                   </div>
 
                   <button class="select-option">Select</button>
@@ -204,12 +206,12 @@
 
             <div class="body">
               <div class="options-box">
-                <div class="options-wrap"></div>
+                <div class="options-wrap scrollbar"></div>
               </div>
 
               <div id="output-details-wrap" class="details-wrap">
 
-                <div class="details-content">
+                <div class="details-content scrollbar">
                   <div class="name-wrap">
                     <button class="back"></button>
 
@@ -222,17 +224,19 @@
                   <div class="image-wrap">
                     <img id="output-details-component" class="component" src="" alt="">
                     <img id="output-details-choice" class="choice" src="" alt="">
-                    <img id="output-details-measurement" class="measurement" src="" alt="">
+                    <div class="measurement">
+                      <img id="output-details-measurement" src="" alt="">
+                    </div>
                   </div>
 
                   <div id="output-details-choices" class="choice-wrap"></div>
 
-                  <div class="price-wrap">
-                    <span id="output-details-price" >$0.00</span>
-                  </div>
-
                   <div class="backordered-wrap">
                     <p>Currently backordered for: <span id="output-details-backordered">0 weeks.</span>Expect delays.</p>
+                  </div>
+
+                  <div class="price-wrap">
+                    <span id="output-details-price" >$0.00</span>
                   </div>
 
                   <button class="select-option">Select</button>
@@ -252,7 +256,7 @@
               <button class="home"></button>
             </div>
 
-            <div class="body">
+            <div class="body scrollbar">
               <div id="techflex" class="techflex-wrap" data-option-type="techflex">
                 <h3>Techflex<span class="cost">+0.45/ft</span><p>Add an extra layer of protection to your cable.</p></h3>
               </div>
@@ -408,7 +412,6 @@
   <script src="/a/j/soft_add.js"></script>
 
   <script type="text/javascript" src="builder/js/vendor/imagesloaded.pkgd.js"></script>
-  <script type="text/javascript" src="builder/js/vendor/jquery.slimscroll.js"></script>
   <script type="text/javascript" src="builder/js/csb.js"></script>
 
   <script>
