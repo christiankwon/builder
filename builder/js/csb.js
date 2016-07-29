@@ -737,7 +737,7 @@
             option.html.setAttribute('data-status', 'backordered');
             this.detailsWrap.backordered.text(target.getAttribute('data-restock-time') + ' weeks.');
         } else {
-            wrap.removeClass('backordered');
+            if( option.status !== 'backordered' ) wrap.removeClass('backordered');
             option.html.setAttribute('data-status', option.status);
         }
 

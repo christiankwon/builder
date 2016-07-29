@@ -706,7 +706,7 @@ article {
             @include order(3);
 
             border: 2px solid $black;
-            margin: 0 5%;
+            margin: 0 5% 10px;
             padding: 0 10px;
             position: relative;
         }
@@ -853,12 +853,15 @@ article {
     .backordered-wrap {
         @include bp(max-width, $bp-small) {
             clear: both;
+            margin: 0 auto;
             width: 60%;
         }
 
         @include bp(min-width, $bp-small + 1) {
             @include order(5);
-            width: 100%;
+
+            margin: 0 5%;
+            width: 90%;
         }
 
         background-color: $white;
@@ -868,7 +871,6 @@ article {
         font-weight: 300;
         font-size: 12px;
         line-height: 15px;
-        margin: 0 auto;
         padding: 5px;
         text-align: center;
 
