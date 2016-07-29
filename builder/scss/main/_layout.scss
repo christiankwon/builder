@@ -89,8 +89,8 @@ section,
     }
 
     button {
-        background-color: lighten($green, 15%);
-        border: 0 none;
+        background-color: $green;
+        border: 5px solid darken($green, 30%);
         height: 100%;
         width: 100%;
     }
