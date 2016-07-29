@@ -1,8 +1,7 @@
-@mixin border($side: 'bottom', $color: '#333', $width: 1px) {
-    border-#{$side}: #{$width} solid #{$color};
-}
-
 .tracker-wrap {
+    $primary: $black;
+    $secondary: #ccc;
+
     background-color: $white;
     @include user-select(none);
 
@@ -15,57 +14,32 @@
         position: absolute;
         width: 100%;
         z-index: 30;
-        @include display-flex;
-        @include flex-flow(row wrap);
 
         .dot {
             width: 20%;
             height: 100%;
 
-            span {
-                // display: none;
+            + .dot {
+                border-left-width: 1px;
             }
-        }
-
-        .price-wrap {
-            // display: none;
         }
     }
 
     @include bp(min-width, $bp-small + 1) {
-        @include flexbox((
-            display: flex,
-            // align-items: center,
-            // justify-content: center,
-        ));
-
-        @include border('right');
+        border-right: 1px solid #333;
         height: 100%;
 
-        @include flexbox((
-            flex-direction: column,
-        ));
-
         > div {
-            @include flexbox((
-                align-items: center,
-                display: flex,
-                justify-content: center,
-                flex-direction: column,
-            ));
-
             text-align: center;
             width: 75px;
-
-            + div {
-                @include border('bottom', #999);
-            }
         }
     }
 
     .masthead {
+        display: none;
+
         // replace text with background-image
-        @include border('bottom');
+        border-bottom: solid 1px $primary;
 
         a {
             cursor: pointer;
@@ -80,10 +54,21 @@
         }
     }
 
+    .dot-wrap {
+        @include display-flex;
+
+        @include bp(max-width, $bp-small) {
+            @include flex-direction(row);
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            @include flex-direction(column);
+        }
+    }
+
     .dot {
-        $teal: darken($teal, 40%);
-        background-color: $teal;
-        color: $white;
+        background-color: $secondary;
+        color: $primary;
         cursor: pointer;
         font-size: 12px;
         letter-spacing: 1px;
@@ -91,25 +76,27 @@
         text-transform: uppercase;
 
         @include bp(max-width, $bp-small) {
+            border-top: 1px solid #333;
             height: 75px;
+
+            + .dot {
+                border-left: 1px solid #333;
+            }
         }
 
         @include bp(min-width, $bp-small + 1) {
+            border-bottom: 1px solid #333;
             height: 75px;
+            width: 100%;
         }
 
         &:before {
-            @include flexbox((
-                display: flex,
-                align-items: center,
-                justify-content: center,
-            ));
-
-            border: 1px solid $white;
+            border: 1px solid $primary;
             border-radius: 50%;
             height: 30px;
             margin: 10px auto;
             width: 30px;
+            @include flexcenter;
         }
 
         @each $s in $steps {
@@ -119,10 +106,11 @@
 
             .body-wrap[data-current-step="#{$s}"] &[data-pointer-component="#{$s}"] {
                 background-color: $white;
-                color: $teal;
+                border-top-color: transparent;
+                color: darken($teal, 10%);
 
                 &:before {
-                    border-color: $teal;
+                    border-color: darken($teal, 10%);
                     border-width: 2px;
                 }
             }

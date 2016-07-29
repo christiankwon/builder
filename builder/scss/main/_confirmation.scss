@@ -111,6 +111,15 @@
 
         li {
             line-height: 15px;
+            position: relative;
+
+            &.backordered:before {
+                position: absolute;
+                top: 0;
+                left: -5px;
+                content: "*";
+                color: #c00;
+            }
         }
 
         .qty-wrap {
@@ -143,6 +152,16 @@
             &:before {
                 content: "$";
             }
+        }
+    }
+
+    .backorder-warning {
+        color: #c00;
+        display: none;
+        text-transform: uppercase;
+
+        &[data-active="active"] {
+            display: block;
         }
     }
 

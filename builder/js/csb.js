@@ -116,7 +116,13 @@
                 choice:        $(_id('output-details-choices')),
                 backordered:   $(_id('output-details-backordered')),
             }
-        };
+        },
+
+        CABLES = [],
+        INPUTS = [],
+        OUTPUTS = [],
+
+        PLUG_RESTRICTIONS = {};
 
     var Setup = function() {
             this.type = DEFAULT_CABLE_TYPE;
@@ -132,63 +138,6 @@
             this.techflex = '';
             this.quantity = 1;
             this.version = CURRENT_VERSION;
-            this.getPrice = function() {
-                var total = 0,
-                    length = this.length.amount;
-
-                if( this.cable ) {
-                    var price = this.cable.price;
-
-                    if( this.type === 'patch' ) {
-                        total += (price / 4) * (Math.floor((length - 1) / 3) + 1);
-                    } else {
-                        total += price * length;
-                    }
-                }
-
-                if( this.input ) {
-                    total += this.input.price;
-                }
-
-                if( this.output ) {
-                    total += this.output.price;
-                }
-
-                if( this.tourproof ) {
-                    total += TOURPROOF_COST;
-                }
-
-                if( this.techflex ) {
-                    if( this.type === 'patch' ) {
-                        total += TECHFLEX_COST * (Math.floor((length - 1) / 12 ) + 1);
-                    } else {
-                        total += TECHFLEX_COST * length;
-                    }
-                }
-
-                return total;
-            };
-            this.getExtraOptions = function() {
-                var str = '';
-
-                if( this.techflex ) {
-                    str += this.techflex + ' Techflex';
-                }
-
-                if( this.tourproof ) {
-                    if( str ) { str += '; '; }
-
-                    str += 'Tourproof';
-                }
-
-                if( this.reverse_plugs ) {
-                    if( str ) { str += '; '; }
-
-                    str += 'Reversed Plugs';
-                }
-
-                return str;
-            };
         },
 
         Option = function(data) {
@@ -203,6 +152,67 @@
             this.detailsWrap  = DETAILS_CONTAINER[data.component];
             this.restockTime  = data.restock_time || 2;
         };
+
+    Setup.prototype = {
+        getPrice: function(bool) {
+            var total = 0,
+                length = this.length.amount;
+
+            if( this.cable ) {
+                var price = this.cable.price;
+
+                if( this.type === 'patch' ) {
+                    total += (price / 4) * (Math.floor((length - 1) / 3) + 1);
+                } else {
+                    total += price * length;
+                }
+            }
+
+            if( this.input ) {
+                total += this.input.price;
+            }
+
+            if( this.output ) {
+                total += this.output.price;
+            }
+
+            if( this.tourproof ) {
+                total += TOURPROOF_COST;
+            }
+
+            if( this.techflex ) {
+                if( this.type === 'patch' ) {
+                    total += TECHFLEX_COST * (Math.floor((length - 1) / 12 ) + 1);
+                } else {
+                    total += TECHFLEX_COST * length;
+                }
+            }
+
+            return bool ? total.formatMoney() : total;
+        },
+
+        getExtraOptions: function() {
+            var str = '';
+
+            if( this.techflex ) {
+                str += this.techflex + ' Techflex';
+            }
+
+            if( this.tourproof ) {
+                if( str ) { str += '; '; }
+
+                str += 'Tourproof';
+            }
+
+            if( this.reverse_plugs ) {
+                if( str ) { str += '; '; }
+
+                str += 'Reversed Plugs';
+            }
+
+            return str;
+        }
+    }
 
     Option.prototype = {
         isSelected: function() {
@@ -303,7 +313,7 @@
         },
 
         getChoices: function() {
-            var p, div, colors, arr = [], extras = [];
+            var c, p, div, colors, restock, arr = [], extras = [];
 
             if( !this.hasChoices ) {
                 return [];
@@ -316,29 +326,30 @@
                     colors = J_BOOTS[this.manufacturer][this.series].boot;
                 }
 
+                restock = this.restockTime;
+
                 for( p in colors ) { if( colors.hasOwnProperty(p) ) {
                     if( p === 'option_category_id' ) { continue; }
 
-                    div = _ce('div');
+                    c = colors[p];
 
+                    div = _ce('div');
                     div.option = this;
 
                     $(div).attr({
                         'data-value': p,
-                        'data-choice-status': this.hasColors ? colors[p].status : this.status
+                        'data-choice-status': c.status,
+                        'data-restock-time': c.restock_time || restock
                     }).css({
-                        'background-color': colors[p].color
+                        'background-color': c.color
                     });
 
-                    if( colors[p].default ) {
+                    if( c.default ) {
                         div.className = 'selected';
                     }
 
                     arr.push(div);
                 }}
-
-                // extras = getBlankBlocks(arr.length);
-                // arr = arr.concat(extras);
 
                 this.choicesHtml = arr;
             }
@@ -357,6 +368,7 @@
             if( !choices.length ) {
                 container.choice.addClass('empty');
             } else {
+                classes.push('hasChoices');
                 container.choice.removeClass('empty');
             }
 
@@ -459,13 +471,21 @@
             }
 
             restrictions.check();
+
+            if( c === 'cable' ) restrictions.cable();
+            if( this.part === 'plug' ) restrictions.plug.call(this);
         },
 
         deselectOption: function() {
             var c = this.component;
 
+            if( _id('body').getAttribute('data-current-step') !== this.component ) {
+                this.detailsWrap.wrap.removeClass('active');
+                $(this.html).removeClass('clicked');
+            }
+
             this.detailsWrap.wrap.removeClass('selected')
-                .next().removeClass('selected')
+                // .next().removeClass('selected')
                 .parent().removeClass('complete');
 
             this.html.classList.remove('selected');
@@ -496,6 +516,7 @@
         this.component    = 'cable';
         this.specs        = data.specs;
         this.lengths      = data.lengths;
+        this.restrict     = data.restrict_plugs || false;
         this.colors       = data.colors;
         this.currentColor = data.currentColor;
         this.hasChoices   = data.has_colors;
@@ -533,10 +554,11 @@
     };
 
     Cable.prototype.setChoice = function(e) {
-        var _getStatus = function() {
-            var status = true;
+        var _getAvailable = function() {
+            var status = true,
+                attr = target.getAttribute('data-choice-status') || '';
 
-            if( target.getAttribute('data-choice-status') !== 'available' ) {
+            if( !attr.length || attr === 'unavailable' ) {
                 status = false;
             }
 
@@ -555,10 +577,13 @@
 
         var target = e.target;
 
-        var color = target.getAttribute('data-value'),
-            status = _getStatus.call(this);
+        var color  = target.getAttribute('data-value'),
+            status = _getAvailable.call(this);
 
         var url = BLANK_IMAGE_URL;
+
+        var wrap = this.detailsWrap.wrap,
+            option = wrap.get(0).option;
 
         if( this.hasColors && color !== this.currentColor ) {
             this.currentColor = color;
@@ -569,6 +594,15 @@
 
             if( status ) {
                 $('.component', _id(this.code)).attr('src', url);
+
+                if( target.getAttribute('data-choice-status') === 'backordered' ) {
+                    wrap.addClass('backordered');
+                    option.html.setAttribute('data-status', 'backordered');
+                    this.detailsWrap.backordered.text(target.getAttribute('data-restock-time') + ' weeks.');
+                } else {
+                    wrap.removeClass('backordered');
+                    option.html.setAttribute('data-status', option.status);
+                }
 
                 this.choicesHtml.filter(_getSelected)[0].className = '';
                 this.choicesHtml.filter(_getNewChoice)[0].className = 'selected';
@@ -605,11 +639,12 @@
         this.series       = data.series;
         this.angle        = data.angle;
         this.hasColors    = data.has_colors || false;
-        this.hasBoots     = data.has_boots || false;
+        this.hasBoots     = data.has_boots  || false;
         this.hasChoices   = data.has_colors || data.has_boots;
         this.colors       = data.colors;
         this.currentColor = data.currentColor;
         this.currentBoot  = data.currentBoot;
+        this.restrictions = data.restrictions || [];
         this.choicesHtml  = [];
     };
 
@@ -666,10 +701,11 @@
     };
 
     Plug.prototype.setChoice = function(e) {
-        var _getStatus = function() {
-            var status = true;
+        var _getAvailable = function() {
+            var status = true,
+                attr = target.getAttribute('data-choice-status') || '';
 
-            if( target.getAttribute('data-choice-status') !== 'available' ) {
+            if( !attr.length || attr === 'unavailable' ) {
                 status = false;
             }
 
@@ -688,10 +724,22 @@
 
         var target = e.target;
 
-        var color = target.getAttribute('data-value'),
-            status = _getStatus.call(this);
+        var color  = target.getAttribute('data-value'),
+            status = _getAvailable.call(this);
 
         var url = BLANK_IMAGE_URL;
+
+        var wrap = this.detailsWrap.wrap,
+            option = wrap.get(0).option;
+
+        if( target.getAttribute('data-choice-status') === 'backordered' ) {
+            wrap.addClass('backordered');
+            option.html.setAttribute('data-status', 'backordered');
+            this.detailsWrap.backordered.text(target.getAttribute('data-restock-time') + ' weeks.');
+        } else {
+            wrap.removeClass('backordered');
+            option.html.setAttribute('data-status', option.status);
+        }
 
         if( this.hasColors && color !== this.currentColor ) {
             this.currentColor = color;
@@ -702,7 +750,6 @@
 
             if( status ) {
                 $('.component', _id(this.code)).attr('src', url);
-
                 this.choicesHtml.filter(_getSelected)[0].className = '';
                 this.choicesHtml.filter(_getNewChoice)[0].className = 'selected';
 
@@ -802,6 +849,10 @@
             });
         }
 
+        if( option.restrictions && option.restrictions.length ) {
+            $block.addClass('restricted');
+        }
+
         var choicesDiv = null;
         if( option.hasChoices ) {
             var choices = [], obj, c;
@@ -859,10 +910,8 @@
                 $('#' + current + '-details-wrap').removeClass('active');
             }
 
-            if( c.getAttribute('data-active-section') !== 'production' ) {
-                return false;
-            }
-            if( current === next ) {
+            if( c.getAttribute('data-active-section') !== 'production' ||
+                current === next ) {
                 return false;
             }
 
@@ -1067,7 +1116,126 @@
                 updateOverview('extras');
                 updateCost();
             }
-        }
+        },
+
+        cable: (function() {
+            var c, i, o, r, j, b, allPlugs, standardPlugs,
+
+                attr = 'data-restriction',
+                categories = null;
+
+            return function() {
+                if( ! categories ) { categories = $('article.input-wrap .options, article.output-wrap .options'); }
+
+                if( !allPlugs ) {
+                    allPlugs = $(INPUTS.concat(OUTPUTS));
+                    standardPlugs = allPlugs.filter(function() {
+                        return this.className.indexOf('restrict') === -1;
+                    });
+                }
+
+                c = CURRENT_CABLE.cable;
+                i = CURRENT_CABLE.input;
+                o = CURRENT_CABLE.output;
+
+                if( c ) {
+                    r = $(PLUG_RESTRICTIONS[c.code]);
+
+                    allPlugs.attr(attr, 'hide');
+                    categories.attr(attr, 'hide');
+
+                    r.parent().attr(attr, 'show');
+
+                    if( c.restrict ) {
+                        r.attr(attr, 'show');
+
+                        b = false;
+                        if( i ) {
+                            for( j = 0; j < r.length; j++ ) {
+                                if( r[j].option.code === i.code ) {
+                                    b = true;
+                                    break;
+                                }
+                            }
+
+                            if( !b ) {
+                                i.deselectOption();
+                            }
+                        }
+
+                        b = false;
+                        if( o ) {
+                            for( j = 0; j < r.length; j++ ) {
+                                if( r[j].option.code === o.code ) {
+                                    b = true;
+                                    break;
+                                }
+                            }
+
+                            if( !b ) {
+                                o.deselectOption();
+                            }
+                        }
+                    } else {
+                        standardPlugs.parent().attr(attr, 'show');
+                        standardPlugs.attr(attr, 'show');
+                        r.attr(attr, 'show');
+                    }
+                } else {
+                    allPlugs.attr(attr, 'show');
+                    categories.attr(attr, 'show');
+                }
+            };
+        })(),
+
+        plug: (function() {
+            var r, x, allCables, type,
+                matches = [],
+                attr = 'data-restriction',
+                categories = null,
+                _filter = function() {
+                    return this.className.indexOf(type) > -1;
+                },
+                _pushMatch = function() {
+                    if( r.indexOf(this.option.code) > -1 ) {
+                        matches.push(this);
+                    }
+                };
+
+            return function() {
+                if( ! categories ) { categories = $('article.cable-wrap .options'); }
+
+                type = _id('body').getAttribute('data-cable-type');
+
+                allCables = $(CABLES).filter(_filter);
+
+                var i = CURRENT_CABLE.input,
+                    o = CURRENT_CABLE.output;
+
+                var i_arr = i && i.restrictions || [],
+                    o_arr = o && o.restrictions || [];
+
+                r = i_arr.concat(o_arr);
+
+                if( r.length && (i || o) ) {
+                    matches = [];
+
+                    allCables.attr(attr, 'hide');
+                    categories.attr(attr, 'hide');
+
+                    allCables.each(_pushMatch);
+
+                    for( var j = 0; j < matches.length; j++ ) {
+                        matches[j].parentNode.setAttribute(attr, 'show');
+                    }
+
+                    $(matches).attr(attr, 'show');
+                } else {
+                    allCables.attr(attr, 'show');
+                    categories.attr(attr, 'show');
+                }
+            };
+        })()
     };
 
     var toggleTechflexWindow = (function() {
@@ -1106,14 +1274,32 @@
         },
 
         update: function() {
-            var cc = CURRENT_CABLE;
+            var cc = CURRENT_CABLE,
+                c = _id('final-cable'),
+                i = _id('final-input'),
+                o = _id('final-output'),
+                e = _id('final-extras'),
+                p = _id('final-price');
 
-            _id('final-cable').textContent  = cc.length.amount.toString() + cc.length.unit + ' ' + cc.cable.getFullName();
-            _id('final-input').textContent  = cc.input.getFullName();
-            _id('final-output').textContent = cc.output.getFullName();
-            _id('final-extras').textContent  = cc.getExtraOptions();
+            var c_b = cc.cable.status  === 'backordered',
+                i_b = cc.input.status  === 'backordered',
+                o_b = cc.output.status === 'backordered'
 
-            $('#final-price').text(CURRENT_CABLE.getPrice().formatMoney());
+            if( c_b || i_b || o_b ) {
+                _id('backorder-warning').setAttribute('data-active', 'active');
+            } else {
+                _id('backorder-warning').setAttribute('data-active', 'inactive');
+            }
+
+            c.className = c_b ? 'backordered' : '';
+            i.className = i_b ? 'backordered' : '';
+            o.className = o_b ? 'backordered' : '';
+
+            c.textContent  = cc.length.amount.toString() + cc.length.unit + ' ' + cc.cable.getFullName();
+            i.textContent  = cc.input.getFullName();
+            o.textContent  = cc.output.getFullName();
+            e.textContent  = cc.getExtraOptions();
+            p.textContent  = cc.getPrice(true);
         },
 
         go: function() {
@@ -1295,6 +1481,8 @@
         $('.details-wrap.active').removeClass('active');
 
         $('.extra-wrap input:checked').prop('checked', false);
+
+        $('.scrollbar').scrollTop(0).attr('data-position', 'top');
 
         CURRENT_CABLE = new Setup();
         window.CC = CURRENT_CABLE;
@@ -1781,6 +1969,8 @@
                 }
 
                 opt[data.category].push(block);
+
+                CABLES.push(block);
             }}
 
             for( var p in opt ) { if( opt.hasOwnProperty(p) ) {
@@ -1835,6 +2025,24 @@
                     }
 
                     opt[data.category].push(block);
+
+                    if( sides[i] === 'input' ) {
+                        INPUTS.push(block);
+                    } else {
+                        OUTPUTS.push(block);
+                    }
+
+                    if( data.restrictions && data.restrictions.length ) {
+                        for( var j = 0; j < data.restrictions.length; j++ ) {
+                            var c = data.restrictions[j];
+
+                            if( !PLUG_RESTRICTIONS[c] ) {
+                                PLUG_RESTRICTIONS[c] = [];
+                            }
+
+                            PLUG_RESTRICTIONS[c].push(block);
+                        }
+                    }
                 }}
 
                 for( p in opt ) { if( opt.hasOwnProperty(p) ) {
@@ -2159,6 +2367,20 @@
 
         $('.scrollbar').each(function() {
             $(this).css('width', 'calc(100% + ' + scrollbarWidth + 'px)');
+        }).on('scroll', function() {
+            var $this = $(this);
+
+            var scrolled = $this.scrollTop();
+
+            var sum = $this.innerHeight() + scrolled;
+
+            if( scrolled === 0 ) {
+                this.setAttribute('data-position', 'top');
+            } else if( sum >= this.scrollHeight ) {
+                this.setAttribute('data-position', 'bottom');
+            } else {
+                this.setAttribute('data-position', 'center');
+            }
         });
 
         displayImages.initialize();

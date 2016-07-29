@@ -23,8 +23,8 @@ article {
     ));
 
     .header {
-        background-color: lighten($teal, 25%);
-        color: $black;
+        background-color: $teal;
+        color: $white;
         padding: 15px;
         position: relative;
         @include flex-shrink(0);
@@ -152,7 +152,7 @@ article {
     .back,
     .home {
         @include bp(max-width, $bp-small) {
-            background-color: lighten($teal, 20%);
+            background-color: darken($teal, 20%);
             border: 0 none;
             font-weight: 300;
             height: 100%;
@@ -472,8 +472,8 @@ article {
     }
 
     .name-wrap {
-        background-color: darken($teal, 30%);
-        color: $white;
+        background-color: darken($yellow, 10%);
+        color: $black;
         padding: 5px;
         position: relative;
         text-align: center;
@@ -510,19 +510,31 @@ article {
         .model {
             font-weight: 500;
         }
+
+        .back,
+        .home {
+            background-color: darken($yellow, 20%);
+        }
     }
 
     .image-wrap {
         position: relative;
+        @include clearfix;
 
         @include bp(max-width, $bp-small) {
-            margin-right: auto;
-            float: left;
             width: 70%;
+            margin: 0 auto 10px;
+
+            .details-wrap.hasChoices & {
+                float: left;
+                margin-right: auto;
+            }
         }
 
         @include bp(min-width, $bp-small + 1) {
             @include order(2);
+
+            padding: 5%;
             width: 100%;
         }
 
@@ -539,17 +551,18 @@ article {
             }
         }
 
-        .choice,
-        .measurement {
+        .choice {
             position: absolute;
-            top: 0;
 
             @include bp(max-width, $bp-small) {
+                top: 0;
                 left: 0;
             }
 
             @include bp(min-width, $bp-small + 1) {
-                left: 0;
+                left: 5%;
+                top: 5%;
+                width: 90%;
             }
         }
 
@@ -557,13 +570,35 @@ article {
             background-color: rgba($black, 0.75);
             cursor: pointer;
             display: none;
+            left: 0;
+            padding: 5%;
+            position: absolute;
+            top: 0;
+
+            &:before {
+                border-width: 5px;
+                border-color: $yellow;
+                content: "";
+                display: none;
+                height: 100%;
+                left: 0;
+                position: absolute;
+                top: 0;
+                width: 100%;
+            }
+
+            &:hover:before {
+                border-style: dashed;
+                display: block;
+            }
 
             &.clicked {
                 display: block;
 
                 &:before {
-                    border: 5px solid $black;
+                    border-style: solid;
                     content: "";
+                    display: block;
                     height: 100%;
                     left: 0;
                     position: absolute;
@@ -655,12 +690,13 @@ article {
     }
 
     .choice-wrap {
-        background-color: #ccc;
+        background-color: #5a6d71;
+        color: #efefef;
 
         @include bp(max-width, $bp-small) {
             float: right;
             height: 0;
-            padding: 0 5px 70%;
+            padding: 0 5px 70% 10px;
             width: 30%;
 
             &.empty { display: none; }
@@ -669,6 +705,8 @@ article {
         @include bp(min-width, $bp-small + 1) {
             @include order(3);
 
+            border: 2px solid $black;
+            margin: 0 5%;
             padding: 0 10px;
             position: relative;
         }
@@ -689,7 +727,7 @@ article {
         }
 
         div {
-            border: 1px solid #666;
+            // border: 2px solid #666;
             border-radius: 50%;
             cursor: pointer;
 
@@ -708,6 +746,23 @@ article {
                 width: calc(20% - 10px);
             }
 
+            &[data-choice-status="backordered"] {
+                position: relative;
+
+                &:after {
+                    background-image: image-url('misc/!.png');
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: 60% auto;
+                    content: "";
+                    height: 100%;
+                    left: 0;
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                }
+            }
+
             &[data-choice-status="unavailable"] {
                 position: relative;
 
@@ -715,7 +770,7 @@ article {
                     background-image: image-url('misc/restricted.png');
                     background-position: center center;
                     background-repeat: no-repeat;
-                    background-size: 60% auto;
+                    background-size: 80% auto;
                     content: "";
                     height: 100%;
                     left: 0;
@@ -729,11 +784,11 @@ article {
         .selected {
             position: relative;
 
-            &:after {
-                border: 3px solid $green;
+            &:before {
+                border: 4px solid $white;
                 border-radius: 50%;
                 content: "";
-                display: none;
+                // display: none;
                 height: calc(100% + 4px);
                 left: -2px;
                 position: absolute;
@@ -741,6 +796,13 @@ article {
                 width: calc(100% + 4px);
 
                 .details-wrap.selected & { display: block; }
+            }
+
+            $contrast: "white" "vintage cream" "nickel" "nnn" "bnn" "ngg";
+            @each $c in $contrast {
+                &[data-value="#{$c}"]:before {
+                    border-color: $black;
+                }
             }
         }
 
@@ -758,7 +820,7 @@ article {
 
     .price-wrap {
         @include bp(max-width, $bp-small) {
-            padding: 20px 0;
+            padding: 10px 0;
             @include clearfix;
             @include flexcenter;
         }
@@ -790,6 +852,7 @@ article {
 
     .backordered-wrap {
         @include bp(max-width, $bp-small) {
+            clear: both;
             width: 60%;
         }
 
@@ -821,22 +884,24 @@ article {
     }
 
     .select-option {
-        background-color: $yellow;
+        background-color: $orange;
         border: 0 none;
         display: block;
         height: 35px;
         letter-spacing: 1px;
+        outline: 2px solid darken($orange, 15%);
         padding: 10px 0;
         position: relative;
-        margin: 10px auto 0;
+        margin: 0 auto;
         width: 150px;
 
         @include bp(max-width, $bp-small) {
             @include order(10);
-            margin-left: auto;
+            margin-bottom: 15px;
         }
 
         @include bp(min-width, $bp-small + 1) {
+            margin-top: 10px;
             @include order(10);
         }
 
@@ -855,6 +920,7 @@ article {
         .details-wrap.selected &:after {
             background-color: $green;
             content: "Selected";
+            outline: 2px solid darken($green, 25%);
         }
 
         .details-wrap.unavailable & {
@@ -927,6 +993,18 @@ article {
         text-transform: uppercase;
         width: 100%;
     }
+
+    &[data-restriction="hide"] {
+        display: none;
+    }
+
+    &[data-restriction="show"] {
+        @include display-flex;
+    }
+
+    .options-wrap & .option[data-restriction="hide"] {
+        display: none;
+    }
 }
 
 .option {
@@ -947,7 +1025,7 @@ article {
     }
 
     &:before {
-        background-color: rgba(#eee, 0.75);
+        background-color: rgba(#fff, 0.75);
         cursor: default;
         display: none;
         height: 100%;
@@ -1011,6 +1089,11 @@ article {
     &.clicked {
         outline: 3px solid $yellow;
         border-color: $yellow;
+
+        .option-specs {
+            background-color: darken($yellow, 20%);
+            outline: 2px solid darken($yellow, 30%);
+        }
     }
 
     &.selected {
@@ -1058,6 +1141,10 @@ article {
                 }
             }
         }
+    }
+
+    &.restricted-cable {
+        display: none !important;
     }
 
     .hasChoices {
