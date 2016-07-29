@@ -1506,6 +1506,7 @@
         multiplier: 1,
         height: 0,
         width: 0,
+        topOffset: 7,
 
         initialize: function() {
             var type = _id('body').getAttribute('data-cable-type');
@@ -1531,11 +1532,12 @@
             patch: function() {
                 var scale = 0.5;
 
-                var c  = this.container,
-                    i  = this.images,
-                    r  = DEFAULT_PATCH_CABLE_HEIGHT / DEFAULT_PATCH_CABLE_WIDTH,
-                    w  = this.width * scale,
-                    h  = w * r;
+                var c = this.container,
+                    i = this.images,
+                    r = DEFAULT_PATCH_CABLE_HEIGHT / DEFAULT_PATCH_CABLE_WIDTH,
+                    w = this.width * scale,
+                    h = w * r,
+                    o = this.topOffset;
 
                 var m = w / DEFAULT_PATCH_CABLE_WIDTH;
 
@@ -1544,7 +1546,8 @@
                         width: w,
                         height: w * r,
                         left: (c.width() - w) / 2,
-                        top: (c.height() - h) / 3
+                        // top: (c.height() - h) / 3
+                        top: (c.height() - h) / o
                     });
                 };
 
@@ -1580,18 +1583,19 @@
             instrument: function() {
                 var scale = 0.6;
 
-                var c  = this.container,
-                    i  = this.images,
-                    m  = this.multiplier * scale,
-                    h  = this.height * scale,
-                    w  = this.width * scale;
+                var c = this.container,
+                    i = this.images,
+                    m = this.multiplier * scale,
+                    h = this.height * scale,
+                    w = this.width * scale,
+                    o = this.topOffset;
 
                 var _setOuterCss = function(l) {
                     i.css({
                         width: l,
                         height: l,
                         left: (c.width() - l) / 2,
-                        top: (c.height() - l) / 3
+                        top: (c.height() - l) / o
                     });
                 };
 
