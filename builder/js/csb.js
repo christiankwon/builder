@@ -1030,7 +1030,8 @@
 
             // if restrictions for this cable do not exist, exit
             if( !obj ) {
-                return true;
+                this.enforce(true);
+                return false;
             }
 
             var ref;
@@ -1115,6 +1116,8 @@
                 toggleTechflexWindow(false);
                 updateOverview('extras');
                 updateCost();
+            } else {
+                $('.techflex input:checked', '#techflex').prop('checked', true);
             }
         },
 
