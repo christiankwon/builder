@@ -519,6 +519,7 @@ article {
 
     .image-wrap {
         position: relative;
+        max-width: 300px;
         @include clearfix;
 
         @include bp(max-width, $bp-small) {
@@ -1013,10 +1014,10 @@ article {
     border: 1px solid #ccc;
     display: none;
     position: relative;
-    max-width: 200px;
+    max-width: 175px;
     min-width: 115px;
     overflow: hidden;
-    width: 23%;
+    width: 30%;
 
     @include bp(max-width, $bp-small) {
         margin: 5px;
