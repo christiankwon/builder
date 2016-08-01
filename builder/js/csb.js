@@ -40,6 +40,16 @@
         DEFAULT_PATCH_CABLE_HEIGHT = 162,
         DEFAULT_PATCH_CABLE_WIDTH  = 480,
 
+        TECHFLEX_SIZE              = {
+            instrument: 0.2,
+            patch: 0.2
+        },
+        TECHFLEX_POSITION          = {
+            // centered at [x, y] relative to container; origin bot/left
+            instrument: [55, 400],
+            patch: [120, 107]
+        },
+
         BP_SMALL                   = '(max-width: 599px)',
         MQ_SMALL                   = Modernizr.matchmedia ? window.matchMedia(BP_SMALL) : null,
 
@@ -1513,6 +1523,8 @@
 
             this.update();
             this.draw[type].call(this);
+
+            this.techflex();
         },
 
         update: function() {
@@ -1636,6 +1648,31 @@
             speaker: function() {
                 this.draw.instrument.call(this);
             }
+        },
+
+        techflex: function() {
+            var ratios = {
+                // [width, height]
+                patch: [TECHFLEX_POSITION.patch[0]/DEFAULT_PATCH_CABLE_WIDTH, TECHFLEX_POSITION.patch[1]/DEFAULT_PATCH_CABLE_HEIGHT],
+                instrument: [TECHFLEX_POSITION.instrument[0]/DEFAULT_CABLE_WIDTH, TECHFLEX_POSITION.instrument[1]/DEFAULT_CABLE_WIDTH]
+            };
+
+            var type = CURRENT_CABLE.type;
+
+            var width  = this.images.width(),
+                height = this.images.height();
+
+            var windowSize = TECHFLEX_SIZE[type] * width;
+
+            var box = $(_id('techflex-window'));
+
+
+            box.css({
+                left:   ratios[type][0]*width - windowSize/2,
+                bottom: ratios[type][1]*height - windowSize/2,
+                width:  windowSize,
+                height: windowSize
+            })
         }
     },
 
