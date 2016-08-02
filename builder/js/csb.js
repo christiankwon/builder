@@ -1035,9 +1035,9 @@
         check: function() {
             var cc = CURRENT_CABLE;
 
-            if( !cc.cable || (!cc.input && !cc.output) ) {
-                return true;
-            }
+            if( cc.type === 'patch' ) { this.enforce(false); return false; }
+
+            if( !cc.cable || (!cc.input && !cc.output) ) { this.enforce(true); return true; }
 
             var obj = J_RESTRICTIONS[cc.cable.code];
 
@@ -2136,7 +2136,7 @@
 
             arr = arr.concat(getBlankBlocks(arr.length, 'techflex'));
 
-            $('#techflex').append(arr);
+            $('#techflex').append(arr).attr('data-enabled', DEFAULT_CABLE_TYPE === 'patch' ? false : true);
         },
 
         handles: function() {
@@ -2276,6 +2276,7 @@
                         }
 
                         displayImages.initialize();
+                        restrictions.check();
                     }
 
                     _updateLength(val);
