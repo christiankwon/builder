@@ -1340,7 +1340,7 @@ article {
     &[data-enabled="false"] {
         &:after {
             position: absolute;
-            content: "NO TECHFLEX FOR YOU";
+            content: "Sorry, this configuration is not compatible with techflex.";
             top: 0;
             left: 0;
             width: 100%;
