@@ -1339,14 +1339,15 @@ article {
 
     &[data-enabled="false"] {
         &:after {
-            position: absolute;
-            content: "Sorry, this configuration is not compatible with techflex.";
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             background-color: rgba($white, 0.9);
             border: solid 2px $black;
+            content: "Sorry, this configuration is not compatible with Techflex.";
+            height: 100%;
+            left: 0;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            width: 100%;
             @include flexcenter;
         }
     }
