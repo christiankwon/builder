@@ -1378,7 +1378,7 @@
                 }
             };
 
-            // add pending to checkout button and disable it
+            _id('confirmation').setAttribute('data-status', 'pending');
 
             var cc = CURRENT_CABLE;
 
@@ -1454,10 +1454,10 @@
                 processData: false,
                 dataType: 'text',
             }).done(function() {
-                // $('#confirmation').removeClass('pending').addClass('complete');
-                // window.location.href = "/ShoppingCart.asp";
+                _id('confirmation').setAttribute('data-status', 'complete');
+                window.location.href = "/ShoppingCart.asp";
             }).fail(function(jqXHR, textStatus, errorThrown) {
-                // $('#confirmation').addClass('error');
+                _id('confirmation').setAttribute('data-status', 'error');
                 console.log(jqXHR);
                 console.log(textStatus);
                 console.log(errorThrown);
