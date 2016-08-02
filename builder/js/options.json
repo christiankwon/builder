@@ -26,8 +26,8 @@
     },
     "xlr": {
       "display": "XLR",
-      "min": -1,
-      "max": -1,
+      "min": 3,
+      "max": 50,
       "unit": "ft",
       "initial": -1,
       "enabled": false
@@ -105,7 +105,7 @@
         "model": "9778"
       },
       "price": 2,
-      "status": "backordered",
+      "status": "available",
       "restock_time": 3,
       "category": "standard",
       "order": 20,
@@ -211,7 +211,7 @@
       "specs": {
         "capacitance": 49,
         "diameter": 0.227,
-        "flexibility": "high",
+        "flexibility": "med",
         "shield": "braided"
       },
       "lengths": {
@@ -247,18 +247,23 @@
         "orange": {
           "id": 1650,
           "color": "#ff864f",
-          "status": "backordered",
+          "status": "available",
           "restock_time": 4
         },
         "yellow": {
           "id": 1651,
           "color": "#fcf86c",
-          "status": "backordered"
+          "status": "available"
         },
         "green": {
           "id": 1652,
           "color": "#25c265",
-          "status": "backordered"
+          "status": "available"
+        },
+        "blue": {
+          "id": 2498,
+          "color": "#1059ed",
+          "status": "available"
         },
         "option_category_id": 149
       },
@@ -277,14 +282,14 @@
         "manufacturer": "Canare",
         "model": "L-4E6S"
       },
-      "price": 3,
+      "price": 2,
       "status": "available",
       "category": "standard",
       "order": 32,
       "specs": {
         "capacitance": 49,
         "diameter": 0.231,
-        "flexibility": "high",
+        "flexibility": "med",
         "shield": "braided"
       },
       "lengths": {
@@ -331,7 +336,7 @@
       "order": 131,
       "specs": {
         "capacitance": 23,
-        "diameter": 0.155,
+        "diameter": 0.162,
         "flexibility": "low",
         "shield": "spiral"
       },
@@ -425,7 +430,7 @@
         "model": "GAC-1 Ultra Pro"
       },
       "price": 1.5,
-      "status": "backordered",
+      "status": "available",
       "category": "standard",
       "order": 70,
       "specs": {
@@ -462,7 +467,12 @@
           "default": true,
           "id": 1649,
           "color": "#ff2b3d",
-          "status": "backordered"
+          "status": "available"
+        },
+        "blue": {
+          "id": 2498,
+          "color": "#303458",
+          "status": "available"
         },
         "option_category_id": "149"
       },
@@ -722,7 +732,7 @@
         "model": "Classic XKE"
       },
       "price": 2,
-      "status": "backordered",
+      "status": "available",
       "category": "standard",
       "order": 220,
       "specs": {
@@ -814,9 +824,10 @@
       "has_colors": true,
       "colors": {
         "ngg": {
+          "default": true,
           "input_option_id": 1601,
           "output_option_id": 1616,
-          "status": "backordered",
+          "status": "available",
           "color": "#dce4f5"
         },
         "bgg": {
@@ -826,10 +837,9 @@
           "color": "#000"
         },
         "ggg": {
-          "default": true,
           "input_option_id": 1603,
           "output_option_id": 1618,
-          "status": "backordered",
+          "status": "available",
           "color": "#fff282"
         }
       },
@@ -961,7 +971,7 @@
       },
       "manufacturer": "g&h",
       "model": "rf2p",
-      "price": 8,
+      "price": 6.5,
       "status": "available",
       "category": "right",
       "angle": "right",
@@ -1276,7 +1286,7 @@
       "manufacturer": "neutrik",
       "model": "np2x-wt",
       "price": 7.5,
-      "status": "backordered",
+      "status": "available",
       "category": "straight",
       "series": "x",
       "colors": {
@@ -1400,7 +1410,7 @@
       },
       "manufacturer": "switchcraft",
       "model": "380",
-      "price": 4,
+      "price": 5,
       "status": "available",
       "category": "straight",
       "series": null,
@@ -1429,7 +1439,7 @@
             "input_option_id": 1489,
             "output_option_id": 1789,
             "color": "#e90d2f",
-            "status": "backordered"
+            "status": "available"
           },
           "orange": {
             "input_option_id": 1486,
