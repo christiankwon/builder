@@ -41,14 +41,16 @@
         DEFAULT_PATCH_CABLE_HEIGHT = 162,
         DEFAULT_PATCH_CABLE_WIDTH  = 480,
 
-        TECHFLEX_SIZE              = {
+        TECHFLEX_SIZE = {
+            patch: 0.2,
             instrument: 0.2,
-            patch: 0.2
+            speaker: 0.2,
+            xlr: 0.2
         },
-        TECHFLEX_POSITION          = {
+        TECHFLEX_POSITION = {
             // centered at [x, y] relative to container; origin bot/left
-            instrument: [55, 400],
-            patch: [120, 107]
+            patch: [120, 107],
+            instrument: [55, 400]
         },
 
         BP_SMALL                   = '(max-width: 599px)',
