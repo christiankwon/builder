@@ -223,7 +223,7 @@
 
             return str;
         }
-    }
+    };
 
     Option.prototype = {
         isSelected: function() {
@@ -324,7 +324,7 @@
         },
 
         getChoices: function() {
-            var c, p, div, colors, restock, arr = [], extras = [];
+            var c, p, div, colors, restock, arr = [];
 
             if( !this.hasChoices ) {
                 return [];
@@ -1203,7 +1203,7 @@
         })(),
 
         plug: (function() {
-            var r, x, allCables, type,
+            var r, allCables, type,
                 matches = [],
                 attr = 'data-restriction',
                 categories = null,
@@ -1297,7 +1297,7 @@
 
             var c_b = cc.cable.status  === 'backordered',
                 i_b = cc.input.status  === 'backordered',
-                o_b = cc.output.status === 'backordered'
+                o_b = cc.output.status === 'backordered';
 
             if( c_b || i_b || o_b ) {
                 _id('backorder-warning').setAttribute('data-active', 'active');
@@ -1655,7 +1655,9 @@
             var ratios = {
                 // [width, height]
                 patch: [TECHFLEX_POSITION.patch[0]/DEFAULT_PATCH_CABLE_WIDTH, TECHFLEX_POSITION.patch[1]/DEFAULT_PATCH_CABLE_HEIGHT],
-                instrument: [TECHFLEX_POSITION.instrument[0]/DEFAULT_CABLE_WIDTH, TECHFLEX_POSITION.instrument[1]/DEFAULT_CABLE_WIDTH]
+                instrument: [TECHFLEX_POSITION.instrument[0]/DEFAULT_CABLE_WIDTH, TECHFLEX_POSITION.instrument[1]/DEFAULT_CABLE_WIDTH],
+                speaker: [TECHFLEX_POSITION.instrument[0]/DEFAULT_CABLE_WIDTH, TECHFLEX_POSITION.instrument[1]/DEFAULT_CABLE_WIDTH],
+                xlr: [TECHFLEX_POSITION.instrument[0]/DEFAULT_CABLE_WIDTH, TECHFLEX_POSITION.instrument[1]/DEFAULT_CABLE_WIDTH]
             };
 
             var type = CURRENT_CABLE.type;
@@ -1667,13 +1669,12 @@
 
             var box = $(_id('techflex-window'));
 
-
             box.css({
                 left:   ratios[type][0]*width - windowSize/2,
                 bottom: ratios[type][1]*height - windowSize/2,
                 width:  windowSize,
                 height: windowSize
-            })
+            });
         }
     },
 
@@ -1735,10 +1736,8 @@
         })();
 
         (function tracker() {
-            var body = _id('body'), next;
-
             $('.dot', '#tracker').on('click', function(e) {
-                next = e.currentTarget.getAttribute('data-pointer-component');
+                var next = e.currentTarget.getAttribute('data-pointer-component');
 
                 changeStep(next);
             });
@@ -2138,10 +2137,9 @@
             var _ = this.structure;
 
             _.find('.footer', '#builders').on('click', 'button', function(e) {
-                var b = _id('body'),
-                    next = e.currentTarget.getAttribute('data-next');
+                var next = e.currentTarget.getAttribute('data-next');
 
-                    changeStep(next);
+                changeStep(next);
             });
 
             _.find('.details-wrap .back').on('click', function(e) {
