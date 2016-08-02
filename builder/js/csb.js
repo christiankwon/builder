@@ -15,8 +15,9 @@
         }
     }
 
-    if( isMobile.any() ) {
+    var MOBILE = isMobile.any() ? true : false;
 
+    if( MOBILE ) {
         document.body.classList.add("isMobile");
     }
 
@@ -2442,7 +2443,7 @@
      * Calls init() to begin building each component
      */
     $(document).ready(function() {
-        if( isMobile.any() &&
+        if( MOBILE &&
             typeof $zopim === 'function' &&
             typeof $zopim.livechat === 'object' ) {
             $zopim.livechat.hideAll();
