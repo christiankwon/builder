@@ -1650,6 +1650,10 @@
 
             speaker: function() {
                 this.draw.instrument.call(this);
+            },
+
+            xlr: function() {
+                this.draw.instrument.call(this);
             }
         },
 
