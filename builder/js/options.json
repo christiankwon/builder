@@ -796,8 +796,8 @@
       "has_colors": false,
       "colors": {
         "ngg": {
-          "input_option_id": -1,
-          "output_option_id": -1,
+          "input_option_id": 2499,
+          "output_option_id": 2500,
           "status": "available"
         }
       },
