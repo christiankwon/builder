@@ -1,5 +1,6 @@
 .builders-wrap {
     background-color: $white;
+    height: 100%;
 
     @include bp(max-width, $bp-small) {
         padding-bottom: 75px;
