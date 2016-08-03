@@ -10,15 +10,14 @@
 .wrap {
     height: 100%;
     width: 100%;
-    @include display-flex;
-    @include justify-content(center);
-    @include align-items(center);
+    @include flexcenter;
 
     button {
         background-color: rgba($white, 0.1);
-        border: solid 1px $white;
+        border: 5px solid $white;
         color: $white;
-        padding: 10px;
+        padding: 30px;
+
         @include transition(background-color 0.2s ease-in-out);
 
         &:hover {
