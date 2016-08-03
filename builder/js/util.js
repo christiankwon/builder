@@ -1,10 +1,10 @@
 if( typeof String.prototype.trim !== 'function' ) {
     String.prototype.trim = function() {
         return this.replace(/^\s+|\s+$/g, '');
-    }
+    };
 }
 
-if (typeof Object.create !== 'function') {
+if( typeof Object.create !== 'function' ) {
     Object.create = function (o) {
         function F() {}
         F.prototype = o;
@@ -14,12 +14,13 @@ if (typeof Object.create !== 'function') {
 
 Number.prototype.formatMoney = function(c, d, t) {
     var n = this,
-        c = isNaN(c = Math.abs(c)) ? 2 : c,
-        d = d == undefined ? "." : d,
-        t = t == undefined ? "," : t,
         s = n < 0 ? "-" : "",
         i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
         j = (j = i.length) > 3 ? j % 3 : 0;
+
+    c = isNaN(c = Math.abs(c)) ? 2 : c;
+    d = d === undefined ? "." : d;
+    t = t === undefined ? "," : t;
 
    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
@@ -59,7 +60,7 @@ var poll = function(fn, callback, errback, timeout, interval) {
                 errback(new Error('timed out for ' + fn + ': ' + arguments));
             }
     })();
-}
+};
 
 var once = function(fn, context) {
     var result;
@@ -72,13 +73,12 @@ var once = function(fn, context) {
 
         return result;
     };
-}
+};
 
 var getAbsoluteUrl = (function() {
     var a;
 
     return function(url) {
-        console.log(a);
         if(!a) a = document.createElement('a');
         a.href = url;
 
@@ -105,7 +105,7 @@ var getUrlParameter = function(key) {
     }
 
     return null;
-}
+};
 
 var getScrollbarSize = function() {
     var outer = document.createElement("div");
@@ -143,7 +143,7 @@ var preload = function(arr) {
         e.document.createElement('img');
         e.src = arr[i];
     }
-}
+};
 
 var isMobile = {
     Android: function() {
