@@ -220,4 +220,30 @@
             }
         }
     }
+
+    .feedback {
+        line-height: 30px;
+        text-align: center;
+        width: 100%;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            position: relative;
+
+            &:after {
+                position: absolute;
+                width: 100%;
+                content: "";
+                height: 2px;
+                background-color: $teal;
+                bottom: -4px;
+                left: 0;
+            }
+        }
+
+        .colorful {
+            color: $orange;
+        }
+    }
 }
