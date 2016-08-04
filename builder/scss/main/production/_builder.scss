@@ -519,13 +519,15 @@ article {
     }
 
     .image-wrap {
-        position: relative;
+        cursor: pointer;
         max-width: 300px;
-        @include clearfix;
+        position: relative;
+        overflow: hidden;
+        @include display-flex;
 
         @include bp(max-width, $bp-small) {
-            width: 70%;
             margin: 0 auto 10px;
+            width: 70%;
 
             .details-wrap.hasChoices & {
                 float: left;
@@ -536,8 +538,8 @@ article {
         @include bp(min-width, $bp-small + 1) {
             @include order(2);
 
-            padding: 5%;
-            width: 100%;
+            margin: 5%;
+            width: 90%;
         }
 
         img {
@@ -554,139 +556,74 @@ article {
         }
 
         .choice {
+            left: 0;
             position: absolute;
-
-            @include bp(max-width, $bp-small) {
-                top: 0;
-                left: 0;
-            }
-
-            @include bp(min-width, $bp-small + 1) {
-                left: 5%;
-                top: 5%;
-                width: 90%;
-            }
+            top: 0;
+            width: 100%;
         }
 
-        .measurement {
-            background-color: rgba($black, 0.75);
-            cursor: pointer;
-            display: none;
-            left: 0;
-            padding: 5%;
-            position: absolute;
+        &:hover .measurement,
+        .measurement.clicked {
             top: 0;
 
             &:before {
-                border-width: 5px;
-                border-color: $yellow;
-                content: "";
-                display: none;
-                height: 100%;
-                left: 0;
-                position: absolute;
-                top: 0;
-                width: 100%;
-            }
-
-            &:hover:before {
-                border-style: dashed;
-                display: block;
-            }
-
-            &.clicked {
-                display: block;
-
-                &:before {
-                    border-style: solid;
-                    content: "";
-                    display: block;
-                    height: 100%;
-                    left: 0;
-                    position: absolute;
-                    top: 0;
-                    width: 100%;
-                }
-            }
-
-            img {
-                width: 100%;
-                height: 100%;
+                opacity: 0;
             }
         }
+    }
 
-        &:hover .measurement {
-            display: block;
+    .measurement {
+        background-color: rgba($black, 0.75);
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: calc(100% - 25px);
+        width: 100%;
+
+        @include transition(top 0.2s ease-in-out);
+
+        &:before {
+            color: $white;
+            content: "Hover for details";
+            font-size: 12px;
+            font-weight: 300;
+            left: 0;
+            line-height: 24px;
+            opacity: 1;
+            position: absolute;
+            text-align: center;
+            text-transform: uppercase;
+            top: 0;
+            width: 100%;
+            @include transition(opacity 0.2s ease-in-out);
         }
 
         article[data-component="cable"] & {
-            &:hover .measurement {
-                @include display-flex;
+            color: $white;
+            text-align: center;
+            @include flexcenter;
+            @include flex-direction(column);
+
+            .spec {
+                margin-bottom: 10px;
+                position: relative;
             }
 
-            .measurement {
-                @include align-items(center);
-                @include justify-content(center);
-                @include flex-direction(column);
-                color: $white;
-                text-align: center;
-
-                @include bp(max-width, $bp-small) {
-                    height: 100%;
-                    width: 100%;
-                }
-
-                @include bp(min-width, $bp-small + 1) {
-                    height: 100%;
-                    width: 100%;
-                }
-
-                &.clicked {
-                    @include display-flex;
-                }
-
-                .spec {
-                    margin-bottom: 10px;
-                    position: relative;
-                }
-
-                .modal-capacitance {
-                    border: 1px solid darken($white, 50%);
-                    background-color: $white;
-                    border-radius: 50%;
-                    color: $black;
-                    width: 20px;
-                    height: 20px;
-                    position: absolute;
-                    left: -30px;
-                    top: 5px;
-                }
-
-                .label {
-                    display: block;
-                    font-size: 12px;
-                }
-            }
-        }
-
-        .more-details {
-            display: none !important;
-
-            @include bp(max-width, $bp-small) {
-                background-color: #999;
-                border: solid 2px black;
+            .modal-capacitance {
+                background-color: $white;
+                border: 1px solid darken($white, 50%);
                 border-radius: 50%;
-                bottom: 10px;
-                height: 25px;
-                left: 10px;
-                padding: 5px;
+                color: $black;
+                height: 20px;
+                left: -30px;
                 position: absolute;
-                width: 25px;
-                @include flexcenter;
+                top: 5px;
+                width: 20px;
             }
 
-            @include bp(min-width, $bp-small + 1) {
-                display: none;
+            .label {
+                display: block;
+                font-size: 12px;
             }
         }
     }
