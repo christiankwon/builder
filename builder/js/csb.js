@@ -2412,7 +2412,7 @@
     initialSetup = function() {
         resetBuilder();
 
-        $('#content').attr('data-active-section', 'introduction');
+        $('#content').attr('data-active-section', 'production');
 
         $('.scrollbar').each(function() {
             $(this).css('width', 'calc(100% + ' + scrollbarWidth + 'px)');
