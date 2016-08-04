@@ -3,14 +3,14 @@
     "patch": {
       "display": "Patch",
       "min": 3,
-      "max": 48,
+      "max": 35,
       "unit": "in",
       "initial": 12,
       "enabled": true
     },
     "instrument": {
       "display": "Instrument",
-      "min": 4,
+      "min": 3,
       "max": 20,
       "unit": "ft",
       "initial": 10,
