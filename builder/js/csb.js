@@ -102,7 +102,7 @@
                 img_component: $(_id('cable-details-component')),
                 price:         $(_id('cable-details-price')),
                 choice:        $(_id('cable-details-choices')),
-                specs:         $(_id('cable-details-measurement')),
+                measurement:   $(_id('cable-details-measurement')),
                 backordered:   $(_id('cable-details-backordered')),
             },
 
@@ -112,7 +112,7 @@
                 model:         $(_id('input-details-model')),
                 img_component: $(_id('input-details-component')),
                 img_choice:    $(_id('input-details-choice')),
-                img_measure:   $(_id('input-details-measurement')),
+                measurement:   $(_id('input-details-measurement')),
                 price:         $(_id('input-details-price')),
                 choice:        $(_id('input-details-choices')),
                 backordered:   $(_id('input-details-backordered')),
@@ -124,7 +124,7 @@
                 model:         $(_id('output-details-model')),
                 img_component: $(_id('output-details-component')),
                 img_choice:    $(_id('output-details-choice')),
-                img_measure:   $(_id('output-details-measurement')),
+                measurement:   $(_id('output-details-measurement')),
                 price:         $(_id('output-details-price')),
                 choice:        $(_id('output-details-choices')),
                 backordered:   $(_id('output-details-backordered')),
@@ -412,7 +412,7 @@
             });
 
             if( option instanceof Cable ) {
-                container.specs.html(option.getSpecs());
+                container.measurement.html(option.getSpecs());
 
             } else if( option instanceof Plug ) {
                 if( option.hasBoots ) {
@@ -425,7 +425,7 @@
                     });
                 }
 
-                container.img_measure.attr('src', option.getMeasurementImage());
+                container.measurement.attr('src', option.getMeasurementImage());
             }
 
             container.manufacturer.text(option.nameObj.manufacturer);
@@ -605,6 +605,8 @@
 
             this.detailsWrap.img_component.attr('src', url);
 
+            this.detailsWrap.measurement.removeClass('clicked');
+
             if( status ) {
                 $('.component', _id(this.code)).attr('src', url);
 
@@ -761,6 +763,8 @@
 
             this.detailsWrap.img_component.attr('src', url);
 
+            this.detailsWrap.measurement.parent().removeClass('clicked');
+
             if( status ) {
                 $('.component', _id(this.code)).attr('src', url);
                 this.choicesHtml.filter(_getSelected)[0].className = '';
@@ -780,6 +784,8 @@
             this.currentBoot = color;
 
             this.detailsWrap.img_choice.attr('src', this.getBuilderBootImageUrl());
+
+            this.detailsWrap.measurement.parent().removeClass('clicked');
 
             if( status ) {
                 this.choicesHtml.filter(_getSelected)[0].className = '';
@@ -928,21 +934,25 @@
                 return false;
             }
 
-            if( current === 'length' ) {
-                updateOverview('length');
-                updateStatus('length', 'complete');
-            }
-
-            if( next === 'extras' ) {
-                updateOverview('extras');
-                updateStatus('extras', 'complete');
-            }
-
             if( next === 'confirmation' ) {
                 confirmation.go();
 
             } else {
                 b.setAttribute('data-current-step', next);
+            }
+
+            if( current === 'length' ) {
+                updateOverview('length');
+                updateStatus('length', 'complete');
+            }
+
+            if( next === 'length') {
+                $('#length-select-' + CURRENT_CABLE.type).selectmenu('refresh');
+            }
+
+            if( next === 'extras' ) {
+                updateOverview('extras');
+                updateStatus('extras', 'complete');
             }
         };
     })();
@@ -1160,10 +1170,10 @@
                     allPlugs.attr(attr, 'hide');
                     categories.attr(attr, 'hide');
 
-                    r.parent().attr(attr, 'show');
+                    r.parent().removeAttr(attr);
 
                     if( c.restrict ) {
-                        r.attr(attr, 'show');
+                        r.removeAttr(attr);
 
                         b = false;
                         if( i ) {
@@ -1193,13 +1203,13 @@
                             }
                         }
                     } else {
-                        standardPlugs.parent().attr(attr, 'show');
-                        standardPlugs.attr(attr, 'show');
-                        r.attr(attr, 'show');
+                        standardPlugs.parent().removeAttr(attr);
+                        standardPlugs.removeAttr(attr);
+                        r.removeAttr(attr);
                     }
                 } else {
-                    allPlugs.attr(attr, 'show');
-                    categories.attr(attr, 'show');
+                    allPlugs.removeAttr(attr);
+                    categories.removeAttr(attr);
                 }
             };
         })(),
@@ -1242,13 +1252,13 @@
                     allCables.each(_pushMatch);
 
                     for( var j = 0; j < matches.length; j++ ) {
-                        matches[j].parentNode.setAttribute(attr, 'show');
+                        matches[j].parentNode.removeAttribute(attr);
                     }
 
-                    $(matches).attr(attr, 'show');
+                    $(matches).removeAttr(attr);
                 } else {
-                    allCables.attr(attr, 'show');
-                    categories.attr(attr, 'show');
+                    allCables.removeAttr(attr);
+                    categories.removeAttr(attr);
                 }
             };
         })()
@@ -1693,8 +1703,10 @@
         (function onWindowSizeChange() {
             var $w = $(window),
                 $b = $('body'),
+                $body = $('#body'),
                 c = _id('content'),
-                width, height, section;
+                attr = 'data-current-step',
+                width, height, section, step;
 
             $w.on('resize orientationchange', function() {
                 width = $w.width();
@@ -1705,7 +1717,18 @@
 
                 displayImages.initialize();
 
+                $('#length-select-' + CURRENT_CABLE.type).selectmenu('refresh');
+
                 scrollToSection(section);
+            });
+
+
+            MQ_SMALL.addListener(function(mq) {
+                step = $body.attr(attr);
+
+                if( !mq.matches && (!step || step === 'closed') ) {
+                    $body.attr(attr, 'length');
+                }
             });
         })();
 
@@ -1926,7 +1949,12 @@
                     div.setAttribute('data-max',  max);
                     div.setAttribute('data-init', init);
 
+                var label = _ce('label');
+                    label.htmlFor = 'length-select-' + type;
+                div.appendChild(label);
+
                 var select = _ce('select');
+                    select.id = 'length-select-' + type;
 
                 var opt = null;
                 for( var i = min; i <= max; i++ ) {
@@ -1967,26 +1995,33 @@
                 selects.push(_getSelect());
             }}
 
-            for( var i = 0; i < inputs.length; i++ ) {
-                var input = inputs[i].querySelector('input'),
-                    select = selects[i].querySelector('select');
-
-                input.ruler = $(rulers[i]);
-                input.select = select;
-
-                rulers[i].input = input;
-                rulers[i].select = select;
-
-                select.input = input;
-                select.ruler = $(rulers[i]);
-            }
-
             var article = $('.length-wrap', '#builders');
 
             article.find('.length-choices').append(choices);
             article.find('.rulers').append(rulers);
             article.find('.inputs').append(inputs);
             article.find('.selects').append(selects);
+
+            $('.selects select').each(function() {
+                $(this).selectmenu({
+                    width: '100px'
+                }).selectmenu('menuWidget').css('height', '120px');
+            });
+
+            for( var i = 0; i < inputs.length; i++ ) {
+                var input = inputs[i].querySelector('input'),
+                    ruler = rulers[i],
+                    select = selects[i].querySelector('select');
+
+                input.ruler = $(ruler);
+                input.select = select;
+
+                ruler.input = input;
+                ruler.select = select;
+
+                select.input = input;
+                select.ruler = $(rulers[i]);
+            }
         },
 
         cables: function() {
@@ -2000,12 +2035,30 @@
                 return null;
             };
 
+            var _getChildCategories = function(arr) {
+                var hash = {}, i, j;
+
+                for( i = 0; i < arr.length; i++ ) {
+                    var c = arr[i].className.split(' ');
+
+                    for( j = 0; j < c.length; j++ ) {
+                        if( c[j] === 'option') continue;
+
+                        hash[c[j]] = true;
+                    }
+                }
+
+                return Object.keys(hash).join(' ');
+            };
+
             var container = $('article[data-component="cable"] .options-wrap', '#builders');
 
             var opt = {};
 
             for( var c in J_CABLES ) { if( J_CABLES.hasOwnProperty(c) ) {
                 var data = J_CABLES[c];
+
+                var cat = data.category;
 
                 data.code = c;
                 data.component = 'cable';
@@ -2014,20 +2067,22 @@
                 var cable = new Cable(data);
                 var block = getOptionBlock(cable);
 
-                if( !opt[data.category] ) {
-                    opt[data.category] = [];
+                if( !opt[cat] ) {
+                    opt[cat] = [];
                 }
 
-                opt[data.category].push(block);
+                opt[cat].push(block);
 
                 CABLES.push(block);
             }}
 
             for( var p in opt ) { if( opt.hasOwnProperty(p) ) {
-                var blanks = getBlankBlocks(opt[p].length, 'option');
+                var blanks = getBlankBlocks(5, 'option');
                 var el = opt[p].concat(blanks);
 
-                var div = $('<div/>', {class: 'options ' + p});
+                var cats = _getChildCategories(opt[p]);
+
+                var div = $('<div/>', {class: 'options ' + cats}).attr('data-category', p);
 
                 var h = $('<h3/>', {text: p});
 
@@ -2050,6 +2105,22 @@
                 return '';
             };
 
+            var _getChildCategories = function(arr) {
+                var hash = {}, i, j;
+
+                for( i = 0; i < arr.length; i++ ) {
+                    var c = arr[i].className.split(' ');
+
+                    for( j = 0; j < c.length; j++ ) {
+                        if( c[j] === 'option') continue;
+
+                        hash[c[j]] = true;
+                    }
+                }
+
+                return Object.keys(hash).join(' ');
+            };
+
             for( var i = 0; i < sides.length; i++ ) {
                 var container = $('article[data-component="' + sides[i] + '"] .options-wrap', '#builders');
 
@@ -2057,6 +2128,8 @@
 
                 for( p in J_PLUGS ) { if( J_PLUGS.hasOwnProperty(p) ) {
                     var data = J_PLUGS[p];
+
+                    var cat = data.category;
 
                     data.code = sides[i].toUpperCase() + '_' + p;
                     data.component = sides[i];
@@ -2070,11 +2143,11 @@
                     var plug = new Plug(data);
                     var block = getOptionBlock(plug);
 
-                    if( !opt[data.category] ) {
-                        opt[data.category] = [];
+                    if( !opt[cat] ) {
+                        opt[cat] = [];
                     }
 
-                    opt[data.category].push(block);
+                    opt[cat].push(block);
 
                     if( sides[i] === 'input' ) {
                         INPUTS.push(block);
@@ -2082,9 +2155,11 @@
                         OUTPUTS.push(block);
                     }
 
-                    if( data.restrictions && data.restrictions.length ) {
-                        for( var j = 0; j < data.restrictions.length; j++ ) {
-                            var c = data.restrictions[j];
+                    var res = data.restrictions;
+
+                    if( res && res.length ) {
+                        for( var j = 0; j < res.length; j++ ) {
+                            var c = res[j];
 
                             if( !PLUG_RESTRICTIONS[c] ) {
                                 PLUG_RESTRICTIONS[c] = [];
@@ -2099,7 +2174,9 @@
                     var blanks = getBlankBlocks(opt[p].length, 'option');
                     var el = opt[p].concat(blanks);
 
-                    var div = $('<div/>', {class: 'options ' + p});
+                    var cats = _getChildCategories(opt[p]);
+
+                    var div = $('<div/>', {class: 'options ' + cats}).attr('data-category', p);
 
                     var h = $('<h3/>', {text: p});
 
@@ -2275,6 +2352,7 @@
                             C.output.selectOption();
                         }
 
+                        $('#length-select-' + C.type).selectmenu('refresh');
                         displayImages.initialize();
                         restrictions.check();
                     }
@@ -2300,6 +2378,7 @@
                     el.value = val;
                     el.ruler.slider('value', val);
                     el.select.value = val;
+                    $(el.select).selectmenu('value', val);
 
                     _updateLength(val);
                 });
@@ -2322,6 +2401,7 @@
                     el.value = val;
                     el.ruler.slider('value', val);
                     el.select.value = val;
+                    $(el.select).selectmenu('value', val);
 
                     _updateLength(val);
                 });
@@ -2329,6 +2409,15 @@
                 _.find('.length-wrap .select').on('change', 'select', function(e) {
                     var el = e.currentTarget,
                         val = Number(el.value);
+
+                    el.input.value = val;
+                    el.ruler.slider('value', val);
+                    $(el).selectmenu('value', val);
+
+                    _updateLength(val);
+                }).on('selectmenuchange', 'select', function(e, ui) {
+                    var el = e.currentTarget,
+                        val = Number(ui.item.value);
 
                     el.input.value = val;
                     el.ruler.slider('value', val);

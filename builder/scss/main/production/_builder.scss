@@ -391,6 +391,24 @@ article {
         option {
             text-align: center;
         }
+
+        span.ui-selectmenu-button {
+            background: $white none repeat scroll 0 0;
+            border-radius: 0;
+            color: $black;
+            font-family: inherit;
+
+            span:first-child {
+                display: none;
+            }
+
+            span:last-child {
+                font-size: 16px;
+                font-weight: 400;
+                padding: 5px;
+                text-align: center;
+            }
+        }
     }
 
     .body button {
@@ -411,6 +429,24 @@ article {
         }
     }
 }
+
+.ui-front.ui-selectmenu-menu {
+    font-size: 14px;
+    font-weight: 400;
+    z-index: 3000;
+
+    li {
+        border: 0 none;
+        background: #fefefe;
+        padding: 6px;
+        text-align: center;
+    }
+
+    .ui-state-focus {
+        color: inherit;
+    }
+}
+
 
 .details-wrap {
     background-color: #e9e9e9;
@@ -920,11 +956,11 @@ article {
 }
 
 .options {
+    display: none;
     margin-bottom: 15px;
 
     @include flexbox((
         align-content: flex-start,
-        display: flex,
         flex-wrap: wrap,
         justify-content: space-around,
     ));
@@ -935,15 +971,11 @@ article {
         width: 100%;
     }
 
-    &[data-restriction="hide"] {
+    #builders &[data-restriction="hide"] {
         display: none;
     }
 
-    &[data-restriction="show"] {
-        @include display-flex;
-    }
-
-    .options-wrap & .option[data-restriction="hide"] {
+    #builders & .option[data-restriction="hide"] {
         display: none;
     }
 }
@@ -1277,9 +1309,10 @@ article {
 
     &[data-enabled="false"] {
         &:after {
-            background-color: rgba($white, 0.9);
+            background-color: rgba($white, 0.95);
             border: solid 2px $black;
             content: "Sorry, this configuration is not compatible with Techflex.";
+            font-weight: 600;
             height: 100%;
             left: 0;
             position: absolute;
@@ -1288,6 +1321,10 @@ article {
             width: 100%;
             @include flexcenter;
         }
+    }
+
+    .body-wrap[data-cable-type="patch"] &:after {
+        content: "Sorry, patch cables are not compatible with Techflex.";
     }
 
     .techflex {
@@ -1413,8 +1450,8 @@ article {
 
 
     .tourproof-container {
-        max-width: 165px;
         margin: 0 auto;
+        max-width: 165px;
 
         @include bp(max-width, $bp-small) {
             text-align: center;
