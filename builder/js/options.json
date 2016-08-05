@@ -1322,7 +1322,7 @@
       },
       "allowance": {
         "patch": true,
-        "instrument": true,
+        "instrument": false,
         "speaker": false,
         "xlr": false
       }
@@ -1346,7 +1346,7 @@
       },
       "allowance": {
         "patch": true,
-        "instrument": true,
+        "instrument": false,
         "speaker": false,
         "xlr": false
       }
@@ -1374,8 +1374,7 @@
         "instrument": false,
         "speaker": false,
         "xlr": false
-      },
-      "restrictions": ["CSB_CNRE_GS-4"]
+      }
     },
 
     "SWITCHCRAFT_280": {
