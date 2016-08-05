@@ -396,6 +396,10 @@
             return true;
         }
 
+        if (targetElement.nodeName.toLowerCase() == "select") {
+            return false;
+        }
+
         targetElement = this.getTargetElementFromEventTarget(event.target);
         touch = event.targetTouches[0];
 
