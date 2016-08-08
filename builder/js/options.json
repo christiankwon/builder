@@ -234,15 +234,15 @@
       "has_colors": true,
       "colors": {
         "black": {
+          "default": true,
           "id": 1647,
           "color": "#000",
           "status": "available"
         },
         "red": {
-          "default": true,
           "id": 1649,
           "color": "#e90d2f",
-          "status": "available"
+          "status": "backordered"
         },
         "orange": {
           "id": 1650,
@@ -459,12 +459,12 @@
       "has_colors": true,
       "colors": {
         "black": {
+          "default": true,
           "id": 1647,
           "color": "#000",
           "status": "available"
         },
         "red": {
-          "default": true,
           "id": 1649,
           "color": "#ff2b3d",
           "status": "available"
@@ -761,14 +761,14 @@
       "has_colors": true,
       "colors": {
         "black": {
+          "default": true,
           "id": 1647,
-          "color": "black",
+          "color": "#000",
           "status": "available"
         },
         "white": {
-          "default": true,
           "id": 1678,
-          "color": "white",
+          "color": "#fff",
           "status": "available"
         },
         "option_category_id": "149"
@@ -1511,7 +1511,7 @@
           "vintage cream": {
             "input_option_id": 1801,
             "output_option_id": 1806,
-            "color": "#edecd4",
+            "color": "#fff",
             "status": "available"
           }
         }
