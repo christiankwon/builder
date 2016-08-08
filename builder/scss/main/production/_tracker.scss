@@ -2,7 +2,7 @@
     $primary: $black;
     $secondary: #ccc;
 
-    background-color: $white;
+    background-color: #333;
     @include user-select(none);
 
     > div {
@@ -67,13 +67,15 @@
     }
 
     .dot {
-        background-color: $secondary;
-        color: $primary;
+        background-color: inherit;
+        color: $white;
         cursor: pointer;
-        font-size: 12px;
-        letter-spacing: 1px;
+        font-size: 11px;
+        letter-spacing: 2px;
         position: relative;
         text-transform: uppercase;
+        @include flexcenter;
+        @include flex-direction(column);
 
         @include bp(max-width, $bp-small) {
             border-top: 1px solid #333;
@@ -86,12 +88,12 @@
 
         @include bp(min-width, $bp-small + 1) {
             border-bottom: 1px solid #333;
-            height: 75px;
+            height: 85px;
             width: 100%;
         }
 
         &:before {
-            border: 1px solid $primary;
+            border: 3px solid $white;
             border-radius: 50%;
             height: 30px;
             margin: 10px auto;
@@ -102,16 +104,37 @@
         @each $s in $steps {
             &[data-pointer-component="#{$s}"]:before {
                 content: "#{index($steps, $s)}";
+                padding-left: 3px;
             }
 
             .body-wrap[data-current-step="#{$s}"] &[data-pointer-component="#{$s}"] {
                 background-color: $white;
-                border-top-color: transparent;
-                color: darken($teal, 10%);
+                color: $black;
 
                 &:before {
-                    border-color: darken($teal, 10%);
-                    border-width: 2px;
+                    background-color: $white;
+                    border-color: $black;
+                    border-width: 3px;
+                    color: $black;
+                }
+
+                &[data-status="complete"] {
+                    color: $green;
+
+                    &:before {
+                        border-color: $green;
+                    }
+
+                    &:after {
+                        border-color: $green;
+                    }
+                }
+
+                &[data-status="error"] {
+                    &:before {
+                        border-color: $red;
+                        background-image: image-url('misc/x.red.png');
+                    }
                 }
             }
         }
@@ -123,7 +146,7 @@
                 background-repeat: no-repeat;
                 background-position: center center;
                 background-size: 50% auto;
-                border: solid 2px $red !important;
+                border: solid 3px $white;
                 content: "";
             }
         }
@@ -131,21 +154,28 @@
         &[data-status="complete"] {
             &:before {
                 content: "";
-                background-color: darken($green, 10%);
-                border-color: darken($green, 25%);
-                border-width: 2px;
+                background-color: $green;
+                border-color: $white;
+                border-width: 4px;
             }
 
             &:after {
                 content: "";
-                border: solid #000;
-                border-width: 0 2px 2px 0;
-                height: 20px;
+                border: 0 solid $white;
+                border-width: 0 3px 3px 0;
+                height: 23px;
                 left: 50%;
                 position: absolute;
-                top: 10px;
                 width: 10px;
                 @include transform( rotate(45deg) );
+
+                @include bp(max-width, $bp-small) {
+                    top: 9px;
+                }
+
+                @include bp(min-width, $bp-small + 1) {
+                    top: 14px;
+                }
             }
         }
 

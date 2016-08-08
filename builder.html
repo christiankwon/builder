@@ -20,7 +20,8 @@
 
   <!-- General scripts -->
   <script src="builder/js/vendor/modernizr.js"></script>
-  <script src="/v/2.0/js/util.min.js"></script></head>
+  <script src="builder/js/util.min.js"></script>
+  <script src="/v/2.0/js/util.min.js"></script>
 
 <body>
   <!--[if lt IE 9]><p class="browsehappy">You are using an <strong>outdated</strong> browser that is not supported. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
@@ -62,12 +63,12 @@
             </div>
 
             <div class="dot" data-pointer-component="extras" data-status="incomplete">
-              <span>Extra</span>
+              <span>Extras</span>
             </div>
           </div>
 
           <div class="review-wrap">
-            <button>Done</button>
+            <button>Finish</button>
           </div>
         </div>
 
@@ -112,6 +113,10 @@
 
               <div id="cable-details-wrap" class="details-wrap">
                 <div class="details-content scrollbar">
+                  <div class="backordered-wrap">
+                    <p>Currently backordered for: <span id="cable-details-backordered">0 weeks.</span>Expect delays.</p>
+                  </div>
+
                   <div class="name-wrap">
                     <button class="back"></button>
 
@@ -128,10 +133,6 @@
                   </div>
 
                   <div id="cable-details-choices" class="choice-wrap"></div>
-
-                  <div class="backordered-wrap">
-                    <p>Currently backordered for: <span id="cable-details-backordered">0 weeks.</span>Expect delays.</p>
-                  </div>
 
                   <div class="price-wrap">
                     <span id="cable-details-price">$0.00</span>
@@ -253,7 +254,7 @@
 
           <article class="builder extras-wrap" data-component="extras">
             <div class="header">
-              <h1>5. Select <strong>Extra Options</strong></h1>
+              <h1>5. Select <strong>Extras</strong></h1>
               <button class="home"></button>
             </div>
 
@@ -263,7 +264,7 @@
               </div>
 
               <div class="tourproof-wrap" data-option-type="tourproof">
-                <h3>Tour Proof<button id="tourproof-modal">?</button><p>Extra-precision reinforcement<br>to minimize failure.</p></h3>
+                <h3>Tour Proof<button id="tourproof-modal">?</button><p>Precision reinforcement<br>to minimize failure.</p></h3>
 
                 <div class="tourproof-container">
                   <input id="tourproof" type="checkbox" name="tourproof">
@@ -284,12 +285,12 @@
 
             <div class="footer">
               <button class="builder-prev" data-next="output">Prev</button>
-              <button class="builder-next" data-next="confirmation">Next</button>
+              <button class="builder-next" data-next="confirmation">Finish</button>
             </div>
           </article>
 
           <div class="review-wrap">
-            <button>Done</button>
+            <button>Finish</button>
           </div>
         </div>
 

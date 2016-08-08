@@ -886,7 +886,7 @@
 
             for( c in obj ) { if( obj.hasOwnProperty(c) ) {
                 if( c !== 'option_category_id' ) {
-                    choices.push($('<div/>').css('color', obj[c].color).text('*'));
+                    choices.push($('<div/>').css('color', obj[c].color).html('&#9632;'));
                 }
             }}
 

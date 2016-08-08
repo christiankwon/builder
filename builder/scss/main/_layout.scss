@@ -65,38 +65,52 @@ section,
     }
 
     &[data-completed="true"] {
-        article {
-            height: calc(100% - 50px);
+        article[data-component="extras"] .builder-next {
+            color: $white;
+            background-color: $green;
+
+            &:before, &:after {
+                background-color: $white;
+            }
         }
     }
 }
 
 .review-wrap {
+    background-color: $green;
     display: none;
-    height: 50px;
+    height: 40px;
+    position: relative;
     width: 100%;
+    @include justify-content(center);
+    @include align-items(center);
 
-    .body-wrap[data-completed="true"] & {
-        display: block;
-    }
-
-    .tracker-wrap & {
-        @include bp(min-width, $bp-small + 1) {
-            display: none !important;
-        }
-    }
-
-    .builders-wrap & {
-        @include bp(max-width, $bp-small) {
-            display: none !important;
-        }
+    .body-wrap[data-completed="true"] .tracker-wrap & {
+        @include display-flex;
     }
 
     button {
-        background-color: $green;
-        border: 5px solid darken($green, 30%);
-        height: 100%;
-        width: 100%;
+        background-color: transparent;
+        color: $white;
+        font-weight: 500;
+        letter-spacing: 2px;
+    }
+
+    @include bp(max-width, $bp-small) {
+        button {
+            border: 0 none;
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    @include bp(min-width, $bp-small + 1 ) {
+        button {
+            border: 1px solid $white;
+            font-size: 11px;
+            height: 25px;
+            width: 80%;
+        }
     }
 }
 
@@ -152,34 +166,41 @@ section,
 
     .exit {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 5px;
+        right: 5px;
         background-color: $black;
         border: 0 none;
         color: $white;
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
+
+        @include bp(min-width, $bp-small) {
+            top: 10px;
+            right: 10px;
+        }
     }
 
     .tourproof-modal {
         background-color: $white;
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+        line-height: 20px;
         max-height: 90%;
         max-width: 90%;
         overflow-y: auto;
         position: relative;
-        text-align: center;
 
         @include bp(max-width, $bp-small) {
-            // display: block;
-            padding: 20px 30px 20px;
             margin-bottom: 10px;
+            padding: 20px 30px 20px;
 
             img {
                 display: none;
             }
 
             p {
-                margin-bottom: 15px;
+                margin-bottom: 10px;
             }
 
             .switcher-wrap {
@@ -187,9 +208,8 @@ section,
 
                 &[data-which="with"] {
                     button:first-child {
-                        background-color: darken($green, 10%);
+                        background-color: $teal;
                         color: #fff;
-                        border: $green;
                     }
 
                     & + .window {
@@ -199,9 +219,8 @@ section,
 
                 &[data-which="without"] {
                     button:last-child {
-                        background-color: darken($green, 10%);
+                        background-color: $teal;
                         color: #fff;
-                        border: $green;
                     }
 
                     & + .window {
@@ -211,19 +230,23 @@ section,
             }
 
             .switch {
-                padding: 10px;
-                background-color: #ccc;
-                border: solid 1px $black;
+                background-color: #aaa;
+                border: 0 none;
+                color: $black;
+                font-size: 12px;
+                font-weight: 500;
+                letter-spacing: 2px;
                 margin: 0 5px;
+                padding: 10px;
             }
 
             .window {
-                width: 190px;
-                height: 200px;
-                margin: 0 auto;
                 background-image: image-url('tourproof.jpg');
                 background-repeat: no-repeat;
                 background-size: auto 100%;
+                height: 200px;
+                margin: 10px auto;
+                width: 190px;
             }
         }
 
@@ -235,7 +258,7 @@ section,
             @include justify-content(center);
 
             p {
-                margin-bottom: 25px;
+                margin-bottom: 15px;
             }
         }
     }
@@ -248,6 +271,10 @@ section,
         padding: 20px;
         position: relative;
         text-align: center;
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+        line-height: 20px;
         @include flex-direction(column);
 
         p {
