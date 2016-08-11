@@ -56,14 +56,15 @@
         BP_SMALL                   = '(max-width: 599px)',
         MQ_SMALL                   = Modernizr.matchmedia ? window.matchMedia(BP_SMALL) : null,
 
-        BLANK_PLUG_URL             = IMAGES_DIR + 'display/plug_outline.png',
-        BLANK_PATCH_CABLE_URL      = IMAGES_DIR + 'display/cable_patch_outline.png',
-        BLANK_INSTRUMENT_CABLE_URL = IMAGES_DIR + 'display/cable_instrument_outline.png',
+        BLANK_PLUG_URL             = IMAGES_DIR + 'wireframes/plug_outline.png',
+        BLANK_PATCH_CABLE_URL      = IMAGES_DIR + 'wireframes/cable_patch_outline.png',
+        BLANK_INSTRUMENT_CABLE_URL = IMAGES_DIR + 'wireframes/cable_instrument_outline.png',
         BLANK_IMAGE_URL            = IMAGES_DIR + 'blank.png',
 
         BLANK_IMAGE = {
             instrument: BLANK_INSTRUMENT_CABLE_URL,
             speaker:    BLANK_INSTRUMENT_CABLE_URL,
+            xlr:        BLANK_INSTRUMENT_CABLE_URL,
             patch:      BLANK_PATCH_CABLE_URL,
             input:      BLANK_PLUG_URL,
             output:     BLANK_PLUG_URL,
@@ -291,8 +292,7 @@
 
             return [
                 IMAGES_DIR,
-                'builder/',
-                this.part, '/',
+                this.part, 's/',
                 formatTextForImageUrl(this.manufacturer), '/',
                 formatTextForImageUrl(this.model),
                 color && '.' + color || '',
@@ -301,32 +301,21 @@
         },
 
         getDisplayImageUrl: function(color) {
-            var part = this.part;
-
             color = color || this.currentColor;
 
-            var url = [
+            return [
                 IMAGES_DIR,
-                'display/',
-                part, '/'
-            ];
-
-            if( part === 'cable' ) {
-                url.push(CURRENT_CABLE.type, '/');
-            }
-
-            url.push(
+                this.part, 's/',
                 formatTextForImageUrl(this.manufacturer), '/',
+                this.part === 'cable' && CURRENT_CABLE.type === 'patch' ? 'patch/' : '',
                 formatTextForImageUrl(this.model),
                 (color && !this.hasBoots) && '.' + color || '',
                 '.png'
-            );
-
-            return url.join('');
+            ].join('');
         },
 
         getChoices: function() {
-            var c, p, div, colors, restock, arr = [];
+            var c, p, div, colors, classes = [], restock, arr = [];
 
             if( !this.hasChoices ) {
                 return [];
@@ -344,6 +333,8 @@
                 for( p in colors ) { if( colors.hasOwnProperty(p) ) {
                     if( p === 'option_category_id' ) { continue; }
 
+                    classes = ['color-choice'];
+
                     c = colors[p];
 
                     div = _ce('div');
@@ -358,8 +349,14 @@
                     });
 
                     if( c.default ) {
-                        div.className = 'selected';
+                        classes.push('selected');
                     }
+
+                    if( c.invert ) {
+                        classes.push('invert');
+                    }
+
+                    div.className = classes.join(' ');
 
                     arr.push(div);
                 }}
@@ -376,7 +373,9 @@
                 container = option.detailsWrap,
                 wrap      = container.wrap,
                 old       = wrap.get(0).option,
-                classes   = ['details-wrap active'];
+                classes   = ['details-wrap active'],
+                isCable   = option instanceof Cable,
+                isPlug    = option instanceof Plug;
 
             if( !choices.length ) {
                 container.choice.addClass('empty');
@@ -402,6 +401,12 @@
             } else if( option.status === 'backordered' ) {
                 classes.push('backordered');
                 container.backordered.text(option.restockTime + ' weeks.');
+            } else if( option.hasChoices ) {
+                if( option.hasColors && option.colors[option.currentColor].status === 'backordered' ||
+                    option.hasBoots && J_BOOTS[option.manufacturer][option.series].boot[option.currentBoot].status === 'backordered' ) {
+                    classes.push('backordered');
+                    container.backordered.text(option.restockTime + ' weeks.');
+                }
             }
 
             wrap.get(0).className = classes.join(' ');
@@ -411,10 +416,10 @@
                 alt: option.getName()
             });
 
-            if( option instanceof Cable ) {
+            if( isCable ) {
                 container.measurement.html(option.getSpecs());
 
-            } else if( option instanceof Plug ) {
+            } else if( isPlug ) {
                 if( option.hasBoots ) {
                     container.img_choice.attr({
                         src: option.getBuilderBootImageUrl()
@@ -580,7 +585,7 @@
 
         var _getSelected = function(el) {
 
-            return el.className === 'selected';
+            return el.className.indexOf('selected') > -1;
         };
 
         var _getNewChoice = function(el) {
@@ -619,8 +624,8 @@
                     option.html.setAttribute('data-status', option.status);
                 }
 
-                this.choicesHtml.filter(_getSelected)[0].className = '';
-                this.choicesHtml.filter(_getNewChoice)[0].className = 'selected';
+                this.choicesHtml.filter(_getSelected)[0].classList.remove('selected');
+                this.choicesHtml.filter(_getNewChoice)[0].classList.add('selected');
 
                 if( CURRENT_CABLE.cable &&
                     CURRENT_CABLE.cable.code === this.code ) {
@@ -657,13 +662,14 @@
         this.hasBoots     = data.has_boots  || false;
         this.hasChoices   = data.has_colors || data.has_boots;
         this.colors       = data.colors;
+        this.boots        = data.has_boots ? J_BOOTS[data.manufacturer][data.series].boot : null;
         this.currentColor = data.currentColor;
         this.currentBoot  = data.currentBoot;
         this.restrictions = data.restrictions || [];
         this.choicesHtml  = [];
     };
 
-    Plug.prototype  = Object.create(Option.prototype);
+    Plug.prototype = Object.create(Option.prototype);
 
     Plug.prototype.constructor = Plug;
 
@@ -673,8 +679,8 @@
         var model = this.model.split('-')[0];
 
         return [
-            IMAGES_DIR, 'builder/plug/',
-            formatTextForImageUrl(this.manufacturer), '/',
+            IMAGES_DIR, 'plugs/',
+            formatTextForImageUrl(this.manufacturer), '/optionsBoots/',
             formatTextForImageUrl(model), '/',
             formatTextForImageUrl(color), '.png'
         ].join('');
@@ -690,8 +696,8 @@
         var model = this.model.split('-')[0];
 
         return [
-            IMAGES_DIR, 'display/plug/',
-            formatTextForImageUrl(this.manufacturer), '/',
+            IMAGES_DIR, 'plugs/',
+            formatTextForImageUrl(this.manufacturer), '/displayBoots/',
             formatTextForImageUrl(model), '/',
             formatTextForImageUrl(color), '.png'
         ].join('');
@@ -707,7 +713,7 @@
 
         return [
             IMAGES_DIR,
-            'builder/plug/',
+            'plugs/',
             formatTextForImageUrl(manu), '/',
             'overlay/',
             formatTextForImageUrl(model),
@@ -729,7 +735,7 @@
 
         var _getSelected = function(el) {
 
-            return el.className === 'selected';
+            return el.className.indexOf('selected') > -1;
         };
 
         var _getNewChoice = function(el) {
@@ -767,8 +773,8 @@
 
             if( status ) {
                 $('.component', _id(this.code)).attr('src', url);
-                this.choicesHtml.filter(_getSelected)[0].className = '';
-                this.choicesHtml.filter(_getNewChoice)[0].className = 'selected';
+                this.choicesHtml.filter(_getSelected)[0].classList.remove('selected');
+                this.choicesHtml.filter(_getNewChoice)[0].classList.add('selected');
 
                 if( CURRENT_CABLE[this.component] &&
                     CURRENT_CABLE[this.component].code === this.code ) {
@@ -788,8 +794,8 @@
             this.detailsWrap.measurement.parent().removeClass('clicked');
 
             if( status ) {
-                this.choicesHtml.filter(_getSelected)[0].className = '';
-                this.choicesHtml.filter(_getNewChoice)[0].className = 'selected';
+                this.choicesHtml.filter(_getSelected)[0].classList.remove('selected');
+                this.choicesHtml.filter(_getNewChoice)[0].classList.add('selected');
 
                 if( CURRENT_CABLE[this.component] &&
                     CURRENT_CABLE[this.component].code === this.code ) {
@@ -884,13 +890,7 @@
 
             }
 
-            for( c in obj ) { if( obj.hasOwnProperty(c) ) {
-                if( c !== 'option_category_id' ) {
-                    choices.push($('<div/>').css('color', obj[c].color).html('&#9632;'));
-                }
-            }}
-
-            choicesDiv = $('<div/>', {class: 'hasChoices'}).html(choices);
+            choicesDiv = $('<div/>', {class: 'hasChoices'}).html(option.getChoices().splice(0));
         }
 
         var outer = $('<div/>', {class: 'outer'}).append(
@@ -1045,7 +1045,7 @@
         check: function() {
             var cc = CURRENT_CABLE;
 
-            if( cc.type === 'patch' ) { this.enforce(false); return false; }
+            if( cc.type !== 'instrument' ) { this.enforce(false); return false; }
 
             if( !cc.cable || (!cc.input && !cc.output) ) { this.enforce(true); return true; }
 
@@ -1300,6 +1300,25 @@
         },
 
         update: function() {
+            var _getStatus = function(comp) {
+                var status;
+
+                var _ = cc[comp];
+
+                if( !_.hasChoices ) {
+                    status = _.status === 'backordered';
+                } else {
+                    if( _.hasColors ) {
+                        status = _.colors[_.currentColor].status === 'backordered';
+
+                    } else if( _.hasBoots ) {
+                        status = _.boots[_.currentBoot].status === 'backordered';
+                    }
+                }
+
+                return status;
+            };
+
             var cc = CURRENT_CABLE,
                 c = _id('final-cable'),
                 i = _id('final-input'),
@@ -1307,9 +1326,9 @@
                 e = _id('final-extras'),
                 p = _id('final-price');
 
-            var c_b = cc.cable.status  === 'backordered',
-                i_b = cc.input.status  === 'backordered',
-                o_b = cc.output.status === 'backordered';
+            var c_b = _getStatus('cable'),
+                i_b = _getStatus('input'),
+                o_b = _getStatus('output');
 
             if( c_b || i_b || o_b ) {
                 _id('backorder-warning').setAttribute('data-active', 'active');
@@ -1829,7 +1848,7 @@
             });
 
             $('.switch', '#modal').on('click', function() {
-                this.parentNode.setAttribute('data-which', this.textContent);
+                this.parentNode.setAttribute('data-which', this.getAttribute('data-switch'));
             });
         })();
 
@@ -1875,7 +1894,7 @@
                     active.className = 'active';
                     active.src = [
                         IMAGES_DIR,
-                        'misc/length/silhouette/',
+                        'length/silhouette/',
                         type,
                         '-red.png'
                     ].join('');
@@ -1886,7 +1905,7 @@
                     inactive.className = 'inactive';
                     inactive.src = [
                         IMAGES_DIR,
-                        'misc/length/silhouette/',
+                        'length/silhouette/',
                         type,
                         '-gray.png'
                     ].join('');
@@ -2171,7 +2190,7 @@
                 }}
 
                 for( p in opt ) { if( opt.hasOwnProperty(p) ) {
-                    var blanks = getBlankBlocks(opt[p].length, 'option');
+                    var blanks = getBlankBlocks(10 /* opt[p].length */, 'option');
                     var el = opt[p].concat(blanks);
 
                     var cats = _getChildCategories(opt[p]);

@@ -1,3 +1,11 @@
+$breakpoints: (
+    'xsmall': $bp-xsmall,
+    'small': $bp-small,
+    'medium': $bp-medium,
+    'large': $bp-large,
+    'xlarge': $bp-xlarge,
+);
+
 @each $size, $width in $breakpoints {
     .mq-#{$size} {
         @include bp(min-width, $width + 1) {

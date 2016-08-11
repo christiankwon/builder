@@ -266,6 +266,8 @@ article {
         width: 100%;
 
         .length-choice {
+            max-width: 25%;
+
             @include bp(max-width, $bp-small) {
                 margin-top: 10px;
                 margin-bottom: 10px;
@@ -587,6 +589,7 @@ article {
         overflow: hidden;
         @include display-flex;
         @include align-items(flex-start);
+        @include flex-shrink(0);
 
         @include bp(max-width, $bp-small) {
             border: 1px solid #ccc;
@@ -630,7 +633,12 @@ article {
 
         &:hover .measurement,
         .measurement.clicked {
+            opacity: 1;
             top: 0;
+
+            img, p {
+                opacity: 1;
+            }
 
             &:before {
                 opacity: 0;
@@ -645,6 +653,12 @@ article {
         position: absolute;
         top: calc(100% - 25px);
         width: 100%;
+
+        img, p {
+            opacity: 0;
+
+            @include transition(opacity 0.2s ease-in-out);
+        }
 
         @include transition(top 0.2s ease-in-out);
 
@@ -766,7 +780,7 @@ article {
             }
 
             &:before {
-                border: 2px solid $white;
+                border: 3px solid $black;
                 border-radius: 50%;
                 content: "";
                 height: calc(100% + 4px);
@@ -836,16 +850,15 @@ article {
                 width: 10px;
                 @include transform( rotate(45deg) );
             }
+        }
 
-            $contrast: "white" "vintage cream" "nickel" "nnn" "ngg";
-            @each $c in $contrast {
-                &[data-value="#{$c}"]:before {
-                    border-color: $black;
-                }
+        .invert {
+            &:before {
+                border-color: $black;
+            }
 
-                &[data-value="#{$c}"]:after {
-                    border-color: $black;
-                }
+            &:after {
+                border-color: $black;
             }
         }
 
@@ -1195,18 +1208,30 @@ article {
     }
 
     .hasChoices {
-        background-color: rgba(#ddd, 0.75);
-        font-size: 18px;
-        line-height: 0.9;
+        // background-color: rgba(#ddd, 0.75);
+        bottom: 0;
+        padding: 2.5px 0;
         position: absolute;
         right: 0;
-        bottom: 0;
         text-align: center;
-        width: 28px;
+        height: 56px;
+
         @include flexbox((
             display: flex,
-            flex-flow: row-reverse wrap
+            flex-flow: column-reverse wrap-reverse
         ));
+
+        div {
+            border: 1px solid #333;
+            border-radius: 50%;
+            height: 12px;
+            margin: 2.5px;
+            width: 12px;
+        }
+
+        .invert {
+            border-color: $black;
+        }
     }
 
     .outer {
@@ -1513,7 +1538,7 @@ article {
     }
 
     label {
-        background-image: image-url('builder/check.png');
+        background-image: image-url('misc/check.png');
         background-position: center top;
         background-repeat: no-repeat;
         background-size: 100% auto;

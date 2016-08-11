@@ -22,6 +22,7 @@
   <script src="builder/js/vendor/modernizr.js"></script>
   <script src="builder/js/util.min.js"></script>
   <script src="/v/2.0/js/util.min.js"></script>
+</head>
 
 <body>
   <!--[if lt IE 9]><p class="browsehappy">You are using an <strong>outdated</strong> browser that is not supported. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
@@ -81,7 +82,7 @@
 
             <div class="body scrollbar">
               <div class="notice">
-                <img src="builder/images/misc/length/measurement.png" alt="We measure cable length from where the plugs meet the cable." />
+                <img src="builder/images/length/measurement.png" alt="We measure cable length from where the plugs meet the cable." />
               </div>
 
               <div class="length-choices"></div>
@@ -368,7 +369,7 @@
 
         <button id="checkout" class="cart-button">Add to Cart</button>
 
-        <p class="feedback">Have feedback? Found a bug? <a href="/contact">Let us know.</a><br>Please be as detailed as possible;<br><span class="colorful">We'll give you $5 off your next purchase.</span></p>
+        <p class="feedback">Have feedback? Found a bug? <a href="/contact">Let us know.</a><br>Please be as detailed as possible.</p>
       </div>
     </section>
   </div>
@@ -379,18 +380,18 @@
 
       <div class="mq-small">
         <div class="switcher-wrap" data-which="without">
-          <button class="switch">with</button>
-          <button class="switch">without</button>
+          <button class="switch" data-switch="with">Tourproof</button>
+          <button class="switch" data-switch="without">Standard</button>
         </div>
 
         <div class="window"></div>
       </div>
 
-      <p>Our Tour Proof option is just one more way for us to improve the longevity of your cable. By Tour Proofing a cable, we reinforce the two most common points of cable failure:</p>
+      <p>The Tour Proof option is a great way to improve the longevity of your cable. We reinforce the two most common points of cable failure:</p>
 
-      <p>1. We ensure that it's not physically possible for the hot connections to come in contact with any other part of the plug.</p>
+      <p>1. We ensure that it's not possible for the hot connection to come in contact with any other part of the plug.</p>
 
-      <p>2. We apply the exact amount of strain relief tubing necessary for a perfectly snug fit where the plug meets the cable.</p>
+      <p>2. We apply the exact length of strain relieving heat shrink necessary for a perfect fit where the plug meets the cable.</p>
 
       <img src="builder/images/tourproof.jpg" alt="Tourproofing">
     </div>
@@ -398,7 +399,7 @@
     <div class="capacitance-modal modal">
       <button class="exit">x</button>
 
-      <p>Tonal differences between cables are almost wholly determined by capacitance. Put simply, the lower a cable's capacitance, the clearer and more present the high end will be. Conversely, more of the high end crispness and clarity of a signal will be lost in high capacitance cables or in a long cable run. Most premium cables at big box retailers, such as Mogami or LiveWire, will land in the 40pF to 60pF range. Our cables range from 20pF to 60pF.</p>
+      <p>Tonal differences between cables are almost wholly determined by <strong>capacitance</strong>. Put simply, the <strong>lower</strong> a cable's <strong>capacitance</strong> rating, the clearer and <strong>more present</strong> the <strong>high end</strong> will be. Conversely, more of the high end will be lost in higher capacitance cables or in a long cable run.<br><br>Most premium cables at big box retailers will land in the 40pF to 60pF range per foot. Our cables range from 20pF to 60pF per foot.</p>
     </div>
   </div>
 
@@ -415,7 +416,8 @@
   <script src="/a/j/soft_add.js"></script>
 
   <script type="text/javascript" src="builder/js/vendor/imagesloaded.pkgd.min.js"></script>
-  <script type="text/javascript" src="builder/js/csb.min.js"></script>
+  <!-- <script type="text/javascript" src="builder/js/csb.min.js"></script> -->
+  <script type="text/javascript" src="builder/js/csb.js"></script>
 
   <script>
     var scrollbarWidth = getScrollbarSize().width;
