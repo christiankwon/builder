@@ -658,6 +658,7 @@
         this.component    = data.component;
         this.series       = data.series;
         this.angle        = data.angle;
+        this.restrict     = data.restrict_cable;
         this.hasColors    = data.has_colors || false;
         this.hasBoots     = data.has_boots  || false;
         this.hasChoices   = data.has_colors || data.has_boots;
@@ -874,9 +875,13 @@
             });
         }
 
-        if( option.restrictions && option.restrictions.length ) {
+        if( option.restrict && option.part === 'plug' ) {
             $block.addClass('restricted');
         }
+
+        // if( option.restrictions && option.restrictions.length ) {
+        //     $block.addClass('restricted');
+        // }
 
         var choicesDiv = null;
         if( option.hasChoices ) {
@@ -1151,7 +1156,7 @@
                 categories = null;
 
             return function() {
-                if( ! categories ) { categories = $('article.input-wrap .options, article.output-wrap .options'); }
+                if( !categories ) { categories = $('article.input-wrap .options, article.output-wrap .options'); }
 
                 if( !allPlugs ) {
                     allPlugs = $(INPUTS.concat(OUTPUTS));
@@ -1165,15 +1170,13 @@
                 o = CURRENT_CABLE.output;
 
                 if( c ) {
-                    r = $(PLUG_RESTRICTIONS[c.code]);
-
                     allPlugs.attr(attr, 'hide');
                     categories.attr(attr, 'hide');
 
-                    r.parent().removeAttr(attr);
+                    if( PLUG_RESTRICTIONS[c.code] ) {
+                        r = $(PLUG_RESTRICTIONS[c.code]);
 
-                    if( c.restrict ) {
-                        r.removeAttr(attr);
+                        r.removeAttr(attr).parent().removeAttr(attr);
 
                         b = false;
                         if( i ) {
@@ -1205,7 +1208,6 @@
                     } else {
                         standardPlugs.parent().removeAttr(attr);
                         standardPlugs.removeAttr(attr);
-                        r.removeAttr(attr);
                     }
                 } else {
                     allPlugs.removeAttr(attr);
@@ -1235,7 +1237,8 @@
 
                 allCables = $(CABLES).filter(_filter);
 
-                var i = CURRENT_CABLE.input,
+                var c = CURRENT_CABLE.cable,
+                    i = CURRENT_CABLE.input,
                     o = CURRENT_CABLE.output;
 
                 var i_arr = i && i.restrictions || [],
@@ -1246,8 +1249,21 @@
                 if( r.length && (i || o) ) {
                     matches = [];
 
-                    allCables.attr(attr, 'hide');
-                    categories.attr(attr, 'hide');
+                    if( (i&&i.restrict) || (o&&o.restrict) ) {
+                        allCables.attr(attr, 'hide');
+                        categories.attr(attr, 'hide');
+
+                        if( i && c && i.restrictions.indexOf(c.code) === -1) {
+                            c.deselectOption();
+                        }
+
+                        if( o && c && o.restrictions.indexOf(c.code) === -1) {
+                            c.deselectOption();
+                        }
+                    } else {
+                        allCables.removeAttr(attr);
+                        categories.removeAttr(attr);
+                    }
 
                     allCables.each(_pushMatch);
 
@@ -1474,6 +1490,9 @@
             if( cc.reverse_plugs ) {
                 Post[_getOptionName('select', code, J_OTHER.reverse_plugs.option_category_id)] = J_OTHER.reverse_plugs.option_id;
             }
+
+            console.log(Post);
+            return;
 
             $.ajax({
                 url:'/ProductDetails.asp?ProductCode=' + code + '&AjaxError=Y',
@@ -2077,6 +2096,8 @@
             for( var c in J_CABLES ) { if( J_CABLES.hasOwnProperty(c) ) {
                 var data = J_CABLES[c];
 
+                if( data.disabled ) { continue; }
+
                 var cat = data.category;
 
                 data.code = c;
@@ -2147,6 +2168,8 @@
 
                 for( p in J_PLUGS ) { if( J_PLUGS.hasOwnProperty(p) ) {
                     var data = J_PLUGS[p];
+
+                    if( data.disabled ) { continue; }
 
                     var cat = data.category;
 

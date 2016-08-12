@@ -685,6 +685,10 @@ article {
             }
         }
 
+        &.clicked {
+            border: 5px solid $black;
+        }
+
         article[data-component="cable"] & {
             color: $white;
             text-align: center;

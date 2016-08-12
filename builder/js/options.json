@@ -33,6 +33,7 @@
       "enabled": true
     }
   },
+
   "cables": {
     "CSB_SINA_SLATE": {
       "manufacturer": "sinasoid",
@@ -51,7 +52,7 @@
         "diameter": 0.273,
         "flexibility": "med",
         "shield": "double spiral",
-        "origin": "somewhere"
+        "origin": "USA"
       },
       "lengths": {
         "option_category_id": 155,
@@ -115,8 +116,7 @@
         "capacitance": 44,
         "diameter": 0.23,
         "flexibility": "med",
-        "shield": "spiral",
-        "origin": "somewhere"
+        "shield": "spiral"
       },
       "lengths": {
         "option_category_id": 73,
@@ -166,23 +166,16 @@
         "diameter": 0.157,
         "flexibility": "high",
         "shield": "braided",
-        "origin": "somewhere"
+        "origin": "Japan"
       },
       "lengths": {
-        "option_category_id": 195,
+        "option_category_id": 232,
         "patch": {
           "isConsistent": true,
           "start_num": 1,
           "end_num": 48,
-          "start_id": 2072,
-          "end_id": 2119
-        },
-        "instrument": {
-          "isConsistent": true,
-          "start_num": 3,
-          "end_num": 20,
-          "start_id": 2120,
-          "end_id": 2137
+          "start_id": 2832,
+          "end_id": 2879
         }
       },
       "has_colors": false,
@@ -217,7 +210,7 @@
         "diameter": 0.227,
         "flexibility": "med",
         "shield": "braided",
-        "origin": "somewhere"
+        "origin": "Japan"
       },
       "lengths": {
         "option_category_id": 75,
@@ -239,15 +232,15 @@
       "has_colors": true,
       "colors": {
         "black": {
+          "default": true,
           "id": 1647,
           "color": "#000",
           "status": "available"
         },
         "red": {
-          "default": true,
           "id": 1649,
           "color": "#e90d2f",
-          "status": "backordered"
+          "status": "available"
         },
         "orange": {
           "id": 1650,
@@ -297,7 +290,7 @@
         "diameter": 0.231,
         "flexibility": "med",
         "shield": "braided",
-        "origin": "somewhere"
+        "origin": "Japan"
       },
       "lengths": {
         "option_category_id": 76,
@@ -353,7 +346,7 @@
         "diameter": 0.162,
         "flexibility": "low",
         "shield": "spiral",
-        "origin": "somewhere"
+        "origin": "USA"
       },
       "lengths": {
         "option_category_id": 72,
@@ -402,7 +395,7 @@
         "diameter": 0.254,
         "flexibility": "low",
         "shield": "spiral",
-        "origin": "somewhere"
+        "origin": "USA"
       },
       "lengths": {
         "option_category_id": 71,
@@ -454,7 +447,7 @@
         "diameter": 0.241,
         "flexibility": "high",
         "shield": "double spiral",
-        "origin": "somewhere"
+        "origin": "Europe"
       },
       "lengths": {
         "option_category_id": 74,
@@ -517,7 +510,7 @@
         "diameter": 0.211,
         "flexibility": "high",
         "shield": "spiral",
-        "origin": "somewhere"
+        "origin": "Europe"
       },
       "lengths": {
         "option_category_id": 79,
@@ -566,7 +559,7 @@
         "diameter": 0.216,
         "flexibility": "high",
         "shield": "spiral",
-        "origin": "somewhere"
+        "origin": "Europe"
       },
       "lengths": {
         "option_category_id": 80,
@@ -622,7 +615,7 @@
         "diameter": 0.229,
         "flexibility": "low",
         "shield": "double braid",
-        "origin": "somewhere"
+        "origin": "USA"
       },
       "lengths": {
         "option_category_id": 201,
@@ -671,7 +664,7 @@
         "diameter": 0.197,
         "flexibility": "high",
         "shield": "spiral",
-        "origin": "somewhere"
+        "origin": "Japan"
       },
       "lengths": {
         "option_category_id": 199,
@@ -720,7 +713,7 @@
         "diameter": 0.239,
         "flexibility": "med",
         "shield": "spiral",
-        "origin": "somewhere"
+        "origin": "Japan"
       },
       "lengths": {
         "option_category_id": 200,
@@ -769,7 +762,7 @@
         "diameter": 0.235,
         "flexibility": "high",
         "shield": "spiral",
-        "origin": "somewhere"
+        "origin": "Europe"
       },
       "lengths": {
         "option_category_id": 78,
@@ -802,7 +795,7 @@
           "invert": true,
           "status": "available"
         },
-        "option_category_id": "149"
+        "option_category_id": 149
       },
       "allowance": {
         "patch": true,
@@ -844,14 +837,15 @@
         "black": {
           "default": true,
           "id": 1647,
-          "color": "black",
+          "color": "#000",
           "status": "available"
         },
         "gray": {
           "id": 2481,
           "color": "gray",
           "status": "available"
-        }
+        },
+        "option_category_id": 149
       },
       "allowance": {
         "patch": false,
@@ -863,6 +857,7 @@
     },
 
     "CSB_GTHM_50015": {
+      "disabled": true,
       "manufacturer": "gotham",
       "model": "50015",
       "name": {
@@ -877,7 +872,7 @@
         "awg": "15x2",
         "diameter": 0.2736,
         "flexibility": "high",
-        "origin": "Turkey"
+        "origin": "Europe"
       },
       "lengths": {
         "option_category_id": 229,
@@ -978,15 +973,15 @@
         "black": {
           "default": true,
           "id": 1647,
-          "color": "black",
+          "color": "#000",
           "status": "available"
         },
         "blue": {
           "id": 2498,
-          "color": "blue",
+          "color": "#234390",
           "status": "available"
         },
-        "option_category_id": 231
+        "option_category_id": 149
       },
       "allowance": {
         "patch": false,
@@ -997,6 +992,7 @@
       "restrict_plugs": true
     }
   },
+
   "plugs": {
     "G&H_VLP": {
       "name": {
@@ -1011,7 +1007,7 @@
       "series": "vlp",
       "has_colors": false,
       "colors": {
-        "ngg": {
+        "nnn": {
           "input_option_id": 2499,
           "output_option_id": 2500,
           "status": "available"
@@ -1023,6 +1019,7 @@
         "speaker": false,
         "xlr": false
       },
+      "restrict_cable": true,
       "restrictions": ["CSB_CNRE_GS-4", "CSB_CNRE_GS-6", "CSB_VDMM_CLSC-XKE"]
     },
 
@@ -1094,7 +1091,9 @@
         "instrument": true,
         "speaker": true,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     },
 
     "G&H_BF2P_N": {
@@ -1130,7 +1129,9 @@
         "instrument": true,
         "speaker": true,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     },
 
     "G&H_BF2PM": {
@@ -1167,7 +1168,9 @@
         "instrument": true,
         "speaker": true,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     },
 
     "G&H_RF2P_G": {
@@ -1211,7 +1214,9 @@
         "instrument": true,
         "speaker": true,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     },
 
     "G&H_RF2P_N": {
@@ -1248,7 +1253,9 @@
         "instrument": true,
         "speaker": true,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     },
 
     "G&H_BFQP_N": {
@@ -1285,7 +1292,9 @@
         "instrument": true,
         "speaker": false,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     },
 
     "G&H_WOOD_MAH": {
@@ -1322,7 +1331,8 @@
         "instrument": true,
         "speaker": true,
         "xlr": false
-      }
+      },
+      "restrictions": []
     },
 
     "G&H_WOOD_MAP": {
@@ -1359,7 +1369,8 @@
         "instrument": true,
         "speaker": true,
         "xlr": false
-      }
+      },
+      "restrictions": []
     },
 
     "NEUTRIK_NP2C": {
@@ -1385,7 +1396,9 @@
         "instrument": true,
         "speaker": true,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     },
 
     "NEUTRIK_NP2C-B": {
@@ -1411,7 +1424,9 @@
         "instrument": true,
         "speaker": true,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     },
 
     "NEUTRIK_NP2C-BAG": {
@@ -1437,7 +1452,9 @@
         "instrument": true,
         "speaker": true,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     },
 
     "NEUTRIK_NP2X-B": {
@@ -1463,7 +1480,9 @@
         "instrument": true,
         "speaker": true,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     },
 
     "NEUTRIK_NP2RX": {
@@ -1489,7 +1508,9 @@
         "instrument": true,
         "speaker": true,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     },
 
     "NEUTRIK_NP2RX-B": {
@@ -1515,7 +1536,9 @@
         "instrument": true,
         "speaker": true,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     },
 
     "NEUTRIK_NP2X-SILENT": {
@@ -1541,7 +1564,8 @@
         "instrument": true,
         "speaker": false,
         "xlr": false
-      }
+      },
+      "restrictions": []
     },
 
     "NEUTRIK_NP2RX-SILENT": {
@@ -1567,7 +1591,8 @@
         "instrument": true,
         "speaker": false,
         "xlr": false
-      }
+      },
+      "restrictions": []
     },
 
     "NEUTRIK_NP2X-WT": {
@@ -1593,7 +1618,9 @@
         "instrument": true,
         "speaker": true,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     },
 
     "NEUTRIK_NJ3FP6C": {
@@ -1617,7 +1644,8 @@
         "instrument": false,
         "speaker": false,
         "xlr": false
-      }
+      },
+      "restrictions": []
     },
 
     "NEUTRIK_NJ3FP6C-BAG": {
@@ -1641,7 +1669,8 @@
         "instrument": false,
         "speaker": false,
         "xlr": false
-      }
+      },
+      "restrictions": []
     },
 
     "NEUTRIK_NC3FXX": {
@@ -1656,7 +1685,7 @@
       "category": "FEMALE",
       "colors": {
         "black": {
-          "input_option_id": 2823,
+          "input_option_id": 2831,
           "output_option_id": 2824
         }
       },
@@ -1665,8 +1694,10 @@
         "instrument": false,
         "speaker": false,
         "xlr": true
-      }
+      },
+      "restrictions": []
     },
+
     "NEUTRIK_NC3MXX": {
       "name": {
         "manufacturer": "Neutrik",
@@ -1680,7 +1711,7 @@
       "colors": {
         "black": {
           "input_option_id": 2826,
-          "output_option_id": 2827
+          "output_option_id": 2825
         }
       },
       "allowance": {
@@ -1688,7 +1719,8 @@
         "instrument": false,
         "speaker": false,
         "xlr": true
-      }
+      },
+      "restrictions": []
     },
 
     "SWITCHCRAFT_228": {
@@ -1713,7 +1745,9 @@
         "instrument": false,
         "speaker": false,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_CNRE_GS-4"]
     },
 
     "SWITCHCRAFT_280": {
@@ -1738,7 +1772,9 @@
         "instrument": true,
         "speaker": false,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     },
 
     "SWITCHCRAFT_380": {
@@ -1763,7 +1799,9 @@
         "instrument": false,
         "speaker": false,
         "xlr": false
-      }
+      },
+      "restrict_cable": false,
+      "restrictions": ["CSB_MGMI_3082"]
     }
   },
 
@@ -1777,7 +1815,7 @@
             "input_option_id": 1489,
             "output_option_id": 1789,
             "color": "#e90d2f",
-            "status": "backordered"
+            "status": "available"
           },
           "orange": {
             "input_option_id": 1486,
@@ -1962,7 +2000,7 @@
       "disallow": {
         "neutrik": {
           "series": {
-            "rean": "all"
+            "x": "all"
           }
         }
       }
