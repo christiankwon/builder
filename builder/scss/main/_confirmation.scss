@@ -1,0 +1,249 @@
+.confirmation-wrap {
+    display: none;
+
+    .return-wrap {
+        background-color: #75bebf;
+        border: 0 none;
+        color: white;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: lighter;
+        height: 50px;
+        text-transform: uppercase;
+        width: 100%;
+        @include flexcenter;
+
+        @include bp(max-width, $bp-small) {
+            height: 30px;
+        }
+
+        @include bp(min-width, $bp-small) {
+            height: 50px;
+        }
+    }
+
+    .container {
+        @include flexbox((
+            display: flex,
+            flex-direction: column,
+            justify-content: space-around,
+        ));
+
+        @include bp(max-width, $bp-small) {
+            margin: 25px auto 0;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            border: 1px solid #bbb;
+            height: 75%;
+            margin: 25px auto 0;
+            max-width: 800px;
+            padding: 30px 50px;
+            width: 80%;
+        }
+    }
+
+    .confirm-text {
+        text-align: center;
+
+        img {
+            height: 75px;
+            margin: 0 auto;
+            width: 75px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 12px;
+            font-weight: 300;
+            margin: 0 auto;
+            line-height: 20px;
+            letter-spacing: 0;
+        }
+    }
+
+    .final-build {
+        @include flexcenter;
+
+        @include bp(max-width, $bp-small) {
+            margin: 25px auto 0;
+            padding: 20px 10px;
+            position: relative;
+            @include flex-direction(column);
+
+            &:after {
+                content: "";
+                height: 1px;
+                width: 60%;
+                position: absolute;
+                top: -5px;
+                left: 20%;
+                background-color: #999;
+            }
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            border-bottom: 1px solid #999;
+            border-top: 1px solid #999;
+            margin: 15px 40px;
+            padding: 25px 0;
+            @include flex-direction(row);
+        }
+
+        ul {
+            font-size: 12px;
+            margin-right: auto;
+            text-transform: uppercase;
+
+            @include bp(max-width, $bp-small) {
+                text-align: center;
+                width: 100%;
+            }
+        }
+
+        li {
+            line-height: 15px;
+            position: relative;
+
+            &.backordered:before {
+                position: absolute;
+                top: 0;
+                left: -5px;
+                content: "*";
+                color: #c00;
+            }
+        }
+
+        .qty-wrap {
+            margin: 15px 0 15px -30px;
+
+            label {
+                font-size: 12px;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+            input {
+                border: 1px solid #aaa;
+                margin: 10px auto;
+                padding: 4px;
+                text-align: center;
+                width: 50px;
+            }
+        }
+
+        & > span {
+            color: $red;
+            font-weight: 900;
+            margin-left: auto;
+
+            @include bp(max-width, $bp-small) {
+                margin-right: auto;
+            }
+
+            &:before {
+                content: "$";
+            }
+        }
+    }
+
+    .backorder-warning {
+        color: darken($red, 5%);
+        display: none;
+        text-align: center;
+        text-transform: uppercase;
+
+        &[data-active="active"] {
+            display: block;
+        }
+    }
+
+    .cart-button {
+        background-color: $brown;
+        border: 2px solid darken($brown, 10%);
+        color: $white;
+        display: block;
+        font-size: 12px;
+        margin: 10px auto;
+        padding: 10px 0;
+        position: relative;
+        width: 200px;
+
+        &:before {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            @include flexcenter;
+        }
+    }
+
+    &[data-status="pending"] {
+        .cart-button {
+            border-color: darken($yellow, 30%);
+
+            &:before {
+                background-color: darken($yellow, 20%);
+                content: "Adding to cart...";
+            }
+        }
+    }
+
+    &[data-status="complete"] {
+        .cart-button {
+            border-color: $green;
+
+            &:before {
+                background-color: lighten($green, 10%);
+                content: "Complete! Redirecting...";
+            }
+
+        }
+    }
+
+    &[data-status="error"] {
+        .cart-button {
+            border-color: darken($red, 20%);
+
+            &:before {
+                background-color: $red;
+                content: "Something went wrong...";
+            }
+        }
+    }
+
+    .feedback {
+        line-height: 30px;
+        text-align: center;
+        width: 100%;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            position: relative;
+
+            &:after {
+                position: absolute;
+                width: 100%;
+                content: "";
+                height: 2px;
+                background-color: $teal;
+                bottom: -4px;
+                left: 0;
+            }
+        }
+
+        .colorful {
+            color: $orange;
+        }
+    }
+}

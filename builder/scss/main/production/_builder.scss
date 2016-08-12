@@ -1,0 +1,1636 @@
+.builders-wrap {
+    background-color: $white;
+    height: 100%;
+
+    @include bp(max-width, $bp-small) {
+        padding-bottom: 75px;
+        position: absolute;
+        width: 100%;
+        @include justify-content(center);
+
+        .body-wrap[data-completed="true"] & {
+            padding-bottom: 115px;
+        }
+    }
+
+    @include bp(min-width, $bp-small + 1) {
+        width: 50%;
+    }
+}
+
+article {
+    overflow: hidden;
+    height: 100%;
+    display: none;
+
+    @include flexbox((
+        flex-direction: column,
+    ));
+
+    .header {
+        background-color: $teal;
+        color: $white;
+        padding: 15px;
+        position: relative;
+        @include flex-shrink(0);
+
+        h1 {
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin: 0;
+            text-transform: uppercase;
+
+            @include bp(max-width, $bp-small) {
+                font-size: 20px;
+                text-align: left;
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                font-size: 24px;
+                text-align: center;
+            }
+
+            strong {
+                font-weight: 600;
+            }
+        }
+    }
+
+    .body {
+        @include flexbox((
+            display: flex,
+            flex-grow: 1,
+        ));
+        height: 100%;
+        overflow: hidden;
+
+        &.complete + .footer {
+            .builder-next {
+                background-color: $white;
+                color: #333;
+
+                &:before,
+                &:after {
+
+                    background-color: #333;
+                }
+            }
+        }
+    }
+
+    .footer {
+        background-color: #555;
+        width: 100%;
+        padding: 10px;
+        @include flex-shrink(0);
+
+        @include bp(max-width, $bp-small) {
+            display: none;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+
+        }
+
+        button {
+            background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+            border: solid $white 1px;
+            color: $white;
+            letter-spacing: 1px;
+            height: 30px;
+            overflow: hidden;
+            position: relative;
+            font-size: 11px;
+            letter-spacing: 2px;
+
+            @include transition(all 0.2s ease-out);
+
+            &:hover {
+                background-color: $black;
+                color: $white;
+            }
+
+            &:before,
+            &:after {
+                background-color: $white;
+                content: "";
+                position: absolute;
+                display: block;
+                height: 10px;
+                width: 2px;
+            }
+
+            $angle: 50deg;
+            $x: 10px;
+            $y: 6px;
+
+            &.builder-prev {
+                float: left;
+                padding-left: 30px;
+                padding-right: 15px;
+
+                &:before {
+                    left: $x;
+                    top: $y;
+                    @include transform(rotate($angle));
+                }
+
+                &:after {
+                    bottom: $y;
+                    left: $x;
+                    @include transform(rotate($angle*-1));
+                }
+            }
+
+            &.builder-next {
+                float: right;
+                padding-right: 30px;
+                padding-left: 15px;
+
+                &:before {
+                    right: $x;
+                    top: $y;
+                    @include transform(rotate($angle*-1));
+                }
+
+                &:after {
+                    bottom: $y;
+                    right: $x;
+                    @include transform(rotate($angle));
+                }
+            }
+        }
+    }
+
+    .back,
+    .home {
+        @include bp(max-width, $bp-small) {
+            background-color: inherit;
+            border: 0 none;
+            font-weight: 300;
+            height: 40px;
+            letter-spacing: 2px;
+            position: absolute;
+            top: 5px;
+            width: 40px;
+            z-index: 10;
+
+            &:before,
+            &:after {
+                background-color: $white;
+                content: "";
+                position: absolute;
+                width: 2px;
+            }
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            display: none;
+        }
+    }
+
+    .back {
+        @include bp(max-width, $bp-small) {
+            left: 0;
+
+            &:before,
+            &:after {
+                height: 15px;
+                left: 18px;
+            }
+
+            &:before {
+                top: 6px;
+                @include transform(rotate(50deg));
+            }
+
+            &:after {
+                bottom: 10px;
+                @include transform(rotate(-50deg));
+            }
+        }
+    }
+
+    .home {
+        @include bp(max-width, $bp-small) {
+            right: 0;
+
+            &:before,
+            &:after {
+                height: 30px;
+                right: 19px;
+                top: 5px;
+            }
+
+            &:before {
+                @include transform(rotate(45deg));
+            }
+
+            &:after {
+                @include transform(rotate(-45deg));
+            }
+        }
+    }
+}
+
+.length-wrap {
+    .body {
+        overflow-y: scroll;
+        @include flex-direction(column);
+    }
+
+    .notice {
+        width: 100%;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .length-choice .active,
+    .input,
+    .ruler,
+    .select {
+        display: none;
+    }
+
+    .length-choices {
+        @include display-flex(flex);
+        @include justify-content(space-around);
+        @include align-items(center);
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        text-transform: uppercase;
+        width: 100%;
+
+        .length-choice {
+            max-width: 25%;
+
+            @include bp(max-width, $bp-small) {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            .name {
+                @include bp(max-width, $bp-small) {
+                    font-size: 14px;
+                }
+            }
+
+            .name span {
+                font-weight: 600;
+                letter-spacing: 2px;
+            }
+
+            .desc {
+                letter-spacing: 1px;
+            }
+        }
+
+        .image {
+            cursor: pointer;
+            height: auto;
+            margin: 20px auto 15px;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+
+            @include bp(max-width, $bp-small) {
+                max-width: 75px;
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                max-width: 150px;
+            }
+
+            img {
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+
+    .rulers {
+        margin: 1em auto;
+        max-width: 600px;
+        width: 90%;
+
+        @include bp(max-width, $bp-small) {
+            display: none;
+        }
+
+        .ui-slider-horizontal {
+            height: 4px;
+            border: none;
+            @include background-image(linear-gradient(to right, #dd0000, orange, #eeee00));
+        }
+
+        .ui-slider-handle {
+            background: none;
+            background-color: white;
+            border-color: #898989;
+            border-radius: 50%;
+            border-width: 2px;
+            top: -9px;
+            @include box-shadow(#8c8c8c 3px 2px 3px);
+        }
+
+        .ui-slider-range {
+            background-color: #999;
+            background-image: none;
+        }
+
+        .ui-state-active {
+            background: none;
+            background-color: #ccc;
+            border: white;
+        }
+    }
+
+    .inputs {
+        color: #777;
+        margin: 0 auto;
+        text-transform: uppercase;
+        width: 100px;
+
+        @include bp(max-width, $bp-small) {
+            display: none;
+        }
+
+        span {
+            display: block;
+            font-size: 11px;
+            margin-bottom: 0.5em;
+            text-align: center;
+        }
+
+        label {
+            float: right;
+            font-size: 14px;
+            margin-top: 17px;
+            margin-left: 5px;
+        }
+
+        input {
+            border: 1px solid #999;
+            color: $black;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin: 0 auto 0 17px;
+            padding: 0.5em 0;
+            text-align: center;
+            width: 65px;
+        }
+
+        .input {
+            width: 106px;
+        }
+    }
+
+    .selects {
+        margin: 10px 0;
+        text-align: center;
+
+        @include bp(min-width, $bp-small + 1) {
+            display: none;
+        }
+
+        select {
+            padding: 10px;
+        }
+
+        option {
+            text-align: center;
+        }
+
+        span.ui-selectmenu-button {
+            background: $white none repeat scroll 0 0;
+            border-radius: 0;
+            color: $black;
+            font-family: inherit;
+
+            span:first-child {
+                display: none;
+            }
+
+            span:last-child {
+                font-size: 16px;
+                font-weight: 400;
+                padding: 5px;
+                text-align: center;
+            }
+        }
+    }
+
+    .body button {
+        background-color: $teal;
+        border: 0 none;
+        color: $white;
+        font-size: 12px;
+        letter-spacing: 1px;
+        padding: 10px 15px;
+        width: 150px;
+
+        @include bp(max-width, $bp-small) {
+            margin: 5px auto;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            margin: 25px auto 10px;
+        }
+    }
+}
+
+.ui-front.ui-selectmenu-menu {
+    font-size: 14px;
+    font-weight: 400;
+    z-index: 3000;
+
+    li {
+        border: 0 none;
+        background: #fefefe;
+        padding: 6px;
+        text-align: center;
+    }
+
+    .ui-state-focus {
+        color: inherit;
+    }
+}
+
+
+.details-wrap {
+    display: none;
+
+    @include bp(max-width, $bp-small) {
+        background-color: $white;
+        height: 100%;
+        left: 0;
+        padding-bottom: 75px;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 20;
+
+        .body-wrap[data-completed="true"] & {
+            padding-bottom: 115px; // 75px + 50px
+        }
+    }
+
+    @include bp(min-width, $bp-small + 1) {
+        background-color: #dcdcdc;
+        width: 225px;
+        @include flex-shrink(0);
+    }
+
+    &.active {
+        display: block;
+    }
+}
+
+.details-content {
+    display: none;
+    height: 100%;
+    position: relative;
+
+    $small-header-height: 45px;
+
+    @include bp(max-width, $bp-small) {
+        @include justify-content(center);
+        @include flex-direction(row);
+        @include flex-wrap(wrap);
+        overflow-y: scroll;
+        padding-top: $small-header-height;
+
+        .details-wrap.active & {
+            @include display-flex;
+
+            @include bp(max-width, $bp-small) {
+                display: block;
+            }
+        }
+    }
+
+    @include bp(min-width, $bp-small + 1) {
+        overflow-y: scroll;
+
+        .details-wrap.active & {
+            @include display-flex;
+            @include flex-direction(column);
+        }
+    }
+
+    .name-wrap {
+        padding: 5px;
+        position: relative;
+        text-align: center;
+        text-transform: uppercase;
+
+        @include bp(max-width, $bp-small) {
+            background-color: $teal;
+            color: $white;
+            font-size: 16px;
+            height: $small-header-height;
+            left: 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+
+            span {
+                display: block;
+            }
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            @include order(1);
+
+            color: $black;
+            font-size: 18px;
+            margin-top: 10px;
+            width: 100%;
+
+            span {
+                display: block;
+            }
+        }
+
+        .manufacturer {
+            display: block;
+            font-weight: 300;
+
+            @include bp(min-width, $bp-small + 1) {
+                margin-bottom: 5px;
+            }
+        }
+
+        .model {
+            font-weight: 500;
+        }
+
+        .back,
+        .home {
+            background-color: inherit;
+        }
+    }
+
+    .image-wrap {
+        cursor: pointer;
+        max-width: 300px;
+        position: relative;
+        overflow: hidden;
+        @include display-flex;
+        @include align-items(flex-start);
+        @include flex-shrink(0);
+
+        @include bp(max-width, $bp-small) {
+            border: 1px solid #ccc;
+            margin: 20px auto;
+            width: 70%;
+
+            .details-wrap.hasChoices & {
+                float: left;
+                margin-right: auto;
+                margin-top: 0;
+                border-left: 0;
+            }
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            @include order(2);
+
+            margin: 10px;
+            width: calc(100% - 20px);
+        }
+
+        img {
+            @include bp(max-width, $bp-small) {
+                height: auto;
+                margin: 0 auto;
+                width: 100%;
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                height: auto;
+                width: 100%;
+            }
+        }
+
+        .choice {
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+        &:hover .measurement,
+        .measurement.clicked {
+            opacity: 1;
+            top: 0;
+
+            img, p {
+                opacity: 1;
+            }
+
+            &:before {
+                opacity: 0;
+            }
+        }
+    }
+
+    .measurement {
+        background-color: rgba($black, 0.75);
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: calc(100% - 25px);
+        width: 100%;
+
+        img, p {
+            opacity: 0;
+
+            @include transition(opacity 0.2s ease-in-out);
+        }
+
+        @include transition(top 0.2s ease-in-out);
+
+        &:before {
+            color: $white;
+            font-size: 12px;
+            font-weight: 300;
+            left: 0;
+            line-height: 24px;
+            opacity: 1;
+            position: absolute;
+            text-align: center;
+            text-transform: uppercase;
+            top: 0;
+            width: 100%;
+            @include transition(opacity 0.2s ease-in-out);
+
+            @include bp(max-width, $bp-small) {
+                content: "Tap for details";
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                content: "Hover for details";
+            }
+        }
+
+        &.clicked {
+            border: 5px solid $black;
+        }
+
+        article[data-component="cable"] & {
+            color: $white;
+            text-align: center;
+            @include flexcenter;
+            @include flex-direction(column);
+
+            .spec {
+                margin-bottom: 10px;
+                position: relative;
+            }
+
+            .modal-capacitance {
+                background-color: $white;
+                border: 1px solid darken($white, 50%);
+                border-radius: 50%;
+                color: $black;
+                height: 20px;
+                left: -30px;
+                position: absolute;
+                top: 5px;
+                width: 20px;
+            }
+
+            .label {
+                display: block;
+                font-size: 12px;
+            }
+        }
+    }
+
+    .choice-wrap {
+        position: relative;
+
+        @include bp(max-width, $bp-small) {
+            float: right;
+            height: 0;
+            padding: 0 5px 70% 10px;
+            width: 30%;
+
+            &.empty { display: none; }
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            @include order(3);
+
+            margin: 0 5% 10px;
+            padding: 0 10px;
+            position: relative;
+        }
+
+        &:before {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 5px 0 12px;
+            text-transform: uppercase;
+            width: 100%;
+            @include display-flex;
+            @include align-items(center);
+
+            @include bp(max-width, $bp-small) {
+                content: "Color Options:";
+                font-size: 11px;
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                content: "Select Color Option:";
+                font-size: 11px;
+            }
+        }
+
+        &.empty {
+            display: none;
+        }
+
+        div {
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+
+            @include bp(max-width, $bp-small) {
+                float: left;
+                height: 30px;
+                margin: 0 10px 10px 0;
+                width: 30px;
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                float: left;
+                margin-right: 10px;
+                margin-bottom: 10px;
+                padding-bottom: calc(20% - 10px);
+                width: calc(20% - 10px);
+            }
+
+            &:before {
+                border: 3px solid $black;
+                border-radius: 50%;
+                content: "";
+                height: calc(100% + 4px);
+                left: -2px;
+                position: absolute;
+                top: -2px;
+                width: calc(100% + 4px);
+            }
+
+            &[data-choice-status="backordered"] {
+                position: relative;
+
+                &:after {
+                    background-image: image-url('misc/exclamation-wht.png');
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: 60% auto;
+                    content: "";
+                    height: 100%;
+                    left: 0;
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+
+                    @include transform(none);
+                    border: 0 none;
+                }
+
+                &.invert-option:after {
+                    background-image: image-url('misc/exclamation-blk.png');
+                }
+            }
+
+            &[data-choice-status="unavailable"] {
+                position: relative;
+
+                &:after {
+                    background-image: image-url('misc/restricted.png');
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: 80% auto;
+                    content: "";
+                    height: 100%;
+                    left: 0;
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                }
+            }
+        }
+
+        .selected {
+            position: relative;
+
+            &:before {
+                border: 4px solid $white;
+            }
+
+            &:after {
+                content: "";
+                border: 0 solid $white;
+                border-width: 0 3px 3px 0;
+                height: 23px;
+                left: 49%;
+                position: absolute;
+                top: -5px;
+                width: 10px;
+                @include transform( rotate(45deg) );
+            }
+        }
+
+        .invert {
+            &:before {
+                border-color: $black;
+            }
+
+            &:after {
+                border-color: $black;
+            }
+        }
+
+        // Fix spacing for incomplete rows
+        .blank {
+            border: 0 none;
+            height: 0;
+            margin-bottom: 0;
+
+            @include bp(max-width, $bp-small) {
+                display: none;
+            }
+        }
+    }
+
+    .price-wrap {
+        @include bp(max-width, $bp-small) {
+            padding: 10px 0;
+            @include clearfix;
+            @include flexcenter;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            @include order(6);
+
+            text-align: center;
+            margin: 15px;
+        }
+
+        span {
+            color: $red;
+            font-size: 20px;
+            font-weight: 500;
+
+            &:before {
+                content: "$";
+            }
+
+            article[data-component="cable"] &:after {
+                color: #666;
+                content: "/ft";
+                font-size: 14px;
+                font-weight: 300;
+            }
+        }
+    }
+
+    .backordered-wrap {
+        background-color: $white;
+        color: $red;
+        display: none;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+        padding: 5px;
+        text-align: center;
+
+        @include bp(max-width, $bp-small) {
+            clear: both;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            @include order(5);
+
+            margin: 0 5%;
+            width: 90%;
+        }
+
+        .details-wrap.backordered & {
+            display: block;
+        }
+
+        span {
+            color: $red;
+            display: block;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+    }
+
+    .select-option {
+        background-color: $teal;
+        border: 0 none;
+        color: $white;
+        display: block;
+        font-weight: 500;
+        height: 35px;
+        letter-spacing: 2px;
+        // outline: 2px solid darken($orange, 15%);
+        padding: 10px 0;
+        position: relative;
+        margin: 0 auto;
+        width: 150px;
+
+        @include bp(max-width, $bp-small) {
+            @include order(10);
+            margin-bottom: 15px;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            margin-top: 10px;
+            @include order(10);
+        }
+
+        &:after {
+            color: $white;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            text-transform: uppercase;
+            top: 0;
+            width: 100%;
+
+            @include flex-center;
+        }
+
+        .details-wrap.selected &:after {
+            background-color: $green;
+            content: "Selected";
+            // outline: 2px solid darken($green, 25%);
+        }
+
+        .details-wrap.unavailable & {
+            cursor: default;
+
+            &:after {
+                content: "Out of Stock";
+                background-color: $red;
+            }
+        }
+    }
+}
+
+.options-box {
+    @include flexbox((
+        display: flex,
+        flex-direction: column,
+        flex-grow: 1,
+    ));
+
+    height: 100%;
+    min-height: 160px;
+    overflow: hidden;
+    position: relative;
+
+    h2 {
+        background-color: #333;
+        color: $white;
+        padding: 10px 50px 10px 10px;
+        position: relative;
+        text-transform: uppercase;
+        @include flex-shrink(0);
+
+        span {
+            float: right;
+
+            strong {
+                color: $red;
+            }
+        }
+    }
+}
+
+.options-wrap {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    @include bp(max-width, $bp-small) {
+        padding: 5px;
+    }
+
+    @include bp(min-width, $bp-small + 1 ) {
+        padding: 10px;
+    }
+}
+
+.options {
+    display: none;
+    margin-bottom: 20px;
+
+    @include flexbox((
+        align-content: flex-start,
+        flex-wrap: wrap,
+        justify-content: space-around,
+    ));
+
+    h3 {
+        font-weight: 600;
+        font-size: 18px;
+        letter-spacing: 2px;
+        margin-bottom: 4px;
+        margin-left: 7px;
+        text-transform: uppercase;
+        width: 100%;
+    }
+
+    #builders &[data-restriction="hide"] {
+        display: none;
+    }
+
+    #builders & .option[data-restriction="hide"] {
+        display: none;
+    }
+}
+
+.option {
+    border: 1px solid #ccc;
+    display: none;
+    position: relative;
+    max-width: 165px;
+    min-width: 115px;
+    overflow: hidden;
+    width: 30%;
+
+    @include bp(max-width, $bp-small) {
+        margin: 5px;
+    }
+
+    @include bp(min-width, $bp-small + 1 ) {
+        margin: 5px;
+    }
+
+    &:before {
+        background-color: rgba(#fff, 0.75);
+        cursor: default;
+        display: none;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        text-transform: uppercase;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+        @include flex-center;
+    }
+
+    &:hover {
+        &:before {
+            display: none;
+        }
+
+        .option-select:after {
+            background-color: $white;
+            color: $black;
+            display: none;
+            height: 100%;
+            // outline: 2px solid darken($green, 25%);
+            position: absolute;
+            text-align: center;
+            text-transform: uppercase;
+            width: 100%;
+            @include flexcenter;
+        }
+
+        .inner:after {
+            content: "";
+        }
+    }
+
+    &.blank {
+        border: 0 none;
+        display: block;
+        margin-bottom: 0;
+        margin-top: 0;
+
+        @include order(9999 !important);
+    }
+
+    &:hover {
+        .outer {
+            @include display-flex;
+        }
+    }
+
+    &[data-status="backordered"] {
+        &:before {
+            color: $black;
+            content: "Backordered";
+            font-size: 12px;
+            font-weight: 300;
+        }
+    }
+
+    &.clicked {
+        outline: 3px solid $teal;
+        border-color: $teal;
+
+        .option-specs {
+            // background-color: darken($yellow, 20%);
+            // outline: 2px solid darken($yellow, 30%);
+        }
+    }
+
+    &.selected {
+        outline: 3px $green solid;
+        border-color: $green;
+
+        .option-select:after {
+            @include display-flex;
+        }
+    }
+
+    &.selected {
+        &:before {
+            background-color: rgba(lighten($green, 10%), 0.75);
+            color: $white;
+            content: "Selected";
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        &:hover {
+            .option-select:after {
+                background-color: $green;
+                color: $white;
+                content: "Selected";
+            }
+        }
+    }
+
+    &[data-status="unavailable"] {
+        &:before {
+            color: #333;
+            content: "Coming Soon";
+            font-weight: 300;
+        }
+
+        &:hover {
+            .option-select {
+                cursor: default;
+
+                &:after {
+                    color: #333;
+                    content: "Coming Soon";
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+
+    &.restricted-cable {
+        display: none !important;
+    }
+
+    .hasChoices {
+        // background-color: rgba(#ddd, 0.75);
+        bottom: 0;
+        padding: 2.5px 0;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        height: 56px;
+
+        @include flexbox((
+            display: flex,
+            flex-flow: column-reverse wrap-reverse
+        ));
+
+        div {
+            border: 1px solid #333;
+            border-radius: 50%;
+            height: 12px;
+            margin: 2.5px;
+            width: 12px;
+        }
+
+        .invert {
+            border-color: $black;
+        }
+    }
+
+    .outer {
+        background-color: rgba($white, 0.75);
+        display: none;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+
+        @include align-items(center);
+        @include justify-content(center);
+        @include flex-direction(column);
+
+        button {
+            border: 0 none;
+            font-size: 13px;
+            height: 30px;
+            padding: 0 10px;
+            position: relative;
+            width: 75%;
+        }
+    }
+
+    .option-specs {
+        background-color: #aaa;
+        color: $white;
+        margin-bottom: 15px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        // outline: 2px solid darken($yellow, 10%);
+    }
+
+    .option-select {
+        background-color: $teal;
+        color: $white;
+        font-weight: 500;
+        letter-spacing: 2px;
+        // outline: 2px solid lighten($green, 20%);
+
+        &:after {
+            @include flexcenter;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: none;
+        }
+    }
+
+    .image-wrap {
+        height: 100%;
+        width: 100%;
+
+        img {
+            height: auto;
+            width: 100%;
+        }
+    }
+
+    .details {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    .name {
+        font-size: 10px;
+        letter-spacing: 1px;
+        position: absolute;
+        text-transform: uppercase;
+        text-align: center;
+        top: 4px;
+        width: 100%;
+
+        span {
+            display: block;
+        }
+    }
+
+    .price {
+        bottom: 10px;
+        color: $red;
+        font-size: 14px;
+        font-weight: 800;
+        left: 10px;
+        position: absolute;
+
+        &:before {
+            content: '$';
+        }
+
+        .cable-wrap &:after {
+            color: #bababa;
+            content: 'per ft';
+            display: block;
+            font-size: 10px;
+            font-weight: 300;
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+    }
+}
+
+.extras-wrap {
+    .body {
+        overflow-y: scroll;
+        padding: 15px;
+        @include display-flex;
+        @include flex-flow(row wrap);
+        @include align-content(flex-start);
+
+        > div {
+            @include bp(max-width, $bp-small) {
+                padding: 20px;
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                padding: 25px;
+            }
+        }
+
+        .techflex-wrap {
+            @include bp(max-width, $bp-small) {
+                padding: 10px 10px 20px;
+            }
+        }
+    }
+
+    h3 {
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        margin-bottom: 1em;
+        position: relative;
+        text-align: center;
+        text-transform: uppercase;
+        width: 100%;
+
+        span {
+            color: #aaa;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: lowercase;
+        }
+
+        p {
+            font-size: 10px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin: 1em auto 0;
+            text-transform: none;
+        }
+    }
+}
+
+.techflex-wrap {
+    position: relative;
+    width: 100%;
+    @include flexbox((
+        display: flex,
+        flex-flow: row wrap,
+        justify-content: center,
+        align-content: flex-start,
+    ));
+
+    &:before {
+        background-color: #999;
+        bottom: 0;
+        content: "";
+        height: 1px;
+        left: 5%;
+        position: absolute;
+        width: 90%;
+    }
+
+    &[data-enabled="true"] {
+        &:after {
+            display: none;
+        }
+    }
+
+    &[data-enabled="false"] {
+        &:after {
+            background-color: rgba($white, 0.95);
+            border: solid 2px $black;
+            content: "Sorry, this configuration is not compatible with Techflex.";
+            font-weight: 600;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            width: 100%;
+            @include flexcenter;
+        }
+    }
+
+    .body-wrap[data-cable-type="patch"] &:after {
+        content: "Sorry, patch cables are not compatible with Techflex.";
+    }
+
+    @include bp(max-width, $bp-small) {
+        &[data-enabled="false"],
+        .body-wrap[data-cable-type="patch"] & {
+            h3 {
+                color: transparent;
+            }
+
+            .techflex {
+                display: none;
+            }
+        }
+    }
+
+    .techflex {
+        margin: 0 5px 5px;
+        width: 75px;
+
+        &.blank {
+            margin-bottom: 0;
+        }
+
+        input {
+            display: none;
+
+            &:checked ~ label:before {
+                background-color: $white;
+                color: $black;
+                content: "Selected";
+            }
+        }
+
+        span {
+            text-transform: uppercase;
+            font-size: 14px;
+            width: 100%;
+            display: block;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        label {
+            border: 1px solid $black;
+            cursor: pointer;
+            display: block;
+            height: 100px;
+            position: relative;
+            width: 100%;
+
+            &:before {
+                font-size: 12px;
+                content: "Select";
+                color: $white;
+                background-color: $black;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 25px;
+                text-align: center;
+                padding-top: 7.5px;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+
+            img {
+                width: 100%;
+            }
+
+            &[for="techflex_white"] {
+                img {
+                    background-color: $black;
+                }
+            }
+        }
+    }
+}
+
+.tourproof-wrap,
+.reverse-wrap {
+    width: 50%;
+
+    input {
+        display: none;
+
+        &:checked ~ label {
+            background-position: center bottom;
+        }
+    }
+
+    span {
+        margin-top: 5px;
+        color: #aaa;
+        font-size: 11px;
+        font-weight: 300;
+        letter-spacing: 1px;
+        text-transform: lowercase;
+    }
+
+    label {
+        background-image: image-url('misc/check.png');
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        cursor: pointer;
+        display: block;
+        height: 20px;
+        margin: 0 auto;
+        width: 20px;
+    }
+}
+
+.tourproof-wrap {
+    position: relative;
+    width: 100%;
+
+    .body-wrap[data-cable-type="patch"] & {
+        width: 50%;
+
+        &:after {
+            display: block;
+        }
+    }
+
+    &:after {
+        background-color: #999;
+        content: "";
+        display: none;
+        height: 80%;
+        position: absolute;
+        right: 0;
+        top: 10%;
+        width: 1px;
+    }
+
+
+    .tourproof-container {
+        margin: 0 auto;
+        max-width: 165px;
+
+        @include bp(max-width, $bp-small) {
+            text-align: center;
+
+            span {
+                margin-top: 0;
+            }
+
+            label {
+                margin-top: 5px;
+            }
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            padding-right: 75px;
+
+            label {
+                float: right;
+            }
+        }
+    }
+
+    button {
+        background-color: #ccc;
+        border: 1px solid #bbb;
+        border-radius: 50%;
+        font-size: 10px;
+        font-weight: 300;
+        height: 15px;
+        padding-left: 2px;
+        width: 15px;
+
+        @include bp(max-width, $bp-small) {
+            position: absolute;
+            right: 0;
+            top: 10px;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+    }
+}
+
+.reverse-wrap {
+    position: relative;
+    display: none;
+
+    .body-wrap[data-cable-type="patch"] & {
+        display: block;
+    }
+}

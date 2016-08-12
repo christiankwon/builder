@@ -1,0 +1,313 @@
+html,
+body,
+.content-wrap,
+section,
+.body-wrap {
+    width: 100%;
+    height: 100%;
+}
+
+.content-wrap {
+    letter-spacing: 1px;
+
+    &[data-active-section="introduction"] .introduction-wrap {
+        display: block;
+    }
+
+    &[data-active-section="confirmation"] {
+        section {
+            display: none;
+        }
+
+        .confirmation-wrap {
+            display: block;
+        }
+    }
+}
+
+.body-wrap {
+    @include flexbox((
+        display: flex,
+    ));
+    position: relative;
+    overflow: hidden;
+
+    @each $step in $steps {
+        &[data-current-step="#{$step}"] article[data-component="#{$step}"] {
+            @include display-flex;
+        }
+    }
+
+    @each $type in $cable-types {
+        &[data-cable-type="#{$type}"] {
+            article[data-component="length"] {
+                div[data-type="#{$type}"] {
+                    display: block;
+
+                    .inactive {
+                        display: none;
+                    }
+
+                    .active {
+                        display: block;
+                    }
+                }
+            }
+
+            .option.#{$type} {
+                display: block;
+            }
+
+            .options.#{$type} {
+                @include display-flex;
+            }
+        }
+    }
+
+    &[data-completed="true"] {
+        article[data-component="extras"] .builder-next {
+            color: $white;
+            background-color: $green;
+
+            &:before, &:after {
+                background-color: $white;
+            }
+        }
+    }
+}
+
+.review-wrap {
+    background-color: $green;
+    display: none;
+    height: 40px;
+    position: relative;
+    width: 100%;
+    @include justify-content(center);
+    @include align-items(center);
+
+    .body-wrap[data-completed="true"] .tracker-wrap & {
+        @include display-flex;
+    }
+
+    button {
+        background-color: transparent;
+        color: $white;
+        font-weight: 500;
+        letter-spacing: 2px;
+    }
+
+    @include bp(max-width, $bp-small) {
+        button {
+            border: 0 none;
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    @include bp(min-width, $bp-small + 1 ) {
+        button {
+            border: 1px solid $white;
+            font-size: 11px;
+            height: 25px;
+            width: 80%;
+        }
+    }
+}
+
+@include bp(max-width, $bp-small) {
+    .body-wrap {
+
+        &[data-current-step="closed"] {
+            .builders-wrap {
+                display: none;
+            }
+        }
+    }
+
+    .builders-wrap {
+        height: 100%;
+        z-index: 20;
+    }
+}
+
+.modal-wrap {
+    background-color: rgba($black, 0.75);
+    display: none;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    @include align-items(center);
+    @include justify-content(center);
+
+    $list: "tourproof" "capacitance";
+
+    @each $i in $list {
+        &[data-modal="#{$i}"] {
+            @include display-flex;
+
+            .#{$i}-modal {
+                @include bp(max-width, $bp-small) {
+                    display: block;
+                }
+
+                @include bp(min-width, $bp-small + 1) {
+                    @include display-flex;
+                }
+            }
+        }
+    }
+
+    .modal {
+        display: none;
+    }
+
+    .exit {
+        background-color: $white;
+        border: 2px solid #666;
+        border-radius: 50%;
+        color: #666;
+        height: 26px;
+        font-weight: 500;
+        padding: 0 0 22px 1px;
+        position: absolute;
+        text-transform: lowercase;
+        width: 26px;
+
+        @include bp(min-width, $bp-small) {
+            right: 15px;
+            top: 15px;
+        }
+
+        @include bp(max-width, $bp-small + 1) {
+            right: 8px;
+            top: 8px;
+        }
+    }
+
+    .tourproof-modal {
+        background-color: $white;
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+        line-height: 20px;
+        max-height: 90%;
+        max-width: 90%;
+        overflow-y: auto;
+        position: relative;
+
+        @include bp(max-width, $bp-small) {
+            margin-bottom: 10px;
+            padding: 20px 30px 20px;
+
+            img {
+                display: none;
+            }
+
+            p {
+                margin-bottom: 10px;
+            }
+
+            .switcher-wrap {
+                @include flexcenter;
+                margin-top: 25px;
+
+                &[data-which="with"] {
+                    button:first-child {
+                        background-color: $teal;
+                        color: #fff;
+                    }
+
+                    & + .window {
+                        background-position: -5px center;
+                    }
+                }
+
+                &[data-which="without"] {
+                    button:last-child {
+                        background-color: $teal;
+                        color: #fff;
+                    }
+
+                    & + .window {
+                        background-position: -240px center;
+                    }
+                }
+            }
+
+            .switch {
+                background-color: #aaa;
+                border: 0 none;
+                color: $black;
+                font-size: 12px;
+                font-weight: 500;
+                letter-spacing: 2px;
+                margin: 0 5px;
+                padding: 10px;
+            }
+
+            .window {
+                background-image: image-url('tourproof.jpg');
+                background-repeat: no-repeat;
+                background-size: auto 100%;
+                height: 200px;
+                margin: 10px auto;
+                width: 190px;
+            }
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            padding: 50px 50px 0;
+            @include align-items(center);
+            @include flex-direction(column);
+            @include justify-content(center);
+
+            p {
+                margin-bottom: 15px;
+            }
+        }
+    }
+
+    .capacitance-modal {
+        background-color: $white;
+        overflow-y: auto;
+        position: relative;
+        text-align: center;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+        line-height: 20px;
+        @include flex-direction(column);
+
+        @include bp(max-width, $bp-small) {
+            // border: 5px solid $teal;
+            font-size: 13px;
+            max-height: 90%;
+            max-width: 90%;
+            padding: 40px 20px;
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            // border: 10px solid $teal;
+            font-size: 14px;
+            max-height: 90%;
+            max-width: 600px;
+            padding: 55px 50px;
+        }
+
+        strong { color: $teal; }
+
+        p {
+
+            @include bp(max-width, $bp-small) {
+                text-align: left;
+            }
+
+            @include bp(min-width, $bp-small + 1) {
+                padding: 30px;
+                border: 2px solid #666;
+            }
+        }
+    }
+}

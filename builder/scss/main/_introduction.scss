@@ -1,0 +1,27 @@
+.introduction-wrap {
+    background-color: rgba($black, 0.75);
+    display: none;
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 3000;
+}
+
+.wrap {
+    height: 100%;
+    width: 100%;
+    @include flexcenter;
+
+    button {
+        background-color: rgba($white, 0.1);
+        border: 5px solid $white;
+        color: $white;
+        padding: 30px;
+
+        @include transition(background-color 0.2s ease-in-out);
+
+        &:hover {
+            background-color: rgba($white, 0.5);
+        }
+    }
+}

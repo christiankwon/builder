@@ -1,0 +1,187 @@
+.tracker-wrap {
+    $primary: $black;
+    $secondary: #ccc;
+
+    background-color: #333;
+    @include user-select(none);
+
+    > div {
+        text-align: center;
+    }
+
+    @include bp(max-width, $bp-small) {
+        bottom: 0;
+        position: absolute;
+        width: 100%;
+        z-index: 30;
+
+        .dot {
+            width: 20%;
+            height: 100%;
+
+            + .dot {
+                border-left-width: 1px;
+            }
+        }
+    }
+
+    @include bp(min-width, $bp-small + 1) {
+        border-right: 1px solid #333;
+        height: 100%;
+
+        > div {
+            text-align: center;
+            width: 75px;
+        }
+    }
+
+    .masthead {
+        display: none;
+
+        // replace text with background-image
+        border-bottom: solid 1px $primary;
+
+        a {
+            cursor: pointer;
+            // background-image: image-url('home.png');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: auto 80%;
+            display: block;
+
+            // width: 100%;
+            // height: 46.5px;
+        }
+    }
+
+    .dot-wrap {
+        @include display-flex;
+
+        @include bp(max-width, $bp-small) {
+            @include flex-direction(row);
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            @include flex-direction(column);
+        }
+    }
+
+    .dot {
+        background-color: inherit;
+        color: $white;
+        cursor: pointer;
+        font-size: 11px;
+        letter-spacing: 2px;
+        position: relative;
+        text-transform: uppercase;
+        @include flexcenter;
+        @include flex-direction(column);
+
+        @include bp(max-width, $bp-small) {
+            border-top: 1px solid #333;
+            height: 75px;
+
+            + .dot {
+                border-left: 1px solid #333;
+            }
+        }
+
+        @include bp(min-width, $bp-small + 1) {
+            border-bottom: 1px solid #333;
+            height: 85px;
+            width: 100%;
+        }
+
+        &:before {
+            border: 3px solid $white;
+            border-radius: 50%;
+            height: 30px;
+            margin: 10px auto;
+            width: 30px;
+            @include flexcenter;
+        }
+
+        @each $s in $steps {
+            &[data-pointer-component="#{$s}"]:before {
+                content: "#{index($steps, $s)}";
+                padding-left: 3px;
+            }
+
+            .body-wrap[data-current-step="#{$s}"] &[data-pointer-component="#{$s}"] {
+                background-color: $white;
+                color: $black;
+
+                &:before {
+                    background-color: $white;
+                    border-color: $black;
+                    border-width: 3px;
+                    color: $black;
+                }
+
+                &[data-status="complete"] {
+                    color: $green;
+
+                    &:before {
+                        border-color: $green;
+                    }
+
+                    &:after {
+                        border-color: $green;
+                    }
+                }
+
+                &[data-status="error"] {
+                    &:before {
+                        border-color: $red;
+                        background-image: image-url('misc/x.red.png');
+                    }
+                }
+            }
+        }
+
+        &[data-status="error"] {
+            &:before {
+                background-color: $red;
+                background-image: image-url('misc/x.white.png');
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: 50% auto;
+                border: solid 3px $white;
+                content: "";
+            }
+        }
+
+        &[data-status="complete"] {
+            &:before {
+                content: "";
+                background-color: $green;
+                border-color: $white;
+                border-width: 4px;
+            }
+
+            &:after {
+                content: "";
+                border: 0 solid $white;
+                border-width: 0 3px 3px 0;
+                height: 23px;
+                left: 50%;
+                position: absolute;
+                width: 10px;
+                @include transform( rotate(45deg) );
+
+                @include bp(max-width, $bp-small) {
+                    top: 9px;
+                }
+
+                @include bp(min-width, $bp-small + 1) {
+                    top: 14px;
+                }
+            }
+        }
+
+        span {
+            display: block;
+            margin-bottom: 10px;
+        }
+    }
+}

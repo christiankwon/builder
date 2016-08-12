@@ -1,0 +1,133 @@
+@mixin choices {
+    [data-choice-value="black"] {
+        border: 1px solid #555;
+        height: 11px;
+        left: -0.5px;
+        top: -0.5px;
+        width: 11px;
+    }
+
+    // GAC-1 Ultra Pro
+    &[data-choice-model="gac-1-ultra-pro"] {
+        $choices: (
+            "red": #ff2b3d,
+            "black": $black,
+        );
+
+        @include build($choices);
+    }
+
+    &[data-choice-model="classic-xke"] {
+        $choices: (
+            "white": $white,
+            "black": $black,
+        );
+
+        @include build($choices);
+    }
+
+    &[data-choice-model="gs-6"] {
+        $choices: (
+            "red": #e90d2f,
+            "orange": #ff864f,
+            "yellow": #fcf86c,
+            "green": #25c265,
+            "black": $black,
+        );
+
+        @include build($choices);
+    }
+
+    &[data-choice-model="np2c"] {
+        $choices: (
+            "red": #e90d2f,
+            "orange": #ff864f,
+            "yellow": #fcf86c,
+            "green": #25c265,
+            "violet": #6154ba,
+            "gray": #999da3,
+            "black": $black,
+        );
+
+        @include build($choices);
+    }
+
+    &[data-choice-model="np2x"], &[data-choice-model="np2rx"] {
+        $choices: (
+            "red": #a24743,
+            "orange": #fbac44,
+            "green": #4b7968,
+            "blue": #3848a4,
+            "vintage-cream": #edecd4,
+            "black": $black,
+            // "white": $white,
+        );
+
+        @include build($choices);
+    }
+
+    &[data-choice-model="bf2pm"] {
+        $choices: (
+            "bnn": $black,
+            "nnn": #dce4f5,
+        );
+
+        @include build($choices);
+    }
+
+    &[data-choice-model="bf2p"] {
+        $choices: (
+            "bgg": $black,
+            "ggg": #fff282,
+            "ngg": #dce4f5,
+        );
+
+        @include build($choices);
+    }
+
+    &[data-choice-model="rf2p"] {
+        div:after {
+            content: "";
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            border-radius: 0 100% 100% 0;
+
+            top: 0;
+            right: 0;
+        }
+
+        [data-choice-primary="gold"] {
+            background-color: #fff282;
+        }
+
+        [data-choice-primary="nickel"] {
+            background-color: #dce4f5;
+        }
+
+        [data-choice-secondary="gold"]:after {
+            background-color: #fff282;
+        }
+
+        [data-choice-secondary="nickel"]:after {
+            background-color: #dce4f5;
+
+        }
+
+        [data-choice-secondary="black"]:after {
+            background-color: $black;
+
+        }
+    }
+}
+
+@mixin build($choices) {
+    @each $choice in $choices {
+        $color: nth($choice, 1);
+        $value: nth($choice, 2);
+
+        [data-choice-value="#{$color}"] {
+            background-color: $value;
+        }
+    }
+}
